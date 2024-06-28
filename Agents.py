@@ -50,8 +50,8 @@ class Target(Population):
         self.sigma = self.param['sigma']
 
     def updater(self, u, interaction):
-        v = np.clip(self.sigma * np.sqrt(self.dt) * np.random.normal() + interaction * self.dt, -self.v_max*self.dt, self.v_max*self.dt)
-        self.x += v
+        dx = np.clip(self.sigma * np.sqrt(self.dt) * np.random.normal() + interaction * self.dt, -self.v_max*self.dt, self.v_max*self.dt)
+        self.x += dx
 
     def get_local_obs(self, state):
         return self.x
