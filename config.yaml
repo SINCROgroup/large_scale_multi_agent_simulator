@@ -1,0 +1,9 @@
+# Configuration file 
+
+brownian_motion:
+  x0:
+    - [1, 2]
+    - [-1, 2]
+    - [3, 2]
+
+  

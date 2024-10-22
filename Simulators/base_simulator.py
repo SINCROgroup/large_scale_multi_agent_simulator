@@ -26,7 +26,7 @@ class Simulator():
             f = self.env.get_forces(self.agents.x)
             
             x_new = self.integrator.step(self.agents, u, f)
-            # Uprate the environment
+            # Update the environment
 
             #Execute every N steps
             self.logger.log(self.agents.x,u,f,self.env)

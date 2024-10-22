@@ -1,16 +1,21 @@
-# This is a sample Python script.
+# This is the a base launcher for LS_MAS (Large scale - Multi agent Simulator)
+# Authors 
+# 
+#
+#
+#
+# Description:
+#
 
-# Press Maiusc+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from Models.brownian_motion import brownian_motion
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    agents = brownian_motion(None,"config.yaml")
+    
+    
+
