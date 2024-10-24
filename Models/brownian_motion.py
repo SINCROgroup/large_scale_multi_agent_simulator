@@ -11,6 +11,7 @@ class brownian_motion(agents):
     Arguments
     -------
     x (NxD double matrix) : state of the agents row=agent, column=state variable 
+    mu (D dimensional vector) : Average velocity along the axes
     
     Methods
     -------
@@ -26,15 +27,18 @@ class brownian_motion(agents):
         with open(config_file, "r") as file:
             pars = yaml.safe_load(file)
         
-        self.x = np.array(pars["brownian_motion"]["x0"])
+        self.x = np.array(pars["brownian_motion"]["x0"])           # Initial conditions
+        self.mu = np.array(pars["brownian_motion"]["mu"])          # Average velocity
+        self.D = np.array(pars["brownian_motion"]["D"])            # Diffusion coefficient
 
-        print(self.x)
 
 
-    def get_drift(self,u):
-        pass
+    def get_drift(self,x,u):
+        
+        return self.mu
 
-    def get_diffusion(self):
-        pass
+    def get_diffusion(self,x,u):
+        
+        return self.D
 
         

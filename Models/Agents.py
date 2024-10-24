@@ -12,12 +12,21 @@ class agents(ABC):
     get_diffusion(self,u):
         Returns the diffusion (stochastic part of the dynamics) of the agent.
     """
+
+
+    def __init__(self,mu) -> None:
+        super().__init__()
+     
+
+
+
     
     #This method 
     @abstractmethod
-    def get_drift(self):
-        pass
+    def get_drift(self,x,u):
+
+        return 
 
     @abstractmethod
-    def get_diffusion(self):
+    def get_diffusion(self,x,u):
         pass
