@@ -34,11 +34,10 @@ class brownian_motion(agents):
 
 
     def get_drift(self,x,u):
-        
+
         return self.mu
 
     def get_diffusion(self,x,u):
         
         return self.D
-
         

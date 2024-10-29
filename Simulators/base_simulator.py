@@ -25,7 +25,7 @@ class Simulator():
             u = self.controller.get_action(self.agents.x,self.env.x)
             f = self.env.get_forces(self.agents.x)
             
-            x_new = self.integrator.step(self.agents, u, f)
+            self.agents.x = self.integrator.step(self.agents.x, u, f)
             # Update the environment
 
             #Execute every N steps
