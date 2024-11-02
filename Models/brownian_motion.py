@@ -1,9 +1,9 @@
 import numpy as np
 import yaml
-from Models.agents import agents
+from Models.agents import Agents
 
 
-class brownian_motion(agents):
+class BrownianMotion(Agents):
 
     """
     A class that implements a biased Brownian motion 
@@ -18,26 +18,26 @@ class brownian_motion(agents):
     get_drift(self,u):
         Constant diffusion in each dimension.
     get_diffusion(self,u):
-        Standard weined process
+        Standard Wiener process
     """
 
-    def __init__(self,avg_v,config_file) -> None:
+    def __init__(self, config_path) -> None:
+
+        super().__init__()
 
         # Load the YAML configuration file
-        with open(config_file, "r") as file:
+        with open(config_path, "r") as file:
             pars = yaml.safe_load(file)
         
-        self.x = np.array(pars["brownian_motion"]["x0"])           # Initial conditions
-        self.mu = np.array(pars["brownian_motion"]["mu"])          # Average velocity
-        self.D = np.array(pars["brownian_motion"]["D"])            # Diffusion coefficient
+        self.x = np.array(pars["BrownianMotion"]["x0"])           # Initial conditions
+        self.mu = np.array(pars["BrownianMotion"]["mu"])          # Average velocity
+        self.D = np.array(pars["BrownianMotion"]["D"])            # Diffusion coefficient
 
-
-
-    def get_drift(self,x,u):
+    def get_drift(self, x, u):
 
         return self.mu
 
-    def get_diffusion(self,x,u):
+    def get_diffusion(self, x, u):
         
         return self.D
         

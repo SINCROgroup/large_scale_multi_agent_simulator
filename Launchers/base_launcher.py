@@ -1,4 +1,4 @@
-# This is the a base launcher for LS_MAS (Large scale - Multi agent Simulator)
+# This is the base launcher for LS_MAS (Large scale - Multi agent Simulator)
 # Authors 
 # 
 #
@@ -9,13 +9,31 @@
 
 import sys
 import os
+from Models.brownian_motion import BrownianMotion
+from Integrators.euler_maruyama import EulerMaruyamaIntegrator
+from Renders.render import Render
+from Simulators.base_simulator import Simulator
+from Environments.empty_environment import EmptyEnvironment
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from Models.brownian_motion import brownian_motion
 
 if __name__ == '__main__':
+    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
 
-    agents = brownian_motion(None,"config.yaml")
-    
-    
+    integrator = EulerMaruyamaIntegrator(config_path)
+    render = Render(config_path)
+    environment = EmptyEnvironment(config_path)
+    agents = BrownianMotion(config_path)
+
+    simulator = Simulator(agents=agents,
+                          environment=environment,
+                          controller=None,
+                          integrator=integrator,
+                          logger=None,
+                          render=render,
+                          config_path=config_path)
+
+    simulator.simulate()
+
 

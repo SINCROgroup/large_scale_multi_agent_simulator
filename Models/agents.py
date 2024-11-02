@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class agents(ABC):
+class Agents(ABC):
     """
     An interface that defines all the methods that an agent should implement
 
@@ -13,20 +13,15 @@ class agents(ABC):
         Returns the diffusion (stochastic part of the dynamics) of the agent.
     """
 
-
-    def __init__(self,mu) -> None:
+    def __init__(self) -> None:
         super().__init__()
-     
 
-
-
-    
-    #This method 
+    # This method
     @abstractmethod
-    def get_drift(self,x,u):
+    def get_drift(self, x, u):
 
         return 
 
     @abstractmethod
-    def get_diffusion(self,x,u):
+    def get_diffusion(self, x, u):
         pass

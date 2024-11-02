@@ -1,15 +1,31 @@
 # Configuration file 
 
-brownian_motion:
+BrownianMotion:
   x0:
     - [1, 2]
     - [-1, 2]
     - [3, 2]
   mu:
-    - [1]
-    - [2]
+    - [1, 2]
+    - [1, 2]
+    - [1, 2]
   D:
-    - [0.1]
-    - [0.1]
+    - [0.1, 0.1]
+    - [0.1, 0.1]
+    - [0.1, 0.1]
 
-  
+integrator:
+  dt: 0.01
+
+simulator:
+  dt: 0.01
+  T: 10
+
+environment:
+  dimensions: [60, 60]
+
+render:
+  background_color: 'white'
+  agent_color: 'blue'
+  render_mode: 'pygame'
+  render_dt: 0.01
