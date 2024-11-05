@@ -9,13 +9,16 @@
 
 import sys
 import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 from Models.brownian_motion import BrownianMotion
 from Integrators.euler_maruyama import EulerMaruyamaIntegrator
 from Renders.render import Render
 from Simulators.base_simulator import Simulator
 from Environments.empty_environment import EmptyEnvironment
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 if __name__ == '__main__':

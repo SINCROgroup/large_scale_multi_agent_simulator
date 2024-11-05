@@ -29,9 +29,11 @@ class BrownianMotion(Agents):
         with open(config_path, "r") as file:
             pars = yaml.safe_load(file)
         
-        self.x = np.array(pars["BrownianMotion"]["x0"])           # Initial conditions
-        self.mu = np.array(pars["BrownianMotion"]["mu"])          # Average velocity
-        self.D = np.array(pars["BrownianMotion"]["D"])            # Diffusion coefficient
+        N = pars["BrownianMotion"]["N"]
+        self.N = N
+        self.x = eval(pars["BrownianMotion"]["x0"])     # Initial conditions
+        self.mu = eval(pars["BrownianMotion"]["mu"])    # Average velocity
+        self.D = eval(pars["BrownianMotion"]["D"])        # Diffusion coefficient
 
     def get_drift(self, x, u):
 
