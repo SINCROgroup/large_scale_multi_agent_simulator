@@ -1,4 +1,5 @@
 import yaml
+import progressbar
 
 
 class Simulator:
@@ -30,9 +31,19 @@ class Simulator:
 
         num_steps = int(self.T / self.dt)  # Calculate the number of steps as an integer
 
+        bar = progressbar.ProgressBar(
+            max_value=num_steps,
+            widgets=[
+                'Processing: ',  # Custom description
+                progressbar.Percentage(),
+                ' ', progressbar.Bar(marker='=', left='[', right=']'),
+                ' ', progressbar.ETA()
+            ]
+        )
+
         for t in range(num_steps):
 
-            print(f'step {t}')
+            # print(f'step {t}')
             # u = self.controller.get_action(self.agents.x, self.env.x)
             u = 0
             f = self.environment.get_forces(self.agents)
@@ -43,6 +54,8 @@ class Simulator:
             # Execute every N steps
             # self.logger.log(self.agents.x, u, f, self.env)
             self.render.render(self.agents, self.environment)
+
+            bar.update(t)
 
 
 
