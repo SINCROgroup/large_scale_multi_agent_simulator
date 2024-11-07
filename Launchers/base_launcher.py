@@ -18,7 +18,7 @@ from Integrators.euler_maruyama import EulerMaruyamaIntegrator
 from Renders.render import Render
 from Simulators.base_simulator import Simulator
 from Environments.empty_environment import EmptyEnvironment
-
+from Loggers.base_logger import  Logger
 
 
 if __name__ == '__main__':
@@ -28,15 +28,14 @@ if __name__ == '__main__':
     render = Render(config_path)
     environment = EmptyEnvironment(config_path)
     agents = BrownianMotion(config_path)
+    logger = Logger(config_path)
 
     simulator = Simulator(agents=agents,
                           environment=environment,
                           controller=None,
                           integrator=integrator,
-                          logger=None,
+                          logger=logger,
                           render=render,
                           config_path=config_path)
 
     simulator.simulate()
-
-
