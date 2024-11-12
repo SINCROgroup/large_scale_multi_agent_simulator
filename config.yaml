@@ -28,4 +28,4 @@ logger:
   save_freq: 100
   comment_enable: True
   log_path: '/../logs'
-  log_name: 'my trials.csv'
+  log_name: ''

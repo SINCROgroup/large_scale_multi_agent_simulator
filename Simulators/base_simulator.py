@@ -61,10 +61,3 @@ class Simulator:
 
 
 
-            
-
-
-
-
-
-
