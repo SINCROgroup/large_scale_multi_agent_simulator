@@ -41,7 +41,11 @@ class Simulator:
             ]
         )
 
+        u = 0
+        f = 0
         self.logger.reset()
+        self.logger.log(self.agents.x, u, f, self.environment)
+        self.render.render(self.agents, self.environment)
         for t in range(num_steps):
 
             # print(f'step {t}')
