@@ -49,11 +49,20 @@ class Simulator:
         for t in range(num_steps):
 
             # print(f'step {t}')
-            # u = self.controller.get_action(self.agents.x, self.env.x)
-            u = 0
-            f = self.environment.get_forces(self.agents)
+
+            #AGENTS ha un campo u e un campo f . U rappresenta l'azione di controllo e f le interazioni con altri agenti e con l env
+            for c in controllers:
+                c.pop.u = c.get_action()   #COntroller ha un membro che è la popolazione su cui agisce
             
-            self.integrator.step(self.agents, u, f)
+            #SOLUTION 2
+            for i in int_list:
+                i.pop1.f += i.get_interaction()  #Interaction ha 2 membri, pop1 subisce e pop2 da
+
+
+
+            
+
+            self.integrator.step(self.agents)
             # Update the environment
 
             # Execute every N steps
