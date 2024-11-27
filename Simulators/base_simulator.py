@@ -4,13 +4,16 @@ import progressbar
 
 class Simulator:
 
-    def __init__(self, agents, environment, controller, integrator, logger, render, config_path) -> None:
-        """
-                Initializes the Simulator class with configuration parameters from a YAML file.
+    def __init__(self, populations, interactions, environment, controllers, integrator, logger, render, config_path) -> None:
+        
+        """        
+        Initializes the Simulator class with configuration parameters from a YAML file.
 
-                Args:
-                    config_path (str): The path to the YAML configuration file.
-                """
+        Args:
+            config_path (str): The path to the YAML configuration file.
+        """
+
+
         # Load config params from YAML file
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
@@ -20,9 +23,10 @@ class Simulator:
         self.T = simulator_config.get('T', 10)
 
         # get parameters from initialization
-        self.agents = agents
+        self.populations = populations
         self.environment = environment
-        self.controller = controller
+        self.interactions = interactions
+        self.controllers = controllers
         self.logger = logger
         self.render = render
         self.integrator = integrator
@@ -48,20 +52,15 @@ class Simulator:
         self.render.render(self.agents, self.environment)
         for t in range(num_steps):
 
-            # print(f'step {t}')
-
-            #AGENTS ha un campo u e un campo f . U rappresenta l'azione di controllo e f le interazioni con altri agenti e con l env
-            for c in controllers:
+            # Implement the control actions
+            for c in self.controllers:
                 c.pop.u = c.get_action()   #COntroller ha un membro che è la popolazione su cui agisce
             
-            #SOLUTION 2
-            for i in int_list:
-                i.pop1.f += i.get_interaction()  #Interaction ha 2 membri, pop1 subisce e pop2 da
+            # Compute the interactions between the agents
+            for interact in self.interactions:
+                interact.pop1.f += interact.get_interaction()             
 
-
-
-            
-
+            #Update the state of the agents
             self.integrator.step(self.agents)
             # Update the environment
 

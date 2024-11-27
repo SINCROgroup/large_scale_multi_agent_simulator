@@ -3,7 +3,7 @@ import yaml
 from Models.agents import Agents
 
 
-class BrownianMotion(Agents):
+class Fixed_population(Agents):
 
     """
     A class that implements a biased Brownian motion 
@@ -11,8 +11,6 @@ class BrownianMotion(Agents):
     Arguments
     -------
     x (NxD double matrix) : state of the agents row=agent, column=state variable 
-    mu (D dimensional vector) : Average velocity along the axes
-    D (D dimensional vecotr) : Diffusion coefficient
     N (double) : Number of agents in the population
     f (NxD double matrix) : External forces (interactions and environment)
     u (NxD double matrix) : Control input
@@ -20,9 +18,9 @@ class BrownianMotion(Agents):
     Methods
     -------
     get_drift(self,u):
-        Constant diffusion in each dimension.
+        No movement
     get_diffusion(self,u):
-        Standard Wiener process
+        No diffusion
     """
 
     def __init__(self, config_path) -> None:
@@ -33,11 +31,9 @@ class BrownianMotion(Agents):
         with open(config_path, "r") as file:
             pars = yaml.safe_load(file)
         
-        N = pars["BrownianMotion"]["N"]
+        N = pars["Fixed"]["N"]
         self.N = N
-        self.x = eval(pars["BrownianMotion"]["x0"])     # Initial conditions
-        self.mu = eval(pars["BrownianMotion"]["mu"])    # Average velocity
-        self.D = eval(pars["BrownianMotion"]["D"])      # Diffusion coefficient
+        self.x = eval(pars["Fixed"]["x0"])     # Initial conditions
 
         self.f = np.zeros(self.x.size)          # Initialization of the external forces 
         self.u = np.zeros(self.x.size)          # Initialization of the control input
@@ -45,9 +41,9 @@ class BrownianMotion(Agents):
 
     def get_drift(self, x, u):
 
-        return self.mu
+        return np.zeros(self.x.size)
 
     def get_diffusion(self, x, u):
         
-        return self.D
+        return np.zeros(self.x.size)
         

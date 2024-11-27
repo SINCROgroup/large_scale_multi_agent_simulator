@@ -7,6 +7,10 @@ BrownianMotion:
   mu: np.random.randn(N,2)
   D: np.random.randn(N, 2)
 
+Fixed:
+  N: 15
+  x0: np.random.randn(N, 2)
+
 integrator:
   dt: 0.01
 
@@ -29,3 +33,7 @@ logger:
   comment_enable: True
   log_path: '/../logs'
   log_name: ''
+
+repulsion:
+  ity: 0.1
+  dis: 10
