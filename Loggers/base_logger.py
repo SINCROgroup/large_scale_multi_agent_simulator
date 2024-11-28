@@ -101,7 +101,8 @@ class Logger:
         with open(self.log_name_txt, 'a') as file:
             file.write('\n')
             for el in current_line:
-                file.write('\n' + str(el))
+                string_el = list(map(str, el))
+                file.write('\n' + " ".join(string_el))
             file.write('\n')
         return True
 
