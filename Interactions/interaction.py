@@ -15,8 +15,8 @@ class Interaction(ABC):
 
     def __init__(self,pop1,pop2) -> None:
         super().__init__()
-        self.pop1=pop1
-        self.pop2=pop2
+        self.pop1 = pop1
+        self.pop2 = pop2
 
     # This method returns the forces that population 2 applies on population 1
     @abstractmethod

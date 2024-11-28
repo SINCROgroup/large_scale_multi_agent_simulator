@@ -1,9 +1,9 @@
 import numpy as np
 import yaml
-from Models.agents import Agents
+from Populations.populations import Populations
 
 
-class Fixed_population(Agents):
+class FixedPopulation(Populations):
 
     """
     A class that implements a biased Brownian motion 
@@ -34,16 +34,16 @@ class Fixed_population(Agents):
         N = pars["Fixed"]["N"]
         self.N = N
         self.x = eval(pars["Fixed"]["x0"])     # Initial conditions
+        self.id = pars["Fixed"]["id"]  # Population ID
 
-        self.f = np.zeros(self.x.size)          # Initialization of the external forces 
-        self.u = np.zeros(self.x.size)          # Initialization of the control input
+        self.f = np.zeros(self.x.shape)          # Initialization of the external forces
+        self.u = np.zeros(self.x.shape)          # Initialization of the control input
 
+    def get_drift(self):
 
-    def get_drift(self, x, u):
+        return np.zeros(self.x.shape)
 
-        return np.zeros(self.x.size)
-
-    def get_diffusion(self, x, u):
+    def get_diffusion(self):
         
-        return np.zeros(self.x.size)
+        return np.zeros(self.x.shape)
         

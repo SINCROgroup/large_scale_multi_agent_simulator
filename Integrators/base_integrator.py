@@ -25,14 +25,12 @@ class Integrator(ABC):
         self.dt = config.get('integrator', {}).get('dt', 0.01)  # Default timestep value if not specified  # Default to 100x100 if not specified
 
     @abstractmethod
-    def step(self, agent, control_input, env_force):
+    def step(self, populations):
         """
         Abstract method to perform a single integration step.
 
         Args:
-            agent: The agent for which the integration step is being performed.
-            control_input: The control input applied to the agent.
-            env_force: The environmental force acting on the agent.
+            populations: A list of the populations for which the integration step is being performed
 
         This method must be implemented by any subclass of Integrator.
         """

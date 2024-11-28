@@ -4,15 +4,14 @@ import progressbar
 
 class Simulator:
 
-    def __init__(self, populations, interactions, environment, controllers, integrator, logger, render, config_path) -> None:
-        
+    def __init__(self, populations, interactions, environment, controllers, integrator, logger, renderer, config_path) -> None:
+
         """        
         Initializes the Simulator class with configuration parameters from a YAML file.
 
         Args:
             config_path (str): The path to the YAML configuration file.
         """
-
 
         # Load config params from YAML file
         with open(config_path, 'r') as config_file:
@@ -28,48 +27,52 @@ class Simulator:
         self.interactions = interactions
         self.controllers = controllers
         self.logger = logger
-        self.render = render
+        self.renderer = renderer
         self.integrator = integrator
 
     def simulate(self):
 
         num_steps = int(self.T / self.dt)  # Calculate the number of steps as an integer
+        #
+        # bar = progressbar.ProgressBar(
+        #     max_value=num_steps,
+        #     widgets=[
+        #         'Processing: ',  # Custom description
+        #         progressbar.Percentage(),
+        #         ' ', progressbar.Bar(marker='=', left='[', right=']'),
+        #         ' ', progressbar.ETA()
+        #     ]
+        # )
 
-        bar = progressbar.ProgressBar(
-            max_value=num_steps,
-            widgets=[
-                'Processing: ',  # Custom description
-                progressbar.Percentage(),
-                ' ', progressbar.Bar(marker='=', left='[', right=']'),
-                ' ', progressbar.ETA()
-            ]
-        )
 
-        u = 0
-        f = 0
-        self.logger.reset()
-        self.logger.log(self.agents.x, u, f, self.environment)
-        self.render.render(self.agents, self.environment)
+        # self.logger.reset()
+        # self.logger.log(self.populations.x, u, f, self.environment)
+        self.renderer.render(self.populations, self.environment)
         for t in range(num_steps):
 
             # Implement the control actions
-            for c in self.controllers:
-                c.pop.u = c.get_action()   #COntroller ha un membro che è la popolazione su cui agisce
+            if self.controllers is not None:
+                for c in self.controllers:
+                    c.pop.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
+
+            for population in self.populations:
+                print(f"interaction {population.id} = {population.f}")
+                population.f = 0
             
             # Compute the interactions between the agents
             for interact in self.interactions:
-                interact.pop1.f += interact.get_interaction()             
+                interact.pop1.f += interact.get_interaction()
 
             #Update the state of the agents
-            self.integrator.step(self.agents)
+            self.integrator.step(self.populations)
             # Update the environment
 
             # Execute every N steps
-            self.logger.log(self.agents.x, u, f, self.environment)
-            self.render.render(self.agents, self.environment)
+            # self.logger.log(self.populations.x, u, f, self.environment)
+            self.renderer.render(self.populations, self.environment)
 
-            bar.update(t)
-        self.logger.close()
+            # bar.update(t)
+        # self.logger.close()
 
 
 

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
-class Agents(ABC):
+class Populations(ABC):
     """
     An interface that defines all the methods that an agent should implement
     Arguments
@@ -10,6 +10,7 @@ class Agents(ABC):
     N : Number of agents in the population
     f (NxD double matrix) : External forces (interactions and environment)
     u (NxD double matrix) : Control input
+    id (string) : defines the population name
 
     Methods
     -------
@@ -24,9 +25,9 @@ class Agents(ABC):
 
     # This method
     @abstractmethod
-    def get_drift(self, x, u):
+    def get_drift(self):
         pass
 
     @abstractmethod
-    def get_diffusion(self, x, u):
+    def get_diffusion(self):
         pass

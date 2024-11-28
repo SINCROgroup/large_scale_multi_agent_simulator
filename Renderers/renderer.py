@@ -4,14 +4,14 @@ import pygame
 import numpy as np
 
 
-class Render:
+class Renderer:
     """
     A class responsible for rendering the agents in the environment.
     """
 
     def __init__(self, config_path):
         """
-        Initializes the Render class with configuration parameters from a YAML file.
+        Initializes the Renderer class with configuration parameters from a YAML file.
 
         Args:
             config_path (str): The path to the YAML configuration file.
@@ -20,8 +20,8 @@ class Render:
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
 
-        render_config = config.get('render', {})
-        self.agent_color = render_config.get('agent_color', 'blue')
+        render_config = config.get('renderer', {})
+        self.agent_colors = render_config.get('agent_colors', 'blue')
         self.background_color = render_config.get('background_color', 'white')
         self.render_mode = render_config.get('render_mode', 'matplotlib')
         self.render_dt = render_config.get('render_dt', 0.05)  # Default to 0.05 seconds if not specified
@@ -42,30 +42,30 @@ class Render:
             self.ax.set_facecolor(self.background_color)
             self.ax.set_xlabel('X Position')
             self.ax.set_ylabel('Y Position')
-            self.ax.set_title('Agents in the Environment')
+            self.ax.set_title('Populations in the Environment')
             self.ax.grid(True)
 
-    def render(self, agents, environment):
+    def render(self, populations, environment):
         """
-        Renders the agents in the given environment using the selected render mode.
+        Renderers the agents in the given environment using the selected renderer mode.
 
         Args:
-            agents: An object containing the positions of the agents as `agents.x`.
+            populations: A list of the populations to render
             environment: An instance of the environment class, which provides the dimensions of the environment.
         """
         if self.render_mode == "matplotlib":
-            self._render_matplotlib(agents, environment)
+            self._render_matplotlib(populations, environment)
         elif self.render_mode == "pygame":
-            self._render_pygame(agents, environment)
+            self._render_pygame(populations, environment)
         else:
-            raise ValueError("Unsupported render mode. Use 'matplotlib' or 'pygame'.")
+            raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
 
-    def _render_matplotlib(self, agents, environment):
+    def _render_matplotlib(self, populations, environment):
         """
-        Renders the agents in the given environment using Matplotlib.
+        Renderers the agents in the given environment using Matplotlib.
 
         Args:
-            agents: An object containing the positions of the agents as `agents.x`.
+            populations: A list of the populations to render
             environment: An instance of the environment class, which provides the dimensions of the environment.
         """
         self.ax.clear()
@@ -75,32 +75,38 @@ class Render:
         self.ax.set_facecolor(self.background_color)
 
         # Plot agents
-        self.ax.scatter(agents.x[:, 0], agents.x[:, 1], c=self.agent_color, label='Agents')
+        for i, (population, color) in enumerate(zip(populations, self.agent_colors)):
+            self.ax.scatter(population.x[:, 0], population.x[:, 1], c=color, label=population.id)
 
         self.ax.set_xlabel('X Position')
         self.ax.set_ylabel('Y Position')
-        self.ax.set_title('Agents in the Environment')
+        self.ax.set_title('Populations in the Environment')
         self.ax.legend()
         self.ax.grid(True)
 
         plt.pause(self.render_dt)
 
-    def _render_pygame(self, agents, environment):
+    def _render_pygame(self, populations, environment):
         """
         Renders the agents in the given environment using Pygame, similar to the OpenAI Gym rendering.
 
         Args:
-            agents: An object containing the positions of the agents as `agents.x`.
+            populations: A list of the populations to render
             environment: An instance of the environment class, which provides the dimensions of the environment.
         """
         if self.window is None:
             pygame.init()
             self.window = pygame.display.set_mode(self.screen_size)
-            pygame.display.set_caption("Agents in the Environment")
+            pygame.display.set_caption("Populations in the Environment")
             self.clock = pygame.time.Clock()
 
-        agent_color = pygame.Color(self.agent_color)
         background_color = pygame.Color(self.background_color)
+
+        # Generate distinct colors for each population
+        agent_colors = [
+            pygame.Color(color) if isinstance(color, str) else pygame.Color(*color)
+            for color in self.agent_colors
+        ]
 
         # Scale factors to convert environment coordinates to arena coordinates
         scale = min(self.arena_size[0] / environment.dimensions[0], self.arena_size[1] / environment.dimensions[1])
@@ -136,18 +142,20 @@ class Render:
             self.window.blit(tick_text, (60, y - 10))
 
         # Draw agents within the arena
-        for position in agents.x:
-            x = int((position[0] + environment.dimensions[0] / 2) * scale) + 100
-            y = int((environment.dimensions[1] / 2 - position[1]) * scale) + 100
-            pygame.draw.circle(self.window, agent_color, (x, y), 5)
+        for i, (population, color) in enumerate(zip(populations, agent_colors)):
+            for position in population.x:
+                x = int((position[0] + environment.dimensions[0] / 2) * scale) + 100
+                y = int((environment.dimensions[1] / 2 - position[1]) * scale) + 100
+                pygame.draw.circle(self.window, color, (x, y), 5)
 
         # Draw environment boundaries (arena boundaries)
         boundary_color = (0, 0, 0)  # Black
         pygame.draw.rect(self.window, boundary_color, (100, 100, self.arena_size[0], self.arena_size[1]), 2)
 
         # Draw legend
-        legend_text = font.render('Agents', True, agent_color)
-        self.window.blit(legend_text, (10, 10))
+        for i, color in enumerate(agent_colors):
+            legend_text = font.render(f'Population {i + 1}', True, color)
+            self.window.blit(legend_text, (10, 20 + i * 20))
 
         # Draw axis labels
         x_label = font.render('X Position', True, (0, 0, 0))

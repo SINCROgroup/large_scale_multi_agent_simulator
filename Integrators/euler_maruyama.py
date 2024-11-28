@@ -17,21 +17,25 @@ class EulerMaruyamaIntegrator(Integrator):
         """
         super().__init__(config_path)
 
-    def step(self, agent, control_input, env_force):
+    def step(self, populations):
         """
         Performs a single integration step using the Euler-Maruyama method.
 
         Args:
-            agent: The agent for which the integration step is being performed. The agent must have `drift` and `diffusion` methods.
-            control_input: The control input applied to the agent.
-            env_force: The environmental force acting on the agent.
+            populations: List of populations for which the integration step is being performed.
+                         Each population must have `drift` and `diffusion` methods.
         """
         # Compute the drift and diffusion terms
-        drift = agent.get_drift(control_input, env_force)
-        diffusion = agent.get_diffusion(control_input, env_force)
 
-        # Generate random noise
-        noise = np.random.normal(0, 1, size=agent.x.shape)
+        for population in populations:
 
-        # Update agent state using Euler-Maruyama method
-        agent.x = agent.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
+            drift = population.get_drift()
+            diffusion = population.get_diffusion()
+
+            # Generate random noise
+            noise = np.random.normal(0, 1, size=population.x.shape)
+
+            # Update agent state using Euler-Maruyama method
+            population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
+
+

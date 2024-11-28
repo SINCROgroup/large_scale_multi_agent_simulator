@@ -6,24 +6,26 @@ BrownianMotion:
   x0: np.random.randn(N, 2)
   mu: np.random.randn(N,2)
   D: np.random.randn(N, 2)
+  id: 'BrownianMotion'
 
 Fixed:
-  N: 15
+  N: 10
   x0: np.random.randn(N, 2)
+  id: 'Fixed'
 
 integrator:
   dt: 0.01
 
 simulator:
-  dt: 0.01
+  dt: 0.001
   T: 10
 
 environment:
-  dimensions: [60, 60]
+  dimensions: [100, 100]
 
-render:
+renderer:
   background_color: 'white'
-  agent_color: 'blue'
+  agent_colors: ['blue', 'red']
   render_mode: 'pygame'
   render_dt: 0.01
 
@@ -35,5 +37,5 @@ logger:
   log_name: ''
 
 repulsion:
-  ity: 0.1
-  dis: 10
+  ity: .05
+  dis: 25

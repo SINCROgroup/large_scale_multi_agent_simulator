@@ -1,9 +1,9 @@
 import numpy as np
 import yaml
-from Models.agents import Agents
+from Populations.populations import Populations
 
 
-class BrownianMotion(Agents):
+class BrownianMotion(Populations):
 
     """
     A class that implements a biased Brownian motion 
@@ -38,16 +38,16 @@ class BrownianMotion(Agents):
         self.x = eval(pars["BrownianMotion"]["x0"])     # Initial conditions
         self.mu = eval(pars["BrownianMotion"]["mu"])    # Average velocity
         self.D = eval(pars["BrownianMotion"]["D"])      # Diffusion coefficient
+        self.id = pars["BrownianMotion"]["id"]  # Population ID
 
-        self.f = np.zeros(self.x.size)          # Initialization of the external forces 
-        self.u = np.zeros(self.x.size)          # Initialization of the control input
+        self.f = np.zeros(self.x.shape)          # Initialization of the external forces
+        self.u = np.zeros(self.x.shape)          # Initialization of the control input
 
+    def get_drift(self):
+        drift = self.mu + self.f + self.u
+        return drift
 
-    def get_drift(self, x, u):
-
-        return self.mu
-
-    def get_diffusion(self, x, u):
+    def get_diffusion(self):
         
         return self.D
         
