@@ -38,4 +38,7 @@ class EulerMaruyamaIntegrator(Integrator):
             # Update agent state using Euler-Maruyama method
             population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
 
+            # Reset interaction forces
+            population.f = 0
+
 

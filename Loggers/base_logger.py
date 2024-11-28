@@ -61,13 +61,23 @@ class Logger:
 
         return True
 
-    def log(self, x, u, f, env):
+    def log(self, populations, env):
+        current_line = []
         # Get log info
         # metrics = self.get_metric()
         # events = self.get_event()
 
-        # Create line to append with step count, inputs, metrics, events
-        current_line = ['Step', self.step_count, 'State', np.array(x).flatten(), 'Control', np.array(u).flatten(), 'f', np.array(f).flatten(), 'Env', np.array(env).flatten()]
+        # Get timestamp
+        current_line = [['Step', self.step_count]]
+        for population in populations:
+            # Get info for each population of agents
+            current_line.append(['Population', population.id])
+            current_line.append(['State', np.array(population.x).flatten()])
+            current_line.append(['Control input', np.array(population.u).flatten()])
+            current_line.append(['External forces', np.array(population.f).flatten()])
+
+        # Get info on the environment (TO DO)
+        current_line.append(['Env', np.array(env).flatten()])
 
         # Print line
         if self.log_freq > 0:
@@ -83,18 +93,6 @@ class Logger:
 
         return current_line
 
-    def get_metric(self):
-        pass
-
-    def def_metric(self):
-        pass
-
-    def def_event(self):
-        pass
-
-    def get_event(self):
-        pass
-
     def save(self, current_line):
         # Save line appending it to the csv file
         with open(self.log_name_csv, 'a', newline='') as file:
@@ -107,7 +105,10 @@ class Logger:
             file.write('\n')
         return True
 
-    def close(self):
+    def close(self, pop, env):
+        # Log final step before closing
+        self.log(pop, env)
+
         self.end = time.time()  # Get end time for elapsed time
 
         # Eventually get final comments on the simulation
@@ -116,7 +117,7 @@ class Logger:
         else:
             comment = ''
 
-        #  Save final row
+        #  Save final row with 'Done', elapsed time, and eventual comment.
         with open(self.log_name_csv, 'a', newline='') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerow(['Done', 'Elapsed time [s]:', self.end-self.start, 'Comments: ', comment])
@@ -124,3 +125,14 @@ class Logger:
             file.write('Done. \nElapsed time [s]:' + str(self.end-self.start) + '\nComments: ' + comment + '\n')
         return True
 
+    def get_metric(self):
+        pass
+
+    def def_metric(self):
+        pass
+
+    def def_event(self):
+        pass
+
+    def get_event(self):
+        pass

@@ -13,7 +13,7 @@ class Interaction(ABC):
         population 1 and D is the dimension of the state space of the agents of population 1
     """
 
-    def __init__(self,pop1,pop2) -> None:
+    def __init__(self, pop1, pop2) -> None:
         super().__init__()
         self.pop1 = pop1
         self.pop2 = pop2

@@ -18,7 +18,7 @@ integrator:
 
 simulator:
   dt: 0.001
-  T: 10
+  T: 1
 
 environment:
   dimensions: [100, 100]
@@ -31,8 +31,8 @@ renderer:
 
 logger:
   log_freq: 0
-  save_freq: 1
-  comment_enable: True
+  save_freq: 10
+  comment_enable: False
   log_path: '/../logs'
   log_name: ''
 

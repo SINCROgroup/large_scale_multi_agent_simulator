@@ -33,46 +33,39 @@ class Simulator:
     def simulate(self):
 
         num_steps = int(self.T / self.dt)  # Calculate the number of steps as an integer
-        #
-        # bar = progressbar.ProgressBar(
-        #     max_value=num_steps,
-        #     widgets=[
-        #         'Processing: ',  # Custom description
-        #         progressbar.Percentage(),
-        #         ' ', progressbar.Bar(marker='=', left='[', right=']'),
-        #         ' ', progressbar.ETA()
-        #     ]
-        # )
 
+        bar = progressbar.ProgressBar(
+            max_value=num_steps,
+            widgets=[
+                'Processing: ',  # Custom description
+                progressbar.Percentage(),
+                ' ', progressbar.Bar(marker='=', left='[', right=']'),
+                ' ', progressbar.ETA()
+            ]
+        )
 
-        # self.logger.reset()
-        # self.logger.log(self.populations.x, u, f, self.environment)
-        self.renderer.render(self.populations, self.environment)
+        self.logger.reset()
         for t in range(num_steps):
+            self.logger.log(self.populations, self.environment)
+            self.renderer.render(self.populations, self.environment)
 
             # Implement the control actions
             if self.controllers is not None:
                 for c in self.controllers:
                     c.pop.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
-
-            for population in self.populations:
-                print(f"interaction {population.id} = {population.f}")
-                population.f = 0
             
             # Compute the interactions between the agents
             for interact in self.interactions:
                 interact.pop1.f += interact.get_interaction()
 
-            #Update the state of the agents
+            # Update the state of the agents
             self.integrator.step(self.populations)
+
             # Update the environment
+            # TO DO
 
             # Execute every N steps
-            # self.logger.log(self.populations.x, u, f, self.environment)
-            self.renderer.render(self.populations, self.environment)
-
-            # bar.update(t)
-        # self.logger.close()
-
-
+            bar.update(t)
+        self.logger.close(self.populations, self.environment)
+        self.renderer.render(self.populations, self.environment)
 
