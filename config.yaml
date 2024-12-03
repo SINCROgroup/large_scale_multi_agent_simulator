@@ -9,8 +9,8 @@ BrownianMotion:
   id: 'BrownianMotion'
 
 Fixed:
-  N: 10
-  x0: np.random.randn(N, 2)
+  N: 50
+  x0: 10 * np.concatenate((np.cos(angles := 2 * np.pi * np.random.rand(N, 1)), np.sin(angles)), axis=1)
   id: 'Fixed'
 
 integrator:
@@ -37,5 +37,5 @@ logger:
   log_name: ''
 
 repulsion:
-  ity: .05
-  dis: 25
+  ity: 3
+  dis: 5
