@@ -20,7 +20,7 @@ from Integrators.euler_maruyama import EulerMaruyamaIntegrator
 from Renderers.renderer import Renderer
 from Simulators.base_simulator import Simulator
 from Environments.empty_environment import EmptyEnvironment
-from Loggers.base_logger import Logger
+from Loggers.base_logger import BaseLogger
 
 
 if __name__ == '__main__':
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     repulsion_12 = RepulsionConst(population1, population2, config_path)
     interactions = [repulsion_12]
 
-    logger = Logger(config_path)
+    logger = BaseLogger(config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=None,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)
