@@ -67,5 +67,5 @@ class Simulator:
             # Execute every N steps
             bar.update(t)
         self.logger.close(self.populations, self.environment)
-        self.renderer.render(self.populations, self.environment)
+        self.renderer.render()
 
