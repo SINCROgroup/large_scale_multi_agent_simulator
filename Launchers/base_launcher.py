@@ -15,9 +15,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from Populations.brownian_motion import BrownianMotion
 from Populations.fixed_population import FixedPopulation
-from Interactions.constant_repulsion import RepulsionConst
+from Interactions.harmonic_repulsion import RepulsionConst
 from Integrators.euler_maruyama import EulerMaruyamaIntegrator
-from Renderers.renderer import Renderer
+from Renderers.base_renderer import BaseRenderer
 from Simulators.base_simulator import Simulator
 from Environments.empty_environment import EmptyEnvironment
 from Loggers.base_logger import BaseLogger
@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     integrator = EulerMaruyamaIntegrator(config_path)
 
-    renderer = Renderer(config_path)
+    renderer = BaseRenderer(config_path)
     
     environment = EmptyEnvironment(config_path)
     

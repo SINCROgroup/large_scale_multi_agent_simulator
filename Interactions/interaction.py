@@ -9,7 +9,7 @@ class Interaction(ABC):
     Methods
     -------
     get_interaction(self):
-        Returns a vector (N1,D) that describes how population2 influences the dynamics of population 1. N1 is the number of agents of
+        Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
         population 1 and D is the dimension of the state space of the agents of population 1
     """
 
