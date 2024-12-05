@@ -19,6 +19,10 @@ class Controller(ABC):
     """
 
     def __init__(self, population, environment=None, config_path=None) -> None:
+        """ 
+            Initializes a controller, providing the controlled population. 
+            Optionally you can provide the controller with the simulated environment and a configuration file (YAML file)
+        """
         super().__init__()
         self.population = population
         self.environment = environment
@@ -29,4 +33,8 @@ class Controller(ABC):
     # This method
     @abstractmethod
     def get_action(self):
+        """ 
+            The get_action method uses the information given to the Controller class to compute the control acting on "Population".
+            This is the method you need to override to implement your control action
+        """
         pass

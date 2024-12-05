@@ -29,6 +29,7 @@ class Environment(ABC):
     def get_forces(self, agents):
         """
         Abstract method to compute the forces exerted by the environment on the agents.
+        You need to override this model to implement environmental forces
 
         Args:
             agents: A list of agents for which the environmental forces are being computed.
