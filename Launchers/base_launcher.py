@@ -24,7 +24,7 @@ from Loggers.base_logger import BaseLogger
 
 
 if __name__ == '__main__':
-    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
+    config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'base_config.yaml')
 
     integrator = EulerMaruyamaIntegrator(config_path)
     

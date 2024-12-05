@@ -5,17 +5,11 @@ from Renderers.renderer import Renderer
 
 class BaseRenderer(Renderer):
     """
-    A class responsible for rendering the agents in the environment, implementing the Render interface.
+    A base renderer class responsible for rendering the agents in the environment.
     """
 
     def __init__(self, populations, environment=None, config_path=None):
-        """
-        Initializes the BaseRenderer class with configuration parameters from a YAML file.
-
-        Args:
-            config_path (str): The path to the YAML configuration file.
-        """
-        super().__init__(populations, environment, config_path)  # Explicit call to the base class constructor if needed
+        super().__init__(populations, environment, config_path)
 
         self.agent_colors = self.config.get('agent_colors', 'blue')
         self.background_color = self.config.get('background_color', 'white')
@@ -43,7 +37,7 @@ class BaseRenderer(Renderer):
 
     def render(self):
         """
-        Renderers the agents in the given environment using the selected renderer mode.
+        Render the agents and environment using the selected renderer mode.
         """
         if self.render_mode == "matplotlib":
             self._render_matplotlib()
@@ -54,7 +48,7 @@ class BaseRenderer(Renderer):
 
     def _render_matplotlib(self):
         """
-        Renderers the agents in the given environment using Matplotlib.
+        Render agents and environment using Matplotlib.
         """
         self.ax.clear()
         self.ax.set_xlim(-self.environment.dimensions[0] / 2, self.environment.dimensions[0] / 2)
@@ -62,9 +56,15 @@ class BaseRenderer(Renderer):
         self.ax.set_aspect('equal')  # Ensure equal scaling for x and y axes
         self.ax.set_facecolor(self.background_color)
 
+        # Call the pre-render hook
+        self.pre_render_hook_matplotlib()
+
         # Plot agents
         for i, (population, color) in enumerate(zip(self.populations, self.agent_colors)):
             self.ax.scatter(population.x[:, 0], population.x[:, 1], c=color, label=population.id)
+
+        # Call the post-render hook
+        self.post_render_hook_matplotlib()
 
         self.ax.set_xlabel('X Position')
         self.ax.set_ylabel('Y Position')
@@ -76,7 +76,7 @@ class BaseRenderer(Renderer):
 
     def _render_pygame(self):
         """
-        Renders the agents in the given environment using Pygame, similar to the OpenAI Gym rendering.
+        Render agents and environment using Pygame.
         """
         if self.window is None:
             pygame.init()
@@ -85,72 +85,45 @@ class BaseRenderer(Renderer):
             self.clock = pygame.time.Clock()
 
         background_color = pygame.Color(self.background_color)
+        self.window.fill(background_color)
 
-        # Generate distinct colors for each population
+        # Call the pre-render hook
+        self.pre_render_hook_pygame()
+
+        # Render agents
         agent_colors = [
             pygame.Color(color) if isinstance(color, str) else pygame.Color(*color)
             for color in self.agent_colors
         ]
-
-        # Scale factors to convert environment coordinates to arena coordinates
         scale = min(self.arena_size[0] / self.environment.dimensions[0],
                     self.arena_size[1] / self.environment.dimensions[1])
-
-        # Handle Pygame events to keep the window responsive
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.close()
-                return
-
-        # Clear the screen
-        self.window.fill(background_color)
-
-        # Draw grid lines inside the arena
-        grid_color = (200, 200, 200)  # Light gray
-        for x in range(0, self.arena_size[0], int(self.arena_size[0] / 10)):
-            pygame.draw.line(self.window, grid_color, (x + 100, 100), (x + 100, 700))
-        for y in range(0, self.arena_size[1], int(self.arena_size[1] / 10)):
-            pygame.draw.line(self.window, grid_color, (100, y + 100), (700, y + 100))
-
-        # Draw x and y ticks and labels
-        font = pygame.font.SysFont('Arial', 16)
-        for i in range(0, 11):
-            # X-axis ticks
-            x = 100 + i * (self.arena_size[0] / 10)
-            tick_label = f"{int(-self.environment.dimensions[0] / 2 + i * (self.environment.dimensions[0] / 10))}"
-            tick_text = font.render(tick_label, True, (0, 0, 0))
-            self.window.blit(tick_text, (x - 10, 710))
-            # Y-axis ticks
-            y = 100 + i * (self.arena_size[1] / 10)
-            tick_label = f"{int(self.environment.dimensions[1] / 2 - i * (self.environment.dimensions[1] / 10))}"
-            tick_text = font.render(tick_label, True, (0, 0, 0))
-            self.window.blit(tick_text, (60, y - 10))
-
-        # Draw agents within the arena
         for i, (population, color) in enumerate(zip(self.populations, agent_colors)):
             for position in population.x:
                 x = int((position[0] + self.environment.dimensions[0] / 2) * scale) + 100
                 y = int((self.environment.dimensions[1] / 2 - position[1]) * scale) + 100
                 pygame.draw.circle(self.window, color, (x, y), 5)
 
-        # Draw environment boundaries (arena boundaries)
-        boundary_color = (0, 0, 0)  # Black
-        pygame.draw.rect(self.window, boundary_color, (100, 100, self.arena_size[0], self.arena_size[1]), 2)
+        # Call the post-render hook
+        self.post_render_hook_pygame()
 
-        # Draw legend
-        for i, color in enumerate(agent_colors):
-            legend_text = font.render(f'Population {i + 1}', True, color)
-            self.window.blit(legend_text, (10, 20 + i * 20))
-
-        # Draw axis labels
-        x_label = font.render('X Position', True, (0, 0, 0))
-        y_label = font.render('Y Position', True, (0, 0, 0))
-        self.window.blit(x_label, (self.screen_size[0] // 2 - 50, 750))
-        self.window.blit(y_label, (10, self.screen_size[1] // 2 - 50))
-
-        # Update the display
         pygame.display.flip()
         self.clock.tick(1 / self.render_dt)
+
+    def pre_render_hook_matplotlib(self):
+        """Hook for adding custom pre-render logic for Matplotlib."""
+        pass
+
+    def post_render_hook_matplotlib(self):
+        """Hook for adding custom post-render logic for Matplotlib."""
+        pass
+
+    def pre_render_hook_pygame(self):
+        """Hook for adding custom pre-render logic for Pygame."""
+        pass
+
+    def post_render_hook_pygame(self):
+        """Hook for adding custom post-render logic for Pygame."""
+        pass
 
     def close(self):
         """

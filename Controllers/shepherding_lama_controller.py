@@ -1,6 +1,8 @@
 from Controllers.base_controller import Controller
 import numpy as np
 
+from Utils.control_utils import compute_distances
+
 
 class ShepherdingLamaController(Controller):
     """
@@ -36,15 +38,14 @@ class ShepherdingLamaController(Controller):
         herder_pos = self.herders.x  # Shape (N, 2)
         target_pos = self.targets.x  # Shape (M, 2)
 
-        # Expand dimensions of herder_pos and target_pos to enable broadcasting
-        herder_pos_exp = herder_pos[:, np.newaxis, :]  # Shape (N, 1, 2)
-        target_pos_exp = target_pos[np.newaxis, :, :]  # Shape (1, M, 2)
+        distances = compute_distances(self.herders.x, self.targets.x)    # Shape (N, M)
 
-        # Calculate the relative positions
-        relative_positions = target_pos_exp - herder_pos_exp  # Shape (N, M, 2)
+        target_distance_from_goal = compute_distances(self.targets.x, self.environment.goal_pos)    # Shape (M, 2)
 
-        # Compute the Euclidean distances between herders and targets
-        distances = np.linalg.norm(relative_positions, axis=2)  # Shape (N, M)
+        selectable_targets = ((distances < self.xi) &
+                              (np.tile(target_distance_from_goal, self.herders.N).T > self.environment.goal_radius))
+
+
 
         # Find the index of the closest herder for each target
         closest_herders = np.argmin(distances, axis=0)  # Shape (M,)

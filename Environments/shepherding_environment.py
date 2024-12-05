@@ -1,8 +1,8 @@
 import numpy as np
-from Environments.base_environment import Environment
+from Environments.empty_environment import EmptyEnvironment
 
 
-class EmptyEnvironment(Environment):
+class ShepherdingEnvironment(EmptyEnvironment):
     """
     An environment with no forces acting on the agents. The environment is a square with dimensions 50x50.
     """
@@ -15,7 +15,8 @@ class EmptyEnvironment(Environment):
             config_path (str): The path to the YAML configuration file.
         """
         super().__init__(config_path)
-        self.rho_g = self.params.get('rho_g', 5)
+        self.goal_radius = self.params.get('goal_radius', 5)
+        self.goal_pos = np.array(self.params.get('goal_pos', (0, 0)))
 
     def get_forces(self, agents):
         """
@@ -28,5 +29,4 @@ class EmptyEnvironment(Environment):
         Returns:
             np.ndarray: An array of zeros representing no force on each agent.
         """
-        return np.zeros((agents.x.shape[0],
-                         2))  # No forces, so return zero vectors for each agent  # No forces, so return zero vectors for each agent
+        return np.zeros((agents.x.shape[0], 2))  # No forces, so return zero vectors for each agent

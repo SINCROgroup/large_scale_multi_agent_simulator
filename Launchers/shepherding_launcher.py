@@ -17,17 +17,17 @@ from Populations.simple_integrators import SimpleIntegrators
 from Interactions.harmonic_repulsion import HarmonicRepulsion
 from Controllers.shepherding_lama_controller import ShepherdingLamaController
 from Integrators.euler_maruyama import EulerMaruyamaIntegrator
-from Renderers.base_renderer import BaseRenderer
+from Renderers.shepherding_renderer import ShepherdingRenderer
 from Simulators.base_simulator import Simulator
-from Environments.empty_environment import EmptyEnvironment
+from Environments.shepherding_environment import ShepherdingEnvironment
 from Loggers.base_logger import BaseLogger
 
 if __name__ == '__main__':
-    config_path = os.path.join(os.path.dirname(__file__), '..', 'shepherding_config.yaml')
+    config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'shepherding_config.yaml')
 
     integrator = EulerMaruyamaIntegrator(config_path)
 
-    environment = EmptyEnvironment(config_path)
+    environment = ShepherdingEnvironment(config_path)
 
     targets = BrownianMotion(config_path)
     herders = SimpleIntegrators(config_path)
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     lamaController = ShepherdingLamaController(herders, targets, environment, config_path)
     controllers = [lamaController]
 
-    renderer = BaseRenderer(populations, environment, config_path)
+    renderer = ShepherdingRenderer(populations, environment, config_path)
     logger = BaseLogger(config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
