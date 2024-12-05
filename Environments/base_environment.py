@@ -38,3 +38,10 @@ class Environment(ABC):
             np.ndarray: An array representing the forces exerted on each agent.
         """
         pass
+
+    @abstractmethod
+    def get_info(self):
+        """
+        Returns information to log
+        """
+        return {''}

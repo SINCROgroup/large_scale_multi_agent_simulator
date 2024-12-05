@@ -33,14 +33,15 @@ if __name__ == '__main__':
     population1 = BrownianMotion(config_path)
     population2 = FixedPopulation(config_path)
     populations = [population1, population2]
+    controllers = []
 
     repulsion_12 = HarmonicRepulsion(population1, population2, config_path)
     interactions = [repulsion_12]
 
     renderer = BaseRenderer(populations, environment, config_path)
-    logger = BaseLogger(config_path)
+    logger = BaseLogger(populations, environment, config_path)
 
-    simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=None,
+    simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)
 
     simulator.simulate()

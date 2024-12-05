@@ -27,5 +27,10 @@ class EmptyEnvironment(Environment):
         Returns:
             np.ndarray: An array of zeros representing no force on each agent.
         """
-        return np.zeros((agents.x.shape[0],
-                         2))  # No forces, so return zero vectors for each agent  # No forces, so return zero vectors for each agent
+        return np.zeros((agents.x.shape[0], 2))  # No forces, so return zero vectors for each agent
+
+    def get_info(self):
+        """
+        Returns information to log
+        """
+        return {''}

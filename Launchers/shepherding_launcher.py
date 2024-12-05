@@ -40,7 +40,7 @@ if __name__ == '__main__':
     controllers = [lamaController]
 
     renderer = ShepherdingRenderer(populations, environment, config_path)
-    logger = BaseLogger(config_path)
+    logger = BaseLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)

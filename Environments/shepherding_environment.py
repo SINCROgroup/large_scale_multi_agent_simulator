@@ -18,15 +18,5 @@ class ShepherdingEnvironment(EmptyEnvironment):
         self.goal_radius = self.params.get('goal_radius', 5)
         self.goal_pos = np.array(self.params.get('goal_pos', (0, 0)))
 
-    def get_forces(self, agents):
-        """
-        Computes the forces exerted by the environment on the agents.
-        Since this is an empty environment, no forces are exerted.
-
-        Args:
-            agents: A list of agents for which the environmental forces are being computed.
-
-        Returns:
-            np.ndarray: An array of zeros representing no force on each agent.
-        """
-        return np.zeros((agents.x.shape[0], 2))  # No forces, so return zero vectors for each agent
+    def get_info(self):
+        return {'Goal region radius': self.goal_radius, 'Goal region center': self.goal_pos}

@@ -46,13 +46,12 @@ class Simulator:
 
         self.logger.reset()
         for t in range(num_steps):
-            self.logger.log(self.populations, self.environment)
+            self.logger.log()
             self.renderer.render()
 
             # Implement the control actions
-            if self.controllers is not None:
-                for c in self.controllers:
-                    c.population.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
+            for c in self.controllers:
+                c.population.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
             
             # Compute the interactions between the agents
             for interact in self.interactions:
@@ -61,11 +60,16 @@ class Simulator:
             # Update the state of the agents
             self.integrator.step(self.populations)
 
+            # Reset interaction forces
+            for population in self.populations:
+                population.f = 0
+
             # Update the environment
             # TO DO
+            # Add isdone flag
 
             # Execute every N steps
             bar.update(t)
-        self.logger.close(self.populations, self.environment)
+        self.logger.close()
         self.renderer.render()
 

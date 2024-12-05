@@ -29,9 +29,9 @@ class Logger(ABC):
         pass
 
     @abstractmethod
-    def log(self, populations, env):
+    def log(self):
         pass
 
     @abstractmethod
-    def close(self, populations, env):
+    def close(self):
         pass

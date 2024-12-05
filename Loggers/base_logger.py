@@ -11,7 +11,7 @@ import numpy as np
 
 
 class BaseLogger(Logger):
-    def __init__(self, config_path):
+    def __init__(self, populations, environment, config_path):
         super().__init__()
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
@@ -22,6 +22,8 @@ class BaseLogger(Logger):
         self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
         self.log_path = os.path.join(os.path.dirname(__file__), '..', 'logs')
         self.comment_enable = logger_config.get('comment_enable', False)
+        self.populations = populations
+        self.environment = environment
 
         # If the path does not exist, create it
         if not os.path.exists(self.log_path):
@@ -64,7 +66,7 @@ class BaseLogger(Logger):
 
         return self.activate
 
-    def log(self, populations, env):
+    def log(self):
         current_line = []
         if self.activate:
             # Get log info
@@ -73,7 +75,7 @@ class BaseLogger(Logger):
 
             # Get timestamp
             current_line = [['Step', self.step_count]]
-            for population in populations:
+            for population in self.populations:
                 # Get info for each population of agents
                 current_line.append(['Population', population.id])
                 current_line.append(['State', np.array(population.x).flatten()])
@@ -81,7 +83,7 @@ class BaseLogger(Logger):
                 current_line.append(['External forces', np.array(population.f).flatten()])
 
             # Get info on the environment (TO DO)
-            current_line.append(['Env', np.array(env).flatten()])
+            current_line.append(['Environment info', self.environment.get_info()])
 
             # Print line
             if self.log_freq > 0:
@@ -111,11 +113,11 @@ class BaseLogger(Logger):
                 file.write('\n')
         return self.activate
 
-    def close(self, populations, env):
+    def close(self):
         # Log final step before closing
 
         if self.activate:
-            self.log(populations, env)
+            self.log()
 
             self.end = time.time()  # Get end time for elapsed time
 
