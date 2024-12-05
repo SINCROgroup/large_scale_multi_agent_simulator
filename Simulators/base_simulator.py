@@ -47,7 +47,7 @@ class Simulator:
         self.logger.reset()
         for t in range(num_steps):
             self.logger.log(self.populations, self.environment)
-            self.renderer.render(self.populations, self.environment)
+            self.renderer.render()
 
             # Implement the control actions
             if self.controllers is not None:

@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pygame
-from renderer import Renderer
+from Renderers.renderer import Renderer
 
 
 class BaseRenderer(Renderer):
