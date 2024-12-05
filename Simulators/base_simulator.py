@@ -52,7 +52,7 @@ class Simulator:
             # Implement the control actions
             if self.controllers is not None:
                 for c in self.controllers:
-                    c.pop.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
+                    c.population.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
             
             # Compute the interactions between the agents
             for interact in self.interactions:

@@ -21,8 +21,9 @@ class Environment(ABC):
         # Load config params from YAML file
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
+        self.params = config['environment']
 
-        self.dimensions = config.get('environment', {}).get('dimensions', (100, 100))  # Default to 100x100 if not specified
+        self.dimensions = self.params.get('dimensions', (100, 100))  # Default to 100x100 if not specified
 
     @abstractmethod
     def get_forces(self, agents):
