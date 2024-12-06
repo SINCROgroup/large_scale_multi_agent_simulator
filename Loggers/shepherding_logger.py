@@ -1,5 +1,7 @@
 from datetime import datetime
 from Loggers.logger import Logger
+from Utils.shepherding_utils import get_done_shepherding
+from Utils.shepherding_utils import xi_shepherding
 import yaml
 import time
 import os
@@ -10,7 +12,7 @@ import numpy as np
 # Outputs two files: one csv computer-readable and one txt human-readable
 
 
-class BaseLogger(Logger):
+class ShepherdingLogger(Logger):
     def __init__(self, populations, environment, config_path):
         super().__init__()
         with open(config_path, 'r') as config_file:
@@ -70,20 +72,14 @@ class BaseLogger(Logger):
 
     def log(self):
         # Get log info
-        # By default never truncate experiment
+        self.done = self.get_event()
 
         if self.activate:
-            # Get timestamp
-            current_line = [['Step', self.step_count]]
-            for population in self.populations:
-                # Get info for each population of agents
-                current_line.append(['Population', population.id])
-                current_line.append(['State', np.array(population.x).flatten()])
-                current_line.append(['Control input', np.array(population.u).flatten()])
-                current_line.append(['External forces', np.array(population.f).flatten()])
+            # Get metrics
+            xi = self.get_xi()
 
-            # Get info on the environment (TO DO)
-            current_line.append(['Environment info', self.environment.get_info()])
+            # Get timestamp
+            current_line = [['Step', self.step_count], ['Environment info', self.environment.get_info()], ['xi', xi]]
 
             # Print line
             if self.log_freq > 0:
@@ -130,8 +126,16 @@ class BaseLogger(Logger):
             #  Save final row with 'Done', elapsed time, and eventual comment.
             with open(self.log_name_csv, 'a', newline='') as file:
                 writer = csv.writer(file, delimiter=';')
-                writer.writerow(['Done:', self.done, 'Elapsed time [s]:', self.end-self.start, 'Comments: ', comment])
+                writer.writerow(['Done:', self.done, 'Settling time [steps]:', self.step_count, 'Elapsed time [s]:', self.end-self.start, 'Comments: ', comment])
             with open(self.log_name_txt, 'a') as file:
-                file.write('Done: ' + str(self.done) + '\nElapsed time [s]:' + str(self.end - self.start) + '\nComments: ' + comment + '\n')
-
+                file.write('Done: ' + str(self.done) +
+                           '\n Settling time [steps]:' + str(self.step_count) +
+                           '\nElapsed time [s]:' + str(self.end - self.start) +
+                           '\nComments: ' + comment + '\n')
         return self.activate
+
+    def get_xi(self):
+        return xi_shepherding(self.populations, self.environment)
+
+    def get_event(self):
+        return get_done_shepherding(self.populations, self.environment)

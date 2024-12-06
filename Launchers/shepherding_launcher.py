@@ -20,7 +20,7 @@ from Integrators.euler_maruyama import EulerMaruyamaIntegrator
 from Renderers.shepherding_renderer import ShepherdingRenderer
 from Simulators.base_simulator import Simulator
 from Environments.shepherding_environment import ShepherdingEnvironment
-from Loggers.base_logger import BaseLogger
+from Loggers.shepherding_logger import ShepherdingLogger
 
 if __name__ == '__main__':
     config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'shepherding_config.yaml')
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     controllers = [lamaController]
 
     renderer = ShepherdingRenderer(populations, environment, config_path)
-    logger = BaseLogger(populations, environment, config_path)
+    logger = ShepherdingLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)

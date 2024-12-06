@@ -8,7 +8,10 @@ class Logger(ABC):
     Arguments
     -------
     name: string containing the name of the logger
-
+    done: flag for stopping the episode early
+    activate: flag to save logger
+    log_freq: print information every log_freq steps
+    save_freq: save information every save_freq steps
 
     Methods
     -------
@@ -30,7 +33,7 @@ class Logger(ABC):
 
     @abstractmethod
     def log(self):
-        pass
+        return False  # By default do not truncate episode early
 
     @abstractmethod
     def close(self):
