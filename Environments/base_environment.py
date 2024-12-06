@@ -45,3 +45,7 @@ class Environment(ABC):
         Returns information to log
         """
         return {''}
+
+    @abstractmethod
+    def update(self):
+        pass

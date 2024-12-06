@@ -34,3 +34,6 @@ class EmptyEnvironment(Environment):
         Returns information to log
         """
         return {''}
+
+    def update(self):
+        pass

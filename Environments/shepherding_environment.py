@@ -20,3 +20,6 @@ class ShepherdingEnvironment(EmptyEnvironment):
 
     def get_info(self):
         return {'Goal region radius': self.goal_radius, 'Goal region center': self.goal_pos}
+
+    def update(self):
+        pass

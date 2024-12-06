@@ -1,9 +1,14 @@
 import numpy as np
 
 
-def xi_shepherding(populations, environment):
+def get_target_radii(populations, environment):
     goal_region_center = environment.goal_pos
     target_radii = np.linalg.norm(populations[0].x - goal_region_center, axis=1)
+    return target_radii
+
+
+def xi_shepherding(populations, environment):
+    target_radii = get_target_radii(populations, environment)
     goal_region_radius = environment.goal_radius
     n_in = np.sum(target_radii < goal_region_radius)
     xi = n_in/populations[0].N

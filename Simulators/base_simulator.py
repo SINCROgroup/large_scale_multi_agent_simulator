@@ -46,7 +46,7 @@ class Simulator:
 
         self.logger.reset()
         for t in range(num_steps):
-            done = self.logger.log()
+            done = self.logger.log()  # Log and get done flag
             self.renderer.render()
 
             # Implement the control actions
@@ -65,11 +65,12 @@ class Simulator:
                 population.f = 0
 
             # Update the environment
+            self.environment.update()
 
             # Execute every N steps
             bar.update(t)
 
-            if done:
+            if done:  # Truncate early the simulation
                 print('\nSimulation truncated')
                 break
 
