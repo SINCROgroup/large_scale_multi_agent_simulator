@@ -50,8 +50,10 @@ class Simulator:
             self.renderer.render()
 
             # Implement the control actions
-            for c in self.controllers:
-                c.population.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
+            if self.controllers is not None:
+                for c in self.controllers:
+                    if ((t%(round(c.dt/self.dt)))==0):
+                        c.population.u = c.get_action()   # Controller ha un membro che è la popolazione su cui agisce
             
             # Compute the interactions between the agents
             for interact in self.interactions:

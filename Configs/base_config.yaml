@@ -21,7 +21,7 @@ simulator:
   T: 1
 
 environment:
-  dimensions: [100, 100]
+  dimensions: [180, 100]
 
 renderer:
   background_color: 'white'
@@ -40,3 +40,6 @@ logger:
 repulsion:
   ity: 3
   dis: 5
+
+Spatial_Inputs:
+  disc_pts: 50

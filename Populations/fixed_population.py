@@ -41,7 +41,7 @@ class FixedPopulation(Populations):
 
     def get_drift(self):
 
-        return np.zeros(self.x.shape)
+        return np.zeros(self.x.shape)+self.u
 
     def get_diffusion(self):
         

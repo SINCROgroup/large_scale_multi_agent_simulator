@@ -29,6 +29,9 @@ class Controller(ABC):
 
         with open(config_path, "r") as file:
             self.params = yaml.safe_load(file)
+        
+        self.dt = self.params.get('dt',0.1)
+
 
     # This method
     @abstractmethod
