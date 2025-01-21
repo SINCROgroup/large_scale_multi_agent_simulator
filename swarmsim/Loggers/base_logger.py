@@ -1,5 +1,6 @@
 from datetime import datetime
 from swarmsim.Loggers import Logger
+from swarmsim.Utils import add_entry, append_csv, append_txt
 import yaml
 import time
 import os
@@ -20,8 +21,7 @@ class BaseLogger(Logger):
         self.activate = logger_config.get('activate', True)
         self.log_freq = logger_config.get('log_freq', 1)  # Print frequency
         self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
-        # self.log_path = os.path.join(os.path.dirname(__file__), '..', 'logs')
-        self.log_path = os.path.join(os.path.dirname(__file__), logger_config.get('log_path', '..'))
+        self.log_path = os.path.join(os.path.dirname(__file__), '..', 'logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
         self.environment = environment
@@ -41,6 +41,7 @@ class BaseLogger(Logger):
         self.step_count = None  # Count steps for frequency check and logging
         self.done = None  # Episode truncation
         self.config = config  # Get config to track experiments
+        self.current_info = None
 
     def reset(self):
         self.done = False
@@ -56,70 +57,63 @@ class BaseLogger(Logger):
                 comment = ''
 
             # Create file with current date, setting, and comment
-            with open(self.log_name_csv, 'w', newline='') as file:
-                writer = csv.writer(file, delimiter=';')
-                writer.writerow(['Date', self.date, 'Config settings', self.config, 'Comment', comment])
-
             with open(self.log_name_txt, 'w') as file:
                 file.write('Date:' + self.date)
                 file.write('\nConfiguration settings: \n')
                 for key, value in self.config.items():
                     file.write(str(key) + ': ' + str(value) + '\n')
-                file.write('\nInitial comment on the experiment:' + comment)
+                file.write('\nInitial comment: ' + comment)
 
         return self.activate
 
     def log(self):
         # Get log info
-        # By default never truncate experiment
+        self.current_info = {}
+        self.done = self.get_event()  # Verify if an event occur, e.g., to truncate early
 
         if self.activate:
-            # Get timestamp
-            current_line = [['Step', self.step_count]]
-            for population in self.populations:
-                # Get info for each population of agents
-                current_line.append(['Population', population.id])
-                current_line.append(['State', np.array(population.x).flatten()])
-                current_line.append(['Control input', np.array(population.u).flatten()])
-                current_line.append(['External forces', np.array(population.f).flatten()])
+            # Get metrics
+            J = self.get_metric()  # e.g., cost function value
 
-            # Get info on the environment (TO DO)
-            current_line.append(['Environment info', self.environment.get_info()])
+            # Include desired information
+            add_entry(self.current_info, step=self.step_count)  # Get timestamp
+            add_entry(self.current_info, J=J)
+            add_entry(self.current_info, done=self.done)
 
-            # Print line
+            # Print line if wanted
             if self.log_freq > 0:
                 if self.step_count % self.log_freq == 0:
-                    print('\n', current_line)
+                    self.print_log()
 
-            # Save line
+            # Save line if wanted
             if self.save_freq > 0:
                 if self.step_count % self.save_freq == 0:
-                    self.save(current_line)
+                    self.save()
 
             self.step_count += 1  # Update step counter
 
         return self.done
 
-    def save(self, current_line):
+    def print_log(self):
+        print("\n", self.current_info)
+
+    def save(self):
         # Save line appending it to the csv file
         if self.activate:
-            with open(self.log_name_csv, 'a', newline='') as file:
-                writer = csv.writer(file, delimiter=';')
-                writer.writerow(current_line)
-            with open(self.log_name_txt, 'a') as file:
-                file.write('\n')
-                for el in current_line:
-                    string_el = list(map(str, el))
-                    file.write('\n' + " ".join(string_el))
-                file.write('\n')
+            """Save the current entry to both CSV and TXT files."""
+            # Save to CSV
+            append_csv(self.log_name_csv, self.current_info)
+
+            # Save to TXT
+            append_txt(self.log_name_txt, self.current_info)
+
         return self.activate
 
     def close(self):
         # Log final step before closing
 
         if self.activate:
-            self.done = self.log()
-
+            self.done = self.log()  # Log last time step
             self.end = time.time()  # Get end time for elapsed time
 
             # Eventually get final comments on the simulation
@@ -129,10 +123,15 @@ class BaseLogger(Logger):
                 comment = ''
 
             #  Save final row with 'Done', elapsed time, and eventual comment.
-            with open(self.log_name_csv, 'a', newline='') as file:
-                writer = csv.writer(file, delimiter=';')
-                writer.writerow(['Done:', self.done, 'Elapsed time [s]:', self.end-self.start, 'Comments: ', comment])
             with open(self.log_name_txt, 'a') as file:
-                file.write('Done: ' + str(self.done) + '\nElapsed time [s]:' + str(self.end - self.start) + '\nComments: ' + comment + '\n')
-
+                file.write('\nDone: ' + str(self.done) +
+                           '\nSettling time [steps]:' + str(self.step_count) +
+                           '\nElapsed time [s]:' + str(self.end - self.start) +
+                           '\nComments: ' + comment + '\n')
         return self.activate
+
+    def get_metric(self):
+        return 0
+
+    def get_event(self):
+        return False
