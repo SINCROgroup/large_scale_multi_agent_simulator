@@ -28,7 +28,7 @@ environment:
 renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
-  render_mode: 'matplotlib'
+  render_mode: 'pygame'
   render_dt: 0.05
 
 logger:
@@ -42,3 +42,8 @@ logger:
 repulsion:
   ity: 3
   dis: 2.5
+
+Gym:
+  num_episodes : 10
+  action_bound : 10
+  reward_gain : 1

@@ -2,3 +2,5 @@
 *.pyc
 /logs
 *.csv
+*.txt
+/swarmsim.egg-info/

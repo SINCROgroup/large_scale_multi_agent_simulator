@@ -18,6 +18,8 @@ class Populations(ABC):
         Returns the drift (deterministic part of the dynamics) of the agent.
     get_diffusion(self,u):
         Returns the diffusion (stochastic part of the dynamics) of the agent.
+    reset_state(self):
+        Resets the state of the agent.
     """
 
     def __init__(self) -> None:
@@ -30,4 +32,8 @@ class Populations(ABC):
 
     @abstractmethod
     def get_diffusion(self):
+        pass
+
+    @abstractmethod
+    def reset_state(self):
         pass

@@ -14,6 +14,7 @@ class FixedPopulation(Populations):
     N (double) : Number of agents in the population
     f (NxD double matrix) : External forces (interactions and environment)
     u (NxD double matrix) : Control input
+    params (Dictionary) : Dictionary of parameters
     
     Methods
     -------
@@ -21,6 +22,8 @@ class FixedPopulation(Populations):
         No movement
     get_diffusion(self,u):
         No diffusion
+    reset_state(self):
+        Resets the state of the agent.
     """
 
     def __init__(self, config_path) -> None:
@@ -29,12 +32,12 @@ class FixedPopulation(Populations):
 
         # Load the YAML configuration file
         with open(config_path, "r") as file:
-            pars = yaml.safe_load(file)
+            self.params = yaml.safe_load(file)
         
-        N = pars["Fixed"]["N"]
+        N = self.params["Fixed"]["N"]
         self.N = N
-        self.x = eval(pars["Fixed"]["x0"])     # Initial conditions
-        self.id = pars["Fixed"]["id"]  # Population ID
+        self.x = eval(self.params["Fixed"]["x0"])     # Initial conditions
+        self.id = self.params["Fixed"]["id"]  # Population ID
 
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input
@@ -46,4 +49,10 @@ class FixedPopulation(Populations):
     def get_diffusion(self):
         
         return np.zeros(self.x.shape)
+
+    def reset_state(self):
+        self.x = eval(self.params["Fixed"]["x0"])     # Initial conditions
+        self.f = np.zeros(self.x.shape)  # Initialization of the external forces
+        self.u = np.zeros(self.x.shape)  # Initialization of the control input
+
         

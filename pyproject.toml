@@ -1,3 +1,63 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "swarmsim"
+version = "0.1.0"
+
+description = "Large scale multi-agent simulator"
+
+requires-python = ">=3.8"
+
+readme = "README.md"
+
+keywords = ["simulator", "complex systems", "reinforcement learning", "multi agent"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Researchers",
+    "Topic :: Engineering :: Simulator",
+    "Programming Language :: Python :: 3.8",
+    "Private :: Do Not Upload",
+]
+
+authors = [
+  {name = "Stefano Covone", email = "s.covone@ssmeridionale.it"},
+  {name = "Italo Napolitano", email = "i.napolitano@ssmeridionale.it"},
+  {name = "Davide Salzano", email = "davide.salzano@ssmeridionale.it"},
+]
+maintainers = [
+  {name = "Stefano Covone", email = "s.covone@ssmeridionale.it"},
+  {name = "Italo Napolitano", email = "i.napolitano@ssmeridionale.it"},
+  {name = "Davide Salzano", email = "davide.salzano@ssmeridionale.it"},
+]
+
+dependencies = [
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.1",
+    "progressbar2>=4.5.0",
+    "pygame>=2.6.1",
+    "pyyaml>=6.0.2",
+    "scipy>=1.15.1",
+]
+
+[project.optional-dependencies]
+gym = ["gymnasium>0.26"]
+
+[project.urls]
+Homepage = "https://github.com/SINCROgroup/large_scale_multi_agent_simulator"
+Documentation = "https://github.com/SINCROgroup/large_scale_multi_agent_simulator"
+Repository = "https://github.com/SINCROgroup/large_scale_multi_agent_simulator"
+Issues = "https://github.com/SINCROgroup/large_scale_multi_agent_simulator/issues"
+
+[tool.setuptools]
+packages = ["swarmsim"]
+
+[tool.setuptools.package-data]
+# Include all data files in the swarmsim package, adjust if needed
+swarmsim = ["**/*"]
+
+[tool.setuptools.exclude-package-data]
+# Exclude the logs folder
+swarmsim = ["logs/**"]

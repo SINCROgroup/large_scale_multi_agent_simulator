@@ -68,6 +68,7 @@ class BaseRenderer(Renderer):
 
         self.ax.set_xlabel('X Position')
         self.ax.set_ylabel('Y Position')
+
         self.ax.set_title('Populations in the Environment')
         self.ax.legend()
         self.ax.grid(True)
