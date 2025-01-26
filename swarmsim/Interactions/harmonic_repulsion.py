@@ -10,9 +10,9 @@ class HarmonicRepulsion(Interaction):
 
     Arguments
     -------
-    ity (double): 
+    strength (double):
         max intensity of the repulsion force
-    dis (double):
+    max_distance (double):
         max distance at which the interaction takes place
     
 
@@ -31,8 +31,8 @@ class HarmonicRepulsion(Interaction):
         with open(config, "r") as file:
             pars = yaml.safe_load(file)
 
-        self.ity = pars["repulsion"]["ity"]
-        self.dis = pars["repulsion"]["dis"]
+        self.ity = pars["repulsion"]["strength"]
+        self.dis = pars["repulsion"]["max_distance"]
 
     def get_interaction(self):
 

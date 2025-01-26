@@ -5,9 +5,9 @@ import yaml
 
 from typing import Optional
 
-from swarmsim.Populations import BrownianMotion
+from swarmsim.Populations import DampedDoubleIntegrators
 from swarmsim.Populations import SimpleIntegrators
-from swarmsim.Interactions import HarmonicRepulsion
+from swarmsim.Interactions import PowerLawRepulsion
 from swarmsim.Integrators import EulerMaruyamaIntegrator
 from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import GymSimulator
@@ -28,7 +28,7 @@ class ShepherdingEnv(gym.Env):
 
         environment = ShepherdingEnvironment(config_path)
 
-        targets = BrownianMotion(config_path)
+        targets = DampedDoubleIntegrators(config_path)
         herders = SimpleIntegrators(config_path)
         populations = [targets, herders]
 
@@ -36,8 +36,10 @@ class ShepherdingEnv(gym.Env):
         self.targets = targets
         self.environment = environment
 
-        repulsion_ht = HarmonicRepulsion(targets, herders, config_path)
-        interactions = [repulsion_ht]
+        repulsion_ht = PowerLawRepulsion(targets, herders, config_path, "RepulsionHerderTarget")
+        repulsion_tt = PowerLawRepulsion(targets, targets, config_path, "RepulsionTargetTarget")
+        repulsion_hh = PowerLawRepulsion(herders, herders, config_path, "RepulsionHerderHerder")
+        interactions = [repulsion_ht, repulsion_tt]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
         logger = ShepherdingLogger(populations, environment, config_path)
@@ -101,7 +103,7 @@ class ShepherdingEnv(gym.Env):
             self._render_frame()
 
     def _get_obs(self):
-        targets_position = self.targets.x
+        targets_position = self.targets.x[:, :2]
         herders_position = self.herders.x
         obs = np.concatenate((herders_position, targets_position)).astype(np.float32)
         return obs

@@ -40,5 +40,5 @@ logger:
   log_name: ''            # String appended to date in the name of the file
 
 repulsion:
-  ity: 3
-  dis: 2.5
+  strength: 3
+  max_distance: 2.5

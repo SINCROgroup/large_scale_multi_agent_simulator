@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import pygame
 from swarmsim.Renderers import Renderer
 
@@ -12,6 +13,9 @@ class BaseRenderer(Renderer):
         super().__init__(populations, environment, config_path)
 
         self.agent_colors = self.config.get('agent_colors', 'blue')
+        self.agent_shapes = self.config.get('agent_shapes', 'circle')
+        self.agent_size = self.config.get('agent_size', 1)
+
         self.background_color = self.config.get('background_color', 'white')
         self.render_mode = self.config.get('render_mode', 'matplotlib')
         self.render_dt = self.config.get('render_dt', 0.05)  # Default to 0.05 seconds if not specified
@@ -60,8 +64,24 @@ class BaseRenderer(Renderer):
         self.pre_render_hook_matplotlib()
 
         # Plot agents
-        for i, (population, color) in enumerate(zip(self.populations, self.agent_colors)):
-            self.ax.scatter(population.x[:, 0], population.x[:, 1], c=color, label=population.id)
+        for i, (population, color, shape, size) in enumerate(zip(self.populations,
+                                                                 self.agent_colors,
+                                                                 self.agent_shapes,
+                                                                 self.agent_size)):
+
+            # Adjust size scaling for scatter plot
+            marker_size = (size / 2) ** 2  # Matplotlib `s` is proportional to the area of the marker
+            marker_size = size * 30
+
+            if shape == 'circle':
+                self.ax.scatter(population.x[:, 0], population.x[:, 1],
+                                c=color, label=population.id,
+                                marker='o', s=marker_size)
+
+            elif shape == 'diamond':
+                self.ax.scatter(population.x[:, 0], population.x[:, 1],
+                                c=color, label=population.id,
+                                marker='D', s=marker_size)  # 'D' is the diamond marker in matplotlib
 
         # Call the post-render hook
         self.post_render_hook_matplotlib()
@@ -98,11 +118,26 @@ class BaseRenderer(Renderer):
         ]
         scale = min(self.arena_size[0] / self.environment.dimensions[0],
                     self.arena_size[1] / self.environment.dimensions[1])
-        for i, (population, color) in enumerate(zip(self.populations, agent_colors)):
+        for i, (population, color, shape, size) in enumerate(zip(self.populations,
+                                                                 agent_colors,
+                                                                 self.agent_shapes,
+                                                                 self.agent_size)):
             for position in population.x:
                 x = int((position[0] + self.environment.dimensions[0] / 2) * scale) + 100
                 y = int((self.environment.dimensions[1] / 2 - position[1]) * scale) + 100
-                pygame.draw.circle(self.window, color, (x, y), 5)
+
+                if shape == 'circle':
+                    agent_radius = int(size / 2 * scale)
+                    pygame.draw.circle(self.window, color, (x, y), agent_radius)
+
+                if shape == 'diamond':
+                    agent_side = int(size * np.sqrt(2) / 2 * scale)
+                    pygame.draw.polygon(self.window, (0, 0, 255), [
+                        (x, y - agent_side),  # Top
+                        (x + agent_side, y),  # Right
+                        (x, y + agent_side),  # Bottom
+                        (x - agent_side, y),  # Left
+                    ])
 
         # Call the post-render hook
         self.post_render_hook_pygame()
