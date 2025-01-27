@@ -1,23 +1,23 @@
 # Configuration file
 # In all scripts numpy is imported as np
 
-BrownianMotion:
-  N: 50
-  x0: 10 * np.random.randn(N, 2)
-  mu: '0'
-  D: '0.1'
+DampedDoubleIntegrators:
+  N: 30
+  x0: np.array([1, 1, 0, 0]) * (50 * np.random.rand(N, 4) - 25)
+  D: 1
+  damping: 3
   id: 'Targets'
 
 SimpleIntegrators:
-  N: 20
-  x0: 10 * np.random.randn(N, 2)
+  N: 5
+  x0: 50 * np.random.rand(N, 2) - 25
   id: 'Herders'
 
 integrator:
-  dt: 0.05
+  dt: 0.01
 
 simulator:
-  dt: 0.05
+  dt: 0.01
   T: 10
 
 environment:
@@ -27,9 +27,11 @@ environment:
 
 renderer:
   background_color: 'white'
-  agent_colors: ['blue', 'red']
+  agent_colors: ['magenta', 'blue']
+  agent_shapes: ['circle', 'diamond']
+  agent_size: [1, 1]
   render_mode: 'pygame'
-  render_dt: 0.05
+  render_dt: 0.01
 
 logger:
   activate: True         # True to save logger, False otherwise
@@ -39,9 +41,20 @@ logger:
   log_path: '../../logs'    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
-repulsion:
-  ity: 3
-  dis: 2.5
+RepulsionHerderTarget:
+  strength: 15
+  max_distance: 5
+  p: 2
+
+RepulsionTargetTarget:
+  strength: 3
+  max_distance: 1.5
+  p: 2
+
+RepulsionHerderHerder:
+  strength: 3
+  max_distance: 1.5
+  p: 2
 
 Gym:
   num_episodes : 1

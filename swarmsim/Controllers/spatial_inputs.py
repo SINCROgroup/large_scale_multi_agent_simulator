@@ -10,7 +10,7 @@ class GaussianRepulsion(Controller):
     Arguments
     ---
     disc_pts (int): Number of points of the discretization grid for the Gaussian input 
-    ity (float): Max intensity of the force
+    strength (float): Max intensity of the force
 
     """
 

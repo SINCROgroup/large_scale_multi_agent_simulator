@@ -1,2 +1,3 @@
 from swarmsim.Interactions.interaction import Interaction
 from swarmsim.Interactions.harmonic_repulsion import HarmonicRepulsion
+from swarmsim.Interactions.power_law_repulsion import PowerLawRepulsion

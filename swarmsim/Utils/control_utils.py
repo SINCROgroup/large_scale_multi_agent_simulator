@@ -15,4 +15,4 @@ def compute_distances(positions_1, positions_2):
     # Compute the Euclidean distances between herders and targets
     distances = np.linalg.norm(relative_positions, axis=2)  # Shape (N, M)
 
-    return distances
+    return distances, relative_positions

@@ -26,20 +26,20 @@ class ShepherdingLamaController(Controller):
         self.targets = targets
 
         self.xi = self.params.get('xi', 15)
-        self.v_h = self.params.get('v_h', 8)
+        self.v_h = self.params.get('v_h', 12)
         self.alpha = self.params.get('alpha', 3)
-        self.lmbda = self.params.get('lambda', 2.5)
-        self.delta = self.params.get('delta', 1.25)
+        self.lmbda = self.params.get('lambda', 3)
+        self.delta = self.params.get('delta', 1.5)
         self.rho_g = self.params.get('rho_g', 5)
 
     def get_action(self):
         # Extract herder and target positions from the observation
         herder_pos = self.herders.x  # Shape (N, 2)
-        target_pos = self.targets.x  # Shape (M, 2)
+        target_pos = self.targets.x[:, :2]  # Shape (M, 2)
 
-        distances = compute_distances(self.herders.x, self.targets.x)  # Shape (N, M)
+        distances, _ = compute_distances(self.herders.x, target_pos)  # Shape (N, M)
 
-        target_distance_from_goal = compute_distances(self.targets.x, self.environment.goal_pos)  # Shape (M, 2)
+        target_distance_from_goal, _ = compute_distances(target_pos, self.environment.goal_pos)  # Shape (M, 2)
 
         selectable_targets = ((distances < self.xi) &
                               (np.tile(target_distance_from_goal, self.herders.N).T > self.environment.goal_radius))
