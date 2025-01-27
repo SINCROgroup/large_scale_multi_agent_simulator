@@ -11,7 +11,7 @@ import numpy as np
 # Outputs two files: one csv computer-readable and one txt human-readable
 
 
-class ShepherdingLogger(Logger):
+class ShepherdingGymLogger(Logger):
     def __init__(self, populations, environment, config_path):
         super().__init__()
         with open(config_path, 'r') as config_file:
@@ -140,3 +140,4 @@ class ShepherdingLogger(Logger):
 
     def get_event(self):
         return get_done_shepherding(self.populations[0], self.environment)
+

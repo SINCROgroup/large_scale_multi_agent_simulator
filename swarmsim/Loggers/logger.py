@@ -32,7 +32,9 @@ class Logger(ABC):
         pass
 
     @abstractmethod
-    def log(self):
+    def log(self, data=None):
+        if data is None:
+            data = []
         return False  # By default do not truncate episode early
 
     @abstractmethod

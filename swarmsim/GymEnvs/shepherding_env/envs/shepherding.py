@@ -12,7 +12,8 @@ from swarmsim.Integrators import EulerMaruyamaIntegrator
 from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import GymSimulator
 from swarmsim.Environments import ShepherdingEnvironment
-from swarmsim.Loggers import ShepherdingLogger
+from swarmsim.Loggers import ShepherdingGymLogger
+from swarmsim.Utils import get_target_distance
 
 
 class ShepherdingEnv(gym.Env):
@@ -40,7 +41,7 @@ class ShepherdingEnv(gym.Env):
         interactions = [repulsion_ht]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
-        logger = ShepherdingLogger(populations, environment, config_path)
+        logger = ShepherdingGymLogger(populations, environment, config_path)
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
         self.render_mode = render_mode
@@ -119,7 +120,7 @@ class ShepherdingEnv(gym.Env):
         self.simulator.close()
 
     def _get_reward(self):
-        target_radii = np.linalg.norm(self.targets.x, axis=1)
+        target_radii = get_target_distance(self.targets, self.environment)
         distance_from_goal = target_radii - self.environment.goal_radius
         reward_vector = np.where(distance_from_goal < 0, self.reward_gain, distance_from_goal)
         reward = -np.sum(reward_vector)

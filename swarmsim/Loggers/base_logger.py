@@ -66,7 +66,7 @@ class BaseLogger(Logger):
 
         return self.activate
 
-    def log(self):
+    def log(self, data=None):
         # Get log info
         self.current_info = {}
         self.done = self.get_event()  # Verify if an event occur, e.g., to truncate early
@@ -79,6 +79,9 @@ class BaseLogger(Logger):
             add_entry(self.current_info, step=self.step_count)  # Get timestamp
             add_entry(self.current_info, J=J)
             add_entry(self.current_info, done=self.done)
+            if data is not None:
+                for key, value in data.items():
+                    add_entry(self.current_info, **{key: value})
 
             # Print line if wanted
             if self.log_freq > 0:
@@ -95,7 +98,9 @@ class BaseLogger(Logger):
         return self.done
 
     def print_log(self):
-        print("\n", self.current_info)
+        for key, value in self.current_info.items():
+            print(f"{key}: {value}; ")
+        print('\n')
 
     def save(self):
         # Save line appending it to the csv file
