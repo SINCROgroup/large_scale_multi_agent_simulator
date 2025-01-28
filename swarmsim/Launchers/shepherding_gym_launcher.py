@@ -16,7 +16,7 @@ params = config.get('Gym', {})
 num_episodes = params['num_episodes']
 
 env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode='human')
-env._max_episode_steps = 10000
+env._max_episode_steps = 10
 
 # Run the simulation for a certain number of steps
 truncated = False
@@ -36,7 +36,7 @@ for episode in range(1, num_episodes + 1):
     while not (terminated or truncated):
 
         # Choose a random action (here, randomly setting velocities for herders)
-        action = env.action_space.sample()
+        # action = env.action_space.sample()
 
         action = controller.get_action()
 
