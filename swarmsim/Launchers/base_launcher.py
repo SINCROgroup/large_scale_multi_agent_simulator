@@ -45,8 +45,8 @@ if __name__ == '__main__':
     controller = GaussianRepulsion(population2, environment, config_path)
     controllers =[controller]
 
-    #repulsion_12 = HarmonicRepulsion(population1, population2, config_path)
-    interactions = []
+    repulsion_12 = HarmonicRepulsion(population1, population2, config_path)
+    interactions = [repulsion_12]
 
     renderer = BaseRenderer(populations, environment, config_path)
     logger = BaseLogger(populations, environment, config_path)
