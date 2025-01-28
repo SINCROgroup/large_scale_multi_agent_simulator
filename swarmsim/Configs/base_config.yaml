@@ -26,7 +26,9 @@ environment:
 renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
-  render_mode: 'matplotlib'
+  agent_shapes: [ 'circle', 'diamond' ]
+  agent_size: [ 1, 1 ]
+  render_mode: 'pygame'
   render_dt: 0.01
 
 logger:

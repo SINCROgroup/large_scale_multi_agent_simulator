@@ -43,18 +43,19 @@ class BaseLogger(Logger):
         self.config = config  # Get config to track experiments
         self.current_info = None
         # If there are any comments to describe the experiment
-        if self.comment_enable:
-            comment = input('Comment: ')
-        else:
-            comment = ''
+        if self.activate:
+            if self.comment_enable:
+                comment = input('Comment: ')
+            else:
+                comment = ''
 
-        # Create file with current date, setting, and comment
-        with open(self.log_name_txt, 'w') as file:
-            file.write('Date:' + self.date)
-            file.write('\nConfiguration settings: \n')
-            for key, value in self.config.items():
-                file.write(str(key) + ': ' + str(value) + '\n')
-            file.write('\nInitial comment: ' + comment)
+            # Create file with current date, setting, and comment
+            with open(self.log_name_txt, 'w') as file:
+                file.write('Date:' + self.date)
+                file.write('\nConfiguration settings: \n')
+                for key, value in self.config.items():
+                    file.write(str(key) + ': ' + str(value) + '\n')
+                file.write('\nInitial comment: ' + comment)
 
     def reset(self):
         self.done = False

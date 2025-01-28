@@ -14,6 +14,7 @@ from swarmsim.Simulators import GymSimulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingGymLogger
 from swarmsim.Utils import get_target_distance, xi_shepherding
+from swarmsim.Utils.plot_utils import get_snapshot
 
 
 class ShepherdingEnv(gym.Env):
@@ -84,6 +85,7 @@ class ShepherdingEnv(gym.Env):
 
         if self.render_mode == "human":
             self._render_frame()
+            # get_snapshot(self.simulator.renderer.render(),'x0.png')
 
         return observation, info
 
@@ -129,12 +131,13 @@ class ShepherdingEnv(gym.Env):
         return info
 
     def _render_frame(self):
-        self.simulator.render()
+        return self.simulator.render()
 
     def close(self):
         self.cum_rews.append(self.cum_rew)
-        data = {'cum_rews': np.asarray(self.cum_rews, dtype=np.float64)}
-        self.simulator.logger.save_data(data)
+        if self.simulator.logger.activate:
+            data = {'cum_rews': np.asarray(self.cum_rews, dtype=np.float64)}
+            self.simulator.logger.save_data(data)
         self.simulator.close()
 
     def _get_reward(self):

@@ -44,9 +44,9 @@ class BaseRenderer(Renderer):
         Render the agents and environment using the selected renderer mode.
         """
         if self.render_mode == "matplotlib":
-            self._render_matplotlib()
+            return self._render_matplotlib()
         elif self.render_mode == "pygame":
-            self._render_pygame()
+            return self._render_pygame()
         else:
             raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
 
@@ -144,6 +144,7 @@ class BaseRenderer(Renderer):
 
         pygame.display.flip()
         self.clock.tick(1 / self.render_dt)
+        return self.window
 
     def pre_render_hook_matplotlib(self):
         """Hook for adding custom pre-render logic for Matplotlib."""
