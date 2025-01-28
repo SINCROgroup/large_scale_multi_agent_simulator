@@ -36,6 +36,7 @@ class ShepherdingGymLogger(Logger):
         #  Init key variables
         self.log_name_csv = self.log_path + '/' + self.name + '.csv'  # Check concat string
         self.log_name_txt = self.log_path + '/' + self.name + '.txt'  # Check concat string
+        self.log_name_npz = self.log_path + '/' + self.name + '.npz'  # Check concat string
         self.start = None  # Time start
         self.end = None  # Time end
         self.step_count = None  # Count steps for frequency check and logging
@@ -43,13 +44,7 @@ class ShepherdingGymLogger(Logger):
         self.config = config  # Get config to track experiments
         self.current_info = None
 
-    def reset(self):
-        self.done = False
         if self.activate:
-            # Initialize logger: create file with date, current config settings, and add eventual comments
-            self.start = time.time()  # Start counter for elapsed time
-            self.step_count = 0  # Keep track of time
-
             # If there are any comments to describe the experiment
             if self.comment_enable:
                 comment = input('Comment: ')
@@ -64,6 +59,12 @@ class ShepherdingGymLogger(Logger):
                     file.write(str(key) + ': ' + str(value) + '\n')
                 file.write('\nInitial comment: ' + comment)
 
+    def reset(self):
+        self.done = False
+        if self.activate:
+            # Initialize logger: create file with date, current config settings, and add eventual comments
+            self.start = time.time()  # Start counter for elapsed time
+            self.step_count = 0  # Keep track of time
         return self.activate
 
     def log(self, data=None):
@@ -99,11 +100,10 @@ class ShepherdingGymLogger(Logger):
 
     def print_log(self):
         for key, value in self.current_info.items():
-            print(f"{key}: {value}; ")
+            print(f"{key}: {value};", end=" ")
         print('\n')
 
     def save(self):
-        # Save line appending it to the csv file
         if self.activate:
             """Save the current entry to both CSV and TXT files."""
             # Save to CSV
@@ -141,3 +141,6 @@ class ShepherdingGymLogger(Logger):
     def get_event(self):
         return get_done_shepherding(self.populations[0], self.environment)
 
+    def save_data(self, data):
+        for key, value in data.items():
+            np.savez(self.log_name_npz, **{key: value})

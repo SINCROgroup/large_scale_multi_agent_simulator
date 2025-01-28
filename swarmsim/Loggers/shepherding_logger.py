@@ -43,13 +43,7 @@ class ShepherdingLogger(Logger):
         self.config = config  # Get config to track experiments
         self.current_info = None
 
-    def reset(self):
-        self.done = False
         if self.activate:
-            # Initialize logger: create file with date, current config settings, and add eventual comments
-            self.start = time.time()  # Start counter for elapsed time
-            self.step_count = 0  # Keep track of time
-
             # If there are any comments to describe the experiment
             if self.comment_enable:
                 comment = input('Comment: ')
@@ -64,6 +58,12 @@ class ShepherdingLogger(Logger):
                     file.write(str(key) + ': ' + str(value) + '\n')
                 file.write('\nInitial comment: ' + comment)
 
+    def reset(self):
+        self.done = False
+        if self.activate:
+            # Initialize logger: create file with date, current config settings, and add eventual comments
+            self.start = time.time()  # Start counter for elapsed time
+            self.step_count = 0  # Keep track of time
         return self.activate
 
     def log(self, data=None):

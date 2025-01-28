@@ -13,7 +13,8 @@ from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import GymSimulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingGymLogger
-from swarmsim.Utils import get_target_distance
+from swarmsim.Utils import get_target_distance, xi_shepherding
+from swarmsim.Utils.plot_utils import get_snapshot
 
 
 class ShepherdingEnv(gym.Env):
@@ -68,17 +69,23 @@ class ShepherdingEnv(gym.Env):
         self.action_space = spaces.Box(low=action_min, high=action_max, shape=action_shape, dtype=np.float32)
 
         self.reward_gain = params["reward_gain"]
+        self.cum_rew = None  # Cumulative reward in the current episode
+        self.cum_rews = []  # Array of cumulative rewards
+        self.episode_number = 0
+        self.xi = 0
 
     def reset(self, *, seed: Optional[int] = None, options: Optional[dict] = None):
         super().reset(seed=seed)
 
         self.simulator.reset()
-
+        self.episode_number += 1
         observation = self._get_obs()
+        self.cum_rew = 0
         info = self._get_info()
 
         if self.render_mode == "human":
             self._render_frame()
+            # get_snapshot(self.simulator.renderer.render(),'x0.png')
 
         return observation, info
 
@@ -89,6 +96,7 @@ class ShepherdingEnv(gym.Env):
         info = self._get_info()
         reward = self._get_reward()
 
+        self.cum_rew += reward
         terminated = False
         truncated = False
 
@@ -110,15 +118,26 @@ class ShepherdingEnv(gym.Env):
         return obs
 
     def _get_info(self):
-        return {"num_herders": self.herders.N,
+        if self.episode_number > 1:
+            self.cum_rews.append(self.cum_rew)
+        self.xi = xi_shepherding(self.targets, self.environment)
+        info = {"num_herders": self.herders.N,
                 "num_targets": self.targets.N,
+                "episode_number": self.episode_number,
+                "cumulative_reward": self.cum_rew,
                 "settling_time": None,
-                "fraction_captured_targets": None}
+                "fraction_captured_targets": self.xi}
+        self.simulator.logger.log(info)
+        return info
 
     def _render_frame(self):
-        self.simulator.render()
+        return self.simulator.render()
 
     def close(self):
+        self.cum_rews.append(self.cum_rew)
+        if self.simulator.logger.activate:
+            data = {'cum_rews': np.asarray(self.cum_rews, dtype=np.float64)}
+            self.simulator.logger.save_data(data)
         self.simulator.close()
 
     def _get_reward(self):

@@ -5,7 +5,7 @@ import yaml
 from swarmsim.GymEnvs.shepherding_env.envs import ShepherdingEnv
 
 from swarmsim.Controllers import ShepherdingLamaController
-
+from swarmsim.Utils.plot_utils import get_snapshot
 
 config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'shepherding_gym_config.yaml')
 
@@ -33,10 +33,11 @@ for episode in range(1, num_episodes + 1):
 
     truncated = False
     terminated = False
+
     while not (terminated or truncated):
 
         # Choose a random action (here, randomly setting velocities for herders)
-        action = env.action_space.sample()
+        # action = env.action_space.sample()
 
         action = controller.get_action()
 
@@ -46,4 +47,5 @@ for episode in range(1, num_episodes + 1):
     print("episode: ", episode)
 
 # Close the environment (optional)
+
 env.close()
