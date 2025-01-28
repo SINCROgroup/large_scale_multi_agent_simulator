@@ -30,13 +30,8 @@ environment:
 renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
-<<<<<<< HEAD
   agent_shapes: ['circle', 'diamond']
   agent_size: [1, 1]
-=======
-  agent_shapes: [ 'circle', 'diamond' ]
-  agent_size: [ 1, 1 ]
->>>>>>> b44b2b568deb175386d1d1dd73489b5fba541f5f
   render_mode: 'pygame'
   render_dt: 0.01
 
