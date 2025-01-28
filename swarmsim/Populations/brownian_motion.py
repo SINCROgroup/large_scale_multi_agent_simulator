@@ -28,15 +28,13 @@ class BrownianMotion(Populations):
 
     def __init__(self, config_path) -> None:
 
-        super().__init__()
+        super().__init__(config_path)
 
         # Load the YAML configuration file
         with open(config_path, "r") as file:
             self.params = yaml.safe_load(file)
         
-        N = self.params["BrownianMotion"]["N"]
-        self.N = N
-        self.x = eval(self.params["BrownianMotion"]["x0"])     # Initial conditions
+        N = self.N
         self.mu = eval(self.params["BrownianMotion"]["mu"])    # Average velocity
         self.D = eval(self.params["BrownianMotion"]["D"])      # Diffusion coefficient
         self.id = self.params["BrownianMotion"]["id"]  # Population ID

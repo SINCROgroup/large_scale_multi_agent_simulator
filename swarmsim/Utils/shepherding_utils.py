@@ -3,7 +3,7 @@ import numpy as np
 
 def get_target_distance(targets, environment):
     goal_region_center = environment.goal_pos
-    target_radii = np.linalg.norm(targets.x - goal_region_center, axis=1)
+    target_radii = np.linalg.norm(targets.x[:, :len(environment.dimensions)] - goal_region_center, axis=1)
     return target_radii
 
 

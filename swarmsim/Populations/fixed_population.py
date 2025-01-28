@@ -28,16 +28,13 @@ class FixedPopulation(Populations):
 
     def __init__(self, config_path) -> None:
 
-        super().__init__()
+        super().__init__(config_path)
 
         # Load the YAML configuration file
         with open(config_path, "r") as file:
             self.params = yaml.safe_load(file)
         
-        N = self.params["Fixed"]["N"]
-        self.N = N
-        self.x = eval(self.params["Fixed"]["x0"])     # Initial conditions
-        self.id = self.params["Fixed"]["id"]  # Population ID
+        self.id = self.params["FixedPopulation"]["id"]  # Population ID
 
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input

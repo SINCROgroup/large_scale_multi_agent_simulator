@@ -46,9 +46,14 @@ class Simulator:
         )
 
         self.logger.reset()
+        
         for t in range(num_steps):
+            #print(t)
             done = self.logger.log()  # Log and get done flag
-            self.renderer.render()
+
+            #Render the Scene if a rederer is defined
+            if not(self.renderer==None):
+                self.renderer.render()
 
             # Implement the control actions
             if self.controllers is not None:
@@ -78,4 +83,5 @@ class Simulator:
                 break
 
         self.logger.close()
-        self.renderer.render()
+        if not(self.renderer==None):
+            self.renderer.render()

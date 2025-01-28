@@ -15,7 +15,7 @@ params = config.get('Gym', {})
 
 num_episodes = params['num_episodes']
 
-env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode='human')
+env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode=None)
 env._max_episode_steps = 10000
 
 # Run the simulation for a certain number of steps

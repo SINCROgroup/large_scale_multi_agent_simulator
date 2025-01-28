@@ -3,14 +3,18 @@
 
 BrownianMotion:
   N: 20
-  x0: np.random.randn(N, 2)
+  state_dim: 2
+  #x0_mode: Random 
+  x0_file_name: Initial_Conditions_BrownianMotion.csv 
   mu: np.random.randn(N,2)
   D: np.random.randn(N, 2)
   id: 'BrownianMotion'
 
-Fixed:
-  N: 50
-  x0: 10 * np.concatenate((np.cos(angles := 2 * np.pi * np.random.rand(N, 1)), np.sin(angles)), axis=1)
+FixedPopulation:
+  N: 20
+  state_dim: 2
+  #x0_mode: Random 
+  x0_file_name: Initial_Conditions_Fixed.csv 
   id: 'Fixed'
 
 integrator:
@@ -21,25 +25,28 @@ simulator:
   T: 1
 
 environment:
-  dimensions: [180, 100]
+  dimensions: [50, 50]
 
 renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
-  render_mode: 'matplotlib'
+  agent_shapes: ['circle', 'diamond']
+  agent_size: [1, 1]
+  render_mode: 'pygame'
   render_dt: 0.01
 
 logger:
-  activate: False         # True to save logger, False otherwise
+  activate: False          # True to save logger, False otherwise
   log_freq: 0             # Print every log_freq steps information (0: never print)
   save_freq: 0            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: '../../logs'    # Path where logger should be saved
+  log_path: '../../logs'  # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
+
 repulsion:
-  ity: 3
-  dis: 5
+  strength: 3
+  max_distance: 2.5
 
 Spatial_Inputs:
   disc_pts: 50

@@ -27,16 +27,13 @@ class SimpleIntegrators(Populations):
     """
 
     def __init__(self, config_path) -> None:
-        super().__init__()
+        super().__init__(config_path)
 
         # Load the YAML configuration file
         with open(config_path, "r") as file:
             config = yaml.safe_load(file)
         self.params = config.get('SimpleIntegrators', {})
 
-        self.N = self.params.get('N', 1)
-        N = self.N
-        self.x = eval(self.params.get('x0', 'np.random(-1, 1, size=(self.N, 2))'))  # Initial conditions
         self.id = self.params.get('id', "Targets")  # Population ID
         self.D = self.params.get('D', 0)  # Diffusion coefficient
 
@@ -51,6 +48,6 @@ class SimpleIntegrators(Populations):
 
     def reset_state(self):
         N = self.N
-        self.x = eval(self.params.get('x0', 'np.random(-1, 1, size=(self.N, 2))'))  # Initial conditions
+        self.x = self.get_initial_conditions(self.config_path)  # Initial conditions
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input

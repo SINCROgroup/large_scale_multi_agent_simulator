@@ -29,8 +29,8 @@ class GaussianRepulsion(Controller):
         self.disc_pts = self.params.get('disc_pts', 30)
 
         # Create a grid of points
-        x = np.linspace(-x_dim/2, x_dim/2, self.disc_pts)  # disc_pts points between the bounds of the arena for x-axis
-        y = np.linspace(-y_dim/2, y_dim/2, self.disc_pts)  # disc_pts points between the bounds of the arena for y-axis
+        x = np.linspace(-x_dim, x_dim, self.disc_pts)  # disc_pts points between the bounds of the arena for x-axis
+        y = np.linspace(-y_dim, y_dim, self.disc_pts)  # disc_pts points between the bounds of the arena for y-axis
 
         
 
@@ -51,7 +51,7 @@ class GaussianRepulsion(Controller):
         """
 
         rep_strength = self.interpolator(self.population.x) #Strength of repulsion from the center (Gaussian)
-        dist = (np.linalg.norm(self.population.x, axis=1))  #Distances of the agents from the origin (Nx1) 
+        dist = np.maximum(0.0001,(np.linalg.norm(self.population.x, axis=1)))  #Distances of the agents from the origin (Nx1) 
         rep_dir = (self.population.x)/dist[:,np.newaxis]    #Versor of the position of the agent (Nx2)
         return rep_strength[:,np.newaxis]*rep_dir           #Repulsion strength (Nx2)
 

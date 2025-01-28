@@ -132,7 +132,7 @@ class BaseRenderer(Renderer):
 
                 if shape == 'diamond':
                     agent_side = int(size * np.sqrt(2) / 2 * scale)
-                    pygame.draw.polygon(self.window, (0, 0, 255), [
+                    pygame.draw.polygon(self.window, color, [
                         (x, y - agent_side),  # Top
                         (x + agent_side, y),  # Right
                         (x, y + agent_side),  # Bottom
