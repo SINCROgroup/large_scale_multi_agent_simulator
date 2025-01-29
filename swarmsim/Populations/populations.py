@@ -7,22 +7,8 @@ from pathlib import Path
 
 class Populations(ABC):
     """
-    An interface that defines all the methods that an agent should implement
-    Arguments
-    -------
-    N : Number of agents in the population
-    f (NxD double matrix) : External forces (interactions and environment)
-    u (NxD double matrix) : Control input
-    id (string) : defines the population name
+    An interface that defines all the methods that an agent should implement.
 
-    Methods
-    -------
-    get_drift(self,u):
-        Returns the drift (deterministic part of the dynamics) of the agent.
-    get_diffusion(self,u):
-        Returns the diffusion (stochastic part of the dynamics) of the agent.
-    reset_state(self):
-        Resets the state of the agent.
     """
 
     def __init__(self,config_path) -> None:
@@ -45,7 +31,32 @@ class Populations(ABC):
     def reset_state(self):
         pass
 
-    def get_initial_conditions(self,config_path):
+    def get_initial_conditions(self,config_path:str) -> None: 
+        '''
+        A function that loads the initial conditions for the population. 
+
+        Parameters
+        -------
+        config_path: str (Absolute path of the configuration path)
+
+        Returns
+        -------
+        x0: numpy array (num_agents x dim_state) Initial conditions of the population
+
+        Notes
+        -------
+        In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.
+        To load correctly the initial conditions the following parameter is required:
+        - x0_mode: str (The mode in which the Initial conditions are generated).     
+        Supported modes are "From File" (load the initial conditions from a .csv file, where rows are states of different agents and columns are different states of the same agent) and "Random" where the initial conditions are randomly selected.
+        If the mode selected is "From File", in the yaml file it is required:
+        - x0_file_path: str (Absolute path of the csv file)
+        Instead, if the choicie is "Random", the configuration file needs:
+        - N : int Number of agents in the poulation
+        - state_dim : int Dimensions of the state
+        Note that in the "random methods" only the first env_dim states are drawn at random, the others are set to 0. Env dim is the dimension of the environment specified in the environment namespace of the configuration file
+        
+        '''
         # Load the YAML configuration file
         with open(config_path, "r") as file:
             config = yaml.safe_load(file)
@@ -63,7 +74,7 @@ class Populations(ABC):
                 self.state_dim = self.x0.shape[1]                       # Getting the state dimension of the agent
             case "Random":
                 env = config.get("environment",{})                                                      # Get the environment parameters
-                env_dimension = env.get("dimensions")                                                   # Get the environment Dimensions
+                env_dimension = env.get("dimensions",1)                                                   # Get the environment Dimensions
                 self.N = self.params.get("N")                                                           # Get the number of Agents
                 self.state_dim = self.params.get("state_dim")                                           # Get the state dimension
                 self.x0 = np.zeros([self.N,self.state_dim])                                             # Initialize the vector of the initial conditions
