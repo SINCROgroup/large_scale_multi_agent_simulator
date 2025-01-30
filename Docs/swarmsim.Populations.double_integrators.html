@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module swarmsim.Populations.double_integrators</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="swarmsim.html" class="white">swarmsim</a>.<a href="swarmsim.Populations.html" class="white">Populations</a>.double_integrators</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cdavid%5Conedrive%20-%20universit%C3%A0%20di%20napoli%20federico%20ii%5Cresearch%5Ccode%5Clarge_scale_multi_agent_simulator%5Cswarmsim%5Cpopulations%5Cdouble_integrators.py">c:\users\david\onedrive - università di napoli federico ii\research\code\large_scale_multi_agent_simulator\swarmsim\populations\double_integrators.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="numpy.html">numpy</a><br>
+</td><td class="multicolumn"><a href="yaml.html">yaml</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="swarmsim.Populations.populations.html#Populations">swarmsim.Populations.populations.Populations</a>(<a href="abc.html#ABC">abc.ABC</a>)
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="swarmsim.Populations.double_integrators.html#DampedDoubleIntegrators">DampedDoubleIntegrators</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="DampedDoubleIntegrators">class <strong>DampedDoubleIntegrators</strong></a>(<a href="swarmsim.Populations.populations.html#Populations">swarmsim.Populations.populations.Populations</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#DampedDoubleIntegrators">DampedDoubleIntegrators</a>(config_path)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+A&nbsp;class&nbsp;that&nbsp;implements&nbsp;(noisy)&nbsp;second&nbsp;order&nbsp;integrators<br>
+&nbsp;<br>
+Arguments<br>
+-------<br>
+x&nbsp;(Nx2D&nbsp;double&nbsp;matrix)&nbsp;:&nbsp;state&nbsp;of&nbsp;the&nbsp;agents&nbsp;row=agent,&nbsp;column=state&nbsp;variable<br>
+N&nbsp;(double)&nbsp;:&nbsp;Number&nbsp;of&nbsp;agents&nbsp;in&nbsp;the&nbsp;population<br>
+f&nbsp;(NxD&nbsp;double&nbsp;matrix)&nbsp;:&nbsp;External&nbsp;forces&nbsp;(interactions&nbsp;and&nbsp;environment)<br>
+u&nbsp;(NxD&nbsp;double&nbsp;matrix)&nbsp;:&nbsp;Control&nbsp;input<br>
+D&nbsp;(NxD&nbsp;double&nbsp;matrix)&nbsp;:&nbsp;Diffusion&nbsp;matrix<br>
+damping&nbsp;(double)&nbsp;:&nbsp;Damping&nbsp;coefficient<br>
+params&nbsp;(Dictionary)&nbsp;:&nbsp;Dictionary&nbsp;of&nbsp;parameters<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+<a href="#DampedDoubleIntegrators-get_drift">get_drift</a>(self,u):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Integrate&nbsp;the&nbsp;input&nbsp;forces<br>
+<a href="#DampedDoubleIntegrators-get_diffusion">get_diffusion</a>(self,u):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Brownian&nbsp;motion<br>
+<a href="#DampedDoubleIntegrators-reset_state">reset_state</a>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Resets&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;agent.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="swarmsim.Populations.double_integrators.html#DampedDoubleIntegrators">DampedDoubleIntegrators</a></dd>
+<dd><a href="swarmsim.Populations.populations.html#Populations">swarmsim.Populations.populations.Populations</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="DampedDoubleIntegrators-__init__"><strong>__init__</strong></a>(self, config_path) -&gt; None</dt><dd><span class="code">Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<dl><dt><a name="DampedDoubleIntegrators-get_diffusion"><strong>get_diffusion</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="DampedDoubleIntegrators-get_drift"><strong>get_drift</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="DampedDoubleIntegrators-reset_state"><strong>reset_state</strong></a>(self)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<hr>
+Methods inherited from <a href="swarmsim.Populations.populations.html#Populations">swarmsim.Populations.populations.Populations</a>:<br>
+<dl><dt><a name="DampedDoubleIntegrators-get_initial_conditions"><strong>get_initial_conditions</strong></a>(self) -&gt; &lt;built-in function array&gt;</dt><dd><span class="code">A&nbsp;function&nbsp;that&nbsp;loads&nbsp;the&nbsp;initial&nbsp;conditions&nbsp;for&nbsp;the&nbsp;population.&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+-------<br>
+config_path:&nbsp;str&nbsp;(Absolute&nbsp;path&nbsp;of&nbsp;the&nbsp;configuration&nbsp;path)<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+x0:&nbsp;numpy&nbsp;array&nbsp;(num_agents&nbsp;x&nbsp;dim_state)&nbsp;Initial&nbsp;conditions&nbsp;of&nbsp;the&nbsp;population<br>
+&nbsp;<br>
+Notes<br>
+-------<br>
+In&nbsp;the&nbsp;configuration&nbsp;file&nbsp;(a&nbsp;yaml&nbsp;file)&nbsp;there&nbsp;should&nbsp;be&nbsp;a&nbsp;namespace&nbsp;with&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;population&nbsp;you&nbsp;are&nbsp;creating.<br>
+To&nbsp;load&nbsp;correctly&nbsp;the&nbsp;initial&nbsp;conditions&nbsp;the&nbsp;following&nbsp;parameter&nbsp;is&nbsp;required:<br>
+-&nbsp;x0_mode:&nbsp;str&nbsp;(The&nbsp;mode&nbsp;in&nbsp;which&nbsp;the&nbsp;Initial&nbsp;conditions&nbsp;are&nbsp;generated).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Supported&nbsp;modes&nbsp;are&nbsp;"From&nbsp;File"&nbsp;(load&nbsp;the&nbsp;initial&nbsp;conditions&nbsp;from&nbsp;a&nbsp;.csv&nbsp;file,&nbsp;where&nbsp;rows&nbsp;are&nbsp;states&nbsp;of&nbsp;different&nbsp;agents&nbsp;and&nbsp;columns&nbsp;are&nbsp;different&nbsp;states&nbsp;of&nbsp;the&nbsp;same&nbsp;agent)&nbsp;and&nbsp;"Random"&nbsp;where&nbsp;the&nbsp;initial&nbsp;conditions&nbsp;are&nbsp;randomly&nbsp;selected.<br>
+If&nbsp;the&nbsp;mode&nbsp;selected&nbsp;is&nbsp;"From&nbsp;File",&nbsp;in&nbsp;the&nbsp;yaml&nbsp;file&nbsp;it&nbsp;is&nbsp;required:<br>
+-&nbsp;x0_file_path:&nbsp;str&nbsp;(Absolute&nbsp;path&nbsp;of&nbsp;the&nbsp;csv&nbsp;file)<br>
+Instead,&nbsp;if&nbsp;the&nbsp;choicie&nbsp;is&nbsp;"Random",&nbsp;the&nbsp;configuration&nbsp;file&nbsp;needs:<br>
+-&nbsp;N&nbsp;:&nbsp;int&nbsp;Number&nbsp;of&nbsp;agents&nbsp;in&nbsp;the&nbsp;poulation<br>
+-&nbsp;state_dim&nbsp;:&nbsp;int&nbsp;Dimensions&nbsp;of&nbsp;the&nbsp;state<br>
+Note&nbsp;that&nbsp;in&nbsp;the&nbsp;"random&nbsp;methods"&nbsp;only&nbsp;the&nbsp;first&nbsp;env_dim&nbsp;states&nbsp;are&nbsp;drawn&nbsp;at&nbsp;random,&nbsp;the&nbsp;others&nbsp;are&nbsp;set&nbsp;to&nbsp;0.&nbsp;Env&nbsp;dim&nbsp;is&nbsp;the&nbsp;dimension&nbsp;of&nbsp;the&nbsp;environment&nbsp;specified&nbsp;in&nbsp;the&nbsp;environment&nbsp;namespace&nbsp;of&nbsp;the&nbsp;configuration&nbsp;file</span></dd></dl>
+
+<dl><dt><a name="DampedDoubleIntegrators-get_parameters"><strong>get_parameters</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="swarmsim.Populations.populations.html#Populations">swarmsim.Populations.populations.Populations</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

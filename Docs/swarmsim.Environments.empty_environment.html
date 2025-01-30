@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module swarmsim.Environments.empty_environment</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="swarmsim.html" class="white">swarmsim</a>.<a href="swarmsim.Environments.html" class="white">Environments</a>.empty_environment</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cdavid%5Conedrive%20-%20universit%C3%A0%20di%20napoli%20federico%20ii%5Cresearch%5Ccode%5Clarge_scale_multi_agent_simulator%5Cswarmsim%5Cenvironments%5Cempty_environment.py">c:\users\david\onedrive - università di napoli federico ii\research\code\large_scale_multi_agent_simulator\swarmsim\environments\empty_environment.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="numpy.html">numpy</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="swarmsim.Environments.base_environment.html#Environment">swarmsim.Environments.base_environment.Environment</a>(<a href="abc.html#ABC">abc.ABC</a>)
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="swarmsim.Environments.empty_environment.html#EmptyEnvironment">EmptyEnvironment</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="EmptyEnvironment">class <strong>EmptyEnvironment</strong></a>(<a href="swarmsim.Environments.base_environment.html#Environment">swarmsim.Environments.base_environment.Environment</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#EmptyEnvironment">EmptyEnvironment</a>(config_path)<br>
+&nbsp;<br>
+An&nbsp;environment&nbsp;with&nbsp;no&nbsp;forces&nbsp;acting&nbsp;on&nbsp;the&nbsp;agents.&nbsp;The&nbsp;environment&nbsp;is&nbsp;a&nbsp;square&nbsp;with&nbsp;dimensions&nbsp;50x50.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="swarmsim.Environments.empty_environment.html#EmptyEnvironment">EmptyEnvironment</a></dd>
+<dd><a href="swarmsim.Environments.base_environment.html#Environment">swarmsim.Environments.base_environment.Environment</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="EmptyEnvironment-__init__"><strong>__init__</strong></a>(self, config_path)</dt><dd><span class="code">Initializes&nbsp;the&nbsp;<a href="#EmptyEnvironment">EmptyEnvironment</a>&nbsp;with&nbsp;the&nbsp;configuration&nbsp;parameters&nbsp;from&nbsp;a&nbsp;YAML&nbsp;file.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;config_path&nbsp;(str):&nbsp;The&nbsp;path&nbsp;to&nbsp;the&nbsp;YAML&nbsp;configuration&nbsp;file.</span></dd></dl>
+
+<dl><dt><a name="EmptyEnvironment-get_forces"><strong>get_forces</strong></a>(self, agents)</dt><dd><span class="code">Computes&nbsp;the&nbsp;forces&nbsp;exerted&nbsp;by&nbsp;the&nbsp;environment&nbsp;on&nbsp;the&nbsp;agents.<br>
+Since&nbsp;this&nbsp;is&nbsp;an&nbsp;empty&nbsp;environment,&nbsp;no&nbsp;forces&nbsp;are&nbsp;exerted.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;agents:&nbsp;A&nbsp;list&nbsp;of&nbsp;agents&nbsp;for&nbsp;which&nbsp;the&nbsp;environmental&nbsp;forces&nbsp;are&nbsp;being&nbsp;computed.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;np.ndarray:&nbsp;An&nbsp;array&nbsp;of&nbsp;zeros&nbsp;representing&nbsp;no&nbsp;force&nbsp;on&nbsp;each&nbsp;agent.</span></dd></dl>
+
+<dl><dt><a name="EmptyEnvironment-get_info"><strong>get_info</strong></a>(self)</dt><dd><span class="code">Returns&nbsp;information&nbsp;to&nbsp;log</span></dd></dl>
+
+<dl><dt><a name="EmptyEnvironment-update"><strong>update</strong></a>(self)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<hr>
+Data descriptors inherited from <a href="swarmsim.Environments.base_environment.html#Environment">swarmsim.Environments.base_environment.Environment</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
