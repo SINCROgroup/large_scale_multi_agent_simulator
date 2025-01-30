@@ -53,7 +53,7 @@ class BrownianMotion(Populations):
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input
 
-    def get_drift(self):
+    def get_drift(self) -> np.array :
         '''
         Movement at constant speed \mu (\mu_1, \mu_2,..., \mu_n).
 
@@ -65,7 +65,7 @@ class BrownianMotion(Populations):
         drift = self.mu + self.f + self.u
         return drift
 
-    def get_diffusion(self):
+    def get_diffusion(self) -> np.array :
         '''
         Stochastic diffusion in the environment (Standard Weiner Process).
 
@@ -76,7 +76,7 @@ class BrownianMotion(Populations):
         '''
         return self.D
 
-    def reset_state(self):
+    def reset_state(self) -> None:
         '''
         
         Resets the state to the initial conditions.

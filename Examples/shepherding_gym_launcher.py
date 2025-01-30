@@ -6,8 +6,10 @@ from swarmsim.GymEnvs.shepherding_env.envs import ShepherdingEnv
 
 from swarmsim.Controllers import ShepherdingLamaController
 from swarmsim.Utils.plot_utils import get_snapshot
+import pathlib
 
-config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'shepherding_gym_config.yaml')
+
+config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"shepherding_gym_config.yaml")
 
 with open(config_path, "r") as file:
     config = yaml.safe_load(file)

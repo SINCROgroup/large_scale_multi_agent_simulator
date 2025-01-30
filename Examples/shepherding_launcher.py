@@ -21,9 +21,11 @@ from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import Simulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingLogger
+import pathlib
 
 if __name__ == '__main__':
-    config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'shepherding_config.yaml')
+    
+    config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"shepherding_config.yaml")
 
     integrator = EulerMaruyamaIntegrator(config_path)
 

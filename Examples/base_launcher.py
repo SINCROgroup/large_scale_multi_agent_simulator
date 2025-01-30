@@ -13,6 +13,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
+import swarmsim as ss
+
 from swarmsim.Populations import BrownianMotion
 from swarmsim.Populations import FixedPopulation
 
@@ -29,9 +31,13 @@ from swarmsim.Environments import EmptyEnvironment
 
 from swarmsim.Loggers import BaseLogger
 
+import pathlib
+
 
 if __name__ == '__main__':
-    config_path = os.path.join(os.path.dirname(__file__), '../Configs', 'base_config.yaml')
+
+    config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"base_config.yaml")
+    print(pathlib.Path(".\Configuration\Config_data\Initial_Conditions_Fixed.csv ").resolve())
 
     integrator = EulerMaruyamaIntegrator(config_path)
     

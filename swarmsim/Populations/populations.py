@@ -8,7 +8,6 @@ from pathlib import Path
 class Populations(ABC):
     """
     An interface that defines all the methods that an agent should implement.
-
     """
 
     def __init__(self,config_path) -> None:
@@ -66,9 +65,7 @@ class Populations(ABC):
         x0_load_type = self.params.get('x0_mode',"From_File")
         match x0_load_type:
             case "From_File":
-                root_folder = Path(__file__).resolve().parent.parent    # Getting the root folder
-                x0_file_name = self.params.get("x0_file_name","")       # Retrieving the file name
-                x0_path = str(root_folder / "Data" / x0_file_name)      # Constructing the path of the file
+                x0_path = self.params.get("x0_path","")                 # Retrieving the file name
                 self.x0 = pd.read_csv(x0_path,header=None).values       # Reading the initial conditions 
                 self.N = self.x0.shape[0]                               # Getting the Number of Agents
                 self.state_dim = self.x0.shape[1]                       # Getting the state dimension of the agent
