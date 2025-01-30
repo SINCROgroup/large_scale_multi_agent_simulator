@@ -19,7 +19,7 @@ class FixedPopulation(Populations):
         f  : numpy array (num_agents x dim_state)   External forces (interactions and environment)
         u  : numpy array (num_agents x dim_state)   Control input
         D  : numpy array (num_agents) :             Diffusion coefficient
-        params : Dictionary                         Dictionary of parameters
+        config : Dictionary                         Dictionary of parameters
 
     Configuration file requirements
     ------
@@ -38,12 +38,8 @@ class FixedPopulation(Populations):
     def __init__(self, config_path) -> None:
 
         super().__init__(config_path)
-
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            self.params = yaml.safe_load(file)
         
-        self.id = self.params["FixedPopulation"]["id"]  # Population ID
+        self.id = self.config["id"]  # Population ID
 
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input
@@ -77,7 +73,7 @@ class FixedPopulation(Populations):
         Resets the state to the initial conditions.
 
         '''
-        self.x = eval(self.params["Fixed"]["x0"])     # Initial conditions
+        self.x = self.get_initial_conditions()     # Initial conditions
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
 

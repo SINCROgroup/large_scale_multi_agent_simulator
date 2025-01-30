@@ -4,7 +4,8 @@
 BrownianMotion:
   N: 20
   state_dim: 2
-  #x0_mode: Random 
+  limits : [[-25, 25],[-25,25]]
+  x0_mode: From_File 
   x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv 
   mu: np.random.randn(N,2)
   D: np.random.randn(N, 2)
@@ -13,7 +14,8 @@ BrownianMotion:
 FixedPopulation:
   N: 20
   state_dim: 2
-  #x0_mode: Random 
+  limits : [[-25, 25],[-25,25]]
+  x0_mode: Random 
   x0_path: .\Configuration\Config_data\Initial_Conditions_Fixed.csv 
   id: 'Fixed'
 

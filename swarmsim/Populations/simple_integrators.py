@@ -14,7 +14,7 @@ class SimpleIntegrators(Populations):
     f (NxD double matrix) : External forces (interactions and environment)
     u (NxD double matrix) : Control input
     D (NxD double matrix) : Diffusion matrix
-    params (Dictionary) : Dictionary of parameters
+    config (Dictionary) : Dictionary of parameters
 
     Methods
     -------
@@ -32,10 +32,10 @@ class SimpleIntegrators(Populations):
         # Load the YAML configuration file
         with open(config_path, "r") as file:
             config = yaml.safe_load(file)
-        self.params = config.get('SimpleIntegrators', {})
+        self.config = config.get('SimpleIntegrators', {})
 
-        self.id = self.params.get('id', "Targets")  # Population ID
-        self.D = self.params.get('D', 0)  # Diffusion coefficient
+        self.id = self.config.get('id', "Targets")  # Population ID
+        self.D = self.config.get('D', 0)  # Diffusion coefficient
 
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
@@ -48,6 +48,6 @@ class SimpleIntegrators(Populations):
 
     def reset_state(self):
         N = self.N
-        self.x = self.get_initial_conditions(self.config_path)  # Initial conditions
+        self.x = self.get_initial_conditions()  # Initial conditions
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input

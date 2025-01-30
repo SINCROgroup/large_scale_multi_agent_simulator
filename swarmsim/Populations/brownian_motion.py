@@ -4,7 +4,7 @@ from swarmsim.Populations import Populations
 
 
 class BrownianMotion(Populations):
-    """
+    '''
     A class that implements a biased Brownian motion with avreage speed \mu and diffusion coefficient D.
 
     Parameters
@@ -19,7 +19,7 @@ class BrownianMotion(Populations):
         f  : numpy array (num_agents x dim_state)   External forces (interactions and environment)
         u  : numpy array (num_agents x dim_state)   Control input
         D  : numpy array (num_agents) :             Diffusion coefficient
-        params : Dictionary                         Dictionary of parameters
+        config : Dictionary                         Dictionary of parameters
 
     Configuration file requirements
     ------
@@ -35,20 +35,16 @@ class BrownianMotion(Populations):
     ------
         For more details on how initial conditions can be generated see the method get_initial_conditions of the class Population
 
-    """
+    '''
 
     def __init__(self, config_path:str) -> None:
 
         super().__init__(config_path)
-
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            self.params = yaml.safe_load(file)
         
         N = self.N
-        self.mu = eval(self.params["BrownianMotion"]["mu"])    # Average velocity
-        self.D = eval(self.params["BrownianMotion"]["D"])      # Diffusion coefficient
-        self.id = self.params["BrownianMotion"]["id"]  # Population ID
+        self.mu = eval(self.config["mu"])    # Average velocity
+        self.D = eval(self.config["D"])      # Diffusion coefficient
+        self.id = self.config["id"]  # Population ID
 
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input
@@ -83,7 +79,7 @@ class BrownianMotion(Populations):
 
         '''
         
-        self.get_initial_conditions(self.config_path)
+        self.get_initial_conditions()
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
 

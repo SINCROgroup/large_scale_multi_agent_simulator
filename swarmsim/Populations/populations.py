@@ -14,7 +14,12 @@ class Populations(ABC):
         #Initialization steps from the Parent Class
         super().__init__()
         self.config_path = config_path
-        self.x = self.get_initial_conditions(self.config_path)
+        # Load the YAML configuration file
+        with open(config_path, "r") as file:
+            config = yaml.safe_load(file)
+        Class_name = type(self).__name__                                # Getting the name of the class
+        self.config = config.get(Class_name, {})                        # Loading the parameters of the population
+        self.x = self.get_initial_conditions()
 
 
     # This method
@@ -30,7 +35,7 @@ class Populations(ABC):
     def reset_state(self):
         pass
 
-    def get_initial_conditions(self,config_path:str) -> None: 
+    def get_initial_conditions(self) -> np.array: 
         '''
         A function that loads the initial conditions for the population. 
 
@@ -56,27 +61,41 @@ class Populations(ABC):
         Note that in the "random methods" only the first env_dim states are drawn at random, the others are set to 0. Env dim is the dimension of the environment specified in the environment namespace of the configuration file
         
         '''
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
-        Class_name = type(self).__name__                                # Getting the name of the class
-        self.params = config.get(Class_name, {})                        # Loading the parameters of the population
         
-        x0_load_type = self.params.get('x0_mode',"From_File")
+        x0_load_type = self.config.get('x0_mode',"Random")
         match x0_load_type:
             case "From_File":
-                x0_path = self.params.get("x0_path","")                 # Retrieving the file name
-                self.x0 = pd.read_csv(x0_path,header=None).values       # Reading the initial conditions 
-                self.N = self.x0.shape[0]                               # Getting the Number of Agents
-                self.state_dim = self.x0.shape[1]                       # Getting the state dimension of the agent
+                x0_path = self.config.get("x0_path","")                                                 # Retrieving the file name
+                self.x0 = pd.read_csv(x0_path,header=None).values                                       # Reading the initial conditions 
+                self.N = self.x0.shape[0]                                                               # Getting the Number of Agents
+                self.state_dim = self.x0.shape[1]                                                       # Getting the state dimension of the agent
             case "Random":
-                env = config.get("environment",{})                                                      # Get the environment parameters
+                limits = np.array(self.config.get("limits",[]))                                                  # Get the environment parameters
+                self.N = self.config.get("N")                                                           # Get the number of Agents
+                self.state_dim = self.config.get("state_dim")                                           # Get the state dimension
+                self.x0 = np.zeros([self.N,self.state_dim])                                             # Initialize the vector of the initial conditions
+                for i in range(0,limits.shape[1]):                                                    # For every dimension
+                    self.x0[:,i] = np.random.uniform(limits[i,0],limits[i,1],self.N)                   # Generate uniformly distributed points in the domain
+            case _ :
+                raise RuntimeError("Invalid Initialization type, please check the YAML config file")
+        return self.x0
+    
+    def get_parameters(self):
+
+        param_load_type = self.config.get("pars_mode","Random")
+        match param_load_type:
+            case "From_File":
+                params_path = self.config.get("x0_path","")                                             # Retrieving the file name
+                params = pd.read_csv(params_path)                                                  # Reading the parameters
+            case "Random":
+                env = self.config.get("environment",{})                                                      # Get the environment parameters
                 env_dimension = env.get("dimensions",1)                                                   # Get the environment Dimensions
-                self.N = self.params.get("N")                                                           # Get the number of Agents
-                self.state_dim = self.params.get("state_dim")                                           # Get the state dimension
+                self.N = self.config.get("N")                                                           # Get the number of Agents
+                self.state_dim = self.config.get("state_dim")                                           # Get the state dimension
                 self.x0 = np.zeros([self.N,self.state_dim])                                             # Initialize the vector of the initial conditions
                 for i in range(0,len(env_dimension)):                                                   # For every dimension
                     self.x0[:,i] = np.random.uniform(-env_dimension[i]/2,env_dimension[i]/2,self.N)     # Generate uniformly distributed points in the domain
             case _ :
                 raise RuntimeError("Invalid Initialization type, please check the YAML config file")
-        return self.x0
+
+        return params

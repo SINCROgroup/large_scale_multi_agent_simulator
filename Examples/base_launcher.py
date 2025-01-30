@@ -37,7 +37,6 @@ import pathlib
 if __name__ == '__main__':
 
     config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"base_config.yaml")
-    print(pathlib.Path(".\Configuration\Config_data\Initial_Conditions_Fixed.csv ").resolve())
 
     integrator = EulerMaruyamaIntegrator(config_path)
     

@@ -4,6 +4,7 @@
 BrownianMotion:
   N: 50
   state_dim: 2
+  limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
   mu: '0'
   D: '0.1'
@@ -11,6 +12,7 @@ BrownianMotion:
 
 SimpleIntegrators:
   N: 20
+  limits : [[-25, 25],[-25,25]]
   state_dim: 2
   x0_mode: Random
   id: 'Herders'

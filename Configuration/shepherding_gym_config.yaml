@@ -4,6 +4,7 @@
 DampedDoubleIntegrators:
   N: 30
   state_dim: 4
+  limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
   D: 1
   damping: 3
@@ -12,6 +13,7 @@ DampedDoubleIntegrators:
 SimpleIntegrators:
   N: 5
   state_dim: 2
+  limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
   id: 'Herders'
 
