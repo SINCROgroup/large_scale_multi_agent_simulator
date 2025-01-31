@@ -25,12 +25,12 @@ classifiers = [
 authors = [
   {name = "Stefano Covone", email = "s.covone@ssmeridionale.it"},
   {name = "Italo Napolitano", email = "i.napolitano@ssmeridionale.it"},
-  {name = "Davide Salzano", email = "davide.salzano@ssmeridionale.it"},
+  {name = "Davide Salzano", email = "davide.salzano@unina.it"},
 ]
 maintainers = [
   {name = "Stefano Covone", email = "s.covone@ssmeridionale.it"},
   {name = "Italo Napolitano", email = "i.napolitano@ssmeridionale.it"},
-  {name = "Davide Salzano", email = "davide.salzano@ssmeridionale.it"},
+  {name = "Davide Salzano", email = "davide.salzano@unina.it"},
 ]
 
 dependencies = [
@@ -44,7 +44,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-gym = ["gymnasium>0.26"]
+gym = [
+    "gymnasium>0.26",
+    "torch",
+    "torchvision",
+    "torchaudio"
+]
 
 [project.urls]
 Homepage = "https://github.com/SINCROgroup/large_scale_multi_agent_simulator"

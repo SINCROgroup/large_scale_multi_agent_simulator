@@ -9,15 +9,15 @@ def get_target_distance(targets, environment):
 
 def xi_shepherding(targets, environment):
     target_radii = get_target_distance(targets, environment)
-    goal_region_radius = environment.goal_radius
-    n_in = np.sum(target_radii < goal_region_radius)
+    n_in = np.sum(target_radii < environment.goal_radius)
     xi = n_in/targets.N
     return xi
 
 
-def get_done_shepherding(populations, environment):
-    xi = xi_shepherding(populations, environment)
-    if xi == 1:
+def get_done_shepherding(populations, environment, xi=None, threshold=1):
+    if xi is None:
+        xi = xi_shepherding(populations, environment)
+    if xi >= threshold:
         return True
     else:
         return False

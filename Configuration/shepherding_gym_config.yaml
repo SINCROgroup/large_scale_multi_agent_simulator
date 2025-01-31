@@ -2,7 +2,7 @@
 # In all scripts numpy is imported as np
 
 DampedDoubleIntegrators:
-  N: 30
+  N: 50
   state_dim: 4
   limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
@@ -11,7 +11,7 @@ DampedDoubleIntegrators:
   id: 'Targets'
 
 SimpleIntegrators:
-  N: 5
+  N: 10
   state_dim: 2
   limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
@@ -42,7 +42,7 @@ logger:
   log_freq: 1             # Print every log_freq steps information (0: never print)
   save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: '../../logs'    # Path where logger should be saved
+  log_path: '../logs'    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
 RepulsionHerderTarget:
@@ -61,6 +61,20 @@ RepulsionHerderHerder:
   p: 2
 
 Gym:
-  num_episodes : 10
-  action_bound : 10
+  num_episodes : 1
+  action_bound : 12
   reward_gain : 1
+
+  single_agent_env:
+    obs_style : "PPO"
+    k_1 : 1
+    k_2 : 1
+    k_3 : 1
+    k_4 : 1
+
+  marl_wrapper:
+    update_frequency    : 1
+    num_closest_targets : 50
+    num_closest_herders : 1
+    low_level_policy    : "PPO"
+    high_level_policy   : "PPO"

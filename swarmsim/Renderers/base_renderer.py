@@ -144,7 +144,15 @@ class BaseRenderer(Renderer):
 
         pygame.display.flip()
         self.clock.tick(1 / self.render_dt)
-        return self.window
+
+        if self.render_mode != "rgb_array":
+            frame = pygame.surfarray.array3d(self.window)
+            frame = np.transpose(frame,
+                                 (1, 0, 2))  # Convert from (width, height, channels) to (height, width, channels)
+            return frame
+
+        else:
+            return self.window
 
     def pre_render_hook_matplotlib(self):
         """Hook for adding custom pre-render logic for Matplotlib."""

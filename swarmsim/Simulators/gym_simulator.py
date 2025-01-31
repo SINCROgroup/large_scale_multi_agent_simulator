@@ -54,9 +54,12 @@ class GymSimulator(Simulator):
         self.environment.update()
 
     def render(self):
-        self.renderer.render()
+        if self.render_mode == "rgb_array":
+            return self.renderer.render()
+        else:
+            self.renderer.render()
 
     def close(self):
-        pass
+        self.renderer.close()
 
 

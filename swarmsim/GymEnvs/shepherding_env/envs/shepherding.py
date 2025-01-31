@@ -55,7 +55,8 @@ class ShepherdingEnv(gym.Env):
                                       integrator=integrator,
                                       logger=logger,
                                       renderer=renderer,
-                                      config_path=config_path)
+                                      config_path=config_path,
+                                      render_mode=render_mode)
 
         obs_shape = (self.herders.N + self.targets.N, 2)
         obs_min = -np.inf
