@@ -33,7 +33,6 @@ class SimpleIntegrators(Populations):
         with open(config_path, "r") as file:
             config = yaml.safe_load(file)
         self.config = config.get('SimpleIntegrators', {})
-
         self.id = self.config.get('id', "Targets")  # Population ID
 
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
