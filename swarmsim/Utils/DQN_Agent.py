@@ -110,9 +110,12 @@ class DeepQNetwork(nn.Module):
         self.checkpoint_dir = chkpt_dir
         self.checkpoint_file = os.path.join(self.checkpoint_dir, name)
 
-        self.fc1 = nn.Linear(*input_dims, 512)
-        self.fc2 = nn.Linear(512, 256)
-        self.fc3 = nn.Linear(256, n_actions)
+        self.net = nn.Sequential(
+            nn.Linear(*input_dims, 128),
+            nn.ReLU(),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, int(n_actions**2)))
 
         self.optimizer = optim.RMSprop(self.parameters(), lr=lr)
 
@@ -122,15 +125,11 @@ class DeepQNetwork(nn.Module):
         self.to(self.device)
 
     def forward(self, state):
-        x = F.relu(self.fc1(state))
-        x = F.relu(self.fc2(x))
-        actions = self.fc3(x)
-
-        return actions
+        return self.net(state)
 
     def get_action(self, state):
         actions = self.forward(state)
-        action = T.argmax(actions).item()
+        action = T.argmax(actions, dim=1)
         return action
 
     def save_checkpoint(self):
@@ -139,7 +138,7 @@ class DeepQNetwork(nn.Module):
 
     def load_checkpoint(self):
         print('... loading checkpoint ...')
-        self.load_state_dict(T.load(self.checkpoint_file, map_location=T.device('cpu')))
+        self.load_state_dict(T.load(self.checkpoint_file))
 
 
 class ReplayBuffer(object):

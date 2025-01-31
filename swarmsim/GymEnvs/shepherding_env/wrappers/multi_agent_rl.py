@@ -146,6 +146,7 @@ class MultiAgentRL(Wrapper):
         else:
             action_max = gym_config["action_bound"]
             self.model = DeepQNetwork(lr=0, n_actions=self.num_acts, name='LLC_DQN', input_dims=[6], chkpt_dir='./models/')
+            self.model.load_checkpoint()
             control_input = np.linspace(-action_max, action_max, self.num_acts)
             self.control_inputs = np.vstack((control_input, control_input))
 
@@ -239,6 +240,7 @@ class MultiAgentRL(Wrapper):
             elif self.low_level_policy == "DQN":
                 batched_herder_actions_idx = self.model.get_action(batch_tensor)
                 batched_herder_actions = get_discrete_action(batched_herder_actions_idx, self.control_inputs)
+                batched_herder_actions = batched_herder_actions.transpose()
 
             # Step the environment with the computed herder actions
             obs_unw, reward_unw, terminated, truncated, info = self.env.step(batched_herder_actions)
@@ -432,7 +434,10 @@ class MultiAgentRL(Wrapper):
         num_different_targets = len(np.unique(target_indices, axis=0))
 
         # Normalize the diversity of target selection
-        ratio_different_targets = (num_different_targets - 1) / (self.env.unwrapped.herders.N - 1)
+        if self.env.unwrapped.herders.N > 1:
+            ratio_different_targets = (num_different_targets - 1) / (self.env.unwrapped.herders.N - 1)
+        else:
+            ratio_different_targets = 0
 
         # Update cooperative metric using an exponential moving average
         self.cooperative_metric = (self.cooperative_metric +
