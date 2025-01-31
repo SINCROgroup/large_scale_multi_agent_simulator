@@ -59,6 +59,20 @@ class BrownianMotion(Populations):
         N = self.N
         self.id = self.config["id"]              # Population ID
 
+        #Load mu
+        self.mu = np.empty([self.N,len(self.params['mu'][0])])
+        i=0
+        for agent_mu in self.params['mu']:
+            self.mu[i,:] = agent_mu
+            i+=1
+        #Load D
+        self.D = np.empty([self.N,len(self.params['D'][0])])
+        i=0
+        for agent_D in self.params['D']:
+            self.D[i,:] = agent_D
+            i+=1
+
+
         self.f = np.zeros(self.x.shape)          # Initialization of the external forces
         self.u = np.zeros(self.x.shape)          # Initialization of the control input
 
@@ -72,7 +86,7 @@ class BrownianMotion(Populations):
                 Dirft of the population
 
         '''
-        drift = np.array([self.params['mu_x'].values,self.params['mu_y'].values]).T + self.f + self.u
+        drift = self.mu + self.f + self.u
         return drift
 
     def get_diffusion(self) -> np.array :
@@ -85,7 +99,7 @@ class BrownianMotion(Populations):
                 Diffusion of the population
 
         '''
-        return np.array([self.params['D_x'].values,self.params['D_y'].values]).T
+        return self.D
 
     def reset_state(self) -> None:
         '''
