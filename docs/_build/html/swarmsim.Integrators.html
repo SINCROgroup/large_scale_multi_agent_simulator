@@ -325,16 +325,24 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Abstract base class for an Integrator, which defines the basic structure for numerical integration.
 This class reads configuration parameters from a YAML file and requires derived classes to implement the <cite>step</cite> method.</p>
-<dl class="simple">
-<dt>Attributes:</dt><dd><p>dt (float): The timestep value for integration, loaded from the configuration file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator.dt">
+<span class="sig-name descname"><span class="pre">dt</span></span><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.dt" title="Link to this definition">#</a></dt>
+<dd><p>The timestep value for integration, loaded from the configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator.step">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.step" title="Link to this definition">#</a></dt>
 <dd><p>Abstract method to perform a single integration step.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>populations: A list of the populations for which the integration step is being performed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>populations</strong> – A list of the populations for which the integration step is being performed</p>
 </dd>
 </dl>
 <p>This method must be implemented by any subclass of Integrator.</p>
@@ -355,11 +363,10 @@ This class implements the <cite>step</cite> method to integrate the state of an 
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step">
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step" title="Link to this definition">#</a></dt>
 <dd><p>Performs a single integration step using the Euler-Maruyama method.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
-<dt>populations: List of populations for which the integration step is being performed.</dt><dd><p>Each population must have <cite>drift</cite> and <cite>diffusion</cite> methods.</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>populations</strong> – List of populations for which the integration step is being performed.
+Each population must have <cite>drift</cite> and <cite>diffusion</cite> methods.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -422,6 +429,7 @@ This class implements the <cite>step</cite> method to integrate the state of an 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">swarmsim.Integrators.base_integrator module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator.dt"><code class="docutils literal notranslate"><span class="pre">Integrator.dt</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
 </ul>
 </li>

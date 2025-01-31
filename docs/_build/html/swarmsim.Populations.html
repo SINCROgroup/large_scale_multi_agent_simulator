@@ -324,43 +324,110 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.brownian_motion.</span></span><span class="sig-name descname"><span class="pre">BrownianMotion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
 <p>A class that implements a biased Brownian motion with avreage speed mu and diffusion coefficient D.</p>
-<section id="parameters">
-<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>config_path : str (Path of the configuration file)</p>
-</div></blockquote>
-</section>
-<section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>x  : numpy array (num_agents x dim_state)   State of the agents row=agent, column=state variable 
-mu : numpy array (num_agents)               Average velocity along the axes
-N  : int                                    Number of agents in the population
-f  : numpy array (num_agents x dim_state)   External forces (interactions and environment)
-u  : numpy array (num_agents x dim_state)   Control input
-D  : numpy array (num_agents) :             Diffusion coefficient
-config : Dictionary                         Dictionary of parameters</p>
-</div></blockquote>
-</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<em>str</em>) – Path of the configuration file</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.x" title="Link to this definition">#</a></dt>
+<dd><p>State of the agents row=agent, column=state variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.mu">
+<span class="sig-name descname"><span class="pre">mu</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.mu" title="Link to this definition">#</a></dt>
+<dd><p>Average velocity along the axes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.N">
+<span class="sig-name descname"><span class="pre">N</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.N" title="Link to this definition">#</a></dt>
+<dd><p>Number of agents in the population</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.f">
+<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.f" title="Link to this definition">#</a></dt>
+<dd><p>External forces (interactions and environment)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.u">
+<span class="sig-name descname"><span class="pre">u</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.u" title="Link to this definition">#</a></dt>
+<dd><p>Control input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.D">
+<span class="sig-name descname"><span class="pre">D</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.D" title="Link to this definition">#</a></dt>
+<dd><p>Diffusion coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.config" title="Link to this definition">#</a></dt>
+<dd><p>Dictionary of parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="configuration-file-requirements">
 <h3>Configuration file requirements<a class="headerlink" href="#configuration-file-requirements" title="Link to this heading">#</a></h3>
 <blockquote>
-<div><ul class="simple">
-<li><p>x0_mode: str                  The mode in which the Initial conditions are generated. (“From file” or “Random”)</p></li>
-<li><p>x0_file_path: str             (If x0_mode == “From file”) Path of the .csv file where Initial conditions are stored</p></li>
-<li><p>N : int                       (If x0_mode == “Random”) Number of agents in the poulation</p></li>
-<li><p>state_dim : int               (If x0_mode == “Random”) Dimensions of the state</p></li>
-<li><p>D: python command             command to generate the diffusion coefficient</p></li>
-<li><p>mu: python command            Command to generate the Average velocities</p></li>
-<li><p>id: str                       Identifier of the population</p></li>
-</ul>
+<div><dl class="simple">
+<dt>x0_mode: str</dt><dd><p>The mode in which the Initial conditions are generated. (“From file” or “Random”)</p>
+</dd>
+<dt>x0_file_path: str</dt><dd><p>(If x0_mode == “From file”) Path of the .csv file where Initial conditions are stored</p>
+</dd>
+<dt>N<span class="classifier">int</span></dt><dd><p>(If x0_mode == “Random”) Number of agents in the poulation</p>
+</dd>
+<dt>state_dim<span class="classifier">int</span></dt><dd><p>(If x0_mode == “Random”) Dimensions of the state</p>
+</dd>
+<dt>D: python command</dt><dd><p>command to generate the diffusion coefficient</p>
+</dd>
+<dt>mu: python command</dt><dd><p>Command to generate the Average velocities</p>
+</dd>
+<dt>id: str</dt><dd><p>Identifier of the population</p>
+</dd>
+</dl>
 </div></blockquote>
-</section>
-<section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>For more details on how initial conditions can be generated see the method get_initial_conditions of the class Population</p>
-</div></blockquote>
+<p class="rubric">Notes</p>
+<p>For more details on how initial conditions can be generated see the method get_initial_conditions of the class Population</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion">
 <span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion" title="Link to this definition">#</a></dt>
@@ -368,7 +435,10 @@ config : Dictionary                         Dictionary of parameters</p>
 <section id="returns">
 <h4>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h4>
 <blockquote>
-<div><p>diffusion: numpy array (num_agents x dim_state)     Diffusion of the population</p>
+<div><dl class="simple">
+<dt>diffusion: numpy array (num_agents x dim_state)</dt><dd><p>Diffusion of the population</p>
+</dd>
+</dl>
 </div></blockquote>
 </section>
 </dd></dl>
@@ -380,7 +450,10 @@ config : Dictionary                         Dictionary of parameters</p>
 <section id="id1">
 <h4>Returns:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
 <blockquote>
-<div><p>drift: numpy array (num_agents x dim_state)         Dirft of the population</p>
+<div><dl class="simple">
+<dt>drift: numpy array (num_agents x dim_state)</dt><dd><p>Dirft of the population</p>
+</dd>
+</dl>
 </div></blockquote>
 </section>
 </dd></dl>
@@ -402,26 +475,37 @@ config : Dictionary                         Dictionary of parameters</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.double_integrators.</span></span><span class="sig-name descname"><span class="pre">DampedDoubleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
 <p>A class that implements (noisy) second order integrators</p>
-<section id="arguments">
-<h3>Arguments<a class="headerlink" href="#arguments" title="Link to this heading">#</a></h3>
-<p>x (Nx2D double matrix) : state of the agents row=agent, column=state variable
-N (double) : Number of agents in the population
-f (NxD double matrix) : External forces (interactions and environment)
-u (NxD double matrix) : Control input
-D (NxD double matrix) : Diffusion matrix
-damping (double) : Damping coefficient
-params (Dictionary) : Dictionary of parameters</p>
-</section>
-<section id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_drift(self,u):</dt><dd><p>Integrate the input forces</p>
-</dd>
-<dt>get_diffusion(self,u):</dt><dd><p>Brownian motion</p>
-</dd>
-<dt>reset_state(self):</dt><dd><p>Resets the state of the agent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong><strong>)</strong> (<em>D</em><em> (</em><em>NxD double</em>)</p></li>
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> (<em>damping</em>)</p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong></p></li>
+<li><p><strong>(</strong><strong>Dictionary</strong><strong>)</strong> (<em>params</em>)</p></li>
+</ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_drift(self,u):</span></span></dt>
+<dd><p>Integrate the input forces</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_diffusion(self,u):</span></span></dt>
+<dd><p>Brownian motion</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">reset_state(self):</span></span></dt>
+<dd><p>Resets the state of the agent.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion">
 <span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion" title="Link to this definition">#</a></dt>
@@ -437,7 +521,6 @@ params (Dictionary) : Dictionary of parameters</p>
 <span class="sig-name descname"><span class="pre">reset_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.reset_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.reset_state" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -448,26 +531,83 @@ params (Dictionary) : Dictionary of parameters</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.fixed_population.</span></span><span class="sig-name descname"><span class="pre">FixedPopulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
 <p>A class that implements a population that does not move.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<em>str</em><em> (</em><em>Path</em><em> of </em><em>the configuration file</em><em>)</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.x" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)   State of the agents row=agent, column = x,y coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.mu">
+<span class="sig-name descname"><span class="pre">mu</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.mu" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents)               Average velocity along the axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.N">
+<span class="sig-name descname"><span class="pre">N</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.N" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int                                    Number of agents in the population</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.f">
+<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.f" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)   External forces (interactions and environment)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.u">
+<span class="sig-name descname"><span class="pre">u</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.u" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents x dim_state)   Control input</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.D">
+<span class="sig-name descname"><span class="pre">D</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.D" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array (num_agents) :             Diffusion coefficient</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.config" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary                         Dictionary of parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="id2">
-<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>config_path : str (Path of the configuration file)</p>
-</div></blockquote>
-</section>
-<section id="id3">
-<h3>Attributes<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>x  : numpy array (num_agents x dim_state)   State of the agents row=agent, column = x,y coordinate 
-mu : numpy array (num_agents)               Average velocity along the axes
-N  : int                                    Number of agents in the population
-f  : numpy array (num_agents x dim_state)   External forces (interactions and environment)
-u  : numpy array (num_agents x dim_state)   Control input
-D  : numpy array (num_agents) :             Diffusion coefficient
-config : Dictionary                         Dictionary of parameters</p>
-</div></blockquote>
-</section>
-<section id="id4">
-<h3>Configuration file requirements<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<h3>Configuration file requirements<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>x0_mode: str                  The mode in which the Initial conditions are generated. (“From file” or “Random”)</p></li>
@@ -477,18 +617,14 @@ config : Dictionary                         Dictionary of parameters</p>
 <li><p>id: str                       Identifier of the population</p></li>
 </ul>
 </div></blockquote>
-</section>
-<section id="id5">
-<h3>Notes<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>For more details on how initial conditions can be generated see the method get_initial_conditions of the class Population</p>
-</div></blockquote>
+<p class="rubric">Notes</p>
+<p>For more details on how initial conditions can be generated see the method get_initial_conditions of the class Population</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion">
 <span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion" title="Link to this definition">#</a></dt>
 <dd><p>No stochasticity.</p>
-<section id="id6">
-<h4>Returns:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<section id="id3">
+<h4>Returns:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
 <blockquote>
 <div><p>diffusion: numpy array (num_agents x dim_state)     Diffusion of the population</p>
 </div></blockquote>
@@ -499,8 +635,8 @@ config : Dictionary                         Dictionary of parameters</p>
 <dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.get_drift">
 <span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_drift" title="Link to this definition">#</a></dt>
 <dd><p>No movement on average.</p>
-<section id="id7">
-<h4>Returns:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<section id="id4">
+<h4>Returns:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
 <blockquote>
 <div><p>drift: numpy array (num_agents x dim_state)         Dirft of the population</p>
 </div></blockquote>
@@ -538,33 +674,78 @@ config : Dictionary                         Dictionary of parameters</p>
 <dt class="sig sig-object py" id="swarmsim.Populations.populations.Populations.get_initial_conditions">
 <span class="sig-name descname"><span class="pre">get_initial_conditions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/swarmsim/Populations/populations.html#Populations.get_initial_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.populations.Populations.get_initial_conditions" title="Link to this definition">#</a></dt>
 <dd><p>A function that loads the initial conditions for the population.</p>
-<section id="id8">
-<h3>Parameters<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>config_path: str (Absolute path of the configuration path)</p>
-</section>
-<section id="id9">
-<h3>Returns<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>x0: numpy array (num_agents x dim_state) Initial conditions of the population</p>
-</section>
-<section id="id10">
-<h3>Notes<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.
-To load correctly the initial conditions the following parameter is required:
-- x0_mode: str (The mode in which the Initial conditions are generated).     
-Supported modes are “From File” (load the initial conditions from a .csv file, where rows are states of different agents and columns are different states of the same agent) and “Random” where the initial conditions are randomly selected.
-If the mode selected is “From File”, in the yaml file it is required:
-- x0_file_path: str (Absolute path of the csv file)
-Instead, if the choicie is “Random”, the configuration file needs:
-- N : int Number of agents in the poulation
-- state_dim : int Dimensions of the state
-Note that in the “random methods” only the first env_dim states are drawn at random, the others are set to 0. Env dim is the dimension of the environment specified in the environment namespace of the configuration file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x0</strong> – Initial conditions of the population</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.array (num_agents x dim_state)</p>
+</dd>
+</dl>
+<section id="configuration-requirements">
+<h3>Configuration Requirements<a class="headerlink" href="#configuration-requirements" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>x0_mode: str</dt><dd><p>The mode in which the Initial conditions are generated. Supported modes are “From File” (load the initial conditions from a .csv file, where rows are states of different agents and columns are different states of the same agent) and “Random” where the initial conditions are randomly selected.</p>
+</dd>
+</dl>
+<p>If the mode selected is “From File”, in the yaml file it is required</p>
+<dl class="simple">
+<dt>x0_file_path: str</dt><dd><p>Absolute path of the csv file</p>
+</dd>
+</dl>
+<p>Instead, if the choicie is “Random”, the configuration file needs</p>
+<dl class="simple">
+<dt>N<span class="classifier">int</span></dt><dd><p>Number of agents in the poulation</p>
+</dd>
+<dt>state_dim<span class="classifier">int</span></dt><dd><p>Dimensions of the state</p>
+</dd>
+<dt>x0_limits<span class="classifier">list (state_dim x 2)</span></dt><dd><p>Limits for the uniform distribution from which each state is drawn. Note that if limits dimensions is lower than state_dim, the other states will be set to 0</p>
+</dd>
+</dl>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<p>In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.</p>
 </section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.populations.Populations.get_parameters">
-<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/populations.html#Populations.get_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.populations.Populations.get_parameters" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/swarmsim/Populations/populations.html#Populations.get_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.populations.Populations.get_parameters" title="Link to this definition">#</a></dt>
+<dd><p>A function that initializes the parameters of the population.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> – Parameters of the populations</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame (num_agents x param_names)</p>
+</dd>
+</dl>
+<section id="id5">
+<h3>Configuration Requirements<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>params_mode: str</dt><dd><p>The mode in which the Initial conditions are generated. Supported modes are “From File” (load the initial conditions from a .csv file, where rows are states of different agents and columns are different parameters of the same agent) and “Random” where the initial conditions are randomly selected.
+Note that in From File if the number of agents does not meet N (the rows in the file &lt; N) the remaining parameters are drawn randomly from the ones in the file</p>
+</dd>
+</dl>
+<p>If the mode selected is “From File”, in the yaml file it is required</p>
+<dl class="simple">
+<dt>params_file_path: str</dt><dd><p>Absolute path of the .csv file</p>
+</dd>
+</dl>
+<p>Instead, if the choicie is “Random”, the configuration file needs</p>
+<dl class="simple">
+<dt>params_names<span class="classifier">list (params_number)</span></dt><dd><p>Dimensions of the state</p>
+</dd>
+<dt>params_limits<span class="classifier">list (params_number x 2)</span></dt><dd><p>Limits for the uniform distribution from which each parameter is drawn.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<p>In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.</p>
+</section>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.populations.Populations.reset_state">
@@ -581,25 +762,36 @@ Note that in the “random methods” only the first env_dim states are drawn at
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.simple_integrators.</span></span><span class="sig-name descname"><span class="pre">SimpleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
 <p>A class that implements (noisy) first order integrators</p>
-<section id="id11">
-<h3>Arguments<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>x (NxD double matrix) : state of the agents row=agent, column=state variable
-N (double) : Number of agents in the population
-f (NxD double matrix) : External forces (interactions and environment)
-u (NxD double matrix) : Control input
-D (NxD double matrix) : Diffusion matrix
-config (Dictionary) : Dictionary of parameters</p>
-</section>
-<section id="id12">
-<h3>Methods<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_drift(self,u):</dt><dd><p>Integrate the input forces</p>
-</dd>
-<dt>get_diffusion(self,u):</dt><dd><p>Brownian motion</p>
-</dd>
-<dt>reset_state(self):</dt><dd><p>Resets the state of the agent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong><strong>)</strong> (<em>D</em><em> (</em><em>NxD double</em>)</p></li>
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> (<em>N</em>)</p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>matrix</strong><strong>)</strong></p></li>
+<li><p><strong>(</strong><strong>Dictionary</strong><strong>)</strong> (<em>config</em>)</p></li>
+</ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_drift(self,u):</span></span></dt>
+<dd><p>Integrate the input forces</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_diffusion(self,u):</span></span></dt>
+<dd><p>Brownian motion</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">reset_state(self):</span></span></dt>
+<dd><p>Resets the state of the agent.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion">
 <span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion" title="Link to this definition">#</a></dt>
@@ -615,7 +807,6 @@ config (Dictionary) : Dictionary of parameters</p>
 <span class="sig-name descname"><span class="pre">reset_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators.reset_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.reset_state" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -674,6 +865,13 @@ config (Dictionary) : Dictionary of parameters</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.brownian_motion">swarmsim.Populations.brownian_motion module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion"><code class="docutils literal notranslate"><span class="pre">BrownianMotion</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.x"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.mu"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.mu</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.N"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.N</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.f"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.f</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.u"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.u</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.D"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.D</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.config"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.config</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.get_diffusion()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_drift"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.reset_state"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.reset_state()</span></code></a></li>
@@ -692,6 +890,13 @@ config (Dictionary) : Dictionary of parameters</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.fixed_population">swarmsim.Populations.fixed_population module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation"><code class="docutils literal notranslate"><span class="pre">FixedPopulation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.x"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.mu"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.mu</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.N"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.N</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.f"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.f</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.u"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.u</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.D"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.D</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.config"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.config</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.get_diffusion()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_drift"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.reset_state"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.reset_state()</span></code></a></li>

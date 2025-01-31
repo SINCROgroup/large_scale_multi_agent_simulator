@@ -4,15 +4,19 @@
 BrownianMotion:
   N: 50
   state_dim: 2
-  limits : [[-25, 25],[-25,25]]
+  x0_limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
-  mu: '0'
-  D: '0.1'
+  params_mode: Random
+  params_names: ["mu_x","mu_y","D_x","D_y"]
+  params_limits: {mu_x: [0.1,2], mu_y: [0.1,2], D_x: [0,1], D_y: [0,1]}
   id: 'Targets'
 
 SimpleIntegrators:
   N: 20
-  limits : [[-25, 25],[-25,25]]
+  x0_limits : [[-25, 25],[-25,25]]
+  params_mode: Random
+  params_names: ["D_x","D_y"]
+  params_limits: {D_x: [0,0], D_y: [0,0]}
   state_dim: 2
   x0_mode: Random
   id: 'Herders'

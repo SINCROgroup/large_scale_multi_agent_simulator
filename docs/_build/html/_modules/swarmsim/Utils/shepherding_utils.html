@@ -298,8 +298,7 @@
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.xi_shepherding">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">xi_shepherding</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">environment</span><span class="p">):</span>
     <span class="n">target_radii</span> <span class="o">=</span> <span class="n">get_target_distance</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
-    <span class="n">goal_region_radius</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">goal_radius</span>
-    <span class="n">n_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">target_radii</span> <span class="o">&lt;</span> <span class="n">goal_region_radius</span><span class="p">)</span>
+    <span class="n">n_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">target_radii</span> <span class="o">&lt;</span> <span class="n">environment</span><span class="o">.</span><span class="n">goal_radius</span><span class="p">)</span>
     <span class="n">xi</span> <span class="o">=</span> <span class="n">n_in</span><span class="o">/</span><span class="n">targets</span><span class="o">.</span><span class="n">N</span>
     <span class="k">return</span> <span class="n">xi</span></div>
 
@@ -307,9 +306,10 @@
 
 <div class="viewcode-block" id="get_done_shepherding">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_done_shepherding">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_done_shepherding</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">):</span>
-    <span class="n">xi</span> <span class="o">=</span> <span class="n">xi_shepherding</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">xi</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_done_shepherding</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">xi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">xi</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">xi</span> <span class="o">=</span> <span class="n">xi_shepherding</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">xi</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span></div>

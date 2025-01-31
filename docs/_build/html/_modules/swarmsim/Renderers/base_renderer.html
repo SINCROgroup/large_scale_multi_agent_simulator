@@ -433,7 +433,15 @@
 
         <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_dt</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">!=</span> <span class="s2">&quot;rgb_array&quot;</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surfarray</span><span class="o">.</span><span class="n">array3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span>
+                                 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Convert from (width, height, channels) to (height, width, channels)</span>
+            <span class="k">return</span> <span class="n">frame</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span>
 
 <div class="viewcode-block" id="BaseRenderer.pre_render_hook_matplotlib">
 <a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.pre_render_hook_matplotlib">[docs]</a>

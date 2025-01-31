@@ -324,28 +324,26 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.harmonic_repulsion.</span></span><span class="sig-name descname"><span class="pre">HarmonicRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pop1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
 <p>A class that implements a finite range harmonic repulsion</p>
-<section id="arguments">
-<h3>Arguments<a class="headerlink" href="#arguments" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>strength (double):</dt><dd><p>max intensity of the repulsion force</p>
-</dd>
-<dt>max_distance (double):</dt><dd><p>max distance at which the interaction takes place</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> (<em>max_distance</em>) – max intensity of the repulsion force</p></li>
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> – max distance at which the interaction takes place</p></li>
+</ul>
 </dd>
 </dl>
-</section>
-<section id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_interaction(self):</dt><dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_interaction(self):</span></span></dt>
+<dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
 population 1 and D is the dimension of the state space of the agents of population 1</p>
-</dd>
-</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction">
 <span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -356,19 +354,18 @@ population 1 and D is the dimension of the state space of the agents of populati
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.interaction.</span></span><span class="sig-name descname"><span class="pre">Interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pop1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>An interface that defines all the methods that an interaction between populations should implement</p>
-<section id="id1">
-<h3>Methods<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_interaction(self):</dt><dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_interaction(self):</span></span></dt>
+<dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
 population 1 and D is the dimension of the state space of the agents of population 1</p>
-</dd>
-</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction.get_interaction">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction.get_interaction" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -379,30 +376,27 @@ population 1 and D is the dimension of the state space of the agents of populati
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.power_law_repulsion.</span></span><span class="sig-name descname"><span class="pre">PowerLawRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pop1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repulsion_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
 <p>A class that implements a shifted and truncated power law repulsion</p>
-<section id="id2">
-<h3>Arguments<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>strength (double):</dt><dd><p>max intensity of the repulsion force</p>
-</dd>
-<dt>max_distance (double):</dt><dd><p>max distance at which the interaction takes place</p>
-</dd>
-<dt>p (int):</dt><dd><p>exponent of the power law repulsion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> (<em>max_distance</em>) – max intensity of the repulsion force</p></li>
+<li><p><strong>(</strong><strong>double</strong><strong>)</strong> – max distance at which the interaction takes place</p></li>
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>p</em>) – exponent of the power law repulsion</p></li>
+</ul>
 </dd>
 </dl>
-</section>
-<section id="id3">
-<h3>Methods<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_interaction(self):</dt><dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_interaction(self):</span></span></dt>
+<dd><p>Returns a vector (N1,D) that describes how herders influences the dynamics of population 1. N1 is the number of agents of
 population 1 and D is the dimension of the state space of the agents of population 1</p>
-</dd>
-</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction">
 <span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

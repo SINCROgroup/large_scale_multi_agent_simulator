@@ -295,27 +295,42 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -------</span>
-<span class="sd">        config_path : str (Path of the configuration file)  </span>
+<span class="sd">        config_path : str </span>
+<span class="sd">            Path of the configuration file  </span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    -------</span>
-<span class="sd">        x  : numpy array (num_agents x dim_state)   State of the agents row=agent, column=state variable </span>
-<span class="sd">        mu : numpy array (num_agents)               Average velocity along the axes</span>
-<span class="sd">        N  : int                                    Number of agents in the population</span>
-<span class="sd">        f  : numpy array (num_agents x dim_state)   External forces (interactions and environment)</span>
-<span class="sd">        u  : numpy array (num_agents x dim_state)   Control input</span>
-<span class="sd">        D  : numpy array (num_agents) :             Diffusion coefficient</span>
-<span class="sd">        config : Dictionary                         Dictionary of parameters</span>
+<span class="sd">        x  : numpy array (num_agents x dim_state)   </span>
+<span class="sd">            State of the agents row=agent, column=state variable </span>
+<span class="sd">        mu : numpy array (num_agents)               </span>
+<span class="sd">            Average velocity along the axes</span>
+<span class="sd">        N  : int                                    </span>
+<span class="sd">            Number of agents in the population</span>
+<span class="sd">        f  : numpy array (num_agents x dim_state)   </span>
+<span class="sd">            External forces (interactions and environment)</span>
+<span class="sd">        u  : numpy array (num_agents x dim_state)   </span>
+<span class="sd">            Control input</span>
+<span class="sd">        D  : numpy array (num_agents)</span>
+<span class="sd">            Diffusion coefficient</span>
+<span class="sd">        config : Dictionary</span>
+<span class="sd">            Dictionary of parameters</span>
 
 <span class="sd">    Configuration file requirements</span>
 <span class="sd">    ------</span>
-<span class="sd">        - x0_mode: str                  The mode in which the Initial conditions are generated. (&quot;From file&quot; or &quot;Random&quot;)   </span>
-<span class="sd">        - x0_file_path: str             (If x0_mode == &quot;From file&quot;) Path of the .csv file where Initial conditions are stored</span>
-<span class="sd">        - N : int                       (If x0_mode == &quot;Random&quot;) Number of agents in the poulation</span>
-<span class="sd">        - state_dim : int               (If x0_mode == &quot;Random&quot;) Dimensions of the state</span>
-<span class="sd">        - D: python command             command to generate the diffusion coefficient </span>
-<span class="sd">        - mu: python command            Command to generate the Average velocities</span>
-<span class="sd">        - id: str                       Identifier of the population</span>
+<span class="sd">        x0_mode: str                  </span>
+<span class="sd">            The mode in which the Initial conditions are generated. (&quot;From file&quot; or &quot;Random&quot;)   </span>
+<span class="sd">        x0_file_path: str             </span>
+<span class="sd">            (If x0_mode == &quot;From file&quot;) Path of the .csv file where Initial conditions are stored</span>
+<span class="sd">        N : int                       </span>
+<span class="sd">            (If x0_mode == &quot;Random&quot;) Number of agents in the poulation</span>
+<span class="sd">        state_dim : int               </span>
+<span class="sd">            (If x0_mode == &quot;Random&quot;) Dimensions of the state</span>
+<span class="sd">        D: python command             </span>
+<span class="sd">            command to generate the diffusion coefficient </span>
+<span class="sd">        mu: python command            </span>
+<span class="sd">            Command to generate the Average velocities</span>
+<span class="sd">        id: str                       </span>
+<span class="sd">            Identifier of the population</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    ------</span>
@@ -328,9 +343,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
         
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">])</span>    <span class="c1"># Average velocity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">])</span>      <span class="c1"># Diffusion coefficient</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>  <span class="c1"># Population ID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>              <span class="c1"># Population ID</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>          <span class="c1"># Initialization of the external forces</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>          <span class="c1"># Initialization of the control input</span>
@@ -343,10 +356,11 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">        ------</span>
-<span class="sd">            drift: numpy array (num_agents x dim_state)         Dirft of the population</span>
+<span class="sd">            drift: numpy array (num_agents x dim_state)         </span>
+<span class="sd">                Dirft of the population</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">drift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span>
+        <span class="n">drift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">])</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span>
         <span class="k">return</span> <span class="n">drift</span></div>
 
 
@@ -358,10 +372,11 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">        ------</span>
-<span class="sd">            diffusion: numpy array (num_agents x dim_state)     Diffusion of the population</span>
+<span class="sd">            diffusion: numpy array (num_agents x dim_state)</span>
+<span class="sd">                Diffusion of the population</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D_x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D_y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">])</span><span class="o">.</span><span class="n">T</span></div>
 
 
 <div class="viewcode-block" id="BrownianMotion.reset_state">
