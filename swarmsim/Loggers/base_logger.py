@@ -32,6 +32,7 @@ class BaseLogger(Logger):
         - name: str                                     Name of the logger, appended to the date to name output files
         - log_name_csv: str                             Name of the .csv machine-readable file
         - log_name_txt: str                             Name of the .txt human-readable file
+        - log_name_npz: str                             Name of the .npz file to store tensors
         - start: time object                            Starting time of the simulation
         - end: time object                              Final time of the simulation
         - step_count: int                               Step counter to track time
@@ -75,6 +76,7 @@ class BaseLogger(Logger):
         #  Initialize variables
         self.log_name_csv = self.log_path + '/' + self.name + '.csv'
         self.log_name_txt = self.log_path + '/' + self.name + '.txt'
+        self.log_name_npz = self.log_path + '/' + self.name + '.npz'
         self.start = None  # Time start
         self.end = None  # Time end
         self.step_count = None  # Count steps for frequency check and logging
@@ -169,7 +171,7 @@ class BaseLogger(Logger):
 
         '''
         for key, value in self.current_info.items():
-            print(f"{key}: {value}; ")
+            print(f"{key}: {value};", end=" ")
         print('\n')
         return self.activate
 
@@ -229,3 +231,36 @@ class BaseLogger(Logger):
                            '\nComments: ' + comment + '\n')
 
         return self.activate
+
+    def save_data(self, data: dict) -> None:
+
+        '''
+        A function to save multiple tensors in a single .npz file to store relevant data.
+
+        Parameters
+        ----------
+            data: dict of {name_tensor: value} where name_tensor is a string and value is np.array
+
+        Returns
+        -------
+            None
+
+        Notes
+        -------
+        Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.
+
+        Examples
+        -------
+        settling_times = np.array([1,2,3,4,5])
+        control_efforts = np.array([6,7,8,9,10])
+        data = {'settling_time':settling_times, 'control_efforts':control_efforts}
+        logger.save_data(data)
+
+        data_loaded = np.load(name_data)
+        settling_times_ = data_loaded['settling_times']
+        control_efforts_  = data_loaded['control_efforts']
+
+        '''
+
+        for key, value in data.items():
+            np.savez(self.log_name_npz, **{key: value})
