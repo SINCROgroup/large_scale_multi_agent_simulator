@@ -215,7 +215,7 @@ class MultiAgentRL(Wrapper):
             elif self.low_level_policy == "DQN":
                 # Compute positions for DQN-based movement policy
                 target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
-                                   :2] - self.env.unwrapped.environment.goal_pos
+                                   :] - self.env.unwrapped.environment.goal_pos
                 herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos
 
                 # Stack positions into a single batch input
