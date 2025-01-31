@@ -140,8 +140,22 @@ class Populations(ABC):
                 params_names = self.config.get("params_names",[])                                       # Get parameter names
                 params_limits = self.config.get("params_limits",[])                                     # Get parameter limits
                 params = pd.DataFrame()                                                                 # Init
-                for par_name in params_names:                                                           # Set random parameters values for every parameter
-                    params[par_name] = np.random.uniform(params_limits[par_name][0],params_limits[par_name][1],self.N)
+                for par_name in params_names: 
+                    #Understanding if the parameter is mono or multi dimensional
+                    par_dim = params_limits[par_name][0]
+                    if type(par_dim) == float or type(par_dim) == int:
+                        par_dim=1
+                    else:
+                        par_dim = len(params_limits[par_name][0])
+                    
+                    #Setting random parameters
+                    if par_dim>1:
+                        par_values=np.empty([self.N,par_dim]) 
+                        for i in range(0,par_dim):
+                            par_values[:,i] =  np.random.uniform(params_limits[par_name][i][0],params_limits[par_name][i][1],self.N)                                                               # Set random parameters values for every parameter
+                        params[par_name] = list(par_values)
+                    else:
+                        params[par_name] = np.random.uniform(params_limits[par_name][0],params_limits[par_name][1],self.N)
             case _ :
                 raise RuntimeError("Invalid Initialization type, please check the YAML config file")
 

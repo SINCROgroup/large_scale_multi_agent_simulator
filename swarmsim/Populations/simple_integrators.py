@@ -29,11 +29,14 @@ class SimpleIntegrators(Populations):
     def __init__(self, config_path) -> None:
         super().__init__(config_path)
 
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
-        self.config = config.get('SimpleIntegrators', {})
         self.id = self.config.get('id', "Targets")  # Population ID
+        
+        #Load D
+        self.D = np.empty([self.N,len(self.params['D'][0])])
+        i=0
+        for agent_D in self.params['D']:
+            self.D[i,:] = agent_D
+            i+=1
 
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
@@ -42,7 +45,7 @@ class SimpleIntegrators(Populations):
         return self.u + self.f
 
     def get_diffusion(self):
-        return np.array([self.params['D_x'].values,self.params['D_y'].values]).T
+        return self.D
 
     def reset_state(self):
         N = self.N

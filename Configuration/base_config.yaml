@@ -8,8 +8,8 @@ BrownianMotion:
   x0_mode: Random
   x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv 
   params_mode: Random
-  params_names: ["mu_x","mu_y","D_x","D_y"]
-  params_limits: {mu_x: [0.1,2], mu_y: [0.1,2], D_x: [0,1], D_y: [0,1]}
+  params_names: ["mu","D"]
+  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
   id: 'BrownianMotion'
 
 FixedPopulation:
