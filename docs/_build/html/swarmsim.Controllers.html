@@ -324,17 +324,18 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.base_controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>An interface that defines all the methods that a controller should implement
-Arguments
-——-
-population : The controlled population
-environment : The environment
-other_populations : A list of other populations</p>
-<section id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_action(self):</dt><dd><p>Returns the control action for the agents</p>
-</dd>
-</dl>
+:param population:
+:type population: The controlled population
+:param environment:
+:type environment: The environment
+:param other_populations:
+:type other_populations: A list of other populations</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_action(self):</span></span></dt>
+<dd><p>Returns the control action for the agents</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.get_action">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action" title="Link to this definition">#</a></dt>
@@ -342,7 +343,6 @@ other_populations : A list of other populations</p>
 This is the method you need to override to implement your control action</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -353,17 +353,18 @@ This is the method you need to override to implement your control action</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.shepherding_lama_controller.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLamaController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Implementation of the herders control law from [Lama and di Bernardo, 2024]
-Arguments
-——-
-population : The controlled population
-environment : The environment
-other_populations : A list of other populations</p>
-<section id="id1">
-<h3>Methods<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>get_action(self):</dt><dd><p>Returns the control action for the herders</p>
-</dd>
-</dl>
+:param population:
+:type population: The controlled population
+:param environment:
+:type environment: The environment
+:param other_populations:
+:type other_populations: A list of other populations</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_action(self):</span></span></dt>
+<dd><p>Returns the control action for the herders</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action">
 <span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action" title="Link to this definition">#</a></dt>
@@ -371,7 +372,6 @@ other_populations : A list of other populations</p>
 This is the method you need to override to implement your control action</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -382,28 +382,35 @@ This is the method you need to override to implement your control action</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">GaussianRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>This class implements a radial repulsion force whose intensity goes like a gaussion Gaussian repulsion</p>
-<p>Arguments
-—
-disc_pts (int): Number of points of the discretization grid for the Gaussian input 
-strength (float): Max intensity of the force</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>disc_pts</em>)</p></li>
+<li><p><strong>(</strong><strong>float</strong><strong>)</strong> (<em>strength</em>)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion.gaussian_input">
 <span class="sig-name descname"><span class="pre">gaussian_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.gaussian_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.gaussian_input" title="Link to this definition">#</a></dt>
 <dd><p>This method, given the parametes of a Gaussin and some points where to evaluate the function,
 computes a 2D Gaussian distribution. Assumption: the covariance matrix is diagonal
-Arguments
-—
-A (float):      Maximum amplitude of the signal
-mu_x(float):    Average on the first dimension
-mu_y(float):    Average on the second dimension
-sigma_x(float): Standard deviation in the first dimension
-sigma_y(float): Standard deviation in the second dimension</p>
+:param A (float):
+:type A (float): Maximum amplitude of the signal
+:param mu_x(float):
+:type mu_x(float): Average on the first dimension
+:param mu_y(float):
+:type mu_y(float): Average on the second dimension
+:param sigma_x(float):
+:type sigma_x(float): Standard deviation in the first dimension
+:param sigma_y(float):
+:type sigma_y(float): Standard deviation in the second dimension</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action">
 <span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action" title="Link to this definition">#</a></dt>
-<dd><p>This method computes a radial repulsion force from the origin, whose intensity is scaled using 
+<dd><p>This method computes a radial repulsion force from the origin, whose intensity is scaled using
 a Gaussian distribution in a 2D space</p>
 </dd></dl>
 

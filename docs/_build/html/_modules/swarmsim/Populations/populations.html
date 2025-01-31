@@ -301,11 +301,15 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_path</span> <span class="o">=</span> <span class="n">config_path</span>
         <span class="c1"># Load the YAML configuration file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="kc">None</span>                                                   <span class="c1"># N and state_dim are ste in get_initial_conditions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
         <span class="n">Class_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>                                <span class="c1"># Getting the name of the class</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Class_name</span><span class="p">,</span> <span class="p">{})</span>                        <span class="c1"># Loading the parameters of the population</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_initial_conditions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Class_name</span><span class="p">,</span> <span class="p">{})</span>                        <span class="c1"># Loading the configuration of the population</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_initial_conditions</span><span class="p">()</span>                          <span class="c1"># Loading Initial conditions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>                             <span class="c1"># Loading parameters</span>
 
 
     <span class="c1"># This method</span>
@@ -336,27 +340,36 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        A function that loads the initial conditions for the population. </span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        -------</span>
-<span class="sd">        config_path: str (Absolute path of the configuration path)</span>
-
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        x0: numpy array (num_agents x dim_state) Initial conditions of the population</span>
+<span class="sd">            x0: numpy.array (num_agents x dim_state)</span>
+<span class="sd">                Initial conditions of the population</span>
 
+<span class="sd">        Configuration Requirements</span>
+<span class="sd">        -------</span>
+<span class="sd">        </span>
+<span class="sd">            x0_mode: str</span>
+<span class="sd">                The mode in which the Initial conditions are generated. Supported modes are &quot;From File&quot; (load the initial conditions from a .csv file, where rows are states of different agents and columns are different states of the same agent) and &quot;Random&quot; where the initial conditions are randomly selected.</span>
+<span class="sd">            </span>
+<span class="sd">            If the mode selected is &quot;From File&quot;, in the yaml file it is required</span>
+
+<span class="sd">            x0_file_path: str </span>
+<span class="sd">                Absolute path of the csv file</span>
+<span class="sd">            </span>
+<span class="sd">            Instead, if the choicie is &quot;Random&quot;, the configuration file needs</span>
+
+<span class="sd">            N : int</span>
+<span class="sd">                Number of agents in the poulation</span>
+<span class="sd">            state_dim : int </span>
+<span class="sd">                Dimensions of the state</span>
+<span class="sd">            x0_limits : list (state_dim x 2)</span>
+<span class="sd">                Limits for the uniform distribution from which each state is drawn. Note that if limits dimensions is lower than state_dim, the other states will be set to 0</span>
+<span class="sd">        </span>
 <span class="sd">        Notes</span>
 <span class="sd">        -------</span>
-<span class="sd">        In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.</span>
-<span class="sd">        To load correctly the initial conditions the following parameter is required:</span>
-<span class="sd">        - x0_mode: str (The mode in which the Initial conditions are generated).     </span>
-<span class="sd">        Supported modes are &quot;From File&quot; (load the initial conditions from a .csv file, where rows are states of different agents and columns are different states of the same agent) and &quot;Random&quot; where the initial conditions are randomly selected.</span>
-<span class="sd">        If the mode selected is &quot;From File&quot;, in the yaml file it is required:</span>
-<span class="sd">        - x0_file_path: str (Absolute path of the csv file)</span>
-<span class="sd">        Instead, if the choicie is &quot;Random&quot;, the configuration file needs:</span>
-<span class="sd">        - N : int Number of agents in the poulation</span>
-<span class="sd">        - state_dim : int Dimensions of the state</span>
-<span class="sd">        Note that in the &quot;random methods&quot; only the first env_dim states are drawn at random, the others are set to 0. Env dim is the dimension of the environment specified in the environment namespace of the configuration file</span>
 <span class="sd">        </span>
+<span class="sd">            In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.</span>
+
 <span class="sd">        &#39;&#39;&#39;</span>
         
         <span class="n">x0_load_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x0_mode&#39;</span><span class="p">,</span><span class="s2">&quot;Random&quot;</span><span class="p">)</span>
@@ -367,7 +380,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                                               <span class="c1"># Getting the Number of Agents</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                                                       <span class="c1"># Getting the state dimension of the agent</span>
             <span class="k">case</span> <span class="s2">&quot;Random&quot;</span><span class="p">:</span>
-                <span class="n">limits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;limits&quot;</span><span class="p">,[]))</span>                                                  <span class="c1"># Get the environment parameters</span>
+                <span class="n">limits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;x0_limits&quot;</span><span class="p">,[]))</span>                                                  <span class="c1"># Get the environment parameters</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>                                                           <span class="c1"># Get the number of Agents</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;state_dim&quot;</span><span class="p">)</span>                                           <span class="c1"># Get the state dimension</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">])</span>                                             <span class="c1"># Initialize the vector of the initial conditions</span>
@@ -380,21 +393,55 @@
     
 <div class="viewcode-block" id="Populations.get_parameters">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.populations.Populations.get_parameters">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        A function that initializes the parameters of the population. </span>
 
-        <span class="n">param_load_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pars_mode&quot;</span><span class="p">,</span><span class="s2">&quot;Random&quot;</span><span class="p">)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            params: pandas.DataFrame (num_agents x param_names)</span>
+<span class="sd">                Parameters of the populations</span>
+
+<span class="sd">        Configuration Requirements</span>
+<span class="sd">        -------</span>
+<span class="sd">        </span>
+<span class="sd">            params_mode: str</span>
+<span class="sd">                The mode in which the Initial conditions are generated. Supported modes are &quot;From File&quot; (load the initial conditions from a .csv file, where rows are states of different agents and columns are different parameters of the same agent) and &quot;Random&quot; where the initial conditions are randomly selected.</span>
+<span class="sd">                Note that in From File if the number of agents does not meet N (the rows in the file &lt; N) the remaining parameters are drawn randomly from the ones in the file</span>
+<span class="sd">            </span>
+<span class="sd">            If the mode selected is &quot;From File&quot;, in the yaml file it is required</span>
+
+<span class="sd">            params_file_path: str </span>
+<span class="sd">                Absolute path of the .csv file</span>
+<span class="sd">            </span>
+<span class="sd">            Instead, if the choicie is &quot;Random&quot;, the configuration file needs</span>
+
+<span class="sd">            params_names : list (params_number) </span>
+<span class="sd">                Dimensions of the state</span>
+<span class="sd">            params_limits : list (params_number x 2)</span>
+<span class="sd">                Limits for the uniform distribution from which each parameter is drawn. </span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -------</span>
+<span class="sd">            In the configuration file (a yaml file) there should be a namespace with the name of the population you are creating.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">param_load_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params_mode&quot;</span><span class="p">,</span><span class="s2">&quot;Random&quot;</span><span class="p">)</span>
         <span class="k">match</span> <span class="n">param_load_type</span><span class="p">:</span>
             <span class="k">case</span> <span class="s2">&quot;From_File&quot;</span><span class="p">:</span>
-                <span class="n">params_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;x0_path&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>                                             <span class="c1"># Retrieving the file name</span>
-                <span class="n">params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">params_path</span><span class="p">)</span>                                                  <span class="c1"># Reading the parameters</span>
+                <span class="n">params_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params_path&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>                                         <span class="c1"># Retrieving the file name</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">params_path</span><span class="p">)</span>                                                       <span class="c1"># Reading the parameters</span>
+                <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">:</span>
+                    <span class="n">repeated_pars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">params</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">-</span><span class="n">params</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1"># Select randomly N - rows_present_in_file Parameters from the ones in the file</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">params</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">(</span><span class="n">repeated_pars</span><span class="p">)],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                   <span class="c1"># Add the new parameters</span>
+
             <span class="k">case</span> <span class="s2">&quot;Random&quot;</span><span class="p">:</span>
-                <span class="n">env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;environment&quot;</span><span class="p">,{})</span>                                                      <span class="c1"># Get the environment parameters</span>
-                <span class="n">env_dimension</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dimensions&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>                                                   <span class="c1"># Get the environment Dimensions</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>                                                           <span class="c1"># Get the number of Agents</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;state_dim&quot;</span><span class="p">)</span>                                           <span class="c1"># Get the state dimension</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">])</span>                                             <span class="c1"># Initialize the vector of the initial conditions</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">env_dimension</span><span class="p">)):</span>                                                   <span class="c1"># For every dimension</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">x0</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">env_dimension</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">env_dimension</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>     <span class="c1"># Generate uniformly distributed points in the domain</span>
+                <span class="n">params_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params_names&quot;</span><span class="p">,[])</span>                                       <span class="c1"># Get parameter names</span>
+                <span class="n">params_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params_limits&quot;</span><span class="p">,[])</span>                                     <span class="c1"># Get parameter limits</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>                                                                 <span class="c1"># Init</span>
+                <span class="k">for</span> <span class="n">par_name</span> <span class="ow">in</span> <span class="n">params_names</span><span class="p">:</span>                                                           <span class="c1"># Set random parameters values for every parameter</span>
+                    <span class="n">params</span><span class="p">[</span><span class="n">par_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">params_limits</span><span class="p">[</span><span class="n">par_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">params_limits</span><span class="p">[</span><span class="n">par_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
             <span class="k">case</span><span class="w"> </span><span class="k">_</span> <span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Invalid Initialization type, please check the YAML config file&quot;</span><span class="p">)</span>
 

@@ -33,9 +33,7 @@ class SimpleIntegrators(Populations):
         with open(config_path, "r") as file:
             config = yaml.safe_load(file)
         self.config = config.get('SimpleIntegrators', {})
-
         self.id = self.config.get('id', "Targets")  # Population ID
-        self.D = self.config.get('D', 0)  # Diffusion coefficient
 
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
@@ -44,7 +42,7 @@ class SimpleIntegrators(Populations):
         return self.u + self.f
 
     def get_diffusion(self):
-        return self.D
+        return np.array([self.params['D_x'].values,self.params['D_y'].values]).T
 
     def reset_state(self):
         N = self.N
