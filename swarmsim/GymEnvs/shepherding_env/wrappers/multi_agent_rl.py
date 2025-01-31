@@ -7,7 +7,7 @@ import yaml
 
 # Import your neural network
 from swarmsim.Utils.ActorCritic import ActorCritic
-from swarmsim.Utils.DQN_Agent import DeepQNetwork, get_discrete_action
+from swarmsim.Utils.DQN_Agent import DeepQNetwork_LL, get_discrete_action
 
 
 class MultiAgentRL(Wrapper):
@@ -145,7 +145,7 @@ class MultiAgentRL(Wrapper):
             self.model = ActorCritic()
         else:
             action_max = gym_config["action_bound"]
-            self.model = DeepQNetwork(lr=0, n_actions=self.num_acts, name='LLC_DQN', input_dims=[6], chkpt_dir='./models/')
+            self.model = DeepQNetwork_LL(lr=0, n_actions=self.num_acts, name='LLC_DQN', input_dims=[6], chkpt_dir='./models/')
             self.model.load_checkpoint()
             control_input = np.linspace(-action_max, action_max, self.num_acts)
             self.control_inputs = np.vstack((control_input, control_input))
