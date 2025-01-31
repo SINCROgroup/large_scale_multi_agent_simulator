@@ -1,15 +1,15 @@
+import pathlib
 from datetime import datetime
 from swarmsim.Loggers import Logger
 from swarmsim.Utils import add_entry, append_csv, append_txt
 import yaml
 import time
 import os
-import csv
 import numpy as np
 
 
 class BaseLogger(Logger):
-    '''
+    """
     A class that implements a logger.
 
     Parameters
@@ -52,7 +52,7 @@ class BaseLogger(Logger):
         If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
         Moreover, save_data stores a .npz of the data given in input.
 
-    '''
+    """
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__()
         with open(config_path, 'r') as config_file:
@@ -64,7 +64,7 @@ class BaseLogger(Logger):
         self.activate = logger_config.get('activate', True)  # Activate
         self.log_freq = logger_config.get('log_freq', 1)  # Print frequency
         self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
-        self.log_path = os.path.join(os.path.dirname(__file__), '..', 'logs')
+        self.log_path = logger_config.get('log_path', '.\logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
         self.environment = environment
@@ -99,13 +99,13 @@ class BaseLogger(Logger):
                 file.write('\nInitial comment: ' + comment)
 
     def reset(self) -> bool:
-        '''
+        """
         Reset logger at the beginning of the simulation. Verifies if active, reset step counter and start time counter
 
         Returns
         -------
             activate: bool  flag to check whether the logger is active
-        '''
+        """
         self.done = False
         if self.activate:
             # Initialize logger: create file with date, current config settings, and add eventual comments
@@ -114,7 +114,7 @@ class BaseLogger(Logger):
         return self.activate
 
     def log(self, data: dict = None):
-        '''
+        """
         A function that defines the information to log.
 
         Parameters
@@ -131,7 +131,7 @@ class BaseLogger(Logger):
             By default, it does not truncate episode early.
             See add_data from Utils/logger_utils.py to quickly add variables to log.
 
-        '''
+        """
 
         # Get log info
         self.current_info = {}
@@ -140,7 +140,6 @@ class BaseLogger(Logger):
         if self.activate:
             # Include desired information
             add_entry(self.current_info, step=self.step_count)  # Get timestamp
-            add_entry(self.current_info, C=c)                   # Add metric to logger
             add_entry(self.current_info, done=self.done)        # Add done flag to logger
             # Add data in input to logger from simulation
             if data is not None:
@@ -162,21 +161,21 @@ class BaseLogger(Logger):
         return self.done
 
     def print_log(self) -> bool:
-        '''
+        """
         Function to print information every log_freq steps in a single line.
 
         Returns
         -------
             activate: bool flag to check whether the logger is active
 
-        '''
+        """
         for key, value in self.current_info.items():
             print(f"{key}: {value};", end=" ")
         print('\n')
         return self.activate
 
     def save(self) -> bool:
-        '''
+        """
         Function to save every save_freq steps information to log in both .csv and .txt files.
 
         Returns
@@ -188,7 +187,7 @@ class BaseLogger(Logger):
             See class Notes for more details on generated files.
             See append_csv and append_txt in Utils/logger_utils.py for more details of how information and saved.
 
-        '''
+        """
 
         if self.activate:
             # Save to CSV
@@ -200,7 +199,7 @@ class BaseLogger(Logger):
         return self.activate
 
     def close(self, data: dict = None) -> bool:
-        '''
+        """
         Function to store final step information, end-of-the-experiment information and close logger
 
         Parameters
@@ -210,7 +209,7 @@ class BaseLogger(Logger):
         Returns
         -------
             activate: bool flag to check whether the logger is active
-        '''
+        """
 
         # Log final step before closing
         if self.activate:
@@ -234,7 +233,7 @@ class BaseLogger(Logger):
 
     def save_data(self, data: dict) -> None:
 
-        '''
+        """
         A function to save multiple tensors in a single .npz file to store relevant data.
 
         Parameters
@@ -260,7 +259,7 @@ class BaseLogger(Logger):
         settling_times_ = data_loaded['settling_times']
         control_efforts_  = data_loaded['control_efforts']
 
-        '''
+        """
 
         for key, value in data.items():
             np.savez(self.log_name_npz, **{key: value})

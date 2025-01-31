@@ -9,7 +9,7 @@ import numpy as np
 
 
 class ShepherdingLogger(BaseLogger):
-    '''
+    """
         A class that implements a logger.
 
         Parameters
@@ -52,12 +52,12 @@ class ShepherdingLogger(BaseLogger):
             If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
             Moreover, save_data stores a .npz of the data given in input.
 
-        '''
+        """
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__(populations, environment, config_path)
 
     def log(self, data: dict = None) -> bool:
-        '''
+        """
         A function that defines the information to log.
 
         Parameters
@@ -74,7 +74,7 @@ class ShepherdingLogger(BaseLogger):
             By default, it does not truncate episode early.
             See add_data from Utils/logger_utils.py to quickly add variables to log.
 
-        '''
+        """
         # Get log info
         self.current_info = {}
         self.done = self.get_event()  # Verify if episode is done
@@ -106,20 +106,20 @@ class ShepherdingLogger(BaseLogger):
         return self.done
 
     def get_xi(self) -> float:
-        '''
-        Get metric for shepherding \xi, i.e., fraction of captured targets.
+        """
+        Get metric for shepherding xi, i.e., fraction of captured targets.
         Returns
         -------
             float: fraction of captured targets
 
-        '''
+        """
         return xi_shepherding(self.populations[0], self.environment)
 
     def get_event(self) -> bool:
-        '''
+        """
         Verify if every target is inside the goal region
         Returns
         -------
             bool: true is every target is inside the goal region, false otherwise
-        '''
+        """
         return get_done_shepherding(self.populations[0], self.environment)

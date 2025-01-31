@@ -1,6 +1,6 @@
 from datetime import datetime
-from swarmsim.Loggers import Logger
-from swarmsim.Utils import add_entry, append_csv, append_txt, get_done_shepherding, xi_shepherding
+from swarmsim.Loggers import ShepherdingLogger
+from swarmsim.Utils import add_entry, get_done_shepherding, xi_shepherding
 import yaml
 import time
 import os
@@ -8,66 +8,74 @@ import csv
 import numpy as np
 
 
-# Outputs two files: one csv computer-readable and one txt human-readable
+class ShepherdingGymLogger(ShepherdingLogger):
+    """
+        A class that implements a logger.
 
+        Parameters
+        -------
+            populations: list of instances of clas populations.
+            environment: Instance of class environment.
+            config_path: str (Path of the configuration file).
 
-class ShepherdingGymLogger(Logger):
-    def __init__(self, populations, environment, config_path):
-        super().__init__()
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
-        self.date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')  # Get current date to init logger
-        logger_config = config.get('logger', {})
-        self.activate = logger_config.get('activate', True)
-        self.log_freq = logger_config.get('log_freq', 1)  # Print frequency
-        self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
-        self.log_path = os.path.join(os.path.dirname(__file__), '..', 'logs')
-        self.comment_enable = logger_config.get('comment_enable', False)
-        self.populations = populations
-        self.environment = environment
+        Attributes
+        -------
+            - config: dict                                  Dictionary of parameters
+            - activate: bool                                Flag to activate and save logger
+            - date: date object                             Current date to log and name files
+            - log_freq: int                                 Print information frequency
+            - save_freq: int                                Save information frequency
+            - log_path: str                                 Path where logger is saved
+            - comment_enable: bool                          Flag to enable adding comment at the beginning and end of an experiment
+            - populations: list of population objects       List of populations in the experiment
+            - environment: environment object               Environment of the experiment
+            - name: str                                     Name of the logger, appended to the date to name output files
+            - log_name_csv: str                             Name of the .csv machine-readable file
+            - log_name_txt: str                             Name of the .txt human-readable file
+            - log_name_npz: str                             Name of the .npz file to store tensors
+            - start: time object                            Starting time of the simulation
+            - end: time object                              Final time of the simulation
+            - step_count: int                               Step counter to track time
+            - done: bool                                    Flag to truncate experiment early
+            - current_info: dict                            Information to log in a specific time step as a dict of {name_variable: value}
 
-        # If the path does not exist, create it
-        if not os.path.exists(self.log_path):
-            os.makedirs(self.log_path)
+        Configuration file requirements
+            - activate: bool            True to have logger, False otherwise
+            - log_freq: int             Print every log_freq steps information (0: never print)
+            - save_freq: int            Save every save_freq steps information (0: never save)
+            - comment_enable: bool      If true, add initial and final comments to the logger about the experiment
+            - log_path: str             Path where logger output should be saved
+            - log_name: str             String appended to date in the name of the file
 
-        # Outputs DATEname.csv and DATEname.txt
-        self.name = datetime.today().strftime('%Y%m%d_%H%M%S') + logger_config.get('log_name', '')
+        Notes
+        -------
+            If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
+            Moreover, save_data stores a .npz of the data given in input.
 
-        #  Init key variables
-        self.log_name_csv = self.log_path + '/' + self.name + '.csv'  # Check concat string
-        self.log_name_txt = self.log_path + '/' + self.name + '.txt'  # Check concat string
-        self.log_name_npz = self.log_path + '/' + self.name + '.npz'  # Check concat string
-        self.start = None  # Time start
-        self.end = None  # Time end
-        self.step_count = None  # Count steps for frequency check and logging
-        self.done = None  # Episode truncation
-        self.config = config  # Get config to track experiments
-        self.current_info = None
+        """
+    def __init__(self, populations: list, environment: object, config_path: str) -> None:
+        super().__init__(populations, environment, config_path)
+        self.log_name_npz = self.log_path + '/' + self.name + '.npz'  # Name
 
-        if self.activate:
-            # If there are any comments to describe the experiment
-            if self.comment_enable:
-                comment = input('Comment: ')
-            else:
-                comment = ''
+    def log(self, data: dict = None):
+        """
+        A function that defines the information to log.
 
-            # Create file with current date, setting, and comment
-            with open(self.log_name_txt, 'w') as file:
-                file.write('Date:' + self.date)
-                file.write('\nConfiguration settings: \n')
-                for key, value in self.config.items():
-                    file.write(str(key) + ': ' + str(value) + '\n')
-                file.write('\nInitial comment: ' + comment)
+        Parameters
+        ----------
+            data: dict  composed of {name_variabile: value} to log
 
-    def reset(self):
-        self.done = False
-        if self.activate:
-            # Initialize logger: create file with date, current config settings, and add eventual comments
-            self.start = time.time()  # Start counter for elapsed time
-            self.step_count = 0  # Keep track of time
-        return self.activate
+        Returns
+        -------
+            done: bool flag to truncate a simulation early. Default value=False.
 
-    def log(self, data=None):
+        Notes
+        -------
+            In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.
+            By default, it does not truncate episode early.
+            See add_data from Utils/logger_utils.py to quickly add variables to log.
+        """
+
         # Get log info
         self.current_info = {}
         self.done = self.get_event()  # Verify if episode is done
@@ -97,50 +105,3 @@ class ShepherdingGymLogger(Logger):
             self.step_count += 1  # Update step counter
 
         return self.done
-
-    def print_log(self):
-        for key, value in self.current_info.items():
-            print(f"{key}: {value};", end=" ")
-        print('\n')
-
-    def save(self):
-        if self.activate:
-            """Save the current entry to both CSV and TXT files."""
-            # Save to CSV
-            append_csv(self.log_name_csv, self.current_info)
-
-            # Save to TXT
-            append_txt(self.log_name_txt, self.current_info)
-
-        return self.activate
-
-    def close(self):
-        # Log final step before closing
-
-        if self.activate:
-            self.done = self.log()  # Log last time step
-            self.end = time.time()  # Get end time for elapsed time
-
-            # Eventually get final comments on the simulation
-            if self.comment_enable:
-                comment = input('\nComment: ')
-            else:
-                comment = ''
-
-            #  Save final row with 'Done', elapsed time, and eventual comment.
-            with open(self.log_name_txt, 'a') as file:
-                file.write('\nDone: ' + str(self.done) +
-                           '\nSettling time [steps]:' + str(self.step_count) +
-                           '\nElapsed time [s]:' + str(self.end - self.start) +
-                           '\nComments: ' + comment + '\n')
-        return self.activate
-
-    def get_xi(self):
-        return xi_shepherding(self.populations[0], self.environment)
-
-    def get_event(self):
-        return get_done_shepherding(self.populations[0], self.environment)
-
-    def save_data(self, data):
-        for key, value in data.items():
-            np.savez(self.log_name_npz, **{key: value})

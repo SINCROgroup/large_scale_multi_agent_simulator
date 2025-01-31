@@ -45,7 +45,7 @@ logger:
   log_freq: 1             # Print every log_freq steps information (0: never print)
   save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: '../logs'    # Path where logger should be saved
+  log_path: .\logs        # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
 RepulsionHerderTarget:
@@ -67,9 +67,10 @@ Gym:
   num_episodes : 1
   action_bound : 12
   reward_gain : 1
+  num_acts: 5  # For DQN only
 
   single_agent_env:
-    obs_style : "PPO"
+    obs_style : "DQN"
     k_1 : 1
     k_2 : 1
     k_3 : 1
@@ -79,5 +80,5 @@ Gym:
     update_frequency    : 1
     num_closest_targets : 50
     num_closest_herders : 1
-    low_level_policy    : "PPO"
-    high_level_policy   : "PPO"
+    low_level_policy    : "DQN"
+    obs_style   : "DQN"
