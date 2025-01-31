@@ -35,7 +35,6 @@ class SimpleIntegrators(Populations):
         self.config = config.get('SimpleIntegrators', {})
 
         self.id = self.config.get('id', "Targets")  # Population ID
-        self.D = self.config.get('D', 0)  # Diffusion coefficient
 
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input

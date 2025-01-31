@@ -5,7 +5,7 @@ from swarmsim.Populations import Populations
 
 class BrownianMotion(Populations):
     '''
-    A class that implements a biased Brownian motion with average speed \mu and diffusion coefficient D.
+    A class that implements a biased Brownian motion with avreage speed \mu and diffusion coefficient D.
 
     Parameters
     -------
@@ -52,7 +52,7 @@ class BrownianMotion(Populations):
 
     '''
 
-    def __init__(self, config_path: str) -> None:
+    def __init__(self, config_path:str) -> None:
 
         super().__init__(config_path)
         
