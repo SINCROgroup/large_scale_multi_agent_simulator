@@ -38,10 +38,15 @@ class ShepherdingEnv(gym.Env):
         self.targets = targets
         self.environment = environment
 
-        repulsion_ht = PowerLawRepulsion(targets, herders, config_path, "RepulsionHerderTarget")
-        repulsion_tt = PowerLawRepulsion(targets, targets, config_path, "RepulsionTargetTarget")
-        repulsion_hh = PowerLawRepulsion(herders, herders, config_path, "RepulsionHerderHerder")
-        interactions = [repulsion_ht, repulsion_tt]
+        repulsion_ht_long = PowerLawRepulsion(targets, herders, config_path, "RepulsionLongRange")
+        repulsion_ht_short = PowerLawRepulsion(targets, herders, config_path, "RepulsionShortRange")
+        repulsion_tt_short = PowerLawRepulsion(targets, targets, config_path, "RepulsionShortRange")
+        repulsion_hh_short = PowerLawRepulsion(herders, herders, config_path, "RepulsionShortRange")
+
+        # cohesion
+        attraction_tt_long = PowerLawRepulsion(targets, targets, config_path, "AttractionLongRange")
+
+        interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_tt_short, repulsion_hh_short, attraction_tt_long]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
         logger = ShepherdingGymLogger(populations, environment, config_path)

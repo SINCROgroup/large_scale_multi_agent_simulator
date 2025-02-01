@@ -291,22 +291,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An interface that defines all the methods that a logger should implement</span>
-<span class="sd">    Arguments</span>
-<span class="sd">    -------</span>
-<span class="sd">    name: string containing the name of the logger</span>
-<span class="sd">    done: flag for stopping the episode early</span>
-<span class="sd">    activate: flag to save logger</span>
-<span class="sd">    log_freq: print information every log_freq steps</span>
-<span class="sd">    save_freq: save information every save_freq steps</span>
 
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
-<span class="sd">    reset(self):</span>
-<span class="sd">        Creates files</span>
-<span class="sd">    log(self, populations, env):</span>
-<span class="sd">        Returns all the information to log.</span>
-<span class="sd">    close(self, populations, env):</span>
-<span class="sd">        Close logger</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -323,10 +308,26 @@
 <div class="viewcode-block" id="Logger.log">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.log">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># By default do not truncate episode early</span></div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        A function that defines the information to log.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            data: dict (composed of {name_variabile: value} to log)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            done: bool (flag to truncate a simulation early). Default value=False.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -------</span>
+<span class="sd">            In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.</span>
+<span class="sd">            By default, it does not truncate episode early.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">done</span></div>
 
 
 <div class="viewcode-block" id="Logger.close">

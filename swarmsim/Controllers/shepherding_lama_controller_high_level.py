@@ -55,7 +55,7 @@ class ShepherdingLamaControllerHighLevel(Controller):
         mask = (distances < self.xi) & closest_mask  # Shape (N, M)
 
         # Calculate the absolute distances from the origin for the targets
-        absolute_distances = np.linalg.norm(target_pos, axis=1)  # Shape (M,)
+        absolute_distances = np.linalg.norm(target_distance_from_goal, axis=1)  # Shape (M,)
 
         # Use broadcasting to expand the absolute distances to match the shape of the mask
         expanded_absolute_distances = np.tile(absolute_distances, (self.herders.N, 1))  # Shape (N, M)

@@ -21,16 +21,18 @@ SimpleIntegrators:
   id: 'Herders'
 
 integrator:
-  dt: 0.01
+  dt: 0.001
 
 simulator:
-  dt: 0.01
+  dt: 0.001
   T: 1
 
 environment:
   dimensions: [50, 50]
   goal_pos: [0, 0]
   goal_radius: 5
+  final_goal_pos : [0, 0]
+  num_steps : 5000
 
 renderer:
   background_color: 'white'
@@ -48,20 +50,20 @@ logger:
   log_path: .\logs        # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
-RepulsionHerderTarget:
+RepulsionLongRange:
   strength: 15
   max_distance: 5
   p: 2
 
-RepulsionTargetTarget:
-  strength: 3
+RepulsionShortRange:
+  strength: 3000
   max_distance: 1.5
   p: 2
 
-RepulsionHerderHerder:
-  strength: 3
-  max_distance: 1.5
-  p: 2
+AttractionLongRange:
+  strength: -1000
+  max_distance: 500
+  p: 4
 
 Gym:
   num_episodes : 1
@@ -70,7 +72,7 @@ Gym:
   num_acts: 5  # For DQN only
 
   single_agent_env:
-    obs_style : "DQN"
+    obs_style : "PPO"
     k_1 : 1
     k_2 : 1
     k_3 : 1
@@ -80,5 +82,11 @@ Gym:
     update_frequency    : 1
     num_closest_targets : 5
     num_closest_herders : 1
-    low_level_policy    : "DQN"
-    obs_style   : "DQN"
+    low_level_policy    : "PPO"
+    obs_style   : "PPO"
+
+  # Network architecture configuration
+  high_level_network:
+    hidden_sizes: [ 256, 128 ]
+    activation: "ReLU"
+

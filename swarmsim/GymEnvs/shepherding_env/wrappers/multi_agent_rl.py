@@ -6,8 +6,11 @@ from gymnasium import Wrapper
 import yaml
 
 # Import your neural network
+from swarmsim.Utils.actor_critic_continuous import ActorCriticContinuous
 from swarmsim.Utils.ActorCritic import ActorCritic
 from swarmsim.Utils.DQN_Agent import DeepQNetwork_LL, get_discrete_action
+
+from swarmsim.GymEnvs.shepherding_env.wrappers import SingleAgentEnv
 
 
 class MultiAgentRL(Wrapper):
@@ -142,6 +145,9 @@ class MultiAgentRL(Wrapper):
         self.control_inputs = None
         self.num_acts = gym_config.get("num_acts", None)
         if self.low_level_policy == "PPO":
+            # network_config = wrapper_config.get('network', {'hidden_sizes': [128, 64], 'activation': 'ReLU'})
+            # env_ppo = SingleAgentEnv(env, config_path)
+            # self.model = ActorCriticContinuous(env_ppo, network_config)
             self.model = ActorCritic()
         else:
             action_max = gym_config["action_bound"]
@@ -236,6 +242,7 @@ class MultiAgentRL(Wrapper):
 
             # Compute actions using the neural network (only for PPO, DQN logic not implemented)
             if self.low_level_policy == "PPO":
+                # batched_herder_actions = self.model.get_action(batch_tensor).cpu().numpy()
                 batched_herder_actions = self.model.get_action_mean(batch_tensor).cpu().numpy()
             elif self.low_level_policy == "DQN":
                 batched_herder_actions_idx = self.model.get_action(batch_tensor)
