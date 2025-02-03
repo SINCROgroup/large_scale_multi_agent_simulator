@@ -16,9 +16,10 @@ from swarmsim.Loggers import ShepherdingGymLogger
 from swarmsim.Utils import get_target_distance, xi_shepherding
 from swarmsim.Utils.plot_utils import get_snapshot
 
+from swarmsim.Interactions import PowerLawInteraction
 
 class ShepherdingEnv(gym.Env):
-    metadata = {'render_modes': ['human', 'rgb_array'], 'render_fps': 200}
+    metadata = {'render_modes': ['human', 'rgb_array'], 'render_fps': 60}
 
     def __init__(self, config_path, render_mode: Optional[str] = None):
 
@@ -40,13 +41,15 @@ class ShepherdingEnv(gym.Env):
 
         repulsion_ht_long = PowerLawRepulsion(targets, herders, config_path, "RepulsionLongRange")
         repulsion_ht_short = PowerLawRepulsion(targets, herders, config_path, "RepulsionShortRange")
-        repulsion_tt_short = PowerLawRepulsion(targets, targets, config_path, "RepulsionShortRange")
+        # repulsion_tt_short = PowerLawRepulsion(targets, targets, config_path, "RepulsionShortRange")
         repulsion_hh_short = PowerLawRepulsion(herders, herders, config_path, "RepulsionShortRange")
 
         # cohesion
-        attraction_tt_long = PowerLawRepulsion(targets, targets, config_path, "AttractionLongRange")
+        # attraction_tt_long = PowerLawRepulsion(targets, targets, config_path, "AttractionLongRange")
+        interaction_tt = PowerLawInteraction(targets, targets, config_path, "TargetInteraction")
 
-        interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_tt_short, repulsion_hh_short, attraction_tt_long]
+        # interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_tt_short, repulsion_hh_short, attraction_tt_long]
+        interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_hh_short, interaction_tt]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
         logger = ShepherdingGymLogger(populations, environment, config_path)

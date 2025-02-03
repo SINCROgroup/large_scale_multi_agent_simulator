@@ -114,6 +114,7 @@ class MultiAgentRL(Wrapper):
         self.num_closest_herders = wrapper_config.get('num_closest_herders', 1)  # Number of closest herders considered
         self.low_level_policy = wrapper_config.get('low_level_policy', "PPO")  # Low-level movement policy
         self.obs_style = wrapper_config.get('obs_style', "PPO")  # High-level target selection policy
+        self.sensing_range = wrapper_config.get('sensing_range', 10000) # Herders sensing range
 
         # Buffers for storing closest target and herder indices
         self.closest_targets_indices = []
@@ -217,28 +218,79 @@ class MultiAgentRL(Wrapper):
 
             # Prepare batched inputs for the neural network based on the low-level policy type
             if self.low_level_policy == "PPO":
-                # Compute relative positions for PPO-based movement policy
+                # Compute positions for PPO-based movement policy:
+                #   - target_positions: target position relative to the goal
+                #   - relative_positions: target position relative to the herder
                 target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
                                    :2] - self.env.unwrapped.environment.goal_pos
                 relative_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
                                      :2] - self.env.unwrapped.herders.x[:, :2]
 
-                # Stack positions into a single batch input and normalize
+                # Compute Euclidean distances between herder and target (per row)
+                distances = np.linalg.norm(relative_positions, axis=1)
+                # Create a mask that is True when the target is within the sensing range
+                mask = distances < self.sensing_range
+
+                # For herders whose target is out of sensing range, zero the corresponding target features.
+                # Note that we use boolean indexing along the first axis (each row corresponds to one herder)
+                target_positions[~mask] = 0.0
+                relative_positions[~mask] = target_positions[~mask] - self.env.unwrapped.herders.x[~mask, :]
+
+
+                # Stack positions into a single batch input and apply normalization
                 batch_inputs = np.hstack((relative_positions, target_positions)).astype(
                     np.float32) * self.scaling_low_level
 
             elif self.low_level_policy == "DQN":
-                # Compute positions for DQN-based movement policy
+                # Compute positions for DQN-based movement policy:
+                #   - target_positions: target position relative to the goal
+                #   - target_velocities: target velocities (unchanged)
+                #   - herder_positions: herder position relative to the goal
                 target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
                                    :2] - self.env.unwrapped.environment.goal_pos
                 target_velocities = self.env.unwrapped.targets.x[target_indices_to_chase, 2:4]
                 herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos
+
+                # Compute relative positions (herder-to-target) to check if the target is sensed
+                relative_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
+                                     :2] - self.env.unwrapped.herders.x[:, :2]
+                distances = np.linalg.norm(relative_positions, axis=1)
+                mask = distances < self.sensing_range
+
+                # For herders with a target beyond the sensing range, zero out target positions and velocities.
+                target_positions[~mask] = 0.0
+                target_velocities[~mask] = 0.0
 
                 # Stack positions into a single batch input
                 batch_inputs = np.hstack((target_positions, target_velocities, herder_positions)).astype(np.float32)
 
             # Convert batch input into a PyTorch tensor
             batch_tensor = torch.tensor(batch_inputs)
+
+            # # Prepare batched inputs for the neural network based on the low-level policy type
+            # if self.low_level_policy == "PPO":
+            #     # Compute relative positions for PPO-based movement policy
+            #     target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
+            #                        :2] - self.env.unwrapped.environment.goal_pos
+            #     relative_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
+            #                          :2] - self.env.unwrapped.herders.x[:, :2]
+            #
+            #     # Stack positions into a single batch input and normalize
+            #     batch_inputs = np.hstack((relative_positions, target_positions)).astype(
+            #         np.float32) * self.scaling_low_level
+            #
+            # elif self.low_level_policy == "DQN":
+            #     # Compute positions for DQN-based movement policy
+            #     target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
+            #                        :2] - self.env.unwrapped.environment.goal_pos
+            #     target_velocities = self.env.unwrapped.targets.x[target_indices_to_chase, 2:4]
+            #     herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos
+            #
+            #     # Stack positions into a single batch input
+            #     batch_inputs = np.hstack((target_positions, target_velocities, herder_positions)).astype(np.float32)
+            #
+            # # Convert batch input into a PyTorch tensor
+            # batch_tensor = torch.tensor(batch_inputs)
 
             # Compute actions using the neural network (only for PPO, DQN logic not implemented)
             if self.low_level_policy == "PPO":
@@ -314,6 +366,7 @@ class MultiAgentRL(Wrapper):
         - Each herder's own position.
         - The positions of the `num_closest_herders` nearest herders.
         - The positions of the `num_closest_targets` nearest targets.
+        For targets that are outside the herder's sensing range, their positions are set to (0,0).
 
         The processed observations are normalized based on the environment dimensions.
 
@@ -323,53 +376,69 @@ class MultiAgentRL(Wrapper):
             Processed observation array of shape (num_herders, observation_features).
         """
 
-        # Retrieve the positions of all herders and targets
-        herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos  # Shape: (num_herders, 2)
-        target_positions = self.env.unwrapped.targets.x[:, :2] - self.env.unwrapped.environment.goal_pos  # Shape: (num_targets, 2)
+        # Retrieve the positions of all herders and targets (relative to goal_pos)
+        herder_positions = self.env.unwrapped.herders.x[:,
+                           :2] - self.env.unwrapped.environment.goal_pos  # (num_herders, 2)
+        target_positions = self.env.unwrapped.targets.x[:,
+                           :2] - self.env.unwrapped.environment.goal_pos  # (num_targets, 2)
         num_herders = self.env.unwrapped.herders.N
 
         # Normalize positions using the environment scaling factor
         herder_positions_normalized = herder_positions * self.scaling_high_level
         target_positions_normalized = target_positions * self.scaling_high_level
+        sensing_range = self.sensing_range * self.scaling_high_level
 
         # Compute pairwise distances between all herders (excluding self)
         distances_between_herders = np.linalg.norm(
             herder_positions_normalized[:, np.newaxis, :] - herder_positions_normalized[np.newaxis, :, :],
             axis=2
         )
-
-        # Set diagonal to infinity to exclude self from closest-herder search
+        # Exclude self by setting the diagonal to infinity
         np.fill_diagonal(distances_between_herders, np.inf)
 
         # Get indices of the closest herders for each herder
         closest_herders_indices = np.argsort(distances_between_herders, axis=1)[:, :self.num_closest_herders]
-
-        # Store sorted closest herders for consistency
+        # Store sorted indices for consistency
         self.closest_herders_indices = np.sort(closest_herders_indices, axis=1)
-
         # Retrieve positions of the closest herders
         closest_herders = herder_positions_normalized[self.closest_herders_indices]
-
         # Flatten the closest herder positions into a single feature vector
-        closest_herders_flat = closest_herders.reshape(num_herders, -1)  # Shape: (num_herders, num_closest_herders * 2)
+        closest_herders_flat = closest_herders.reshape(num_herders, -1)  # (num_herders, num_closest_herders * 2)
 
-        # Compute distances from herders to all targets
+        # Compute distances from each herder to all targets
         distances_to_targets = np.linalg.norm(
             herder_positions_normalized[:, np.newaxis, :] - target_positions_normalized[np.newaxis, :, :],
             axis=2
         )
-
         # Get indices of the closest targets for each herder
         closest_target_indices = np.argsort(distances_to_targets, axis=1)[:, :self.num_closest_targets]
-
         # Store sorted closest target indices for consistency
         self.closest_targets_indices = np.sort(closest_target_indices, axis=1)
 
-        # Retrieve positions of the closest targets
+        # Retrieve positions of the closest targets (shape: (num_herders, num_closest_targets, 2))
         closest_targets = target_positions_normalized[self.closest_targets_indices]
 
+        # -------------------------
+        # Limited sensing scenario
+        # For each herder, set the target positions to (0,0) if they are outside the sensing range.
+
+        # Get the distances for the selected closest targets.
+        # This uses advanced indexing to pick the distances corresponding to the selected indices.
+        selected_distances = distances_to_targets[
+            np.arange(num_herders)[:, None], self.closest_targets_indices]  # (num_herders, num_closest_targets)
+
+        # Create a boolean mask where True indicates the target is within the sensing range.
+        mask = selected_distances < sensing_range  # shape: (num_herders, num_closest_targets)
+
+        # Expand mask dimensions to match the target positions (for both x and y coordinates)
+        mask_expanded = mask[..., np.newaxis]  # shape: (num_herders, num_closest_targets, 1)
+
+        # Use np.where to replace target positions with (0,0) where the mask is False.
+        closest_targets = np.where(mask_expanded, closest_targets, 0.0)
+        # -------------------------
+
         # Flatten the closest target positions into a single feature vector
-        closest_targets_flat = closest_targets.reshape(num_herders, -1)  # Shape: (num_herders, num_closest_targets * 2)
+        closest_targets_flat = closest_targets.reshape(num_herders, -1)  # (num_herders, num_closest_targets * 2)
 
         # Concatenate herder's own position, closest herders, and closest targets
         if self.obs_style == "PPO":

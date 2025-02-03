@@ -4,7 +4,7 @@
 DampedDoubleIntegrators:
   N: 100
   state_dim: 4
-  x0_limits : [[-20, 20],[-20,20]]
+  x0_limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
   D: 1
   damping: 3
@@ -21,10 +21,9 @@ SimpleIntegrators:
   id: 'Herders'
 
 integrator:
-  dt: 0.01
+  dt: 0.001
 
 simulator:
-  dt: 0.01
   T: 1
 
 environment:
@@ -40,7 +39,7 @@ renderer:
   agent_shapes: ['circle', 'diamond']
   agent_size: [1, 1]
   render_mode: 'pygame'
-  render_dt: 0.01
+  render_dt: 0.001
 
 logger:
   activate: False         # True to save logger, False otherwise
@@ -56,14 +55,21 @@ RepulsionLongRange:
   p: 2
 
 RepulsionShortRange:
-  strength: 3
+  strength: 10
   max_distance: 1.5
-  p: 2
+  p: 4
 
 AttractionLongRange:
-  strength: 0
-  max_distance: 500
-  p: 4
+  strength: -2 #-2
+  max_distance: 10
+  p: 2
+
+TargetInteraction:
+  strength_attr: 4
+  strength_rep: 10
+  p_attr: 2
+  p_rep: 4
+  max_distance: 15
 
 Gym:
   num_episodes : 1
@@ -80,10 +86,11 @@ Gym:
 
   marl_wrapper:
     update_frequency    : 1
-    num_closest_targets : 5
+    num_closest_targets : 100
     num_closest_herders : 1
     low_level_policy    : "PPO"
     obs_style   : "PPO"
+    sensing_range : 10000
 
   # Network architecture configuration
   high_level_network:
