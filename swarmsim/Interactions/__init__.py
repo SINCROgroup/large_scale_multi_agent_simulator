@@ -49,6 +49,5 @@ This sets up two different repulsion models with distinct behaviors.
 from .interaction import Interaction
 from .harmonic_repulsion import HarmonicRepulsion
 from .power_law_repulsion import PowerLawRepulsion
-from .power_law_interaction import PowerLawInteraction
 
-__all__ = ["Interaction", "HarmonicRepulsion", "PowerLawRepulsion", "PowerLawInteraction"]
+__all__ = ["Interaction", "HarmonicRepulsion", "PowerLawRepulsion"]
