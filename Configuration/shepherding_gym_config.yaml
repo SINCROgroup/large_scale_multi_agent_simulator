@@ -22,6 +22,7 @@ SimpleIntegrators:
 
 integrator:
   dt: 0.001
+  dt: 0.01
 
 simulator:
   T: 1
@@ -40,6 +41,7 @@ renderer:
   agent_size: [1, 1]
   render_mode: 'pygame'
   render_dt: 0.001
+  render_dt: 0.01
 
 logger:
   activate: False         # True to save logger, False otherwise
