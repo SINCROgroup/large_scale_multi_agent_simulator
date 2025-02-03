@@ -81,6 +81,7 @@ class PowerLawInteraction(Interaction):
         self.max_distance = self.params["max_distance"]
         self.p_attr = self.params["p_attr"]
         self.p_rep = self.params["p_rep"]
+        self.is_attractive = self.params["is_attractive"]
 
     def get_interaction(self):
         """
@@ -126,6 +127,8 @@ class PowerLawInteraction(Interaction):
         kernel = mask * kernel
 
         kernel = np.minimum(kernel, 10)
+        if not self.is_attractive:
+            kernel = np.maximum(kernel, 0)
 
         #
         #

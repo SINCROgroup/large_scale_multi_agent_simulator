@@ -27,6 +27,8 @@ class ShepherdingEnvironment(EmptyEnvironment):
         The total number of steps over which the goal moves.
     step_count : int
         Counter to track the current time step.
+    start_step: int
+        The step at which the goal region starts moving.
     direction : np.ndarray
         The unit vector representing the direction of movement from `(0,0)` to the final position.
 
@@ -40,6 +42,8 @@ class ShepherdingEnvironment(EmptyEnvironment):
         The final position of the goal. This must be specified in the configuration.
     num_steps : int, optional
         The total number of time steps over which the goal moves. Default is ``2000``.
+    start_step: int, optional
+        The step at which the goal region starts moving. Default is ``0``
 
     Raises
     ------
@@ -82,6 +86,7 @@ class ShepherdingEnvironment(EmptyEnvironment):
         self.goal_pos = np.array(self.params.get('goal_pos', (0, 0)), dtype=np.float32)
         self.final_goal_pos = np.array(self.params.get('final_goal_pos', (0, 0)), dtype=np.float32)
         self.num_steps = self.params.get('num_steps', 2000)  # Total steps over which goal moves
+        self.start_step = self.params.get('start_step', 0)
         self.step_count = 0  # Counter for tracking time steps
 
         # Compute direction vector from (0,0) to final_goal_pos
@@ -122,5 +127,5 @@ class ShepherdingEnvironment(EmptyEnvironment):
         """
         # Ensure the goal stops moving once it reaches the final position
         self.step_count += 1
-        if (self.step_count > 1000) and (self.step_count < 1000 + self.num_steps):
+        if (self.step_count > self.start_step) and (self.step_count < self.start_step + self.num_steps):
             self.goal_pos += self.direction
