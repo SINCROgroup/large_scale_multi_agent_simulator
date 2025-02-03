@@ -2,7 +2,7 @@
 # In all scripts numpy is imported as np
 
 DampedDoubleIntegrators:
-  N: 5
+  N: 100
   state_dim: 4
   x0_limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
@@ -11,7 +11,7 @@ DampedDoubleIntegrators:
   id: 'Targets'
 
 SimpleIntegrators:
-  N: 2
+  N: 10
   state_dim: 2
   x0_limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
@@ -64,6 +64,13 @@ AttractionLongRange:
   max_distance: 10
   p: 2
 
+TargetInteraction:
+  strength_attr: 4
+  strength_rep: 10
+  max_distance: 15
+  p_attr: 2
+  p_rep: 4
+
 Gym:
   num_episodes : 1
   action_bound : 12
@@ -79,7 +86,7 @@ Gym:
 
   marl_wrapper:
     update_frequency    : 1
-    num_closest_targets : 5
+    num_closest_targets : 100
     num_closest_herders : 1
     low_level_policy    : "PPO"
     obs_style   : "PPO"

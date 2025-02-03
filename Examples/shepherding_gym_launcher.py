@@ -41,8 +41,8 @@ controller = ShepherdingLamaControllerHighLevel(population=env.unwrapped.herders
 
 # PPO SPECIFIC CODE: COMMENT IF NOT NEEDED
 # Network configuration
-network_config = params.get('high_level_network', {'hidden_sizes': [128, 64], 'activation': 'ReLU'})
-ppo_agent = ActorCriticMAPPO(env, network_config=network_config,)
+# network_config = params.get('high_level_network', {'hidden_sizes': [128, 64], 'activation': 'ReLU'})
+# ppo_agent = ActorCriticMAPPO(env, network_config=network_config,)
 
 
 for episode in range(1, num_episodes + 1):
@@ -58,17 +58,17 @@ for episode in range(1, num_episodes + 1):
         # Choose a random action (here, randomly setting velocities for herders)
         # action = env.action_space.sample()
 
-        # action = controller.get_action()
+        action = controller.get_action()
 
 
-        observation = torch.as_tensor(observation, dtype=torch.float32)
-        action = ppo_agent.get_action(observation)
+        # observation = torch.as_tensor(observation, dtype=torch.float32)
+        # action = ppo_agent.get_action(observation)
 
         # Take an episode_step in the environment by applying the chosen action
         observation, reward, terminated, truncated, info = env.step(action)
 
         step += 1
-        print(step)
+        # print(step)
 
     print("episode: ", episode)
 
