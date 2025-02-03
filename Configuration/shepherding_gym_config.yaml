@@ -2,16 +2,16 @@
 # In all scripts numpy is imported as np
 
 DampedDoubleIntegrators:
-  N: 5
+  N: 100
   state_dim: 4
-  x0_limits : [[-25, 25],[-25,25]]
+  x0_limits : [[-20, 20],[-20,20]]
   x0_mode: Random 
   D: 1
   damping: 3
   id: 'Targets'
 
 SimpleIntegrators:
-  N: 2
+  N: 10
   state_dim: 2
   x0_limits : [[-25, 25],[-25,25]]
   x0_mode: Random 
@@ -21,10 +21,10 @@ SimpleIntegrators:
   id: 'Herders'
 
 integrator:
-  dt: 0.001
+  dt: 0.01
 
 simulator:
-  dt: 0.001
+  dt: 0.01
   T: 1
 
 environment:
@@ -32,7 +32,7 @@ environment:
   goal_pos: [0, 0]
   goal_radius: 5
   final_goal_pos : [0, 0]
-  num_steps : 5000
+  num_steps : 2000
 
 renderer:
   background_color: 'white'
@@ -56,12 +56,12 @@ RepulsionLongRange:
   p: 2
 
 RepulsionShortRange:
-  strength: 3000
+  strength: 3
   max_distance: 1.5
   p: 2
 
 AttractionLongRange:
-  strength: -1000
+  strength: 0
   max_distance: 500
   p: 4
 

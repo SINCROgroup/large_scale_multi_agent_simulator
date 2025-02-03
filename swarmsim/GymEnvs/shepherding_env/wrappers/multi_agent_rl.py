@@ -324,8 +324,8 @@ class MultiAgentRL(Wrapper):
         """
 
         # Retrieve the positions of all herders and targets
-        herder_positions = self.env.unwrapped.herders.x[:, :2]  # Shape: (num_herders, 2)
-        target_positions = self.env.unwrapped.targets.x[:, :2]  # Shape: (num_targets, 2)
+        herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos  # Shape: (num_herders, 2)
+        target_positions = self.env.unwrapped.targets.x[:, :2] - self.env.unwrapped.environment.goal_pos  # Shape: (num_targets, 2)
         num_herders = self.env.unwrapped.herders.N
 
         # Normalize positions using the environment scaling factor

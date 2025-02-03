@@ -20,9 +20,9 @@ params = config.get('Gym', {})
 
 num_episodes = params['num_episodes']
 
-env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="human")
+env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="rgb_array")
 env._max_episode_steps = 10000
-# env = RecordVideo(env, video_folder="videos")
+env = RecordVideo(env, video_folder="videos")
 env = MultiAgentRL(env, config_path=config_path)
 
 # Run the simulation for a certain number of steps
