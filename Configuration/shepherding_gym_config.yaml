@@ -21,7 +21,6 @@ SimpleIntegrators:
   id: 'Herders'
 
 integrator:
-  dt: 0.001
   dt: 0.01
 
 simulator:
@@ -40,7 +39,6 @@ renderer:
   agent_shapes: ['circle', 'diamond']
   agent_size: [1, 1]
   render_mode: 'pygame'
-  render_dt: 0.001
   render_dt: 0.01
 
 logger:
