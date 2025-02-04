@@ -18,8 +18,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import swarmsim as ss
 
-from swarmsim.Populations import BrownianMotion
-from swarmsim.Populations import FixedPopulation
+from swarmsim.Populations.parsistent_turning_walker import LightSensitive_PTW
 
 from swarmsim.Interactions import HarmonicRepulsion
 from swarmsim.Integrators import EulerMaruyamaIntegrator
@@ -39,22 +38,20 @@ import pathlib
 
 if __name__ == '__main__':
 
-    config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"base_config.yaml")
+    config_path = str(pathlib.Path(__file__).resolve().parent.parent/"Configuration"/"bio_config.yaml")
 
     integrator = EulerMaruyamaIntegrator(config_path)
     
     environment = EmptyEnvironment(config_path)
     
-    population1 = BrownianMotion(config_path)
-    population2 = FixedPopulation(config_path)
-    populations = [population1, population2]
+    population1 = LightSensitive_PTW(config_path)
+    populations = [population1]
     controllers = []
 
-    controller = GaussianRepulsion(population2, environment, config_path)
-    controllers =[controller]
+    controller = None
+    controllers =[]
 
-    repulsion_12 = HarmonicRepulsion(population1, population2, config_path)
-    interactions = [repulsion_12]
+    interactions = []
 
     renderer = BaseRenderer(populations, environment, config_path)
     logger = BaseLogger(populations, environment, config_path)

@@ -133,8 +133,12 @@ class Populations(ABC):
                 params_path = self.config.get("params_path","")                                         # Retrieving the file name
                 params = pd.read_csv(params_path)                                                       # Reading the parameters
                 if params.shape[0] < self.N:
-                    repeated_pars = np.ceil(np.random.uniform(0,params.shape[0],self.N-params.shape[0]))# Select randomly N - rows_present_in_file Parameters from the ones in the file
-                    pd.concat([params, params.iloc(repeated_pars)],ignore_index=True)                   # Add the new parameters
+                    rows_to_add = self.N - params.shape[0]
+                    params_to_add = params.sample(n=rows_to_add)
+                    params = pd.concat([params, params_to_add],ignore_index=True)                   # Add the new parameters
+                if params.shape[0] > self.N:
+                    rows_to_drop = params.shape[0] - self.N
+                    params = params.drop(params.sample(n=rows_to_drop).index)
 
             case "Random":
                 params_names = self.config.get("params_names",[])                                       # Get parameter names

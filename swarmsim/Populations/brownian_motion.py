@@ -39,12 +39,9 @@ class BrownianMotion(Populations):
             (If x0_mode == "Random") Number of agents in the poulation
         state_dim : int               
             (If x0_mode == "Random") Dimensions of the state
-        D: python command             
-            command to generate the diffusion coefficient 
-        mu: python command            
-            Command to generate the Average velocities
         id: str                       
             Identifier of the population
+        DA UPDATARE
 
     Notes
     ------
