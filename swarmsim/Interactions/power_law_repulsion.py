@@ -31,9 +31,6 @@ class PowerLawRepulsion(Interaction):
 
     def __init__(self, pop1, pop2, config, repulsion_name) -> None:
         super().__init__(pop1, pop2)
-        # Load the YAML configuration file
-        with open(config, "r") as file:
-            pars = yaml.safe_load(file)
 
         # Load the YAML configuration file
         with open(config, "r") as file:
@@ -52,8 +49,8 @@ class PowerLawRepulsion(Interaction):
 
         y_f = 1 / (self.max_distance ** self.p)
 
-        kernel = self.strength * (1 / (distances ** self.p) - y_f)
-        kernel = np.maximum(kernel, 0)
+        kernel = (1 / (distances ** self.p) - y_f)
+        kernel = self.strength * np.maximum(kernel, 0)
 
         repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
 

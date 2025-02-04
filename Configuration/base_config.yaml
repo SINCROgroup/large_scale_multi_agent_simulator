@@ -5,7 +5,7 @@ BrownianMotion:
   N: 20
   state_dim: 2
   x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: From_File 
+  x0_mode: Random
   x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv 
   params_mode: Random
   params_names: ["mu","D"]
@@ -44,9 +44,9 @@ renderer:
 logger:
   activate: False          # True to save logger, False otherwise
   log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 0            # Save every save_freq steps information (0: never save)
+  save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: '../../logs'  # Path where logger should be saved
+  log_path: .\logs         # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
 

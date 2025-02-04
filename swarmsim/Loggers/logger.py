@@ -18,7 +18,7 @@ class Logger(ABC):
 
     @abstractmethod
     def log(self, data: dict) -> bool:
-        '''
+        """
         A function that defines the information to log.
 
         Parameters
@@ -34,7 +34,7 @@ class Logger(ABC):
             In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.
             By default, it does not truncate episode early.
 
-        '''
+        """
         done = False
         return done
 

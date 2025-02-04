@@ -46,7 +46,7 @@ logger:
   log_freq: 1             # Print every log_freq steps information (0: never print)
   save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: True   # Add initial and final comments to the logger about the experiment
-  log_path: '../../logs'    # Path where logger should be saved
+  log_path: .\logs    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
 repulsion:

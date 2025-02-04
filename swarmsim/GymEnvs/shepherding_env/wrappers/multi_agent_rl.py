@@ -6,7 +6,11 @@ from gymnasium import Wrapper
 import yaml
 
 # Import your neural network
+from swarmsim.Utils.actor_critic_continuous import ActorCriticContinuous
 from swarmsim.Utils.ActorCritic import ActorCritic
+from swarmsim.Utils.DQN_Agent import DeepQNetwork_LL, get_discrete_action
+
+from swarmsim.GymEnvs.shepherding_env.wrappers import SingleAgentEnv
 
 
 class MultiAgentRL(Wrapper):
@@ -54,7 +58,7 @@ class MultiAgentRL(Wrapper):
         Number of closest herders considered in observation space.
     low_level_policy : str
         Type of low-level policy controlling herder actions.
-    high_level_policy : str
+    obs_style : str
         Type of high-level policy selecting target indices.
     scaling_low_level : float
         Scaling factor for low-level policy inputs.
@@ -109,7 +113,7 @@ class MultiAgentRL(Wrapper):
         self.num_closest_targets = wrapper_config.get('num_closest_targets', 5)  # Number of closest targets considered
         self.num_closest_herders = wrapper_config.get('num_closest_herders', 1)  # Number of closest herders considered
         self.low_level_policy = wrapper_config.get('low_level_policy', "PPO")  # Low-level movement policy
-        self.high_level_policy = wrapper_config.get('high_level_policy', "PPO")  # High-level target selection policy
+        self.obs_style = wrapper_config.get('obs_style', "PPO")  # High-level target selection policy
 
         # Buffers for storing closest target and herder indices
         self.closest_targets_indices = []
@@ -130,7 +134,7 @@ class MultiAgentRL(Wrapper):
         self.scaling_low_level = (
                 1 / min(self.env.unwrapped.environment.dimensions)) if self.low_level_policy == "PPO" else 1
         self.scaling_high_level = (
-                1 / min(self.env.unwrapped.environment.dimensions)) if self.high_level_policy == "PPO" else 1
+                1 / min(self.env.unwrapped.environment.dimensions)) if self.obs_style == "PPO" else 1
 
         # Define the observation space with infinite bounds (to be clipped if needed)
         obs_low = np.full((num_herders, num_features), -np.inf, dtype=np.float32)
@@ -138,8 +142,19 @@ class MultiAgentRL(Wrapper):
         self.observation_space = spaces.Box(low=obs_low, high=obs_high, dtype=np.float32)
 
         # Initialize the neural network model for low-level control if using PPO
+        self.control_inputs = None
+        self.num_acts = gym_config.get("num_acts", None)
         if self.low_level_policy == "PPO":
+            # network_config = wrapper_config.get('network', {'hidden_sizes': [128, 64], 'activation': 'ReLU'})
+            # env_ppo = SingleAgentEnv(env, config_path)
+            # self.model = ActorCriticContinuous(env_ppo, network_config)
             self.model = ActorCritic()
+        else:
+            action_max = gym_config["action_bound"]
+            self.model = DeepQNetwork_LL(lr=0, n_actions=self.num_acts, name='LLC_DQN', input_dims=[6], chkpt_dir='./models/')
+            self.model.load_checkpoint()
+            control_input = np.linspace(-action_max, action_max, self.num_acts)
+            self.control_inputs = np.vstack((control_input, control_input))
 
         # Create an observation buffer to store a batch of observations for training
         self.obs_batch = np.zeros(shape=((self.update_frequency,) + env.unwrapped.observation_space.shape))
@@ -215,20 +230,24 @@ class MultiAgentRL(Wrapper):
             elif self.low_level_policy == "DQN":
                 # Compute positions for DQN-based movement policy
                 target_positions = self.env.unwrapped.targets.x[target_indices_to_chase,
-                                   :] - self.env.unwrapped.environment.goal_pos
+                                   :2] - self.env.unwrapped.environment.goal_pos
+                target_velocities = self.env.unwrapped.targets.x[target_indices_to_chase, 2:4]
                 herder_positions = self.env.unwrapped.herders.x[:, :2] - self.env.unwrapped.environment.goal_pos
 
                 # Stack positions into a single batch input
-                batch_inputs = np.hstack((target_positions, herder_positions)).astype(np.float32)
+                batch_inputs = np.hstack((target_positions, target_velocities, herder_positions)).astype(np.float32)
 
             # Convert batch input into a PyTorch tensor
             batch_tensor = torch.tensor(batch_inputs)
 
             # Compute actions using the neural network (only for PPO, DQN logic not implemented)
             if self.low_level_policy == "PPO":
+                # batched_herder_actions = self.model.get_action(batch_tensor).cpu().numpy()
                 batched_herder_actions = self.model.get_action_mean(batch_tensor).cpu().numpy()
             elif self.low_level_policy == "DQN":
-                pass  # Placeholder for DQN-based action selection
+                batched_herder_actions_idx = self.model.get_action(batch_tensor)
+                batched_herder_actions = get_discrete_action(batched_herder_actions_idx, self.control_inputs)
+                batched_herder_actions = batched_herder_actions.transpose()
 
             # Step the environment with the computed herder actions
             obs_unw, reward_unw, terminated, truncated, info = self.env.step(batched_herder_actions)
@@ -353,12 +372,12 @@ class MultiAgentRL(Wrapper):
         closest_targets_flat = closest_targets.reshape(num_herders, -1)  # Shape: (num_herders, num_closest_targets * 2)
 
         # Concatenate herder's own position, closest herders, and closest targets
-        if self.high_level_policy == "PPO":
+        if self.obs_style == "PPO":
             processed_obs = np.concatenate(
                 [herder_positions_normalized, closest_herders_flat, closest_targets_flat],
                 axis=1
             )
-        elif self.high_level_policy == "DQN":
+        elif self.obs_style == "DQN":
             processed_obs = np.concatenate(
                 [closest_targets_flat, herder_positions_normalized, closest_herders_flat],
                 axis=1
@@ -422,7 +441,10 @@ class MultiAgentRL(Wrapper):
         num_different_targets = len(np.unique(target_indices, axis=0))
 
         # Normalize the diversity of target selection
-        ratio_different_targets = (num_different_targets - 1) / (self.env.unwrapped.herders.N - 1)
+        if self.env.unwrapped.herders.N > 1:
+            ratio_different_targets = (num_different_targets - 1) / (self.env.unwrapped.herders.N - 1)
+        else:
+            ratio_different_targets = 0
 
         # Update cooperative metric using an exponential moving average
         self.cooperative_metric = (self.cooperative_metric +
