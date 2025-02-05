@@ -3,6 +3,7 @@ import os
 import yaml
 import torch
 
+import swarmsim
 from swarmsim.GymEnvs.shepherding_env.envs import ShepherdingEnv
 from swarmsim.GymEnvs.shepherding_env.wrappers.multi_agent_rl import MultiAgentRL
 from gymnasium.wrappers import RecordVideo
@@ -10,6 +11,7 @@ from gymnasium.wrappers import RecordVideo
 from swarmsim.Controllers import ShepherdingLamaControllerHighLevel, ShepherdingLamaController
 from swarmsim.Utils.actor_critic_mappo import ActorCriticMAPPO
 from swarmsim.Utils.plot_utils import get_snapshot
+from swarmsim.Utils import set_global_seed
 import pathlib
 
 config_path = str(pathlib.Path(__file__).resolve().parent.parent / "Configuration" / "shepherding_gym_config.yaml")
@@ -18,10 +20,14 @@ with open(config_path, "r") as file:
     config = yaml.safe_load(file)
 params = config.get('Gym', {})
 
+seed = config.get('seed')
+if seed is not None:
+    set_global_seed(seed=seed)
+
 num_episodes = params['num_episodes']
 
 env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="human")
-env._max_episode_steps = 5000
+env._max_episode_steps = 100
 # env = RecordVideo(env, video_folder="videos")
 env = MultiAgentRL(env, config_path=config_path)
 
@@ -47,7 +53,7 @@ controller = ShepherdingLamaControllerHighLevel(population=env.unwrapped.herders
 
 for episode in range(1, num_episodes + 1):
     # Reset the environment to get the initial observation
-    observation, info = env.reset(seed=episode)
+    observation, info = env.reset()
 
     truncated = False
     terminated = False

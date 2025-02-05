@@ -4,16 +4,24 @@
 BrownianMotion:
   N: 50
   state_dim: 2
-  x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: Random 
+  # x0_limits : [[-25, 25],[-25,25]]
+  x0_mode: Random
+
+  x0_shape: circle
+  max_initial_radius: 25
+
   params_mode: Random
   params_names: ["mu","D"]
-  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
+  params_limits: {mu: [[0.1,0.2],[0.1,0.2]], D: [[0,1],[0,1]]}
   id: 'Targets'
 
 SimpleIntegrators:
   N: 20
-  x0_limits : [[-25, 25],[-25,25]]
+#  x0_limits : [[-25, 25],[-25,25]]
+
+  x0_shape: circle
+  max_initial_radius: 25
+
   params_mode: Random
   params_names: ["D"]
   params_limits: {D: [[0,0], [0,0]]}

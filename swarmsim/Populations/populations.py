@@ -186,17 +186,29 @@ class Populations(ABC):
                 self.state_dim = self.x0.shape[1]
 
             case "Random":
-                # Generate random initial conditions
-                limits = np.array(self.config.get("x0_limits", []))  # Get sampling limits
+                x0_shape = self.config.get("x0_shape", "box")
+
                 self.N = self.config.get("N")  # Number of agents
                 self.state_dim = self.config.get("state_dim")  # State space dimensionality
 
                 # Initialize state array
                 self.x0 = np.zeros([self.N, self.state_dim])
 
-                # Assign random values within specified limits for each state variable
-                for i in range(min(limits.shape[0], self.state_dim)):
-                    self.x0[:, i] = np.random.uniform(limits[i, 0], limits[i, 1], self.N)
+                if x0_shape == "box":
+                    # Generate random initial conditions
+                    limits = np.array(self.config.get("x0_limits", []))  # Get sampling limits
+
+                    # Assign random values within specified limits for each state variable
+                    for i in range(min(limits.shape[0], self.state_dim)):
+                        self.x0[:, i] = np.random.uniform(limits[i, 0], limits[i, 1], self.N)
+
+                if x0_shape == "circle":
+                    max_radius = self.config.get("max_initial_radius", 25)
+                    agent_radii = np.sqrt(np.random.uniform(0, 1, self.N)) * max_radius
+                    agent_angles = np.random.uniform(0, 2 * np.pi, self.N)
+
+                    self.x0[:, 0] = agent_radii * np.cos(agent_angles)
+                    self.x0[:, 1] = agent_radii * np.sin(agent_angles)
 
             case _:
                 raise RuntimeError("Invalid initialization type. Check the YAML config file.")

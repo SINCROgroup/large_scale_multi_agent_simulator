@@ -18,6 +18,7 @@ from swarmsim.Utils.plot_utils import get_snapshot
 
 from swarmsim.Interactions import PowerLawInteraction
 
+
 class ShepherdingEnv(gym.Env):
     metadata = {'render_modes': ['human', 'rgb_array'], 'render_fps': 60}
 
