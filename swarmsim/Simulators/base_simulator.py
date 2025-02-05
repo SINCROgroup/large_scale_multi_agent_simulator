@@ -19,7 +19,7 @@ class Simulator:
             config = yaml.safe_load(config_file)
 
         simulator_config = config.get('simulator', {})
-        self.dt = simulator_config.get('dt', 0.01)
+        self.dt = integrator.dt
         self.T = simulator_config.get('T', 10)
 
         # get parameters from initialization

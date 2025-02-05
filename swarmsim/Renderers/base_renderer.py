@@ -6,33 +6,131 @@ from swarmsim.Renderers import Renderer
 
 class BaseRenderer(Renderer):
     """
-    A base renderer class responsible for rendering the agents in the environment.
+    A base renderer class responsible for rendering agents in an environment using either
+    Matplotlib or Pygame.
+
+    This class provides a flexible rendering system for visualizing populations within
+    a simulation environment. It supports both **Matplotlib** (for static plots) and
+    **Pygame** (for interactive rendering).
+
+    Parameters
+    ----------
+    populations : list
+        A list of population objects to render.
+    environment : object, optional
+        The environment instance in which the populations exist (default is None).
+    config_path : str, optional
+        Path to the YAML configuration file containing rendering settings (default is None).
+
+    Attributes
+    ----------
+    populations : list
+        List of population objects to be rendered.
+    environment : object
+        The environment in which agents operate.
+    config : dict
+        Dictionary containing rendering configuration parameters.
+    agent_colors : str or list
+        Color(s) used to render the agents.
+    agent_shapes : str or list
+        Shape(s) used to represent agents (e.g., `"circle"`, `"diamond"`).
+    agent_size : float or list
+        Size of the agents in the rendering.
+    background_color : str
+        Background color of the rendering window.
+    render_mode : str
+        Rendering mode, either `"matplotlib"` or `"pygame"`.
+    render_dt : float
+        Time delay between frames in seconds.
+    fig, ax : matplotlib objects
+        Matplotlib figure and axis (if using Matplotlib mode).
+    window : pygame.Surface
+        Pygame window surface (if using Pygame mode).
+    clock : pygame.time.Clock
+        Pygame clock for controlling frame rate.
+    screen_size : tuple
+        Size of the Pygame window.
+    arena_size : tuple
+        Size of the simulation arena in the Pygame window.
+
+    Config requirements
+    -------------------
+    The YAML configuration file must contain a `renderer` section with the following parameters:
+
+    agent_colors : str or list, optional
+        Default color(s) for the agents (default is `"blue"`).
+    agent_shapes : str or list, optional
+        Shape(s) used to render agents (`"circle"` or `"diamond"`, default is `"circle"`).
+    agent_size : float or list, optional
+        Size of the agents (default is `1`).
+    background_color : str, optional
+        Background color of the rendering (default is `"white"`).
+    render_mode : str, optional
+        Rendering mode (`"matplotlib"` or `"pygame"`, default is `"matplotlib"`).
+    render_dt : float, optional
+        Time delay between frames in seconds (default is `0.05`).
+
+    Notes
+    -----
+    - The rendering mode must be either `"matplotlib"` (for static plots) or `"pygame"` (for interactive rendering).
+    - If using Matplotlib, a new figure is created at initialization.
+    - If using Pygame, a window is created, and agents are rendered as circles or diamonds.
+
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        renderer:
+            agent_colors: ["red", "green"]
+            agent_shapes: ["circle", "diamond"]
+            agent_size: 5
+            background_color: "black"
+            render_mode: "pygame"
+            render_dt: 0.1
+
+    This configuration will render agents using **Pygame**, with red and green agents appearing
+    as circles and diamonds, on a black background.
     """
 
     def __init__(self, populations, environment=None, config_path=None):
+        """
+        Initializes the renderer with the selected visualization mode.
+
+        Parameters
+        ----------
+        populations : list
+            A list of population objects to render.
+        environment : object, optional
+            The environment instance in which the populations exist (default is None).
+        config_path : str, optional
+            Path to the YAML configuration file (default is None).
+        """
         super().__init__(populations, environment, config_path)
 
+        # Load rendering settings from the config
         self.agent_colors = self.config.get('agent_colors', 'blue')
         self.agent_shapes = self.config.get('agent_shapes', 'circle')
         self.agent_size = self.config.get('agent_size', 1)
 
         self.background_color = self.config.get('background_color', 'white')
         self.render_mode = self.config.get('render_mode', 'matplotlib')
-        self.render_dt = self.config.get('render_dt', 0.05)  # Default to 0.05 seconds if not specified
+        self.render_dt = self.config.get('render_dt', 0.05)
 
-        # Pygame window setup
+        # Pygame setup
         self.window = None
         self.clock = None
         self.screen_size = (800, 800)
-        self.arena_size = (600, 600)  # Arena smaller than the window
+        self.arena_size = (600, 600)  # Smaller arena size
 
         # Matplotlib setup
         self.fig, self.ax = None, None
         if self.render_mode == "matplotlib":
             self.fig, self.ax = plt.subplots(figsize=(8, 8))
-            self.ax.set_xlim(-100 / 2, 100 / 2)  # Default limits, can be updated later
+            self.ax.set_xlim(-100 / 2, 100 / 2)
             self.ax.set_ylim(-100 / 2, 100 / 2)
-            self.ax.set_aspect('equal')  # Ensure equal scaling for x and y axes
+            self.ax.set_aspect('equal')
             self.ax.set_facecolor(self.background_color)
             self.ax.set_xlabel('X Position')
             self.ax.set_ylabel('Y Position')
@@ -42,18 +140,36 @@ class BaseRenderer(Renderer):
     def render(self):
         """
         Render the agents and environment using the selected renderer mode.
+
+        Raises
+        ------
+        ValueError
+            If an unsupported rendering mode is specified.
         """
         if self.render_mode == "matplotlib":
-            return self._render_matplotlib()
+            return self.render_matplotlib()
         elif self.render_mode == "pygame":
-            return self._render_pygame()
+            return self.render_pygame()
         else:
             raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
 
-    def _render_matplotlib(self):
+    def render_matplotlib(self):
         """
-        Render agents and environment using Matplotlib.
+        Renders agents and the environment using Matplotlib.
+
+        This method clears the Matplotlib figure and redraws the environment along
+        with the agent populations. The agents are represented using scatter plots
+        with configurable colors, shapes, and sizes.
+
+        Notes
+        -----
+        - The function first clears the previous frame to avoid overlapping plots.
+        - The axis limits are dynamically set according to the environment dimensions.
+        - Calls `pre_render_hook_matplotlib()` before plotting.
+        - Calls `post_render_hook_matplotlib()` after plotting.
+        - Uses `plt.pause(self.render_dt)` to control rendering speed.
         """
+        # Clear the previous frame
         self.ax.clear()
         self.ax.set_xlim(-self.environment.dimensions[0] / 2, self.environment.dimensions[0] / 2)
         self.ax.set_ylim(-self.environment.dimensions[1] / 2, self.environment.dimensions[1] / 2)
@@ -63,66 +179,87 @@ class BaseRenderer(Renderer):
         # Call the pre-render hook
         self.pre_render_hook_matplotlib()
 
-        # Plot agents
-        for i, (population, color, shape, size) in enumerate(zip(self.populations,
-                                                                 self.agent_colors,
-                                                                 self.agent_shapes,
-                                                                 self.agent_size)):
+        # Plot each population
+        for population, color, shape, size in zip(self.populations,
+                                                  self.agent_colors,
+                                                  self.agent_shapes,
+                                                  self.agent_size):
+            # Adjust size for Matplotlib scatter plot
+            marker_size = size * 30  # Matplotlib `s` parameter is proportional to the area
 
-            # Adjust size scaling for scatter plot
-            marker_size = (size / 2) ** 2  # Matplotlib `s` is proportional to the area of the marker
-            marker_size = size * 30
+            # Choose marker type based on agent shape
+            marker = 'o' if shape == 'circle' else 'D'  # 'D' represents a diamond shape
 
-            if shape == 'circle':
-                self.ax.scatter(population.x[:, 0], population.x[:, 1],
-                                c=color, label=population.id,
-                                marker='o', s=marker_size)
-
-            elif shape == 'diamond':
-                self.ax.scatter(population.x[:, 0], population.x[:, 1],
-                                c=color, label=population.id,
-                                marker='D', s=marker_size)  # 'D' is the diamond marker in matplotlib
+            # Scatter plot for agents
+            self.ax.scatter(population.x[:, 0], population.x[:, 1],
+                            c=color, label=population.id,
+                            marker=marker, s=marker_size)
 
         # Call the post-render hook
         self.post_render_hook_matplotlib()
 
+        # Set labels and title
         self.ax.set_xlabel('X Position')
         self.ax.set_ylabel('Y Position')
-
         self.ax.set_title('Populations in the Environment')
         self.ax.legend()
         self.ax.grid(True)
 
+        # Pause to control rendering speed
         plt.pause(self.render_dt)
 
-    def _render_pygame(self):
+    def render_pygame(self):
         """
-        Render agents and environment using Pygame.
+        Renders agents and the environment using Pygame.
+
+        This method initializes a Pygame window (if not already created) and
+        renders the agent populations using circles or diamond shapes.
+
+        Notes
+        -----
+        - The function first fills the screen with the background color.
+        - Calls `pre_render_hook_pygame()` before rendering agents.
+        - Calls `post_render_hook_pygame()` after rendering.
+        - Uses `pygame.display.flip()` to update the screen.
+        - Uses `self.clock.tick(1 / self.render_dt)` to control rendering speed.
+
+        Returns
+        -------
+        np.ndarray or pygame.Surface
+            - If `render_mode == "rgb_array"`, returns a NumPy array representing the rendered frame.
+            - Otherwise, returns the Pygame window.
         """
+        # Initialize Pygame window if it hasn't been created
         if self.window is None:
             pygame.init()
             self.window = pygame.display.set_mode(self.screen_size)
             pygame.display.set_caption("Populations in the Environment")
             self.clock = pygame.time.Clock()
 
+        # Fill the screen with the background color
         background_color = pygame.Color(self.background_color)
         self.window.fill(background_color)
 
         # Call the pre-render hook
         self.pre_render_hook_pygame()
 
-        # Render agents
+        # Convert agent colors to Pygame format
         agent_colors = [
             pygame.Color(color) if isinstance(color, str) else pygame.Color(*color)
             for color in self.agent_colors
         ]
+
+        # Calculate scale factor for rendering
         scale = min(self.arena_size[0] / self.environment.dimensions[0],
                     self.arena_size[1] / self.environment.dimensions[1])
-        for i, (population, color, shape, size) in enumerate(zip(self.populations,
-                                                                 agent_colors,
-                                                                 self.agent_shapes,
-                                                                 self.agent_size)):
+
+        # Render agents
+        for population, color, shape, size in zip(self.populations,
+                                                  agent_colors,
+                                                  self.agent_shapes,
+                                                  self.agent_size):
             for position in population.x:
+                # Convert simulation coordinates to screen coordinates
                 x = int((position[0] + self.environment.dimensions[0] / 2) * scale) + 100
                 y = int((self.environment.dimensions[1] / 2 - position[1]) * scale) + 100
 
@@ -130,7 +267,7 @@ class BaseRenderer(Renderer):
                     agent_radius = int(size / 2 * scale)
                     pygame.draw.circle(self.window, color, (x, y), agent_radius)
 
-                if shape == 'diamond':
+                elif shape == 'diamond':
                     agent_side = int(size * np.sqrt(2) / 2 * scale)
                     pygame.draw.polygon(self.window, color, [
                         (x, y - agent_side),  # Top
@@ -142,37 +279,66 @@ class BaseRenderer(Renderer):
         # Call the post-render hook
         self.post_render_hook_pygame()
 
+        # Update the display
         pygame.display.flip()
+
+        # Control rendering speed
         self.clock.tick(1 / self.render_dt)
 
+        # Return frame as an array if requested
         if self.render_mode != "rgb_array":
             frame = pygame.surfarray.array3d(self.window)
-            frame = np.transpose(frame,
-                                 (1, 0, 2))  # Convert from (width, height, channels) to (height, width, channels)
+            frame = np.transpose(frame, (1, 0, 2))  # Convert to (height, width, channels)
             return frame
 
-        else:
-            return self.window
+        return self.window
 
     def pre_render_hook_matplotlib(self):
-        """Hook for adding custom pre-render logic for Matplotlib."""
+        """
+        Hook for adding custom pre-render logic in Matplotlib.
+
+        This method is called before rendering agents, allowing subclasses
+        to modify the figure (e.g., drawing additional elements).
+        """
         pass
 
     def post_render_hook_matplotlib(self):
-        """Hook for adding custom post-render logic for Matplotlib."""
+        """
+        Hook for adding custom post-render logic in Matplotlib.
+
+        This method is called after rendering agents, allowing subclasses
+        to modify the figure (e.g., adding annotations).
+        """
         pass
 
     def pre_render_hook_pygame(self):
-        """Hook for adding custom pre-render logic for Pygame."""
+        """
+        Hook for adding custom pre-render logic in Pygame.
+
+        This method is called before rendering agents, allowing subclasses
+        to modify the display (e.g., drawing additional elements).
+        """
         pass
 
     def post_render_hook_pygame(self):
-        """Hook for adding custom post-render logic for Pygame."""
+        """
+        Hook for adding custom post-render logic in Pygame.
+
+        This method is called after rendering agents, allowing subclasses
+        to modify the display (e.g., adding annotations).
+        """
         pass
 
     def close(self):
         """
         Closes the Pygame window if it is open.
+
+        This method ensures that Pygame is properly shut down, freeing
+        up any allocated resources.
+
+        Notes
+        -----
+        - If the window is not `None`, the function quits Pygame and resets the window to `None`.
         """
         if self.window is not None:
             pygame.display.quit()
