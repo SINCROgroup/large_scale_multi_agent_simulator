@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -301,6 +313,8 @@
 <span class="sd">        The total number of steps over which the goal moves.</span>
 <span class="sd">    step_count : int</span>
 <span class="sd">        Counter to track the current time step.</span>
+<span class="sd">    start_step: int</span>
+<span class="sd">        The step at which the goal region starts moving.</span>
 <span class="sd">    direction : np.ndarray</span>
 <span class="sd">        The unit vector representing the direction of movement from `(0,0)` to the final position.</span>
 
@@ -314,6 +328,8 @@
 <span class="sd">        The final position of the goal. This must be specified in the configuration.</span>
 <span class="sd">    num_steps : int, optional</span>
 <span class="sd">        The total number of time steps over which the goal moves. Default is ``2000``.</span>
+<span class="sd">    start_step: int, optional</span>
+<span class="sd">        The step at which the goal region starts moving. Default is ``0``</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -356,6 +372,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">goal_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;goal_pos&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">final_goal_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_goal_pos&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;num_steps&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>  <span class="c1"># Total steps over which goal moves</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;start_step&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Counter for tracking time steps</span>
 
         <span class="c1"># Compute direction vector from (0,0) to final_goal_pos</span>
@@ -401,7 +418,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Ensure the goal stops moving once it reaches the final position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_step</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_step</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">goal_pos</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span></div>
 </div>
 

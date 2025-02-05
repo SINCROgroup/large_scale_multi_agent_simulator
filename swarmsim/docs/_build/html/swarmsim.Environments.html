@@ -482,6 +482,7 @@ at each time step, allowing dynamic goal movement for shepherding tasks.</p>
 <li><p><strong>final_goal_pos</strong> (<em>np.ndarray</em>) – The final coordinates of the goal, loaded from the configuration.</p></li>
 <li><p><strong>num_steps</strong> (<em>int</em>) – The total number of steps over which the goal moves.</p></li>
 <li><p><strong>step_count</strong> (<em>int</em>) – Counter to track the current time step.</p></li>
+<li><p><strong>start_step</strong> (<em>int</em>) – The step at which the goal region starts moving.</p></li>
 <li><p><strong>direction</strong> (<em>np.ndarray</em>) – The unit vector representing the direction of movement from <cite>(0,0)</cite> to the final position.</p></li>
 </ul>
 </dd>
@@ -491,6 +492,7 @@ at each time step, allowing dynamic goal movement for shepherding tasks.</p>
 <li><p><strong>goal_pos</strong> (<em>tuple of (float, float), optional</em>) – The initial position of the goal. Default is <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code>.</p></li>
 <li><p><strong>final_goal_pos</strong> (<em>tuple of (float, float), required</em>) – The final position of the goal. This must be specified in the configuration.</p></li>
 <li><p><strong>num_steps</strong> (<em>int, optional</em>) – The total number of time steps over which the goal moves. Default is <code class="docutils literal notranslate"><span class="pre">2000</span></code>.</p></li>
+<li><p><strong>start_step</strong> (<em>int, optional</em>) – The step at which the goal region starts moving. Default is <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -746,6 +748,7 @@ at each time step, allowing dynamic goal movement for shepherding tasks.</p>
 <li><p><strong>final_goal_pos</strong> (<em>np.ndarray</em>) – The final coordinates of the goal, loaded from the configuration.</p></li>
 <li><p><strong>num_steps</strong> (<em>int</em>) – The total number of steps over which the goal moves.</p></li>
 <li><p><strong>step_count</strong> (<em>int</em>) – Counter to track the current time step.</p></li>
+<li><p><strong>start_step</strong> (<em>int</em>) – The step at which the goal region starts moving.</p></li>
 <li><p><strong>direction</strong> (<em>np.ndarray</em>) – The unit vector representing the direction of movement from <cite>(0,0)</cite> to the final position.</p></li>
 </ul>
 </dd>
@@ -755,6 +758,7 @@ at each time step, allowing dynamic goal movement for shepherding tasks.</p>
 <li><p><strong>goal_pos</strong> (<em>tuple of (float, float), optional</em>) – The initial position of the goal. Default is <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code>.</p></li>
 <li><p><strong>final_goal_pos</strong> (<em>tuple of (float, float), required</em>) – The final position of the goal. This must be specified in the configuration.</p></li>
 <li><p><strong>num_steps</strong> (<em>int, optional</em>) – The total number of time steps over which the goal moves. Default is <code class="docutils literal notranslate"><span class="pre">2000</span></code>.</p></li>
+<li><p><strong>start_step</strong> (<em>int, optional</em>) – The step at which the goal region starts moving. Default is <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>

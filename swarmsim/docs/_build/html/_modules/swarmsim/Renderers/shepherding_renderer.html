@@ -411,6 +411,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">shading_surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></div>
 </div>
 
+
+        <span class="c1"># # -------- Draw the herders&#39; sensing areas --------</span>
+        <span class="c1"># # Sensing radius in simulation units is defined as 15.</span>
+        <span class="c1"># sensing_radius_sim = 10</span>
+        <span class="c1"># sensing_radius_screen = int(sensing_radius_sim * scale)</span>
+        <span class="c1"># # Define the sensing overlay color (blue with low opacity)</span>
+        <span class="c1"># sensing_color = (0, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)</span>
+        <span class="c1">#</span>
+        <span class="c1"># # Retrieve herder positions</span>
+        <span class="c1"># herder_positions = self.populations[1].x[:, :2]</span>
+        <span class="c1"># for pos in herder_positions:</span>
+        <span class="c1">#     # Convert simulation coordinates to screen coordinates</span>
+        <span class="c1">#     x = int((pos[0] + self.environment.dimensions[0] / 2) * scale) + 100</span>
+        <span class="c1">#     y = int((self.environment.dimensions[1] / 2 - pos[1]) * scale) + 100</span>
+        <span class="c1">#</span>
+        <span class="c1">#     # Create a surface for the sensing area overlay</span>
+        <span class="c1">#     sensing_surface = pygame.Surface((sensing_radius_screen * 2, sensing_radius_screen * 2), pygame.SRCALPHA)</span>
+        <span class="c1">#     pygame.draw.circle(sensing_surface, sensing_color,</span>
+        <span class="c1">#                        (sensing_radius_screen, sensing_radius_screen),</span>
+        <span class="c1">#                        sensing_radius_screen)</span>
+        <span class="c1">#     # Blit the sensing overlay so that it centers on the herder</span>
+        <span class="c1">#     self.window.blit(sensing_surface, (x - sensing_radius_screen, y - sensing_radius_screen))</span>
 </pre></div>
 
                 </article>

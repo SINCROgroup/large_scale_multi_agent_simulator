@@ -4,7 +4,7 @@ swarmsim.Controllers package
 Submodules
 ----------
 
-swarmsim.Controllers.base\_controller module
+Base controller
 --------------------------------------------
 
 .. automodule:: swarmsim.Controllers.base_controller

@@ -780,6 +780,88 @@ agent in <cite>pop1</cite>, where <cite>N1</cite> is the number of agents in <ci
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Interactions.PowerLawInteraction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.</span></span><span class="sig-name descname"><span class="pre">PowerLawInteraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pop1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repulsion_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_interaction.html#PowerLawInteraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.PowerLawInteraction" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
+<p>Implements a power-law repulsion interaction between two populations.</p>
+<p>This interaction models a repulsive force that decays according to a power-law function
+with respect to the distance between agents. The strength of the force is determined by
+the power exponent <cite>p</cite> and is active within a defined maximum interaction range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pop1</strong> (<em>Population</em>) – The first population that is influenced by the interaction.</p></li>
+<li><p><strong>pop2</strong> (<em>Population</em>) – The second population that applies the repulsion force.</p></li>
+<li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
+<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Dictionary containing interaction parameters loaded from the configuration file.</p></li>
+<li><p><strong>strength</strong> (<em>float</em>) – Maximum intensity of the repulsion force.</p></li>
+<li><p><strong>max_distance</strong> (<em>float</em>) – Maximum distance at which the interaction takes place.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – Power exponent controlling the decay rate of the repulsion force.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
+<li><p><strong>strength</strong> (<em>float</em>) – The maximum repulsion force intensity.</p></li>
+<li><p><strong>max_distance</strong> (<em>float</em>) – The maximum interaction range.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – The power exponent determining the force decay.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
+<li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">power_law_repulsion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">strength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">max_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
+<span class="w">    </span><span class="nt">p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span>
+</pre></div>
+</div>
+<p>This sets a repulsion force with <cite>strength = 2.0</cite>, active within <cite>5.0</cite> units,
+and decaying with a power exponent <cite>p = 3.0</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.PowerLawInteraction.get_interaction">
+<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_interaction.html#PowerLawInteraction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.PowerLawInteraction.get_interaction" title="Link to this definition">#</a></dt>
+<dd><p>Computes the repulsion force exerted by <cite>pop2</cite> on <cite>pop1</cite> using a power-law function.</p>
+<p>The repulsion force is computed as:</p>
+<blockquote>
+<div><p>F_repulsion = strength * (1/distance^p - 1/max_distance^p)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><cite>distance</cite> is the Euclidean distance between agents in <cite>pop1</cite> and <cite>pop2</cite>.</p></li>
+<li><p><cite>max_distance</cite> defines the interaction cutoff beyond which no force is applied.</p></li>
+<li><p><cite>p</cite> controls how rapidly the force decays with distance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the repulsion force applied to each
+agent in <cite>pop1</cite>, where <cite>N1</cite> is the number of agents in <cite>pop1</cite> and
+<cite>D</cite> is the dimensionality of the state space.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function prevents division by zero by setting a minimum distance (<cite>1e-6</cite>).</p></li>
+<li><p>The force is capped at <cite>10</cite> to avoid numerical instabilities.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -868,6 +950,10 @@ agent in <cite>pop1</cite>, where <cite>N1</cite> is the number of agents in <ci
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawInteraction.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.get_interaction()</span></code></a></li>
 </ul>
 </li>
 </ul>
