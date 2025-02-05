@@ -1,20 +1,27 @@
 # Configuration file
 # In all scripts numpy is imported as np
 
+seed: 1
+
 DampedDoubleIntegrators:
-  N: 5
+  N: 2
   state_dim: 4
-  x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: Random 
+
+  x0_mode: Random
+  x0_shape: circle
+  max_initial_radius: 25
+
   D: 1
   damping: 3
   id: 'Targets'
 
 SimpleIntegrators:
-  N: 2
+  N: 1
   state_dim: 2
-  x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: Random 
+  x0_mode: Random
+  x0_shape: circle
+  max_initial_radius: 25
+
   params_mode: Random
   params_names: ["D"]
   params_limits: {D: [[0,0], [0,0]]}
@@ -74,7 +81,7 @@ TargetInteraction:
   is_attractive: False
 
 Gym:
-  num_episodes : 1
+  num_episodes : 10
   action_bound : 12
   reward_gain : 1
   num_acts: 5  # For DQN only
@@ -88,7 +95,7 @@ Gym:
 
   marl_wrapper:
     update_frequency    : 1
-    num_closest_targets : 5
+    num_closest_targets : 2
     num_closest_herders : 1
     low_level_policy    : "PPO"
     obs_style   : "DQN"
