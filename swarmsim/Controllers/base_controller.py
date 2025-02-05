@@ -27,10 +27,15 @@ class Controller(ABC):
         self.population = population
         self.environment = environment
 
+        # Load configuration from YAML file
         with open(config_path, "r") as file:
-            self.params = yaml.safe_load(file)
+            config = yaml.safe_load(file)
+
+        # Get configuration for the specific population class
+        class_name = type(self).__name__
+        self.config = config.get(class_name, {})
         
-        self.dt = self.params.get('dt',0.1)
+        self.dt = self.config.get('dt',0.1)
 
     # This method
     @abstractmethod

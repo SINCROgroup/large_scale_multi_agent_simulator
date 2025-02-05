@@ -1,6 +1,7 @@
 from swarmsim.Controllers import Controller
 import numpy as np
 import scipy.interpolate as sp
+import matplotlib.pyplot as plt
 
 
 class GaussianRepulsion(Controller):
@@ -71,3 +72,53 @@ class GaussianRepulsion(Controller):
         sigma_y(float): Standard deviation in the second dimension
         """
         return A * np.exp(-((x - mu_x)**2 / (2 * sigma_x**2)) - ((y - mu_y)**2 / (2 * sigma_y**2)))
+
+
+
+
+class LightPattern(Controller):
+
+    def __init__(self, population, environment, config_path=None) -> None:
+        """ 
+            This method initializes the repulsion force. It creates an interpolated Gaussian in 2D and 
+            initializes the population that the force will act upon, the environment and loads the 
+            configuration parameters
+        """
+        super().__init__(population, environment, config_path)
+
+        pattern_path = self.config.get("pattern_path","")
+        camera_pattern = plt.imread(pattern_path)
+
+        x_dim = environment.dimensions[0]
+        y_dim = environment.dimensions[1]
+        self.environment = environment
+
+        # Create a grid of points
+        x = np.linspace(-x_dim/2, x_dim/2, camera_pattern.shape[0])  
+        y = np.linspace(-y_dim/2, y_dim/2, camera_pattern.shape[1])  
+
+        # Create the 2D grid of values
+        X, Y = np.meshgrid(x, y)  # Create a grid from x and y
+        
+        Z = camera_pattern[:,:,2]/255
+
+        # Create the RegularGridInterpolator
+        self.interpolator = sp.RegularGridInterpolator((x, y), Z, method='linear')   
+
+
+    def get_action(self):
+       
+       limit_x = self.environment.dimensions[0]/2 * np.ones([self.population.x.shape[0],1])
+       limit_y = self.environment.dimensions[1]/2 * np.ones([self.population.x.shape[0],1])
+       limits_p = np.hstack((limit_x,limit_y))
+       limits_n = -limits_p
+
+       state = np.concatenate((self.population.x[:,[0,1],np.newaxis],limits_p[:,:,np.newaxis]),axis=2)
+       state = np.min(state,axis=2)
+       state = np.concatenate((state[:,:,np.newaxis],limits_n[:,:,np.newaxis]),axis=2)
+       state = np.max(state,axis=2)
+       
+
+       light_ity = self.interpolator(state) 
+
+       return light_ity[:,np.newaxis]

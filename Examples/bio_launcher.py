@@ -23,7 +23,7 @@ from swarmsim.Populations.parsistent_turning_walker import LightSensitive_PTW
 from swarmsim.Interactions import HarmonicRepulsion
 from swarmsim.Integrators import EulerMaruyamaIntegrator
 
-from swarmsim.Controllers import GaussianRepulsion
+from swarmsim.Controllers.spatial_inputs import LightPattern
 
 from swarmsim.Renderers import BaseRenderer
 
@@ -48,8 +48,8 @@ if __name__ == '__main__':
     populations = [population1]
     controllers = []
 
-    controller = None
-    controllers =[]
+    controller = LightPattern(population1,environment,config_path) 
+    controllers =[controller]
 
     interactions = []
 

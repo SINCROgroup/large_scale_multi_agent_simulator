@@ -4,19 +4,24 @@
 LightSensitive_PTW:
   N: 200
   state_dim: 5
-  x0_limits : [[-800, 800],[-500,500],[10,20],[-3.14, 3.14],[0,0]]
+  x0_limits : [[-900, 900],[-550,550],[20,40],[-3.14, 3.14],[0,0]]
   x0_mode: Random 
   params_mode: From_File
   params_path: .\Configuration\Config_data\Parameters_Euglena.csv 
   id: 'Euglena_Gracilis'
   dt: 0.01
 
+
+LightPattern:
+  pattern_path: .\Configuration\Config_data\BCL.jpeg 
+  dt: 0.5
+
 integrator:
   dt: 0.01
 
 simulator:
   dt: 0.01
-  T: 10
+  T: 100
 
 environment:
   dimensions: [1920, 1080]
