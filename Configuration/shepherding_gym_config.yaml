@@ -30,7 +30,7 @@ environment:
   dimensions: [50, 50]
   goal_pos: [0, 0]
   goal_radius: 5
-  final_goal_pos : [20, 20]
+  final_goal_pos : [0, 0]
   num_steps : 2000
   start_step: 2000
 
@@ -43,8 +43,8 @@ renderer:
   render_dt: 0.01
 
 logger:
-  activate: False         # True to save logger, False otherwise
-  log_freq: 1             # Print every log_freq steps information (0: never print)
+  activate: True         # True to save logger, False otherwise
+  log_freq: 0             # Print every log_freq steps information (0: never print)
   save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
   log_path: .\logs        # Path where logger should be saved

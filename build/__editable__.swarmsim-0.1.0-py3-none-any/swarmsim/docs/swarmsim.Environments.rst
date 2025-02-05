@@ -1,0 +1,37 @@
+swarmsim.Environments package
+=============================
+
+Submodules
+----------
+
+swarmsim.Environments.base\_environment module
+----------------------------------------------
+
+.. automodule:: swarmsim.Environments.base_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Environments.empty\_environment module
+-----------------------------------------------
+
+.. automodule:: swarmsim.Environments.empty_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Environments.shepherding\_environment module
+-----------------------------------------------------
+
+.. automodule:: swarmsim.Environments.shepherding_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: swarmsim.Environments
+   :members:
+   :undoc-members:
+   :show-inheritance:
