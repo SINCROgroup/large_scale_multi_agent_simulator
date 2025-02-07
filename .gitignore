@@ -4,4 +4,4 @@
 *.csv
 *.txt
 /swarmsim.egg-info/
-/build
+/build/
