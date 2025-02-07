@@ -1,0 +1,53 @@
+swarmsim.Populations package
+============================
+
+Submodules
+----------
+
+swarmsim.Populations.brownian\_motion module
+--------------------------------------------
+
+.. automodule:: swarmsim.Populations.brownian_motion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Populations.double\_integrators module
+-----------------------------------------------
+
+.. automodule:: swarmsim.Populations.double_integrators
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Populations.fixed\_population module
+---------------------------------------------
+
+.. automodule:: swarmsim.Populations.fixed_population
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Populations.populations module
+---------------------------------------
+
+.. automodule:: swarmsim.Populations.populations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+swarmsim.Populations.simple\_integrators module
+-----------------------------------------------
+
+.. automodule:: swarmsim.Populations.simple_integrators
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: swarmsim.Populations
+   :members:
+   :undoc-members:
+   :show-inheritance:
