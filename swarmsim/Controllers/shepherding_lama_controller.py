@@ -25,12 +25,12 @@ class ShepherdingLamaController(Controller):
         self.herders = self.population
         self.targets = targets
 
-        self.xi = self.params.get('xi', 15)
-        self.v_h = self.params.get('v_h', 12)
-        self.alpha = self.params.get('alpha', 3)
-        self.lmbda = self.params.get('lambda', 3)
-        self.delta = self.params.get('delta', 1.5)
-        self.rho_g = self.params.get('rho_g', 5)
+        self.xi = self.config.get('xi', 15)
+        self.v_h = self.config.get('v_h', 12)
+        self.alpha = self.config.get('alpha', 3)
+        self.lmbda = self.config.get('lambda', 3)
+        self.delta = self.config.get('delta', 1.5)
+        self.rho_g = self.config.get('rho_g', 5)
 
     def get_action(self):
         # Extract herder and target positions from the observation

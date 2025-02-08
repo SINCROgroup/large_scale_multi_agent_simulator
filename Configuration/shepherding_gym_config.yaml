@@ -6,6 +6,7 @@ seed: 1
 DampedDoubleIntegrators:
   N: 2
   state_dim: 4
+  # lim: ['inf', 'inf', 'inf', 'inf']
 
   x0_mode: Random
   x0_shape: circle
