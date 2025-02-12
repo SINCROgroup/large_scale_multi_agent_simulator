@@ -65,39 +65,97 @@ class EulerMaruyamaIntegrator(Integrator):
         # Initialize the parent `Integrator` class, which loads configuration parameters
         super().__init__(config_path)
 
+    # def step(self, populations):
+    #     """
+    #     Performs a single integration step using the Euler-Maruyama method.
+    #
+    #     The method updates the state of each population using:
+    #
+    #         x_new = x_old + drift * dt + diffusion * sqrt(dt) * noise
+    #
+    #     where `noise` is a random variable sampled from a standard normal distribution.
+    #
+    #     Parameters
+    #     ----------
+    #     populations : list
+    #         List of population objects for which the integration step is performed.
+    #         Each population object must have:
+    #         - `x` (np.ndarray): The current state of the population.
+    #         - `get_drift()` method returning the drift term.
+    #         - `get_diffusion()` method returning the diffusion term.
+    #         - `lim` (np.ndarray): limit of the state for saturation [Optional, Default inf]
+    #
+    #     Raises
+    #     ------
+    #     AttributeError
+    #         If any population object does not have the required methods (`get_drift`, `get_diffusion`) or attributes (`x`).
+    #     """
+    #     for population in populations:
+    #         # Compute the drift and diffusion terms
+    #         drift = population.get_drift()
+    #         diffusion = population.get_diffusion()
+    #
+    #         # Generate random noise (standard normal distribution)
+    #         noise = np.random.normal(0, 1, size=population.x.shape)
+    #
+    #         # Update the state using the Euler-Maruyama method
+    #         population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
+    #         population.x = np.clip(population.x, -population.lim, population.lim)
+
     def step(self, populations):
         """
         Performs a single integration step using the Euler-Maruyama method.
-
-        The method updates the state of each population using:
-
-            x_new = x_old + drift * dt + diffusion * sqrt(dt) * noise
-
-        where `noise` is a random variable sampled from a standard normal distribution.
 
         Parameters
         ----------
         populations : list
             List of population objects for which the integration step is performed.
-            Each population object must have:
-            - `x` (np.ndarray): The current state of the population.
-            - `get_drift()` method returning the drift term.
-            - `get_diffusion()` method returning the diffusion term.
-            - `lim` (np.ndarray): limit of the state for saturation [Optional, Default inf]
-
-        Raises
-        ------
-        AttributeError
-            If any population object does not have the required methods (`get_drift`, `get_diffusion`) or attributes (`x`).
         """
         for population in populations:
             # Compute the drift and diffusion terms
             drift = population.get_drift()
             diffusion = population.get_diffusion()
 
-            # Generate random noise (standard normal distribution)
-            noise = np.random.normal(0, 1, size=population.x.shape)
+            # Call the Numba function for efficient computation
+            step_numba(population.x, drift, diffusion, self.dt, population.lim)
 
-            # Update the state using the Euler-Maruyama method
-            population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
-            population.x = np.clip(population.x, -population.lim, population.lim)
+
+import numpy as np
+from numba import njit
+
+
+@njit(fastmath=True)
+def step_numba(x, drift, diffusion, dt, lim):
+    """
+    Numba-optimized function using explicit loops for the Euler-Maruyama update step.
+    Handles scalars, 1D, and 2D arrays for drift, diffusion, and lim.
+
+    Parameters
+    ----------
+    x : np.ndarray (2D)
+        The state array of the population.
+    drift : np.ndarray, scalar, or 1D array
+        The drift term (can be scalar, 1D, or 2D).
+    diffusion : np.ndarray, scalar, or 1D array
+        The diffusion term (can be scalar, 1D, or 2D).
+    dt : float
+        Time step size.
+    lim : np.ndarray, scalar, or 1D array
+        The limit for state saturation (can be scalar, 1D, or 2D).
+
+    Returns
+    -------
+    None (updates `x` in-place).
+    """
+    num_agents, num_dims = x.shape
+
+    for i in range(num_agents):  # Loop over agents
+        for j in range(num_dims):  # Loop over dimensions
+            # Generate noise
+            noise = np.random.normal(0, 1)
+
+            # Compute Euler-Maruyama step
+            x[i, j] += drift[i, j] * dt + diffusion[i, j] * np.sqrt(dt) * noise
+
+            # Apply state limits (clipping)
+            x[i, j] = max(-lim[j], min(x[i, j], lim[j]))

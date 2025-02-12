@@ -80,44 +80,103 @@ class PowerLawRepulsion(Interaction):
         self.max_distance = self.params["max_distance"]
         self.p = self.params["p"]
 
+    # def get_interaction(self):
+    #     """
+    #     Computes the repulsion force exerted by `pop2` on `pop1` using a power-law function.
+    #
+    #     The repulsion force is computed as:
+    #
+    #         F_repulsion = strength * (1/distance^p - 1/max_distance^p)
+    #
+    #     where:
+    #         - `distance` is the Euclidean distance between agents in `pop1` and `pop2`.
+    #         - `max_distance` defines the interaction cutoff beyond which no force is applied.
+    #         - `p` controls how rapidly the force decays with distance.
+    #
+    #     Returns
+    #     -------
+    #     np.ndarray
+    #         A `(N1, D)` array representing the repulsion force applied to each
+    #         agent in `pop1`, where `N1` is the number of agents in `pop1` and
+    #         `D` is the dimensionality of the state space.
+    #
+    #     Notes
+    #     -----
+    #     - The function prevents division by zero by setting a minimum distance (`1e-6`).
+    #     - The force is capped at `10` to avoid numerical instabilities.
+    #     """
+    #
+    #     # Compute pairwise distances and relative positions between agents
+    #     distances, relative_positions = compute_distances(self.pop1.x[:, :2], self.pop2.x[:, :2])
+    #
+    #     # Prevent division by zero
+    #     distances = np.maximum(distances, 1e-6)
+    #
+    #     # Compute the force kernel using power-law repulsion
+    #     y_f = 1 / (self.max_distance ** self.p)
+    #     kernel = (1 / (distances ** self.p) - y_f)
+    #     kernel = self.strength * np.minimum(np.maximum(kernel, 0), 10)  # Cap forces to avoid instability
+    #
+    #     # Compute final repulsion forces
+    #     repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
+    #
+    #     return repulsion
+
     def get_interaction(self):
-        """
-        Computes the repulsion force exerted by `pop2` on `pop1` using a power-law function.
+        return compute_repulsion_numba(self.pop1.x[:, :2], self.pop2.x[:, :2],
+                                       self.strength, self.max_distance, self.p)
 
-        The repulsion force is computed as:
 
-            F_repulsion = strength * (1/distance^p - 1/max_distance^p)
+from numba import njit
 
-        where:
-            - `distance` is the Euclidean distance between agents in `pop1` and `pop2`.
-            - `max_distance` defines the interaction cutoff beyond which no force is applied.
-            - `p` controls how rapidly the force decays with distance.
 
-        Returns
-        -------
-        np.ndarray
-            A `(N1, D)` array representing the repulsion force applied to each
-            agent in `pop1`, where `N1` is the number of agents in `pop1` and
-            `D` is the dimensionality of the state space.
+@njit
+def compute_repulsion_numba(pop1_x, pop2_x, strength, max_distance, p):
+    """
+    Numba-optimized function to compute repulsion forces using explicit loops.
+    This avoids vectorized NumPy operations for full Numba compatibility.
+    """
+    N1 = pop1_x.shape[0]
+    N2 = pop2_x.shape[0]
 
-        Notes
-        -----
-        - The function prevents division by zero by setting a minimum distance (`1e-6`).
-        - The force is capped at `10` to avoid numerical instabilities.
-        """
+    # Compute force shift
+    shift = strength / (max_distance ** p)
 
-        # Compute pairwise distances and relative positions between agents
-        distances, relative_positions = compute_distances(self.pop1.x[:, :2], self.pop2.x[:, :2])
+    # Initialize forces
+    repulsion = np.zeros((N1, 2))
 
-        # Prevent division by zero
-        distances = np.maximum(distances, 1e-6)
+    for i in range(N1):
+        force_sum = np.zeros(2)  # Accumulate forces for each agent
 
-        # Compute the force kernel using power-law repulsion
-        y_f = 1 / (self.max_distance ** self.p)
-        kernel = (1 / (distances ** self.p) - y_f)
-        kernel = self.strength * np.minimum(np.maximum(kernel, 0), 10)  # Cap forces to avoid instability
+        for j in range(N2):
+            # Compute relative position
+            dx = pop1_x[i, 0] - pop2_x[j, 0]
+            dy = pop1_x[i, 1] - pop2_x[j, 1]
 
-        # Compute final repulsion forces
-        repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
+            # Compute Euclidean distance
+            distance = np.sqrt(dx ** 2 + dy ** 2)
+            distance = np.maximum(distance, 1e-6)  # Prevent division by zero
 
-        return repulsion
+            # Check if within interaction range
+            if distance <= max_distance:
+                kernel = strength / (distance ** p) - shift
+            else:
+                kernel = 0.0  # No interaction beyond max_distance
+
+            # Cap forces
+            kernel = np.minimum(kernel, 10)
+
+            # Compute force contribution
+            force_sum[0] += kernel * dx
+            force_sum[1] += kernel * dy
+
+        repulsion[i, 0] = force_sum[0]
+        repulsion[i, 1] = force_sum[1]
+
+    return repulsion
+
+
+
+
+
+

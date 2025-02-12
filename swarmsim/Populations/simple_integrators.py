@@ -47,7 +47,7 @@ class SimpleIntegrators(Populations):
         return self.u + self.f
 
     def get_diffusion(self):
-        return self.D
+        return self.D * np.ones((self.N, self.state_dim))
 
     def reset_state(self):
         N = self.N

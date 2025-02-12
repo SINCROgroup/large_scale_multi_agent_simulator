@@ -49,7 +49,7 @@ class DampedDoubleIntegrators(Populations):
         return np.hstack((self.x[:, 2:], - self.damping * self.x[:, 2:] + self.u + self.f))
 
     def get_diffusion(self):
-        return self.D
+        return self.D * np.ones((self.N, self.state_dim))
 
     def reset_state(self):
         N = self.N
