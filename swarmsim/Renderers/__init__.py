@@ -39,3 +39,4 @@ Notes
 from swarmsim.Renderers.renderer import Renderer
 from swarmsim.Renderers.base_renderer import BaseRenderer
 from swarmsim.Renderers.shepherding_renderer import ShepherdingRenderer
+from swarmsim.Renderers.bio_renderer import BioRenderer

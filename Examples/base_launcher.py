@@ -52,8 +52,8 @@ if __name__ == '__main__':
     populations = [population1, population2]
     controllers = []
 
-    controller = GaussianRepulsion(population2, environment, config_path)
-    controllers =[controller]
+    #controller = GaussianRepulsion(population2, environment, config_path)
+    controllers =[]
 
     repulsion_12 = HarmonicRepulsion(population1, population2, config_path)
     interactions = [repulsion_12]

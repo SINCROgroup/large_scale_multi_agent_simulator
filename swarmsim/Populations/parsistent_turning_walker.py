@@ -61,9 +61,9 @@ class LightSensitive_PTW(Populations):
         theta = self.x[:,3]
         w = self.x[:,4]
 
-        du = (self.u[:,0] - self.u_old[:,0])/self.dt
-        du_pos = np.max(du[np.newaxis,:]+np.zeros(du.shape)[:,np.newaxis],axis=1)
-        du_neg = np.min(du[np.newaxis,:]+np.zeros(du.shape)[:,np.newaxis],axis=1)
+        du = (self.u - self.u_old)/self.dt
+        du_pos = np.max(np.hstack((du,np.zeros(du.shape))),axis=1)
+        du_neg = np.min(np.hstack((du,np.zeros(du.shape))),axis=1)
         self.u_old = self.u
 
         dx = v * np.cos(theta)
@@ -80,7 +80,7 @@ class LightSensitive_PTW(Populations):
         Stochastic diffusion in the environment (Standard Weiner Process).
 
         Returns:
-        ------
+        --------
             diffusion: numpy array (num_agents x dim_state)
                 Diffusion of the population
 

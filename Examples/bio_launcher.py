@@ -25,7 +25,7 @@ from swarmsim.Integrators import EulerMaruyamaIntegrator
 
 from swarmsim.Controllers.spatial_inputs import LightPattern
 
-from swarmsim.Renderers import BaseRenderer
+from swarmsim.Renderers.bio_renderer import BioRenderer
 
 from swarmsim.Simulators import Simulator
 
@@ -49,11 +49,11 @@ if __name__ == '__main__':
     controllers = []
 
     controller = LightPattern(population1,environment,config_path) 
-    controllers =[]
+    controllers =[controller]
 
     interactions = []
 
-    renderer = BaseRenderer(populations, environment, config_path)
+    renderer = BioRenderer(populations, environment, config_path)
     logger = BaseLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
