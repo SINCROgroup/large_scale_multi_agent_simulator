@@ -83,6 +83,7 @@ class EulerMaruyamaIntegrator(Integrator):
             - `x` (np.ndarray): The current state of the population.
             - `get_drift()` method returning the drift term.
             - `get_diffusion()` method returning the diffusion term.
+            - `lim` (np.ndarray): limit of the state for saturation [Optional, Default inf]
 
         Raises
         ------
@@ -99,3 +100,4 @@ class EulerMaruyamaIntegrator(Integrator):
 
             # Update the state using the Euler-Maruyama method
             population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
+            population.x = np.clip(population.x, -population.lim, population.lim)

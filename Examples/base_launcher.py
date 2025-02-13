@@ -13,6 +13,8 @@
 import sys
 import os
 
+from swarmsim.Loggers.position_logger import PositionLogger
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
@@ -57,7 +59,7 @@ if __name__ == '__main__':
     interactions = [repulsion_12]
 
     renderer = BaseRenderer(populations, environment, config_path)
-    logger = BaseLogger(populations, environment, config_path)
+    logger = PositionLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)

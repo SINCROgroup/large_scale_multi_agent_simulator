@@ -41,6 +41,8 @@ class SimpleIntegrators(Populations):
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
 
+        self.v_max = self.config.get('v_max', float('inf'))  # Action limit
+
     def get_drift(self):
         return self.u + self.f
 

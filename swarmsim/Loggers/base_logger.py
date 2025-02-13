@@ -59,11 +59,13 @@ class BaseLogger(Logger):
             config = yaml.safe_load(config_file)
         logger_config = config.get('logger', {})
         self.config = config  # Get config to track experiments
+        self.logger_config = logger_config
         self.date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')  # Get current date to init logger
         self.name = datetime.today().strftime('%Y%m%d_%H%M%S') + logger_config.get('log_name', '')
         self.activate = logger_config.get('activate', True)  # Activate
         self.log_freq = logger_config.get('log_freq', 1)  # Print frequency
         self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
+        self.save_data_freq = logger_config.get('save_data_freq', 1)
         self.log_path = logger_config.get('log_path', '.\logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
@@ -170,7 +172,7 @@ class BaseLogger(Logger):
 
         """
         for key, value in self.current_info.items():
-            print(f"{key}: {value};", end=" ")
+            print(f"{key}: {value}; ", end=" ")
         print('\n')
         return self.activate
 
@@ -260,6 +262,4 @@ class BaseLogger(Logger):
         control_efforts_  = data_loaded['control_efforts']
 
         """
-
-        for key, value in data.items():
-            np.savez(self.log_name_npz, **{key: value})
+        np.savez(self.log_name_npz, **data)

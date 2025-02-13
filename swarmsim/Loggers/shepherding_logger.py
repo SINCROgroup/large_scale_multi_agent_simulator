@@ -1,11 +1,5 @@
-from datetime import datetime
 from swarmsim.Loggers import BaseLogger
-from swarmsim.Utils import add_entry, append_csv, append_txt, get_done_shepherding, xi_shepherding
-import yaml
-import time
-import os
-import csv
-import numpy as np
+from swarmsim.Utils import add_entry, get_done_shepherding, xi_shepherding
 
 
 class ShepherdingLogger(BaseLogger):

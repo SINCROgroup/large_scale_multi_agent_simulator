@@ -104,6 +104,7 @@ class Populations(ABC):
         # Initialize state and parameters
         self.N = None  # Number of agents (set in get_initial_conditions)
         self.state_dim = None  # State dimensionality (set in get_initial_conditions)
+        self.lim = np.asarray(list(map(float, self.config.get('lim', ['inf']))))
         self.x = self.get_initial_conditions()
         self.params = self.get_parameters()
 

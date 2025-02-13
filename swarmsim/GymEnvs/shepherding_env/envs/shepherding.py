@@ -137,17 +137,13 @@ class ShepherdingEnv(gym.Env):
                 "cumulative_reward": self.cum_rew,
                 "settling_time": None,
                 "fraction_captured_targets": self.xi}
-        self.simulator.logger.log(info)
+        # self.simulator.logger.log(info)
         return info
 
     def _render_frame(self):
         return self.simulator.render()
 
     def close(self):
-        self.cum_rews.append(self.cum_rew)
-        if self.simulator.logger.activate:
-            data = {'cum_rews': np.asarray(self.cum_rews, dtype=np.float64)}
-            self.simulator.logger.save_data(data)
         self.simulator.close()
 
     def _get_reward(self):

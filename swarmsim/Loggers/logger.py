@@ -4,7 +4,7 @@ import numpy as np
 
 class Logger(ABC):
     """
-    An interface that defines all the methods that a logger should implement
+    Abstract base class for a logger.
 
     """
 
