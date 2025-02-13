@@ -49,7 +49,7 @@ if __name__ == '__main__':
     controllers = []
 
     controller = LightPattern(population1,environment,config_path) 
-    controllers =[controller]
+    controllers =[]
 
     interactions = []
 

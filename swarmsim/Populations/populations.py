@@ -252,8 +252,13 @@ class Populations(ABC):
 
                 # If the file has fewer agents than `N`, randomly repeat parameters
                 if params.shape[0] < self.N:
-                    repeated_indices = np.random.choice(params.index, size=self.N - params.shape[0], replace=True)
-                    params = pd.concat([params, params.iloc[repeated_indices]], ignore_index=True)
+                    rows_to_add = self.N - params.shape[0]
+                    for i in range (0,rows_to_add):
+                        params_to_add = params.sample(n=1)
+                        params = pd.concat([params, params_to_add],ignore_index=True)                   # Add the new parameters
+                if params.shape[0] > self.N:
+                    rows_to_drop = params.shape[0] - self.N
+                    params = params.drop(params.sample(n=rows_to_drop).index)
 
             case "Random":
                 # Generate random parameters

@@ -5,3 +5,4 @@
 *.txt
 /swarmsim.egg-info/
 /build
+*.jpeg

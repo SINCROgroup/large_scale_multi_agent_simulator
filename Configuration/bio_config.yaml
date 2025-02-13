@@ -2,9 +2,9 @@
 # In all scripts numpy is imported as np
 
 LightSensitive_PTW:
-  N: 200
+  N: 1500
   state_dim: 5
-  x0_limits : [[-900, 900],[-550,550],[20,40],[-3.14, 3.14],[0,0]]
+  x0_limits : [[-4200, 4200],[-2150,2150],[20,40],[-3.14, 3.14],[0,0]]
   x0_mode: Random 
   params_mode: From_File
   params_path: .\Configuration\Config_data\Parameters_Euglena.csv 
@@ -13,8 +13,8 @@ LightSensitive_PTW:
 
 
 LightPattern:
-  pattern_path: .\Configuration\Config_data\BCL.jpeg 
-  dt: 0.5
+  pattern_path: .\Configuration\Config_data\Circle.jpeg 
+  dt: 1
 
 integrator:
   dt: 0.01
@@ -24,13 +24,13 @@ simulator:
   T: 100
 
 environment:
-  dimensions: [1920, 1080]
+  dimensions: [8448, 4320]
 
 renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
   agent_shapes: ['circle', 'diamond']
-  agent_size: [20, 20]
+  agent_size: [80, 80]
   render_mode: 'pygame'
   render_dt: 0.01
 
