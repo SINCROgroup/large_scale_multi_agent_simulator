@@ -154,6 +154,6 @@ class BrownianMotion(Populations):
 
         This method reinitializes the agent states, external forces, and control inputs.
         """
-        self.get_initial_conditions()
+        self.x = self.get_initial_conditions()  # Initial conditions
         self.f = np.zeros(self.x.shape)  # Reset external forces
         self.u = np.zeros(self.x.shape)  # Reset control input
