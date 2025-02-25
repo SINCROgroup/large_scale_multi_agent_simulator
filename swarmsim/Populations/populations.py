@@ -206,7 +206,7 @@ class Populations(ABC):
                 if x0_shape == "circle":
                     max_radius = self.config.get("max_initial_radius", 25)
                     min_radius = self.config.get("min_initial_radius", 0)
-                    agent_radii = np.sqrt(np.random.uniform(0, 1, self.N)) * (max_radius - min_radius) + min_radius
+                    agent_radii = np.sqrt(np.random.uniform(0, 1, self.N) * (max_radius**2 - min_radius**2) + min_radius**2)
                     agent_angles = np.random.uniform(0, 2 * np.pi, self.N)
 
                     self.x0[:, 0] = agent_radii * np.cos(agent_angles)
