@@ -94,13 +94,10 @@ class LightPattern(Controller):
         self.environment = environment
 
         # Create a grid of points
-        x = np.linspace(-x_dim/2, x_dim/2, camera_pattern.shape[0])  
-        y = np.linspace(-y_dim/2, y_dim/2, camera_pattern.shape[1])  
+        x = np.linspace(-x_dim/2, x_dim/2, camera_pattern.shape[1])  
+        y = np.linspace(-y_dim/2, y_dim/2, camera_pattern.shape[0])  
 
-        # Create the 2D grid of values
-        X, Y = np.meshgrid(x, y)  # Create a grid from x and y
-        
-        Z = camera_pattern[:,:,2]/255
+        Z = camera_pattern[:,:,2].T/255
 
         # Create the RegularGridInterpolator
         self.interpolator = sp.RegularGridInterpolator((x, y), Z, method='linear')   
@@ -122,3 +119,13 @@ class LightPattern(Controller):
        light_ity = self.interpolator(state) 
 
        return light_ity[:,np.newaxis]
+    
+
+    def get_action_in_space(self,positions):
+
+        light_ity = self.interpolator(positions) 
+
+        return light_ity[:,np.newaxis]
+
+
+

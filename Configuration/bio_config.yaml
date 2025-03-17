@@ -2,18 +2,18 @@
 # In all scripts numpy is imported as np
 
 LightSensitive_PTW:
-  N: 1500
+  N: 4000
   state_dim: 5
-  x0_limits : [[-900, 900],[-500,500],[20,40],[-3.14, 3.14],[0,0]]
+  x0_limits : [[-1800, 1800],[-1000,1000],[20,40],[-3.14, 3.14],[0,0]]
   x0_mode: Random 
   params_mode: From_File
   params_path: .\Configuration\Config_data\Parameters_Euglena.csv 
   id: 'Euglena_Gracilis'
   dt: 0.01
-
+#[[-900, 900],[-500,500],[20,40],[-3.14, 3.14],[0,0]]
 
 LightPattern:
-  pattern_path: .\Configuration\Config_data\Circle.jpeg 
+  pattern_path: .\Configuration\Config_data\BCL.jpeg 
   dt: 0.01
 
 integrator:
@@ -21,10 +21,11 @@ integrator:
 
 simulator:
   dt: 0.01
-  T: 100
+  T: 300
 
 environment:
-  dimensions: [1920, 1080]
+  dimensions: [3840, 2160] 
+#[1920, 1080] #[3840, 2160]
 
 renderer:
   background_color: 'white'

@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     interactions = []
 
-    renderer = BioRenderer(populations, environment, config_path)
+    renderer = BioRenderer(populations, environment, config_path,controller)
     logger = BaseLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,

@@ -45,3 +45,7 @@ class Controller(ABC):
             This is the method you need to override to implement your control action
         """
         pass
+
+
+    def get_action_in_space(self,positions):
+        pass
