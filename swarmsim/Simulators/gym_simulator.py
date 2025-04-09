@@ -60,4 +60,5 @@ class GymSimulator(Simulator):
             self.renderer.render()
 
     def close(self):
+        # self.logger.close()
         self.renderer.close()
