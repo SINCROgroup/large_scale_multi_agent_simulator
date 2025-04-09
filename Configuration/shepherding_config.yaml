@@ -2,7 +2,7 @@
 # In all scripts numpy is imported as np
 
 BrownianMotion:
-  N: 1
+  N: 100
   state_dim: 2
 
   x0_mode: Random
@@ -18,7 +18,7 @@ BrownianMotion:
 SimpleIntegrators:
 
 
-  N: 2
+  N: 10
 
 
   x0_shape: circle
@@ -48,7 +48,7 @@ renderer:
   agent_colors: ['blue', 'red']
   agent_shapes: ['circle', 'diamond']
   agent_size: [1, 1]
-  render_mode: 'matplotlib'
+  render_mode: 'pygame'
   render_dt: 0.05
 
 logger:

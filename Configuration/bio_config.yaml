@@ -7,13 +7,13 @@ LightSensitive_PTW:
   x0_limits : [[-1800, 1800],[-1000,1000],[20,40],[-3.14, 3.14],[0,0]]
   x0_mode: Random 
   params_mode: From_File
-  params_path: .\Configuration\Config_data\Parameters_Euglena.csv 
+  params_path: ../Configuration/Config_data/Parameters_Euglena.csv
   id: 'Euglena_Gracilis'
   dt: 0.01
 #[[-900, 900],[-500,500],[20,40],[-3.14, 3.14],[0,0]]
 
 LightPattern:
-  pattern_path: .\Configuration\Config_data\BCL.jpeg 
+  pattern_path: ../Configuration/Config_data/BCL.jpeg
   dt: 0.01
 
 integrator:

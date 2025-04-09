@@ -32,7 +32,7 @@ integrator:
   dt: 0.01
 
 simulator:
-  T: 1
+  T: 100
 
 environment:
   dimensions: [50, 50]

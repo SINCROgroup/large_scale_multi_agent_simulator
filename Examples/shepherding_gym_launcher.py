@@ -27,7 +27,7 @@ if seed is not None:
 num_episodes = params['num_episodes']
 
 env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="human")
-env._max_episode_steps = 100
+env._max_episode_steps = 1000
 # env = RecordVideo(env, video_folder="videos")
 env = MultiAgentRL(env, config_path=config_path)
 

@@ -77,4 +77,7 @@ class FixedPopulation(Populations):
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
 
+    def reset_params(self) -> None:
+        pass
+
         

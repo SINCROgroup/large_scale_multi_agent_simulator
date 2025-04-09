@@ -105,8 +105,8 @@ class ShepherdingRenderer(BaseRenderer):
                     self.arena_size[1] / self.environment.dimensions[1])
 
         # Convert goal position to screen coordinates
-        goal_x = int((self.environment.goal_pos[0] + self.environment.dimensions[0] / 2) * scale) + 100
-        goal_y = int((self.environment.dimensions[1] / 2 - self.environment.goal_pos[1]) * scale) + 100
+        goal_x = int((self.environment.goal_pos[0] + self.environment.dimensions[0] / 2) * scale)
+        goal_y = int((self.environment.dimensions[1] / 2 - self.environment.goal_pos[1]) * scale)
         goal_radius = int(self.environment.goal_radius * scale)
 
         # Create a semi-transparent surface

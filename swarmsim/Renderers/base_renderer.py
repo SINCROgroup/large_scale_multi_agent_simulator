@@ -121,7 +121,7 @@ class BaseRenderer(Renderer):
         # Pygame setup
         self.window = None
         self.clock = None
-        self.screen_size = (800, 800)
+        self.screen_size = (600, 600)
         self.arena_size = (600, 600)  # Smaller arena size
 
         # Matplotlib setup

@@ -65,3 +65,6 @@ class Interaction(ABC):
             If called directly from the base class.
         """
         pass
+
+    def reset_params(self):
+        pass
