@@ -148,6 +148,16 @@ class Populations(ABC):
         """
         pass
 
+    @abstractmethod
+    def reset_params(self):
+        """
+        Abstract method to reset the parameters of the population.
+
+        This method should be implemented in subclasses to reset agent parameters
+        to their nominal values or sample them from a distribution.
+        """
+        pass
+
     def get_initial_conditions(self) -> np.ndarray:
         """
         Loads or generates the initial conditions for the population.
@@ -205,7 +215,8 @@ class Populations(ABC):
 
                 if x0_shape == "circle":
                     max_radius = self.config.get("max_initial_radius", 25)
-                    agent_radii = np.sqrt(np.random.uniform(0, 1, self.N)) * max_radius
+                    min_radius = self.config.get("min_initial_radius", 0)
+                    agent_radii = np.sqrt(np.random.uniform(0, 1, self.N) * (max_radius**2 - min_radius**2) + min_radius**2)
                     agent_angles = np.random.uniform(0, 2 * np.pi, self.N)
 
                     self.x0[:, 0] = agent_radii * np.cos(agent_angles)
@@ -253,13 +264,8 @@ class Populations(ABC):
 
                 # If the file has fewer agents than `N`, randomly repeat parameters
                 if params.shape[0] < self.N:
-                    rows_to_add = self.N - params.shape[0]
-                    for i in range (0,rows_to_add):
-                        params_to_add = params.sample(n=1)
-                        params = pd.concat([params, params_to_add],ignore_index=True)                   # Add the new parameters
-                if params.shape[0] > self.N:
-                    rows_to_drop = params.shape[0] - self.N
-                    params = params.drop(params.sample(n=rows_to_drop).index)
+                    repeated_indices = np.random.choice(params.index, size=self.N - params.shape[0], replace=True)
+                    params = pd.concat([params, params.iloc[repeated_indices]], ignore_index=True)
 
             case "Random":
                 # Generate random parameters
@@ -288,6 +294,35 @@ class Populations(ABC):
                     else:
                         params[par_name] = np.random.uniform(
                             params_limits[par_name][0], params_limits[par_name][1], self.N
+                        )
+
+            case "RandomNormal":
+                # Generate random parameters
+                params_names = self.config.get("params_names", [])  # List of parameter names
+                params_values = self.config.get("params_values", {})  # Parameter sampling limits
+
+                params = pd.DataFrame()  # Initialize DataFrame
+
+                for par_name in params_names:
+                    # Determine dimensionality of the parameter
+                    par_values = params_values[par_name][0]
+
+                    if isinstance(par_values, (float, int)):  # Scalar parameter
+                        par_dim = 1
+                    else:  # Multi-dimensional parameter
+                        par_dim = len(par_values)
+
+                    # Generate random parameter values
+                    if par_dim > 1:
+                        values = np.empty([self.N, par_dim])
+                        for i in range(par_dim):
+                            values[:, i] = np.random.normal(
+                                params_values[par_name][i][0], params_values[par_name][i][1], self.N
+                            )
+                        params[par_name] = list(values)  # Store as a list of arrays
+                    else:
+                        params[par_name] = np.random.normal(
+                            params_values[par_name][0], params_values[par_name][1], self.N
                         )
 
             case _:

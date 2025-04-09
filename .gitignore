@@ -6,3 +6,4 @@
 /swarmsim.egg-info/
 /build/
 *.jpeg
+/__pycache__/

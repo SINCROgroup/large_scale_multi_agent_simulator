@@ -47,10 +47,13 @@ class SimpleIntegrators(Populations):
         return self.u + self.f
 
     def get_diffusion(self):
-        return self.D
+        return self.D * np.ones((self.N, self.state_dim))
 
     def reset_state(self):
         N = self.N
         self.x = self.get_initial_conditions()  # Initial conditions
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
+
+    def reset_params(self):
+        pass

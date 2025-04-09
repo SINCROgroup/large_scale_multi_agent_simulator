@@ -260,8 +260,8 @@ class BaseRenderer(Renderer):
                                                   self.agent_size):
             for position in population.x:
                 # Convert simulation coordinates to screen coordinates
-                x = int((position[0] + self.environment.dimensions[0] / 2) * scale) 
-                y = int((self.environment.dimensions[1] / 2 - position[1]) * scale) 
+                x = int((position[0] + self.environment.dimensions[0] / 2) * scale)
+                y = int((self.environment.dimensions[1] / 2 - position[1]) * scale)
 
                 if shape == 'circle':
                     agent_radius = int(size / 2 * scale)

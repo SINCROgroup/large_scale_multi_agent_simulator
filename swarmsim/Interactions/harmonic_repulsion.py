@@ -64,8 +64,20 @@ class HarmonicRepulsion(Interaction):
             pars = yaml.safe_load(file)
 
         # Extract strength and interaction range from the config
-        self.strength = pars["repulsion"]["strength"]  # Maximum repulsion intensity
-        self.distance = pars["repulsion"]["max_distance"]  # Maximum interaction distance
+        self.strength_nom = pars["repulsion"]["strength"]  # Maximum repulsion intensity
+        self.distance_nom = pars["repulsion"]["max_distance"]  # Maximum interaction distance
+
+        if pars.get("repulsion").get("std", None) is not None:
+            self.std = pars["repulsion"]["std"]
+        else:
+            self.std = 0
+
+        self.strength = self.strength_nom
+        self.distance = self.distance_nom
+
+    def reset_params(self):
+        self.strength = np.random.normal(self.strength_nom, self.std * self.strength_nom)
+        self.distance = np.random.normal(self.distance_nom, self.std * self.distance_nom)
 
     def get_interaction(self):
         """

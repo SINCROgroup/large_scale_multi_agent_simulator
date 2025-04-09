@@ -35,7 +35,7 @@ maintainers = [
 
 dependencies = [
     "matplotlib>=3.10.0",
-    "numpy>=2.2.1",
+    "numpy<2.2",
     "progressbar2>=4.5.0",
     "pygame>=2.6.1",
     "pyyaml>=6.0.2",
