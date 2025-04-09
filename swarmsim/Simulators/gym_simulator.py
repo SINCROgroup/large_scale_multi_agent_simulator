@@ -33,6 +33,10 @@ class GymSimulator(Simulator):
         # RESET INITIAL CONDITIONS OF THE POPULATIONS AND ENVIRONMENT AND LOGGER
         for population in self.populations:
             population.reset_state()
+
+        for interaction in self.interactions:
+            interaction.reset_params()
+
         self.logger.reset()
 
     def step(self, action):

@@ -148,6 +148,16 @@ class Populations(ABC):
         """
         pass
 
+    @abstractmethod
+    def reset_params(self):
+        """
+        Abstract method to reset the parameters of the population.
+
+        This method should be implemented in subclasses to reset agent parameters
+        to their nominal values or sample them from a distribution.
+        """
+        pass
+
     def get_initial_conditions(self) -> np.ndarray:
         """
         Loads or generates the initial conditions for the population.
@@ -284,6 +294,35 @@ class Populations(ABC):
                     else:
                         params[par_name] = np.random.uniform(
                             params_limits[par_name][0], params_limits[par_name][1], self.N
+                        )
+
+            case "RandomNormal":
+                # Generate random parameters
+                params_names = self.config.get("params_names", [])  # List of parameter names
+                params_values = self.config.get("params_values", {})  # Parameter sampling limits
+
+                params = pd.DataFrame()  # Initialize DataFrame
+
+                for par_name in params_names:
+                    # Determine dimensionality of the parameter
+                    par_values = params_values[par_name][0]
+
+                    if isinstance(par_values, (float, int)):  # Scalar parameter
+                        par_dim = 1
+                    else:  # Multi-dimensional parameter
+                        par_dim = len(par_values)
+
+                    # Generate random parameter values
+                    if par_dim > 1:
+                        values = np.empty([self.N, par_dim])
+                        for i in range(par_dim):
+                            values[:, i] = np.random.normal(
+                                params_values[par_name][i][0], params_values[par_name][i][1], self.N
+                            )
+                        params[par_name] = list(values)  # Store as a list of arrays
+                    else:
+                        params[par_name] = np.random.normal(
+                            params_values[par_name][0], params_values[par_name][1], self.N
                         )
 
             case _:

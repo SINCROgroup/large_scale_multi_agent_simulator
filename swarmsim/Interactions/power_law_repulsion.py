@@ -126,6 +126,9 @@ class PowerLawRepulsion(Interaction):
         return compute_repulsion_numba(self.pop1.x[:, :2], self.pop2.x[:, :2],
                                        self.strength, self.max_distance, self.p)
 
+    def reset_params(self) -> None:
+        pass
+
 
 from numba import njit
 
@@ -174,6 +177,8 @@ def compute_repulsion_numba(pop1_x, pop2_x, strength, max_distance, p):
         repulsion[i, 1] = force_sum[1]
 
     return repulsion
+
+
 
 
 

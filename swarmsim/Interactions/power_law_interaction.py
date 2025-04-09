@@ -157,6 +157,9 @@ class PowerLawInteraction(Interaction):
             self.is_attractive
         )
 
+    def reset_params(self) -> None:
+        pass
+
 
 import numpy as np
 from numba import njit

@@ -54,3 +54,6 @@ class SimpleIntegrators(Populations):
         self.x = self.get_initial_conditions()  # Initial conditions
         self.f = np.zeros(self.x.shape)  # Initialization of the external forces
         self.u = np.zeros(self.x.shape)  # Initialization of the control input
+
+    def reset_params(self):
+        pass
