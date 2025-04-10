@@ -1,14 +1,6 @@
-# This is the base launcher for LS_MAS (Large scale - Multi agent Simulator)
-# Authors
-#
-#
-#
-#
-# Description:
-#
-
 import sys
 import os
+import pathlib
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -21,7 +13,6 @@ from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import Simulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingLogger
-import pathlib
 
 if __name__ == '__main__':
     

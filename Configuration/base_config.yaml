@@ -49,10 +49,6 @@ logger:
   log_path: .\logs         # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
-
 repulsion:
   strength: 3
   max_distance: 2.5
-
-Spatial_Inputs:
-  disc_pts: 50
