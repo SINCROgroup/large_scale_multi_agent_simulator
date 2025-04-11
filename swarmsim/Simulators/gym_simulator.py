@@ -32,7 +32,7 @@ class GymSimulator(Simulator):
 
         # RESET INITIAL CONDITIONS OF THE POPULATIONS AND ENVIRONMENT AND LOGGER
         for population in self.populations:
-            population.reset_state()
+            population.reset()
 
         for interaction in self.interactions:
             interaction.reset_params()

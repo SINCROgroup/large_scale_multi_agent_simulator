@@ -4,29 +4,38 @@
 seed: 1
 
 DampedDoubleIntegrators:
-  N: 2
+  id: 'Targets'
+  N: 10
   state_dim: 4
+  input_dim: 2
   # lim: ['inf', 'inf', 'inf', 'inf']
 
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
 
-  D: 1
-  damping: 3
-  id: 'Targets'
+  parameters:
+    mode: generate
+    generate:
+      D: 0.1
+      damping: 3
+
+
 
 SimpleIntegrators:
-  N: 1
-  state_dim: 2
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
-
-  params_mode: Random
-  params_names: ["D"]
-  params_limits: {D: [[0,0], [0,0]]}
   id: 'Herders'
+  N: 5
+  state_dim: 2
+
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
 
 integrator:
   dt: 0.01

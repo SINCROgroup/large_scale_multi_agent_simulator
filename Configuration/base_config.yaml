@@ -1,27 +1,59 @@
 # Configuration file 
 # In all scripts numpy is imported as np
 
+#BrownianMotion:
+#  N: 100
+#  state_dim: 2
+#  x0_limits : [[-25, 25],[-25,25]]
+#  x0_mode: Random
+#  x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv
+#  params_mode: Random
+#  params_names: ["mu","D"]
+#  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
+#  id: 'BrownianMotion'
+
 BrownianMotion:
-  N: 100
-  state_dim: 2
-  x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: Random
-  x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv 
-  params_mode: Random
-  params_names: ["mu","D"]
-  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
   id: 'BrownianMotion'
+  N: 200
+  state_dim: 2
+
+  initial_conditions:
+    mode: Random         # Options: Random, From_File
+    random:
+      shape: box         # Options: box, circle (only used when mode: Random)
+      box:
+        lower_bounds: [-25, -25]
+        upper_bounds: [25, 25]
+
+  parameters:
+    mode: generate    # Options: import, generate
+    generate:
+      mu:
+        sampler: uniform
+        positional_args: [-1, 1]
+        shape: [2]
+      D:
+        sampler: normal
+        args:
+          loc: 1
+          scale: 0.2
+
 
 FixedPopulation:
-  N: 20
-  state_dim: 2
-  x0_limits : [[-25, 25],[-25,25]]
-  x0_mode: Random 
-  x0_path: .\Configuration\Config_data\Initial_Conditions_Fixed.csv 
-  params_mode: Random
-  params_names: []
-  params_limits: []
   id: 'Fixed'
+  N: 100
+  state_dim: 2
+
+  initial_conditions:
+    mode: Random
+    random:
+      shape: circle
+      circle:
+        min_radius: 10
+        max_radius: 15
+
+
+
 
 integrator:
   dt: 0.01

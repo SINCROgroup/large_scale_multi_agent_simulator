@@ -2,31 +2,37 @@
 # In all scripts numpy is imported as np
 
 BrownianMotion:
+  id: 'Targets'
   N: 100
   state_dim: 2
 
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
 
-  params_mode: Random
-  params_names: ["mu","D"]
-  params_limits: {mu: [[0.1,0.2],[0.1,0.2]], D: [[0,1],[0,1]]}
-  id: 'Targets'
+  parameters:
+    mode: generate    # Options: import, generate
+    generate:
+      mu: 0
+      D: 1
+
+
 
 SimpleIntegrators:
-  N: 10
-
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
-
-  params_mode: Random
-  params_names: ["D"]
-  params_limits: {D: [[0,0], [0,0]]}
-
-  state_dim: 2
   id: 'Herders'
+  N: 10
+  state_dim: 2
+
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
+
 
 integrator:
   dt: 0.05

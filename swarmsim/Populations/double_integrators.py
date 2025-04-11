@@ -1,6 +1,7 @@
 import numpy as np
-import yaml
 from swarmsim.Populations import Populations
+from typing import Optional
+from swarmsim.Utils import broadcast_parameter
 
 
 class DampedDoubleIntegrators(Populations):
@@ -28,34 +29,31 @@ class DampedDoubleIntegrators(Populations):
     """
 
     def __init__(self, config_path) -> None:
+
+        self.damping: Optional[float] = None
+        self.D: Optional[np.ndarray] = None
+
         super().__init__(config_path)
 
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
-        self.config = config.get('DampedDoubleIntegrators', {})
-
-        self.id = self.config.get('id', "Targets")  # Population ID
-
-        self.D = np.array([0, 0, 1, 1]) * self.config.get('D', 0)  # Diffusion matrix
-
-        self.damping = self.config.get('damping', 1)
-
-        self.f = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the external forces
-        self.u = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the control input
-
     def get_drift(self):
-        # Combine the first two columns of x and u to form drift
-        return np.hstack((self.x[:, 2:], - self.damping * self.x[:, 2:] + self.u + self.f))
+        d = self.state_dim // 2  # position and velocity dimension
+
+        velocity = self.x[:, d:]  # current velocities
+        acceleration = -self.damping * velocity + self.u + self.f
+
+        return np.hstack((velocity, acceleration))
 
     def get_diffusion(self):
-        return self.D * np.ones((self.N, self.state_dim))
+        return self.D
 
-    def reset_state(self):
-        N = self.N
-        self.x = self.get_initial_conditions()
-        self.f = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the external forces
-        self.u = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the control input
+    def reset(self) -> None:
+        """
+        Resets the state of the population to its initial conditions.
 
-    def reset_params(self) -> None:
-        pass
+        This method reinitializes the agent states, external forces, and control inputs.
+        """
+        super().reset()
+
+        self.damping = broadcast_parameter(self.params['damping'], (1,))
+        self.D = broadcast_parameter(self.params['D'], (self.state_dim,self.state_dim))
+

@@ -1,5 +1,4 @@
 import numpy as np
-import yaml
 from swarmsim.Populations import Populations
 
 
@@ -35,15 +34,6 @@ class FixedPopulation(Populations):
 
     """
 
-    def __init__(self, config_path) -> None:
-
-        super().__init__(config_path)
-        
-        self.id = self.config["id"]  # Population ID
-
-        self.f = np.zeros(self.x.shape)          # Initialization of the external forces
-        self.u = np.zeros(self.x.shape)          # Initialization of the control input
-
     def get_drift(self) -> np.array :
         '''
         No movement on average.
@@ -53,7 +43,7 @@ class FixedPopulation(Populations):
             drift: numpy array (num_agents x dim_state)         Dirft of the population
 
         '''
-        return np.zeros(self.x.shape)+self.u
+        return self.u
 
     def get_diffusion(self) -> np.array :
         '''
@@ -66,18 +56,3 @@ class FixedPopulation(Populations):
         '''
         
         return np.zeros(self.x.shape)
-
-    def reset_state(self) -> None :
-        '''
-        
-        Resets the state to the initial conditions.
-
-        '''
-        self.x = self.get_initial_conditions()     # Initial conditions
-        self.f = np.zeros(self.x.shape)  # Initialization of the external forces
-        self.u = np.zeros(self.x.shape)  # Initialization of the control input
-
-    def reset_params(self) -> None:
-        pass
-
-        
