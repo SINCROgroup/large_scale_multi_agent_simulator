@@ -35,7 +35,7 @@ class GymSimulator(Simulator):
             population.reset()
 
         for interaction in self.interactions:
-            interaction.reset_params()
+            interaction.reset()
 
         self.logger.reset()
 
@@ -45,7 +45,7 @@ class GymSimulator(Simulator):
 
         # Compute the interactions between the agents
         for interact in self.interactions:
-            interact.pop1.f += interact.get_interaction()
+            interact.target_population.f += interact.get_interaction()
 
         # Update the state of the agents
         self.integrator.step(self.populations)

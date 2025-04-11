@@ -36,12 +36,13 @@ BrownianMotion:
         sampler: normal
         args:
           loc: 1
-          scale: 0.2
+          scale: 0.1
+        homogeneous: False
 
 
 FixedPopulation:
   id: 'Fixed'
-  N: 100
+  N: 10
   state_dim: 2
 
   initial_conditions:
@@ -53,6 +54,14 @@ FixedPopulation:
         max_radius: 15
 
 
+HarmonicRepulsion:
+  id: Interaction Force
+  parameters:
+    mode: generate
+    generate:
+      strength: 3
+      distance: 2.5
+
 
 
 integrator:
@@ -60,7 +69,7 @@ integrator:
 
 simulator:
   dt: 0.001
-  T: 100
+  T: 10
 
 environment:
   dimensions: [50, 50]
@@ -80,7 +89,3 @@ logger:
   comment_enable: False   # Add initial and final comments to the logger about the experiment
   log_path: .\logs         # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
-
-repulsion:
-  strength: 3
-  max_distance: 2.5

@@ -1,4 +1,11 @@
 from abc import ABC, abstractmethod
+from swarmsim.Populations import Populations
+import yaml
+import numpy as np
+import pandas as pd
+from pathlib import Path
+from typing import Optional
+from swarmsim.Utils import get_parameters
 
 
 class Interaction(ABC):
@@ -11,16 +18,16 @@ class Interaction(ABC):
 
     Parameters
     ----------
-    pop1 : Population
+    target_population : Population
         The first population that is influenced by the interaction.
-    pop2 : Population
+    source_population : Population
         The second population that applies the interaction force.
 
     Attributes
     ----------
-    pop1 : Population
+    target_population : Population
         The population affected by the interaction.
-    pop2 : Population
+    source_population : Population
         The population exerting the interaction force.
 
     Notes
@@ -40,15 +47,41 @@ class Interaction(ABC):
                 return forces
     """
 
-    def __init__(self, pop1, pop2) -> None:
+    def __init__(self,
+                 target_population: Populations,
+                 source_population: Populations,
+                 config_path: str,
+                 name: str = None) -> None:
+
         super().__init__()
-        self.pop1 = pop1  # The affected population
-        self.pop2 = pop2  # The interacting population
+        self.target_population: Populations = target_population  # The affected population
+        self.source_population: Populations = source_population  # The interacting population
+
+        self.config_path: str = config_path
+
+        # Verify that the configuration file exists
+        if not Path(config_path).exists():
+            raise FileNotFoundError(f"Configuration file {config_path} not found.")
+        with open(config_path, "r") as file:
+            config_file = yaml.safe_load(file)
+
+        # Retrieve configuration for the specific population class
+        if name is None:
+            name = type(self).__name__
+        self.config: dict = config_file.get(name)
+        self.param_config: dict = self.config.get("parameters")
+
+        self.id: str = self.config.get("id", name)  # Population ID
+
+        # Initialize params, state and inputs
+        self.params: Optional[pd.DataFrame] = None
+
+        self.reset()
 
     @abstractmethod
-    def get_interaction(self):
+    def get_interaction(self) -> np.ndarray:
         """
-        Computes the forces that `pop2` applies on `pop1`.
+        Computes the forces that `source_population` applies on `target_population`.
 
         This method must be implemented by subclasses to define the specific
         interaction between the two populations.
@@ -56,8 +89,8 @@ class Interaction(ABC):
         Returns
         -------
         np.ndarray
-            A `(N1, D)` array representing the forces exerted by `pop2` on `pop1`,
-            where `N1` is the number of agents in `pop1` and `D` is the state space dimension.
+            A `(N1, D)` array representing the forces exerted by `source_population` on `target_population`,
+            where `N1` is the number of agents in `target_population` and `D` is the state space dimension.
 
         Raises
         ------
@@ -66,5 +99,6 @@ class Interaction(ABC):
         """
         pass
 
-    def reset_params(self):
-        pass
+    def reset(self) -> None:
+        if self.params is None and self.param_config is not None:
+            self.params = get_parameters(self.param_config, self.target_population.N)

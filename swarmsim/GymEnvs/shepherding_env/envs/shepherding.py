@@ -51,6 +51,7 @@ class ShepherdingEnv(gym.Env):
 
         # interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_tt_short, repulsion_hh_short, attraction_tt_long]
         interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_hh_short, interaction_tt]
+        # interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_hh_short]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
         logger = ShepherdingGymLogger(populations, environment, config_path)

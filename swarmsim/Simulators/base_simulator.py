@@ -63,7 +63,7 @@ class Simulator:
 
             # Compute the interactions between the agents
             for interact in self.interactions:
-                interact.pop1.f += interact.get_interaction()
+                interact.target_population.f += interact.get_interaction()
 
             # Update the state of the agents
             self.integrator.step(self.populations)

@@ -254,37 +254,50 @@ def _generate_parameters(params_config: dict, num_samples: int) -> pd.DataFrame:
         args = settings.get("args", {}).copy()
 
         # Determine the output shape for one sample.
-        # If "shape" is omitted or empty, assume a scalar.
         shape = settings.get("shape", [])
         if isinstance(shape, list):
             shape = tuple(shape)
-        size = (num_samples,) + shape if shape else num_samples
-        args["size"] = size
 
-        # Generate samples using positional arguments if provided;
-        # otherwise use keyword arguments only.
-        if positional_args is not None:
-            values = sampler(*positional_args, **args)
-        else:
-            values = sampler(**args)
+        # Check if the parameter should be homogeneous across all samples
+        is_homogeneous = settings.get("homogeneous", False)
 
-        # If the output is multi-dimensional (and shape was provided),
-        # store each sample as a separate array in a list.
-        if np.asarray(values).ndim > 1 and shape:
-            params_df[par_name] = list(values)
+        if is_homogeneous:
+            # Generate a single sample
+            sample_size = shape if shape else ()
+            args["size"] = sample_size
+            if positional_args is not None:
+                single_value = sampler(*positional_args, **args)
+            else:
+                single_value = sampler(**args)
+
+            # Broadcast single sample to all agents
+            if shape:
+                values = [np.array(single_value) for _ in range(num_samples)]
+                params_df[par_name] = values
+            else:
+                params_df[par_name] = np.full(num_samples, single_value)
+
         else:
-            params_df[par_name] = values
+            # Generate one sample per agent
+            sample_size = (num_samples,) + shape if shape else num_samples
+            args["size"] = sample_size
+            if positional_args is not None:
+                values = sampler(*positional_args, **args)
+            else:
+                values = sampler(**args)
+
+            # Store multi-dimensional arrays as lists if needed
+            if np.asarray(values).ndim > 1 and shape:
+                params_df[par_name] = list(values)
+            else:
+                params_df[par_name] = values
 
     return params_df
 
 
-import numpy as np
-import pandas as pd
-
-
-def broadcast_parameter(params: pd.Series, shape: tuple) -> np.ndarray:
+def set_parameter(params: pd.Series, shape: tuple = ()) -> np.ndarray:
     """
-    Broadcast parameter values from a pandas Series to an array of shape (num_agents, *shape).
+    Set parameter values from a pandas Series to an array of shape (num_agents, *shape).
 
     For each element in `params`:
       - If the element is a scalar:

@@ -46,7 +46,7 @@ class Populations(ABC):
         lim: [inf]
     """
 
-    def __init__(self, config_path) -> None:
+    def __init__(self, config_path: str, name: str = None) -> None:
         super().__init__()
         self.config_path: str = config_path
 
@@ -57,12 +57,13 @@ class Populations(ABC):
             config_file = yaml.safe_load(file)
 
         # Retrieve configuration for the specific population class
-        class_name = type(self).__name__
-        self.config = config_file.get(class_name)
+        if name is None:
+            name = type(self).__name__
+        self.config: dict = config_file.get(name)
         self.init_config: dict = self.config.get("initial_conditions")
         self.param_config: dict = self.config.get("parameters")
 
-        self.id: str = self.config["id"]  # Population ID
+        self.id: str = self.config.get("id", name)  # Population ID
 
         # Load primary configuration settings
         self.N: int = self.config.get("N")
@@ -80,20 +81,20 @@ class Populations(ABC):
         self.reset()
 
     @abstractmethod
-    def get_drift(self):
+    def get_drift(self) -> np.ndarray:
         """
         Abstract method to compute the drift term for the population.
         """
         pass
 
     @abstractmethod
-    def get_diffusion(self):
+    def get_diffusion(self) -> np.ndarray:
         """
         Abstract method to compute the diffusion term for the population.
         """
         pass
 
-    def reset(self):
+    def reset(self) -> None:
         """
         Reset agent parameters, initial conditions, and control forces.
         """

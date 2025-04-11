@@ -25,8 +25,8 @@ class SimpleIntegrators(Populations):
         Resets the state of the agent.
     """
 
-    def __init__(self, config_path) -> None:
-        super().__init__(config_path)
+    def __init__(self, config_path: str, name: str = None) -> None:
+        super().__init__(config_path, name)
 
         self.v_max = self.config.get('v_max', float('inf'))  # Action limit
 

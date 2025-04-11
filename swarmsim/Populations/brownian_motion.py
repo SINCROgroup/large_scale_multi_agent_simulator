@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Optional
 from swarmsim.Populations import Populations
-from swarmsim.Utils import broadcast_parameter
+from swarmsim.Utils import set_parameter
 
 
 class BrownianMotion(Populations):
@@ -91,7 +91,7 @@ class BrownianMotion(Populations):
     assigned predefined drift velocities (`mu`) and diffusion coefficients (`D`).
     """
 
-    def __init__(self, config_path: str) -> None:
+    def __init__(self, config_path: str, name: str = None) -> None:
         """
         Initializes the `BrownianMotion` population by loading parameters from a configuration file.
 
@@ -104,7 +104,7 @@ class BrownianMotion(Populations):
         self.mu: Optional[np.ndarray] = None
         self.D: Optional[np.ndarray] = None
 
-        super().__init__(config_path)
+        super().__init__(config_path, name)
 
 
     def get_drift(self) -> np.ndarray:
@@ -148,5 +148,5 @@ class BrownianMotion(Populations):
         """
         super().reset()
 
-        self.mu = broadcast_parameter(self.params['mu'], (self.state_dim,))
-        self.D = broadcast_parameter(self.params['D'], (self.state_dim,self.state_dim))
+        self.mu = set_parameter(self.params['mu'], (self.state_dim,))
+        self.D = set_parameter(self.params['D'], (self.state_dim, self.state_dim))

@@ -1,7 +1,7 @@
 import numpy as np
 from swarmsim.Populations import Populations
 from typing import Optional
-from swarmsim.Utils import broadcast_parameter
+from swarmsim.Utils import set_parameter
 
 
 class DampedDoubleIntegrators(Populations):
@@ -28,12 +28,12 @@ class DampedDoubleIntegrators(Populations):
         Resets the state of the agent.
     """
 
-    def __init__(self, config_path) -> None:
+    def __init__(self, config_path: str, name: str = None) -> None:
 
         self.damping: Optional[float] = None
         self.D: Optional[np.ndarray] = None
 
-        super().__init__(config_path)
+        super().__init__(config_path, name)
 
     def get_drift(self):
         d = self.state_dim // 2  # position and velocity dimension
@@ -54,6 +54,6 @@ class DampedDoubleIntegrators(Populations):
         """
         super().reset()
 
-        self.damping = broadcast_parameter(self.params['damping'], (1,))
-        self.D = broadcast_parameter(self.params['D'], (self.state_dim,self.state_dim))
+        self.damping = set_parameter(self.params['damping'], (1,))
+        self.D = set_parameter(self.params['D'], (self.state_dim, self.state_dim))
 

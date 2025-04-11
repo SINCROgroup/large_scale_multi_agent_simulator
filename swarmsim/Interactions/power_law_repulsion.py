@@ -1,7 +1,8 @@
 import numpy as np
-import yaml
 from swarmsim.Interactions import Interaction
-from swarmsim.Utils import compute_distances
+from swarmsim.Populations import Populations
+from swarmsim.Utils import compute_distances, set_parameter
+from typing import Optional
 
 
 class PowerLawRepulsion(Interaction):
@@ -67,29 +68,35 @@ class PowerLawRepulsion(Interaction):
     and decaying with a power exponent `p = 3.0`.
     """
 
-    def __init__(self, pop1, pop2, config, repulsion_name) -> None:
-        super().__init__(pop1, pop2)
+    def __init__(self,
+                 target_population: Populations,
+                 source_population: Populations,
+                 config_path: str,
+                 name: str = None) -> None:
 
-        # Load repulsion parameters from YAML configuration file
-        with open(config, "r") as file:
-            config = yaml.safe_load(file)
-        self.params = config.get(repulsion_name, {})
+        self.strength: Optional[np.ndarray] = None
+        self.max_distance: Optional[np.ndarray] = None
 
-        # Extract parameters from configuration
-        self.strength = self.params["strength"]
-        self.max_distance = self.params["max_distance"]
-        self.p = self.params["p"]
+        super().__init__(target_population, source_population, config_path, name)
+
+        self.p: int = self.config.get("p")
+
+    def reset(self):
+        super().reset()
+        self.strength = set_parameter(self.params['strength'])
+        self.max_distance = set_parameter(self.params['max_distance'])
+
 
     def get_interaction(self):
         """
-        Computes the repulsion force exerted by `pop2` on `pop1` using a power-law function.
+        Computes the repulsion force exerted by `source_population` on `target_population` using a power-law function.
 
         The repulsion force is computed as:
 
             F_repulsion = strength * (1/distance^p - 1/max_distance^p)
 
         where:
-            - `distance` is the Euclidean distance between agents in `pop1` and `pop2`.
+            - `distance` is the Euclidean distance between agents in `target_population` and `source_population`.
             - `max_distance` defines the interaction cutoff beyond which no force is applied.
             - `p` controls how rapidly the force decays with distance.
 
@@ -97,7 +104,7 @@ class PowerLawRepulsion(Interaction):
         -------
         np.ndarray
             A `(N1, D)` array representing the repulsion force applied to each
-            agent in `pop1`, where `N1` is the number of agents in `pop1` and
+            agent in `target_population`, where `N1` is the number of agents in `target_population` and
             `D` is the dimensionality of the state space.
 
         Notes
@@ -107,15 +114,15 @@ class PowerLawRepulsion(Interaction):
         """
 
         # Compute pairwise distances and relative positions between agents
-        distances, relative_positions = compute_distances(self.pop1.x[:, :2], self.pop2.x[:, :2])
+        distances, relative_positions = compute_distances(self.target_population.x[:, :2], self.source_population.x[:, :2])
 
         # Prevent division by zero
         distances = np.maximum(distances, 1e-6)
 
         # Compute the force kernel using power-law repulsion
         y_f = 1 / (self.max_distance ** self.p)
-        kernel = (1 / (distances ** self.p) - y_f)
-        kernel = self.strength * np.minimum(np.maximum(kernel, 0), 10)  # Cap forces to avoid instability
+        kernel = (1 / (distances ** self.p) - y_f[:, np.newaxis])
+        kernel = self.strength[:, np.newaxis] * np.minimum(np.maximum(kernel, 0), 10)  # Cap forces to avoid instability
 
         # Compute final repulsion forces
         repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)

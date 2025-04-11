@@ -37,6 +37,44 @@ SimpleIntegrators:
       circle:
         max_radius: 25
 
+
+RepulsionLongRange:
+  p: 2
+  parameters:
+    mode: generate
+    generate:
+      strength: 15
+      max_distance: 5
+
+RepulsionShortRange:
+  p: 4
+  parameters:
+    mode: generate
+    generate:
+      strength: 10
+      max_distance: 1.5
+
+AttractionLongRange:
+  p: 2
+  parameters:
+    mode: generate
+    generate:
+      strength: 0   # -2 for cohesion
+      max_distance: 10
+
+TargetInteraction:
+  p_attr: 2
+  p_rep: 4
+  is_attractive: False
+  parameters:
+    mode: generate
+    generate:
+      strength_attr: 4
+      strength_rep: 10
+      max_distance: 15
+
+
+
 integrator:
   dt: 0.01
 
@@ -66,29 +104,6 @@ logger:
   comment_enable: False   # Add initial and final comments to the logger about the experiment
   log_path: .\logs        # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
-
-RepulsionLongRange:
-  strength: 15
-  max_distance: 5
-  p: 2
-
-RepulsionShortRange:
-  strength: 10
-  max_distance: 1.5
-  p: 4
-
-AttractionLongRange:
-  strength: -0 #-2
-  max_distance: 10
-  p: 2
-
-TargetInteraction:
-  strength_attr: 4
-  strength_rep: 10
-  max_distance: 15
-  p_attr: 2
-  p_rep: 4
-  is_attractive: False
 
 Gym:
   num_episodes : 10

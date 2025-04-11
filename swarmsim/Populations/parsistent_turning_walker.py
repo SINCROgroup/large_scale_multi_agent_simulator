@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 from swarmsim.Populations import Populations
-from swarmsim.Utils import broadcast_parameter
+from swarmsim.Utils import set_parameter
 from typing import Optional
 
 
@@ -32,7 +32,7 @@ class LightSensitive_PTW(Populations):
 
     '''
 
-    def __init__(self, config_path:str) -> None:
+    def __init__(self, config_path: str, name: str = None) -> None:
 
         self.u_old: Optional[np.ndarray] = None
 
@@ -52,7 +52,7 @@ class LightSensitive_PTW(Populations):
         self.gamma_w: Optional[np.ndarray] = None
         self.sigma_w: Optional[np.ndarray] = None
 
-        super().__init__(config_path)
+        super().__init__(config_path, name)
 
         self.dt = self.config["dt"]
 
@@ -118,19 +118,19 @@ class LightSensitive_PTW(Populations):
         """
         super().reset()
 
-        self.theta_s = broadcast_parameter(self.params['theta_s'], ())
-        self.mu_s = broadcast_parameter(self.params['mu_s'], ())
-        self.alpha_s = broadcast_parameter(self.params['alpha_s'], ())
-        self.beta_s = broadcast_parameter(self.params['beta_s'], ())
-        self.gamma_s = broadcast_parameter(self.params['gamma_s'], ())
-        self.sigma_s = broadcast_parameter(self.params['sigma_s'], ())
+        self.theta_s = set_parameter(self.params['theta_s'], ())
+        self.mu_s = set_parameter(self.params['mu_s'], ())
+        self.alpha_s = set_parameter(self.params['alpha_s'], ())
+        self.beta_s = set_parameter(self.params['beta_s'], ())
+        self.gamma_s = set_parameter(self.params['gamma_s'], ())
+        self.sigma_s = set_parameter(self.params['sigma_s'], ())
 
-        self.theta_w = broadcast_parameter(self.params['theta_w'], ())
-        self.mu_w = broadcast_parameter(self.params['mu_w'], ())
-        self.alpha_w = broadcast_parameter(self.params['alpha_w'], ())
-        self.beta_w = broadcast_parameter(self.params['beta_w'], ())
-        self.gamma_w = broadcast_parameter(self.params['gamma_w'], ())
-        self.sigma_w = broadcast_parameter(self.params['sigma_w'], ())
+        self.theta_w = set_parameter(self.params['theta_w'], ())
+        self.mu_w = set_parameter(self.params['mu_w'], ())
+        self.alpha_w = set_parameter(self.params['alpha_w'], ())
+        self.beta_w = set_parameter(self.params['beta_w'], ())
+        self.gamma_w = set_parameter(self.params['gamma_w'], ())
+        self.sigma_w = set_parameter(self.params['sigma_w'], ())
 
         self.u_old = np.zeros([self.N, self.input_dim])  # Initialization of the last control input applied
 
