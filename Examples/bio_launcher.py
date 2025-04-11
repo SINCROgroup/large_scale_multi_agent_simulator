@@ -31,7 +31,7 @@ from swarmsim.Simulators import Simulator
 
 from swarmsim.Environments import EmptyEnvironment
 
-from swarmsim.Loggers import BaseLogger
+from swarmsim.Loggers import PositionLogger
 
 import pathlib
 
@@ -49,12 +49,12 @@ if __name__ == '__main__':
     controllers = []
 
     controller = LightPattern(population1,environment,config_path) 
-    controllers =[controller]
+    controllers = [controller]
 
     interactions = []
 
-    renderer = BioRenderer(populations, environment, config_path,controller)
-    logger = BaseLogger(populations, environment, config_path)
+    renderer = BioRenderer(populations, environment, config_path, controller)
+    logger = PositionLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)

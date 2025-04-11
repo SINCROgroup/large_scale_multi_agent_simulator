@@ -1,7 +1,7 @@
 import pathlib
 from datetime import datetime
 from swarmsim.Loggers import Logger
-from swarmsim.Utils import add_entry, append_csv, append_txt
+from swarmsim.Utils import add_entry, append_csv, append_txt, print_log, save_npz
 import yaml
 import time
 import os
@@ -63,9 +63,9 @@ class BaseLogger(Logger):
         self.date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')  # Get current date to init logger
         self.name = datetime.today().strftime('%Y%m%d_%H%M%S') + logger_config.get('log_name', '')
         self.activate = logger_config.get('activate', True)  # Activate
-        self.log_freq = logger_config.get('log_freq', 1)  # Print frequency
-        self.save_freq = logger_config.get('save_freq', 1)  # Save frequency
-        self.save_data_freq = logger_config.get('save_data_freq', 1)
+        self.log_freq = logger_config.get('log_freq', 0)  # Print frequency
+        self.save_freq = logger_config.get('save_freq', 0)  # Save frequency
+        self.save_data_freq = logger_config.get('save_data_freq', 0)
         self.log_path = logger_config.get('log_path', '.\logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
@@ -140,65 +140,14 @@ class BaseLogger(Logger):
         self.done = False
 
         if self.activate:
-            # Include desired information
-            add_entry(self.current_info, step=self.step_count)  # Get timestamp
-            add_entry(self.current_info, done=self.done)        # Add done flag to logger
-            # Add data in input to logger from simulation
-            if data is not None:
-                for key, value in data.items():
-                    add_entry(self.current_info, **{key: value})
+            self.log_internal_data()
+            self.log_external_data(data)
+            self.output_data()
 
-            # Print line if wanted
-            if self.log_freq > 0:
-                if self.step_count % self.log_freq == 0:
-                    self.print_log()
-
-            # Save line if wanted
-            if self.save_freq > 0:
-                if self.step_count % self.save_freq == 0:
-                    self.save()
-
-            self.step_count += 1  # Update step counter
+            # Update step counter
+            self.step_count += 1
 
         return self.done
-
-    def print_log(self) -> bool:
-        """
-        Function to print information every log_freq steps in a single line.
-
-        Returns
-        -------
-            activate: bool flag to check whether the logger is active
-
-        """
-        for key, value in self.current_info.items():
-            print(f"{key}: {value}; ", end=" ")
-        print('\n')
-        return self.activate
-
-    def save(self) -> bool:
-        """
-        Function to save every save_freq steps information to log in both .csv and .txt files.
-
-        Returns
-        -------
-            activate: bool flag to check whether the logger is active
-
-        Notes
-        -------
-            See class Notes for more details on generated files.
-            See append_csv and append_txt in Utils/logger_utils.py for more details of how information and saved.
-
-        """
-
-        if self.activate:
-            # Save to CSV
-            append_csv(self.log_name_csv, self.current_info)
-
-            # Save to TXT
-            append_txt(self.log_name_txt, self.current_info)
-
-        return self.activate
 
     def close(self, data: dict = None) -> bool:
         """
@@ -233,33 +182,32 @@ class BaseLogger(Logger):
 
         return self.activate
 
-    def save_data(self, data: dict) -> None:
+    def log_external_data(self, data, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=True):
+        if data is not None:
+            for key, value in data.items():
+                add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, **{key: value})
 
-        """
-        A function to save multiple tensors in a single .npz file to store relevant data.
+    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False):
+        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, step=self.step_count)  # Get timestamp
+        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, done=self.done)  # Add done flag
 
-        Parameters
-        ----------
-            data: dict of {name_tensor: value} where name_tensor is a string and value is np.array
+    def output_data(self):
+        # Print line if wanted
+        if self.log_freq > 0:
+            if self.step_count % self.log_freq == 0:
+                print_log(self.current_info)
 
-        Returns
-        -------
-            None
+        # Save line if wanted
+        if self.save_freq > 0:
+            if self.step_count % self.save_freq == 0:
+                # Save to CSV
+                append_csv(self.log_name_csv, self.current_info)
 
-        Notes
-        -------
-        Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.
+                # Save to TXT
+                append_txt(self.log_name_txt, self.current_info)
 
-        Examples
-        -------
-        settling_times = np.array([1,2,3,4,5])
-        control_efforts = np.array([6,7,8,9,10])
-        data = {'settling_time':settling_times, 'control_efforts':control_efforts}
-        logger.save_data(data)
+        # Save external data to npz if wanted
+        if self.save_data_freq > 0:
+            if self.step_count % self.save_data_freq == 0:
+                save_npz(self.log_name_npz, self.current_info)
 
-        data_loaded = np.load(name_data)
-        settling_times_ = data_loaded['settling_times']
-        control_efforts_  = data_loaded['control_efforts']
-
-        """
-        np.savez(self.log_name_npz, **data)

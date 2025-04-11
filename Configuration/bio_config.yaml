@@ -36,10 +36,11 @@ renderer:
   render_dt: 0.01
 
 logger:
-  activate: False          # True to save logger, False otherwise
+  activate: True          # True to save logger, False otherwise
   log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 100            # Save every save_freq steps information (0: never save)
+  save_freq: 1000            # Save every save_freq steps information (0: never save)
+  save_data_freq: 1000
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: '../../logs'  # Path where logger should be saved
+  log_path: .\logs    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
