@@ -49,6 +49,7 @@ class ShepherdingLogger(BaseLogger):
         """
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__(populations, environment, config_path)
+        self.xi = 0
 
     def log(self, data: dict = None) -> bool:
         """
@@ -69,35 +70,17 @@ class ShepherdingLogger(BaseLogger):
             See add_data from Utils/logger_utils.py to quickly add variables to log.
 
         """
-        # Get log info
-        self.current_info = {}
-        self.done = self.get_event()  # Verify if episode is done
-
         if self.activate:
             # Get metrics
-            xi = self.get_xi()
-
-            # Include desired information
-            add_entry(self.current_info, step=self.step_count)  # Get timestamp
-            add_entry(self.current_info, xi=xi)
-            add_entry(self.current_info, done=self.done)
-            if data is not None:
-                for key, value in data.items():
-                    add_entry(self.current_info, **{key: value})
-
-            # Print line if wanted
-            if self.log_freq > 0:
-                if self.step_count % self.log_freq == 0:
-                    self.print_log()
-
-            # Save line if wanted
-            if self.save_freq > 0:
-                if self.step_count % self.save_freq == 0:
-                    self.save()
-
-            self.step_count += 1  # Update step counter
+            self.xi = self.get_xi()
+            self.done = self.get_event()
+            super().log(data)
 
         return self.done
+
+    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False):
+        super().log_internal_data(print_flag, txt_flag, csv_flag, npz_flag)
+        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, xi=self.xi)
 
     def get_xi(self) -> float:
         """

@@ -12,7 +12,7 @@ from swarmsim.Integrators import EulerMaruyamaIntegrator
 from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import GymSimulator
 from swarmsim.Environments import ShepherdingEnvironment
-from swarmsim.Loggers import ShepherdingGymLogger
+from swarmsim.Loggers import ShepherdingLogger
 from swarmsim.Utils import get_target_distance, xi_shepherding
 from swarmsim.Utils.plot_utils import get_snapshot
 
@@ -54,7 +54,7 @@ class ShepherdingEnv(gym.Env):
         # interactions = [repulsion_ht_long, repulsion_ht_short, repulsion_hh_short]
 
         renderer = ShepherdingRenderer(populations, environment, config_path)
-        logger = ShepherdingGymLogger(populations, environment, config_path)
+        logger = ShepherdingLogger(populations, environment, config_path)
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
         self.render_mode = render_mode
