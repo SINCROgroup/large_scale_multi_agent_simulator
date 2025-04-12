@@ -17,7 +17,7 @@ class Logger(ABC):
         pass
 
     @abstractmethod
-    def log(self, data: dict) -> bool:
+    def log(self, data: dict | None =None) -> bool:
         """
         A function that defines the information to log.
 

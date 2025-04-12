@@ -4,6 +4,7 @@ from swarmsim.GymEnvs.shepherding_env.envs import ShepherdingEnv
 from swarmsim.Controllers import ShepherdingLamaController
 from swarmsim.Utils import set_global_seed
 import pathlib
+from typing import cast
 
 config_path = str(pathlib.Path(__file__).resolve().parent.parent / "Configuration" / "shepherding_gym_config.yaml")
 
@@ -18,6 +19,7 @@ if seed is not None:
 num_episodes = params['num_episodes']
 
 env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="human")
+env = cast(ShepherdingEnv, env)
 env._max_episode_steps = 10000
 
 # Run the simulation for a certain number of steps

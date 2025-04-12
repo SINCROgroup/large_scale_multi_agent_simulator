@@ -61,6 +61,9 @@ class Renderer(ABC):
         self.populations: list = populations
         self.environment: Environment = environment
 
+        self.render_dt = self.config.get('render_dt', 0.05)
+        self.activate = self.config.get('activate', True)
+
     @abstractmethod
     def render(self):
         """

@@ -1,7 +1,6 @@
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-import yaml
 
 from typing import Optional
 
@@ -13,7 +12,7 @@ from swarmsim.Renderers import ShepherdingRenderer
 from swarmsim.Simulators import GymSimulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingLogger
-from swarmsim.Utils import get_target_distance, xi_shepherding
+from swarmsim.Utils import get_target_distance, xi_shepherding, load_config
 from swarmsim.Utils.plot_utils import get_snapshot
 
 from swarmsim.Interactions import PowerLawInteraction
@@ -24,8 +23,7 @@ class ShepherdingEnv(gym.Env):
 
     def __init__(self, config_path, render_mode: Optional[str] = None):
 
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
+        config = load_config(config_path=config_path)
         params = config.get('Gym', {})
 
         integrator = EulerMaruyamaIntegrator(config_path)

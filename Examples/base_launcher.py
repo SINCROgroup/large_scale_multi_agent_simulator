@@ -26,12 +26,11 @@ if __name__ == '__main__':
     interactions = [repulsion_12]
 
     integrator = EulerMaruyamaIntegrator(config_path)
-    controllers = []
 
     renderer = BaseRenderer(populations, environment, config_path)
     logger = PositionLogger(populations, environment, config_path)
 
-    simulator = Simulator(populations=populations, interactions=interactions, environment=environment, controllers=controllers,
+    simulator = Simulator(populations=populations, interactions=interactions, environment=environment,
                           integrator=integrator, logger=logger, renderer=renderer, config_path=config_path)
 
     simulator.simulate()

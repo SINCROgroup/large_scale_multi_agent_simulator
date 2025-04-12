@@ -117,7 +117,6 @@ class BaseRenderer(Renderer):
 
         self.background_color = self.config.get('background_color', 'white').lower()
         self.render_mode = self.config.get('render_mode', 'matplotlib').lower()
-        self.render_dt = self.config.get('render_dt', 0.05)
 
         # Pygame setup
         self.window = None
@@ -172,12 +171,13 @@ class BaseRenderer(Renderer):
         ValueError
             If an unsupported rendering mode is specified.
         """
-        if self.render_mode == "matplotlib":
-            return self.render_matplotlib()
-        elif self.render_mode == "pygame":
-            return self.render_pygame()
-        else:
-            raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
+        if self.activate:
+            if self.render_mode == "matplotlib":
+                return self.render_matplotlib()
+            elif self.render_mode == "pygame":
+                return self.render_pygame()
+            else:
+                raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
 
 
     def render_matplotlib(self):
