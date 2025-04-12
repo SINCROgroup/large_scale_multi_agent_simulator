@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import yaml
+from swarmsim.Utils import load_config
 
 from swarmsim.Environments import Environment
 
@@ -55,9 +55,7 @@ class Renderer(ABC):
         config_path : str
             Path to the YAML configuration file.
         """
-        # Load config params from YAML file
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
+        config = load_config(config_path)
 
         self.config: dict = config.get('renderer', {})
         self.populations: list = populations

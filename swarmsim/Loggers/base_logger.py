@@ -1,8 +1,6 @@
-import pathlib
 from datetime import datetime
 from swarmsim.Loggers import Logger
-from swarmsim.Utils import add_entry, append_csv, append_txt
-import yaml
+from swarmsim.Utils import add_entry, append_csv, append_txt, load_config
 import time
 import os
 import numpy as np
@@ -55,8 +53,7 @@ class BaseLogger(Logger):
     """
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__()
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
+        config = load_config(config_path)
         logger_config = config.get('logger', {})
         self.config = config  # Get config to track experiments
         self.logger_config = logger_config

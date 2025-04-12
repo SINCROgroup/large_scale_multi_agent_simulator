@@ -1,7 +1,10 @@
 from swarmsim.Controllers import Controller
 import numpy as np
+from typing import cast
 
 from swarmsim.Utils import compute_distances
+from swarmsim.Environments import ShepherdingEnvironment
+from swarmsim.Populations import Populations
 
 
 class ShepherdingLamaController(Controller):
@@ -20,19 +23,24 @@ class ShepherdingLamaController(Controller):
 
     """
 
-    def __init__(self, population, targets, environment=None, config_path=None) -> None:
+    def __init__(self, population: Populations,
+                 targets: Populations,
+                 environment: ShepherdingEnvironment =None,
+                 config_path: str =None) -> None:
+
         super().__init__(population, environment, config_path)
-        self.herders = self.population
-        self.targets = targets
+        self.herders: Populations = self.population
+        self.targets: Populations = targets
+        self.environment = cast(ShepherdingEnvironment, self.environment)
 
-        self.xi = self.config.get('xi', 15)
-        self.v_h = self.config.get('v_h', 12)
-        self.alpha = self.config.get('alpha', 3)
-        self.lmbda = self.config.get('lambda', 3)
-        self.delta = self.config.get('delta', 1.5)
-        self.rho_g = self.config.get('rho_g', 5)
+        self.xi: float = self.config.get('xi', 15)
+        self.v_h: float = self.config.get('v_h', 12)
+        self.alpha: float = self.config.get('alpha', 3)
+        self.lmbda: float = self.config.get('lambda', 3)
+        self.delta: float = self.config.get('delta', 1.5)
+        self.rho_g: float = self.config.get('rho_g', 5)
 
-    def get_action(self):
+    def get_action(self) -> np.ndarray:
         # Extract herder and target positions from the observation
         herder_pos = self.herders.x  # Shape (N, 2)
         target_pos = self.targets.x[:, :2]  # Shape (M, 2)
@@ -40,9 +48,6 @@ class ShepherdingLamaController(Controller):
         distances, _ = compute_distances(self.herders.x, target_pos)  # Shape (N, M)
 
         target_distance_from_goal, _ = compute_distances(target_pos, self.environment.goal_pos)  # Shape (M, 2)
-
-        selectable_targets = ((distances < self.xi) &
-                              (np.tile(target_distance_from_goal, self.herders.N).T > self.environment.goal_radius))
 
         # Find the index of the closest herder for each target
         closest_herders = np.argmin(distances, axis=0)  # Shape (M,)
@@ -104,8 +109,5 @@ class ShepherdingLamaController(Controller):
                 self.delta * selected_target_unit_vectors[~no_valid_target_mask]
         )
         )
-
-        herders_on_goal = (herder_abs_distances < self.rho_g)
-        # actions[herders_on_goal] = 0
 
         return actions

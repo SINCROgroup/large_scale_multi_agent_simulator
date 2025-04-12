@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pygame
 from swarmsim.Renderers import BaseRenderer

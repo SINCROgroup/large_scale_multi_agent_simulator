@@ -1,4 +1,4 @@
-import yaml
+from swarmsim.Utils import load_config
 import progressbar
 
 
@@ -14,9 +14,7 @@ class Simulator:
             config_path (str): The path to the YAML configuration file.
         """
 
-        # Load config params from YAML file
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
+        config = load_config(config_path)
 
         simulator_config = config.get('simulator', {})
         self.dt = integrator.dt

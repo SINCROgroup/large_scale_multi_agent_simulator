@@ -6,7 +6,7 @@ from pathlib import Path
 import logging
 from typing import Optional
 
-from swarmsim.Utils import get_parameters, get_states
+from swarmsim.Utils import get_parameters, get_states, load_config
 
 # Configure logging for debugging and diagnostics.
 logging.basicConfig(level=logging.DEBUG)
@@ -50,11 +50,7 @@ class Populations(ABC):
         super().__init__()
         self.config_path: str = config_path
 
-        # Verify that the configuration file exists
-        if not Path(config_path).exists():
-            raise FileNotFoundError(f"Configuration file {config_path} not found.")
-        with open(config_path, "r") as file:
-            config_file = yaml.safe_load(file)
+        config_file = load_config(config_path)
 
         # Retrieve configuration for the specific population class
         if name is None:

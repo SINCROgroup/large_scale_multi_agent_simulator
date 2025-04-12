@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
 from swarmsim.Populations import Populations
-import yaml
 import numpy as np
 import pandas as pd
-from pathlib import Path
 from typing import Optional
-from swarmsim.Utils import get_parameters
+from swarmsim.Utils import get_parameters, load_config
 
 
 class Interaction(ABC):
@@ -57,13 +55,7 @@ class Interaction(ABC):
         self.target_population: Populations = target_population  # The affected population
         self.source_population: Populations = source_population  # The interacting population
 
-        self.config_path: str = config_path
-
-        # Verify that the configuration file exists
-        if not Path(config_path).exists():
-            raise FileNotFoundError(f"Configuration file {config_path} not found.")
-        with open(config_path, "r") as file:
-            config_file = yaml.safe_load(file)
+        config_file = load_config(config_path)
 
         # Retrieve configuration for the specific population class
         if name is None:

@@ -16,3 +16,17 @@ def compute_distances(positions_1, positions_2):
     distances = np.linalg.norm(relative_positions, axis=2)  # Shape (N, M)
 
     return distances, relative_positions
+
+def gaussian_input(x, y, A=5.0, mu_x=0.0, mu_y=0.0, sigma_x=1.0, sigma_y=1.0):
+    """
+    This method, given the parametes of a Gaussin and some points where to evaluate the function,
+    computes a 2D Gaussian distribution. Assumption: the covariance matrix is diagonal
+    Arguments
+    ---
+    A (float):      Maximum amplitude of the signal
+    mu_x(float):    Average on the first dimension
+    mu_y(float):    Average on the second dimension
+    sigma_x(float): Standard deviation in the first dimension
+    sigma_y(float): Standard deviation in the second dimension
+    """
+    return A * np.exp(-((x - mu_x)**2 / (2 * sigma_x**2)) - ((y - mu_y)**2 / (2 * sigma_y**2)))

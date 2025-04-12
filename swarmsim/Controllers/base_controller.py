@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
-import yaml
+from swarmsim.Utils import load_config
+
+from swarmsim.Environments import Environment
+from swarmsim.Populations import Populations
 
 
 class Controller(ABC):
@@ -18,24 +21,22 @@ class Controller(ABC):
 
     """
 
-    def __init__(self, population, environment=None, config_path=None) -> None:
+    def __init__(self, population: Populations, environment: Environment =None, config_path: str =None) -> None:
         """ 
             Initializes a controller, providing the controlled population. 
             Optionally you can provide the controller with the simulated environment and a configuration file (YAML file)
         """
         super().__init__()
-        self.population = population
-        self.environment = environment
+        self.population: Populations = population
+        self.environment: Environment = environment
 
-        # Load configuration from YAML file
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
+        config: dict = load_config(config_path)
 
         # Get configuration for the specific population class
         class_name = type(self).__name__
         self.config = config.get(class_name, {})
         
-        self.dt = self.config.get('dt',0.1)
+        self.dt: float = self.config.get('dt',0.1)
 
     # This method
     @abstractmethod
