@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import yaml
 
+from swarmsim.Environments import Environment
+
 
 class Renderer(ABC):
     """
@@ -40,7 +42,7 @@ class Renderer(ABC):
     """
 
     @abstractmethod
-    def __init__(self, populations, environment, config_path):
+    def __init__(self, populations: list, environment: Environment, config_path: str):
         """
         Initializes the renderer with the configuration parameters.
 
@@ -57,9 +59,9 @@ class Renderer(ABC):
         with open(config_path, 'r') as config_file:
             config = yaml.safe_load(config_file)
 
-        self.config = config.get('renderer', {})
-        self.populations = populations
-        self.environment = environment
+        self.config: dict = config.get('renderer', {})
+        self.populations: list = populations
+        self.environment: Environment = environment
 
     @abstractmethod
     def render(self):

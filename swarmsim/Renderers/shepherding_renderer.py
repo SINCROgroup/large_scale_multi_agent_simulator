@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pygame
 from swarmsim.Renderers import BaseRenderer
+from swarmsim.Environments import Environment
 
 
 class ShepherdingRenderer(BaseRenderer):
@@ -48,6 +49,23 @@ class ShepherdingRenderer(BaseRenderer):
         renderer = ShepherdingRenderer(populations, environment, config_path="config.yaml")
         renderer.render()
     """
+
+    def __init__(self, populations: list, environment: Environment, config_path: str):
+        """
+        Initializes the renderer with the selected visualization mode.
+
+        Parameters
+        ----------
+        populations : list
+            A list of population objects to render.
+        environment : object, optional
+            The environment instance in which the populations exist (default is None).
+        config_path : str, optional
+            Path to the YAML configuration file (default is None).
+        """
+        super().__init__(populations, environment, config_path)
+
+        self.sensing_radius = self.config.get('sensing_radius', float('inf'))
 
     def post_render_hook_matplotlib(self):
         """
@@ -100,14 +118,12 @@ class ShepherdingRenderer(BaseRenderer):
             pygame.draw.circle(shading_surface, shading_color, (goal_x, goal_y), goal_radius)
             self.window.blit(shading_surface, (0, 0))
         """
-        # Calculate the scale factor for rendering
-        scale = min(self.arena_size[0] / self.environment.dimensions[0],
-                    self.arena_size[1] / self.environment.dimensions[1])
+
 
         # Convert goal position to screen coordinates
-        goal_x = int((self.environment.goal_pos[0] + self.environment.dimensions[0] / 2) * scale)
-        goal_y = int((self.environment.dimensions[1] / 2 - self.environment.goal_pos[1]) * scale)
-        goal_radius = int(self.environment.goal_radius * scale)
+        goal_x = int((self.environment.goal_pos[0] + self.environment.dimensions[0] / 2) * self.scale_factor)
+        goal_y = int((self.environment.dimensions[1] / 2 - self.environment.goal_pos[1]) * self.scale_factor)
+        goal_radius = int(self.environment.goal_radius * self.scale_factor)
 
         # Create a semi-transparent surface
         shading_surface = pygame.Surface((self.screen_size[0], self.screen_size[1]), pygame.SRCALPHA)
@@ -119,24 +135,24 @@ class ShepherdingRenderer(BaseRenderer):
         # Overlay the shading onto the main window
         self.window.blit(shading_surface, (0, 0))
 
-        # # -------- Draw the herders' sensing areas --------
-        # # Sensing radius in simulation units is defined as 15.
-        # sensing_radius_sim = 10
-        # sensing_radius_screen = int(sensing_radius_sim * scale)
-        # # Define the sensing overlay color (blue with low opacity)
-        # sensing_color = (0, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)
-        #
-        # # Retrieve herder positions
-        # herder_positions = self.populations[1].x[:, :2]
-        # for pos in herder_positions:
-        #     # Convert simulation coordinates to screen coordinates
-        #     x = int((pos[0] + self.environment.dimensions[0] / 2) * scale) + 100
-        #     y = int((self.environment.dimensions[1] / 2 - pos[1]) * scale) + 100
-        #
-        #     # Create a surface for the sensing area overlay
-        #     sensing_surface = pygame.Surface((sensing_radius_screen * 2, sensing_radius_screen * 2), pygame.SRCALPHA)
-        #     pygame.draw.circle(sensing_surface, sensing_color,
-        #                        (sensing_radius_screen, sensing_radius_screen),
-        #                        sensing_radius_screen)
-        #     # Blit the sensing overlay so that it centers on the herder
-        #     self.window.blit(sensing_surface, (x - sensing_radius_screen, y - sensing_radius_screen))
+        # -------- Draw the herders' sensing areas --------
+        if self.sensing_radius < float('inf'):
+            sensing_radius_sim = 10
+            sensing_radius_screen = int(sensing_radius_sim * self.scale_factor)
+            # Define the sensing overlay color (blue with low opacity)
+            sensing_color = (0, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)
+
+            # Retrieve herder positions
+            herder_positions = self.populations[1].x[:, :2]
+            for pos in herder_positions:
+                # Convert simulation coordinates to screen coordinates
+                x = int((pos[0] + self.environment.dimensions[0] / 2) * self.scale_factor)
+                y = int((self.environment.dimensions[1] / 2 - pos[1]) * self.scale_factor)
+
+                # Create a surface for the sensing area overlay
+                sensing_surface = pygame.Surface((sensing_radius_screen * 2, sensing_radius_screen * 2), pygame.SRCALPHA)
+                pygame.draw.circle(sensing_surface, sensing_color,
+                                   (sensing_radius_screen, sensing_radius_screen),
+                                   sensing_radius_screen)
+                # Blit the sensing overlay so that it centers on the herder
+                self.window.blit(sensing_surface, (x - sensing_radius_screen, y - sensing_radius_screen))

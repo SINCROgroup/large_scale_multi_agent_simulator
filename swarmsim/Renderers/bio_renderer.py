@@ -3,16 +3,21 @@ import numpy as np
 import pygame
 from swarmsim.Renderers import BaseRenderer
 
+from swarmsim.Environments import Environment
+from swarmsim.Controllers import Controller
+
 
 
 class BioRenderer(BaseRenderer):
 
-    def __init__(self, populations, environment=None, config_path=None, controller=None):
+    def __init__(self, populations: list, environment: Environment, config_path: str, controller: Controller):
         super().__init__(populations, environment, config_path)
         self.controller = controller
         self.screen_size = (1366,768)
         self.arena_size = (1366,768)
+        self.spatial_input = None
         self.create_spatial_input()
+
 
     
 

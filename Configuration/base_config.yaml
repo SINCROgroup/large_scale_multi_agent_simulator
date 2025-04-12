@@ -14,7 +14,7 @@
 
 BrownianMotion:
   id: 'BrownianMotion'
-  N: 200
+  N: 2000
   state_dim: 2
 
   initial_conditions:
@@ -42,7 +42,7 @@ BrownianMotion:
 
 FixedPopulation:
   id: 'Fixed'
-  N: 10
+  N: 100
   state_dim: 2
 
   initial_conditions:
@@ -50,8 +50,8 @@ FixedPopulation:
     random:
       shape: circle
       circle:
-        min_radius: 10
-        max_radius: 15
+        min_radius: 0
+        max_radius: 10
 
 
 HarmonicRepulsion:
@@ -59,8 +59,8 @@ HarmonicRepulsion:
   parameters:
     mode: generate
     generate:
-      strength: 3
-      distance: 2.5
+      strength: 0.1
+      distance: 10
 
 
 
@@ -78,7 +78,7 @@ renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
   agent_shapes: ['circle', 'diamond']
-  agent_size: [1, 1]
+  agent_sizes: [1, 1]
   render_mode: 'pygame'
   render_dt: 0.01
 
