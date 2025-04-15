@@ -1,6 +1,7 @@
 .idea
 *.pyc
 /logs
+/Examples/logs
 *.csv
 *.txt
 /swarmsim.egg-info/

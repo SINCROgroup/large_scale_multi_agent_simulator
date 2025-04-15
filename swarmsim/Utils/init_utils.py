@@ -29,9 +29,9 @@ def get_states(init_config: dict, num_samples: int, dim_samples: tuple or list) 
             circle_settings = random_settings.get("circle")
             states = _generate_random_states_circle(circle_settings, num_samples, dim_samples)
         else:
-            raise RuntimeError(f"Unknown initialization' shape: {shape}")
+            raise RuntimeError(f"Unknown initialization' shape: {shape} (choose between 'box' and 'circle')")
     else:
-        raise RuntimeError("Invalid initialization mode. Check the YAML config file.")
+        raise RuntimeError("Invalid initialization mode. Check the YAML config file (choose between 'random' and 'file').")
 
     return states
 

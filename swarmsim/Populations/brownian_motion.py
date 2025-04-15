@@ -136,7 +136,7 @@ class BrownianMotion(Populations):
         Returns
         -------
         np.ndarray
-            Array of shape `(N, state_dim)` representing the diffusion coefficients for each agent.
+            Array of shape `(N, state_dim, state_dim)` representing the diffusion coefficients for each agent.
         """
         return self.D
 

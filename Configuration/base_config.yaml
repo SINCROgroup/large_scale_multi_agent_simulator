@@ -51,7 +51,7 @@ FixedPopulation:
       shape: circle
       circle:
         min_radius: 0
-        max_radius: 10
+        max_radius: 10x
 
 
 HarmonicRepulsion:

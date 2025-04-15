@@ -23,7 +23,6 @@ class Simulator:
                  logger: Logger | None =None,
                  renderer: Renderer | None =None,
                  ) -> None:
-
         """        
         Initializes the Simulator class with configuration parameters from a YAML file.
 
