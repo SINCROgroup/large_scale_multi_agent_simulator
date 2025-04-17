@@ -1,7 +1,7 @@
 import pathlib
 from datetime import datetime
 from swarmsim.Loggers import Logger
-from swarmsim.Utils import add_entry, append_csv, append_txt, print_log, save_npz
+from swarmsim.Utils import add_entry, append_csv, append_txt, print_log, save_npz, save_mat
 import yaml
 import time
 import os
@@ -79,6 +79,7 @@ class BaseLogger(Logger):
         self.log_name_csv = self.log_path + '/' + self.name + '.csv'
         self.log_name_txt = self.log_path + '/' + self.name + '.txt'
         self.log_name_npz = self.log_path + '/' + self.name + '.npz'
+        self.log_name_mat = self.log_path + '/' + self.name + '.mat'
         self.start = None  # Time start
         self.end = None  # Time end
         self.step_count = None  # Count steps for frequency check and logging
@@ -182,14 +183,14 @@ class BaseLogger(Logger):
 
         return self.activate
 
-    def log_external_data(self, data, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=True):
+    def log_external_data(self, data, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=True, mat_flag=True):
         if data is not None:
             for key, value in data.items():
-                add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, **{key: value})
+                add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag,**{key: value})
 
-    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False):
-        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, step=self.step_count)  # Get timestamp
-        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, done=self.done)  # Add done flag
+    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False, mat_flag=False):
+        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag, step=self.step_count)  # Get timestamp
+        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag, done=self.done)  # Add done flag
 
     def output_data(self):
         # Print line if wanted
@@ -206,8 +207,9 @@ class BaseLogger(Logger):
                 # Save to TXT
                 append_txt(self.log_name_txt, self.current_info)
 
-        # Save external data to npz if wanted
+        # Save to npz if wanted
         if self.save_data_freq > 0:
             if self.step_count % self.save_data_freq == 0:
                 save_npz(self.log_name_npz, self.current_info)
+                save_mat(self.log_name_mat, self.current_info)
 

@@ -21,7 +21,7 @@ integrator:
 
 simulator:
   dt: 0.01
-  T: 300
+  T: 300  # 300
 
 environment:
   dimensions: [3840, 2160] 

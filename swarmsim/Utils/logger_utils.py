@@ -1,10 +1,10 @@
 import csv
 import numpy as np
+import scipy.io as sio
 
-
-def add_entry(current_info, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=False, **kwargs):
+def add_entry(current_info, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=False, mat_flag=False, **kwargs):
     for key, value in kwargs.items():
-        current_info[key] = {'value': value, 'print_flag': print_flag, 'txt_flag': txt_flag, 'csv_flag': csv_flag, 'npz_flag': npz_flag}
+        current_info[key] = {'value': value, 'print_flag': print_flag, 'txt_flag': txt_flag, 'csv_flag': csv_flag, 'npz_flag': npz_flag, 'mat_flag': mat_flag}
 
 
 def print_log(current_info):
@@ -74,3 +74,11 @@ def save_npz(log_name, data):
         if value['npz_flag'] is True:
             npz_data.update({key: value['value']})
     np.savez(log_name, **npz_data)
+
+
+def save_mat(log_name, data):
+    mat_data = {}
+    for key, value in data.items():
+        if value['mat_flag'] is True:
+            mat_data.update({key: value['value']})
+    sio.savemat(log_name, mat_data)
