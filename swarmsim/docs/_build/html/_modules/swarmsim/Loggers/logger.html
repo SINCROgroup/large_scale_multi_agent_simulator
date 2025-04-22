@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -278,7 +290,7 @@
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An interface that defines all the methods that a logger should implement</span>
+<span class="sd">    Abstract base class for a logger.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -296,7 +308,7 @@
 <div class="viewcode-block" id="Logger.log">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.log">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A function that defines the information to log.</span>
 

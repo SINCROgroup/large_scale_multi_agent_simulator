@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -271,7 +283,10 @@
                   
   <h1>Source code for swarmsim.Controllers.base_controller</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
 
 
 <div class="viewcode-block" id="Controller">
@@ -279,32 +294,41 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">Controller</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An interface that defines all the methods that a controller should implement</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    Arguments</span>
-<span class="sd">    -------</span>
-<span class="sd">    population : The controlled population</span>
-<span class="sd">    environment : The environment</span>
-<span class="sd">    other_populations : A list of other populations</span>
+<span class="sd">    ---------</span>
+<span class="sd">    population : Population</span>
+<span class="sd">        The population where the control is exerted</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The environment where the agents live</span>
+<span class="sd">    other_populations : list[Population]</span>
+<span class="sd">        A list of other populations that can influence the control action</span>
 
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
-<span class="sd">    get_action(self):</span>
-<span class="sd">        Returns the control action for the agents</span>
+<span class="sd">    Config requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the population&#39;s section:</span>
+
+<span class="sd">    dt: float</span>
+<span class="sd">        Sampling time of the controller (time interval between two consecutive control actions)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">            Initializes a controller, providing the controlled population. </span>
-<span class="sd">            Optionally you can provide the controller with the simulated environment and a configuration file (YAML file)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">population</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
-
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">other_populations</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">:</span> <span class="n">Populations</span> <span class="o">=</span> <span class="n">population</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">environment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_populations</span> <span class="o">=</span> <span class="n">other_populations</span>
+
+        <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+
+        <span class="c1"># Get configuration for the specific population class</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="p">{})</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)</span>
+
 
     <span class="c1"># This method</span>
 <div class="viewcode-block" id="Controller.get_action">
@@ -313,7 +337,24 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">            The get_action method uses the information given to the Controller class to compute the control acting on &quot;Population&quot;.</span>
-<span class="sd">            This is the method you need to override to implement your control action</span>
+<span class="sd">            NOTE: This is the method you need to OVERRIDE to implement your controller</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="Controller.get_action_in_space">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller.get_action_in_space">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_in_space</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            For spatially non uniform control actions, this method gives back the control action at the positions specified in the positions vector</span>
+
+<span class="sd">            Arguments</span>
+<span class="sd">            ---------</span>
+<span class="sd">            positions : numpy.Array(num_positions, num_dimensions)</span>
+<span class="sd">                The positions where you want to retrieve the value of the control action</span>
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>

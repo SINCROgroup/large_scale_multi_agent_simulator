@@ -1,5 +1,5 @@
-swarmsim.Loggers package
-========================
+Loggers
+=======
 
 Submodules
 ----------

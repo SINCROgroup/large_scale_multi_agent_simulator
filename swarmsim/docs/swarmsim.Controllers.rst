@@ -1,45 +1,35 @@
-swarmsim.Controllers package
-============================
+Controllers
+===========
 
-Submodules
-----------
+.. automodule:: swarmsim.Controllers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Base controller
---------------------------------------------
+---------------
 
 .. automodule:: swarmsim.Controllers.base_controller
    :members:
    :undoc-members:
    :show-inheritance:
 
-swarmsim.Controllers.shepherding\_lama\_controller module
----------------------------------------------------------
+
+Sheperding Controller (by Andrea Lama)
+--------------------------------------
 
 .. automodule:: swarmsim.Controllers.shepherding_lama_controller
    :members:
    :undoc-members:
    :show-inheritance:
 
-swarmsim.Controllers.shepherding\_lama\_controller\_high\_level module
-----------------------------------------------------------------------
 
-.. automodule:: swarmsim.Controllers.shepherding_lama_controller_high_level
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
-swarmsim.Controllers.spatial\_inputs module
--------------------------------------------
+Spatial Inputs
+--------------
 
 .. automodule:: swarmsim.Controllers.spatial_inputs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: swarmsim.Controllers
    :members:
    :undoc-members:
    :show-inheritance:

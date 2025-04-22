@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -273,7 +285,7 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_csv</span><span class="p">,</span> <span class="n">append_txt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_csv</span><span class="p">,</span> <span class="n">append_txt</span><span class="p">,</span> <span class="n">print_log</span><span class="p">,</span> <span class="n">save_npz</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -333,11 +345,13 @@
             <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
         <span class="n">logger_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>  <span class="c1"># Get config to track experiments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger_config</span> <span class="o">=</span> <span class="n">logger_config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>  <span class="c1"># Get current date to init logger</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activate</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activate&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Activate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_freq&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Print frequency</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_freq&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Save frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Print frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Save frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_data_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_path&#39;</span><span class="p">,</span> <span class="s1">&#39;.\logs&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comment_enable</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comment_enable&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">populations</span> <span class="o">=</span> <span class="n">populations</span>
@@ -392,7 +406,7 @@
 
 <div class="viewcode-block" id="BaseLogger.log">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A function that defines the information to log.</span>
 
@@ -417,71 +431,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
-            <span class="c1"># Include desired information</span>
-            <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span><span class="p">)</span>  <span class="c1"># Get timestamp</span>
-            <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">)</span>        <span class="c1"># Add done flag to logger</span>
-            <span class="c1"># Add data in input to logger from simulation</span>
-            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_internal_data</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_external_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_data</span><span class="p">()</span>
 
-            <span class="c1"># Print line if wanted</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span>
-
-            <span class="c1"># Save line if wanted</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Update step counter</span>
+            <span class="c1"># Update step counter</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span></div>
-
-
-<div class="viewcode-block" id="BaseLogger.print_log">
-<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.print_log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">print_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Function to print information every log_freq steps in a single line.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">            activate: bool flag to check whether the logger is active</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span></div>
-
-
-<div class="viewcode-block" id="BaseLogger.save">
-<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.save">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Function to save every save_freq steps information to log in both .csv and .txt files.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">            activate: bool flag to check whether the logger is active</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -------</span>
-<span class="sd">            See class Notes for more details on generated files.</span>
-<span class="sd">            See append_csv and append_txt in Utils/logger_utils.py for more details of how information and saved.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
-            <span class="c1"># Save to CSV</span>
-            <span class="n">append_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_csv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
-
-            <span class="c1"># Save to TXT</span>
-            <span class="n">append_txt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span></div>
 
 
 <div class="viewcode-block" id="BaseLogger.close">
@@ -520,41 +477,44 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span></div>
 
 
-<div class="viewcode-block" id="BaseLogger.save_data">
-<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.save_data">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseLogger.log_external_data">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_external_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_external_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">txt_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">csv_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">npz_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span></div>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A function to save multiple tensors in a single .npz file to store relevant data.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">            data: dict of {name_tensor: value} where name_tensor is a string and value is np.array</span>
+<div class="viewcode-block" id="BaseLogger.log_internal_data">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_internal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">txt_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">csv_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">npz_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span><span class="p">)</span>  <span class="c1"># Get timestamp</span>
+        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">)</span>  <span class="c1"># Add done flag</span></div>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">            None</span>
 
-<span class="sd">        Notes</span>
-<span class="sd">        -------</span>
-<span class="sd">        Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.</span>
+<div class="viewcode-block" id="BaseLogger.output_data">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.output_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Print line if wanted</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">print_log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
 
-<span class="sd">        Examples</span>
-<span class="sd">        -------</span>
-<span class="sd">        settling_times = np.array([1,2,3,4,5])</span>
-<span class="sd">        control_efforts = np.array([6,7,8,9,10])</span>
-<span class="sd">        data = {&#39;settling_time&#39;:settling_times, &#39;control_efforts&#39;:control_efforts}</span>
-<span class="sd">        logger.save_data(data)</span>
+        <span class="c1"># Save line if wanted</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Save to CSV</span>
+                <span class="n">append_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_csv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
 
-<span class="sd">        data_loaded = np.load(name_data)</span>
-<span class="sd">        settling_times_ = data_loaded[&#39;settling_times&#39;]</span>
-<span class="sd">        control_efforts_  = data_loaded[&#39;control_efforts&#39;]</span>
+                <span class="c1"># Save to TXT</span>
+                <span class="n">append_txt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span></div>
+        <span class="c1"># Save external data to npz if wanted</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">save_npz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 

@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -308,7 +320,11 @@
 
         <span class="c1"># RESET INITIAL CONDITIONS OF THE POPULATIONS AND ENVIRONMENT AND LOGGER</span>
         <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">:</span>
-            <span class="n">population</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+            <span class="n">population</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">interaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span>
+            <span class="n">interaction</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
 
@@ -320,7 +336,7 @@
 
         <span class="c1"># Compute the interactions between the agents</span>
         <span class="k">for</span> <span class="n">interact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span>
-            <span class="n">interact</span><span class="o">.</span><span class="n">pop1</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">interact</span><span class="o">.</span><span class="n">get_interaction</span><span class="p">()</span>
+            <span class="n">interact</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">interact</span><span class="o">.</span><span class="n">get_interaction</span><span class="p">()</span>
 
         <span class="c1"># Update the state of the agents</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">)</span>
@@ -345,10 +361,9 @@
 <div class="viewcode-block" id="GymSimulator.close">
 <a class="viewcode-back" href="../../../swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.close">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># self.logger.close()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </div>
-
-
 
 </pre></div>
 

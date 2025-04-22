@@ -1,18 +1,12 @@
-.. SwarmSim documentation master file, created by
-   sphinx-quickstart on Sat Feb  1 18:42:24 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+SwarmS.py documentation
+========================
 
-SwarmSim documentation
-======================
+[TODO: Add a high level description of the software, with all the functionalities]
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
 
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 3
+   :caption: SwarmS.py package index:
 
-   modules
+   swarmsim

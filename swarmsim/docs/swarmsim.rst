@@ -1,5 +1,6 @@
-swarmsim package
-================
+swarms_py
+=========
+
 
 Subpackages
 -----------
@@ -17,21 +18,5 @@ Subpackages
    swarmsim.Simulators
    swarmsim.Utils
 
-Submodules
-----------
 
-swarmsim.conf module
---------------------
 
-.. automodule:: swarmsim.conf
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: swarmsim
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,5 +1,5 @@
-swarmsim.Populations package
-============================
+Populations
+===========
 
 Submodules
 ----------

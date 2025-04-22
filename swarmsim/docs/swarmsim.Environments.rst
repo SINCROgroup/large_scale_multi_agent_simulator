@@ -1,5 +1,5 @@
-swarmsim.Environments package
-=============================
+Environments
+============
 
 Submodules
 ----------

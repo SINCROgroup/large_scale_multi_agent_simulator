@@ -140,24 +140,43 @@ class LightPattern(Controller):
 
 
     def get_action(self):
-       
-       limit_x = self.environment.dimensions[0]/2 * np.ones([self.population.x.shape[0],1])
-       limit_y = self.environment.dimensions[1]/2 * np.ones([self.population.x.shape[0],1])
-       limits_p = np.hstack((limit_x,limit_y))
-       limits_n = -limits_p
+        
+        """
 
-       state = np.concatenate((self.population.x[:,[0,1],np.newaxis],limits_p[:,:,np.newaxis]),axis=2)
-       state = np.min(state,axis=2)
-       state = np.concatenate((state[:,:,np.newaxis],limits_n[:,:,np.newaxis]),axis=2)
-       state = np.max(state,axis=2)
-       
+            This function returns the light intensity projected by the pattern defined at the pattern_path. 
+            All agents that are outside the boundaries of the arena are considered as being at the borders of the arena.
+        
+        """
+        
+        # All agents outside the bounds are considered at the bound
+        limit_x = self.environment.dimensions[0]/2 * np.ones([self.population.x.shape[0],1])
+        limit_y = self.environment.dimensions[1]/2 * np.ones([self.population.x.shape[0],1])
+        limits_p = np.hstack((limit_x,limit_y))
+        limits_n = -limits_p
 
-       light_ity = self.interpolator(state) 
+        state = np.concatenate((self.population.x[:,[0,1],np.newaxis],limits_p[:,:,np.newaxis]),axis=2)
+        state = np.min(state,axis=2)
+        state = np.concatenate((state[:,:,np.newaxis],limits_n[:,:,np.newaxis]),axis=2)
+        state = np.max(state,axis=2)
+        
+        #Get the light intensity at the position of the agents 
+        light_ity = self.interpolator(state) 
 
-       return light_ity[:,np.newaxis]
+        return light_ity[:,np.newaxis]
     
 
     def get_action_in_space(self,positions):
+
+        """
+
+            Returns the light intensity at the position specified in the positions vector
+
+            Arguments
+            ---------
+            positions : numpy.Array(num_positions, num_dimensions)
+                The positions where you want to retrieve the value of the control action
+
+        """
 
         light_ity = self.interpolator(positions) 
 

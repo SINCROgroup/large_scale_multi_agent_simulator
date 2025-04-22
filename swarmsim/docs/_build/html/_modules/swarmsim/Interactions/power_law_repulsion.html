@@ -283,9 +283,10 @@
                   
   <h1>Source code for swarmsim.Interactions.power_law_repulsion</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interaction</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distances</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distances</span><span class="p">,</span> <span class="n">set_parameter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 
 <div class="viewcode-block" id="PowerLawRepulsion">
@@ -353,31 +354,40 @@
 <span class="sd">    and decaying with a power exponent `p = 3.0`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pop1</span><span class="p">,</span> <span class="n">pop2</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">repulsion_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pop1</span><span class="p">,</span> <span class="n">pop2</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">target_population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
+                 <span class="n">source_population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
+                 <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="c1"># Load repulsion parameters from YAML configuration file</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">repulsion_name</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># Extract parameters from configuration</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;strength&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;max_distance&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_population</span><span class="p">,</span> <span class="n">source_population</span><span class="p">,</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PowerLawRepulsion.reset">
+<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_distance&#39;</span><span class="p">])</span></div>
+
+
 
 <div class="viewcode-block" id="PowerLawRepulsion.get_interaction">
 <a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the repulsion force exerted by `pop2` on `pop1` using a power-law function.</span>
+<span class="sd">        Computes the repulsion force exerted by `source_population` on `target_population` using a power-law function.</span>
 
 <span class="sd">        The repulsion force is computed as:</span>
 
 <span class="sd">            F_repulsion = strength * (1/distance^p - 1/max_distance^p)</span>
 
 <span class="sd">        where:</span>
-<span class="sd">            - `distance` is the Euclidean distance between agents in `pop1` and `pop2`.</span>
+<span class="sd">            - `distance` is the Euclidean distance between agents in `target_population` and `source_population`.</span>
 <span class="sd">            - `max_distance` defines the interaction cutoff beyond which no force is applied.</span>
 <span class="sd">            - `p` controls how rapidly the force decays with distance.</span>
 
@@ -385,7 +395,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            A `(N1, D)` array representing the repulsion force applied to each</span>
-<span class="sd">            agent in `pop1`, where `N1` is the number of agents in `pop1` and</span>
+<span class="sd">            agent in `target_population`, where `N1` is the number of agents in `target_population` and</span>
 <span class="sd">            `D` is the dimensionality of the state space.</span>
 
 <span class="sd">        Notes</span>
@@ -395,15 +405,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Compute pairwise distances and relative positions between agents</span>
-        <span class="n">distances</span><span class="p">,</span> <span class="n">relative_positions</span> <span class="o">=</span> <span class="n">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pop1</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop2</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">distances</span><span class="p">,</span> <span class="n">relative_positions</span> <span class="o">=</span> <span class="n">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
 
         <span class="c1"># Prevent division by zero</span>
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
 
         <span class="c1"># Compute the force kernel using power-law repulsion</span>
         <span class="n">y_f</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">kernel</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_f</span><span class="p">)</span>
-        <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Cap forces to avoid instability</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_f</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strength</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Cap forces to avoid instability</span>
 
         <span class="c1"># Compute final repulsion forces</span>
         <span class="n">repulsion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kernel</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">relative_positions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>

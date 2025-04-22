@@ -285,7 +285,9 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interaction</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_parameter</span>
 
 <div class="viewcode-block" id="HarmonicRepulsion">
 <a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion">[docs]</a>
@@ -299,9 +301,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pop1 : Population</span>
+<span class="sd">    target_population : Population</span>
 <span class="sd">        The first population (typically the affected agents).</span>
-<span class="sd">    pop2 : Population</span>
+<span class="sd">    source_population : Population</span>
 <span class="sd">        The second population (agents exerting repulsion).</span>
 <span class="sd">    config : str</span>
 <span class="sd">        Path to the YAML configuration file containing interaction parameters.</span>
@@ -342,22 +344,31 @@
 <span class="sd">    range of `10.0` units.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pop1</span><span class="p">,</span> <span class="n">pop2</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pop1</span><span class="p">,</span> <span class="n">pop2</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">target_population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
+                 <span class="n">source_population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
+                 <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="c1"># Load repulsion parameters from YAML configuration file</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">pars</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># Extract strength and interaction range from the config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="n">pars</span><span class="p">[</span><span class="s2">&quot;repulsion&quot;</span><span class="p">][</span><span class="s2">&quot;strength&quot;</span><span class="p">]</span>  <span class="c1"># Maximum repulsion intensity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">pars</span><span class="p">[</span><span class="s2">&quot;repulsion&quot;</span><span class="p">][</span><span class="s2">&quot;max_distance&quot;</span><span class="p">]</span>  <span class="c1"># Maximum interaction distance</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_population</span><span class="p">,</span> <span class="n">source_population</span><span class="p">,</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="HarmonicRepulsion.reset">
+<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">])</span></div>
+
 
 <div class="viewcode-block" id="HarmonicRepulsion.get_interaction">
 <a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the repulsion force exerted by `pop2` on `pop1`.</span>
+<span class="sd">        Computes the repulsion force exerted by `source_population` on `target_population`.</span>
 
 <span class="sd">        The repulsion force follows a **harmonic** behavior where:</span>
 <span class="sd">        - The force is strongest when two agents are very close.</span>
@@ -368,18 +379,18 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            A `(N1, D)` array representing the repulsion force applied to each</span>
-<span class="sd">            agent in `pop1`, where `N1` is the number of agents in `pop1` and</span>
+<span class="sd">            agent in `target_population`, where `N1` is the number of agents in `target_population` and</span>
 <span class="sd">            `D` is the dimensionality of the state space.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        - The function computes **pairwise distances** between agents in `pop1`</span>
-<span class="sd">          and `pop2` and applies the harmonic repulsion formula.</span>
+<span class="sd">        - The function computes **pairwise distances** between agents in `target_population`</span>
+<span class="sd">          and `source_population` and applies the harmonic repulsion formula.</span>
 <span class="sd">        - To avoid division by zero, a small epsilon (`1e-6`) is added to distances.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Compute pairwise differences between agents in `pop1` and `pop2`</span>
-        <span class="n">differences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop2</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="c1"># Compute pairwise differences between agents in `target_population` and `source_population`</span>
+        <span class="n">differences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
 
         <span class="c1"># Compute Euclidean distances between agents</span>
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -393,12 +404,12 @@
         <span class="c1"># Prevent division by zero by setting a small minimum value for distances</span>
         <span class="n">distances_with_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">distances</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="mf">1e-6</span><span class="p">)</span>
 
-        <span class="c1"># Compute unit vectors pointing from `pop1` to `pop2`</span>
+        <span class="c1"># Compute unit vectors pointing from `target_population` to `source_population`</span>
         <span class="n">nearby_unit_vector</span> <span class="o">=</span> <span class="n">nearby_differences</span> <span class="o">/</span> <span class="n">distances_with_min</span>
 
         <span class="c1"># Apply harmonic repulsion force formula</span>
-        <span class="n">repulsion</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">-</span> <span class="n">distances</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span> <span class="o">*</span> <span class="n">nearby_unit_vector</span><span class="p">,</span>
+        <span class="n">repulsion</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">strength</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">-</span> <span class="n">distances</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span> <span class="o">*</span> <span class="n">nearby_unit_vector</span><span class="p">,</span>
             <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
         <span class="p">)</span>
 
