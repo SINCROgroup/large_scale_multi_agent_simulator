@@ -8,27 +8,32 @@ from swarmsim.Populations import Populations
 class Controller(ABC):
     """
     An interface that defines all the methods that a controller should implement
+    
+    
     Arguments
-    -------
-    population : The controlled population
-    environment : The environment
-    other_populations : A list of other populations
+    ---------
+    population : Population
+        The population where the control is exerted
+    environment : Environment
+        The environment where the agents live
+    other_populations : list[Population]
+        A list of other populations that can influence the control action
 
-    Methods
-    -------
-    get_action(self):
-        Returns the control action for the agents
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:
+
+    dt: float
+        Sampling time of the controller (time interval between two consecutive control actions)
 
     """
 
-    def __init__(self, population: Populations, environment: Environment =None, config_path: str =None) -> None:
-        """ 
-            Initializes a controller, providing the controlled population. 
-            Optionally you can provide the controller with the simulated environment and a configuration file (YAML file)
-        """
+    def __init__(self, population: Populations, environment: Environment =None, config_path: str =None, other_populations = None) -> None:
+        
         super().__init__()
         self.population: Populations = population
         self.environment: Environment = environment
+        self.other_populations = other_populations
 
         config: dict = load_config(config_path)
 
@@ -36,17 +41,28 @@ class Controller(ABC):
         class_name = type(self).__name__
         self.config = config.get(class_name, {})
         
-        self.dt: float = self.config.get('dt',0.1)
+        self.dt: float = self.config.get('dt')
+
 
     # This method
     @abstractmethod
     def get_action(self):
         """ 
             The get_action method uses the information given to the Controller class to compute the control acting on "Population".
-            This is the method you need to override to implement your control action
+            NOTE: This is the method you need to OVERRIDE to implement your controller
         """
         pass
 
 
     def get_action_in_space(self,positions):
+        """
+
+            For spatially non uniform control actions, this method gives back the control action at the positions specified in the positions vector
+
+            Arguments
+            ---------
+            positions : numpy.Array(num_positions, num_dimensions)
+                The positions where you want to retrieve the value of the control action
+        
+        """
         pass

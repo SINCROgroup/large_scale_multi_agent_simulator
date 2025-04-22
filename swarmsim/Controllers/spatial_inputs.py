@@ -9,21 +9,39 @@ from swarmsim.Utils import gaussian_input
 
 class GaussianRepulsion(Controller):
     """
-    This class implements a radial repulsion force whose intensity goes like a gaussion Gaussian repulsion 
+    This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation
 
     Arguments
-    ---
-    disc_pts (int): Number of points of the discretization grid for the Gaussian input 
-    strength (float): Max intensity of the force
+    ---------
+    population : Population
+        The population where the control is exerted
+    environment : Environment
+        The environment where the agents live
+    config_path: str
+        The path of the configuration file
+    
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:    
+    
+    disc_pts: int
+        Number of points of the discretization grid for the Gaussian input 
+    
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        GaussianRepulsion:
+            disc_pts: 30
+
+    This defines a `GaussianRepulsion` force that uses a 30x30 meshgrid to approximate the gaussian in the environment.
 
     """
 
     def __init__(self, population, environment, config_path=None) -> None:
-        """ 
-            This method initializes the repulsion force. It creates an interpolated Gaussian in 2D and 
-            initializes the population that the force will act upon, the environment and loads the 
-            configuration parameters
-        """
+
         super().__init__(population, environment, config_path)
 
 
@@ -50,8 +68,10 @@ class GaussianRepulsion(Controller):
         
     def get_action(self):
         """ 
+
             This method computes a radial repulsion force from the origin, whose intensity is scaled using 
-            a Gaussian distribution in a 2D space 
+            a Gaussian distribution in a 2D space.
+
         """
 
         rep_strength = self.interpolator(self.population.x) #Strength of repulsion from the center (Gaussian)
@@ -66,12 +86,40 @@ class GaussianRepulsion(Controller):
 
 class LightPattern(Controller):
 
+    """
+    This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation
+
+    Arguments
+    ---------
+    population : Population
+        The population where the control is exerted
+    environment : Environment
+        The environment where the agents live
+    config_path: str
+        The path of the configuration file
+    
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:    
+    
+    pattern_path: str
+        The path (relative or absolute) of the pattern of light that you want to project in the environment
+    
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        LightPattern:
+            pattern_path: ../Configuration/Config_data/BCL.jpeg
+
+    This defines a `LightPattern` that project the content of BCL.jpeg over the environment.
+
+    """
+
     def __init__(self, population, environment, config_path=None) -> None:
-        """ 
-            This method initializes the repulsion force. It creates an interpolated Gaussian in 2D and 
-            initializes the population that the force will act upon, the environment and loads the 
-            configuration parameters
-        """
+
         super().__init__(population, environment, config_path)
 
         pattern_path = self.config.get("pattern_path","")

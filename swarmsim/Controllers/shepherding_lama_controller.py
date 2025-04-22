@@ -10,16 +10,54 @@ from swarmsim.Populations import Populations
 class ShepherdingLamaController(Controller):
     """
     Implementation of the herders control law from [Lama and di Bernardo, 2024]
-    Arguments
-    -------
-    population : The controlled population
-    environment : The environment
-    other_populations : A list of other populations
 
-    Methods
-    -------
-    get_action(self):
-        Returns the control action for the herders
+
+    Arguments
+    ---------
+        population : Populations
+            The population where the control is exerted
+        targets : Populations
+            The population of targets
+        environment : ShepherdingEnvironment
+            The environment where the agents live (must be a Sheperding Environment)
+        config_path: str
+            The path of the configuration file
+
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:
+
+    dt: float
+        Sampling time of the controller (time interval between two consecutive control actions)
+    xi: float 
+        Sensing radius of the herder agents
+    v_h: float
+        Speed of the herders when no targets are detected
+    alpha: float
+        Attraction force constant to the selected target
+    lmbda: float
+        Not USED 
+    delta: float
+        Displacement to go behind a target
+    rho_g: float
+        Radius of the goal region
+
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        ShepherdingLamaController:
+            xi: 15
+            v_h: 12
+            alpha: 3
+            lambda: 3
+            delta: 1.5
+            rho_g: 5
+
+    This defines a `ShepherdingLamaController` with xi=15, v_h=12, alpha=3, lambda=3, delta=1.5, rho_g=5.
+    This controller is able to steer a population of targets to the goal region.
 
     """
 
@@ -28,7 +66,7 @@ class ShepherdingLamaController(Controller):
                  environment: ShepherdingEnvironment =None,
                  config_path: str =None) -> None:
 
-        super().__init__(population, environment, config_path)
+        super().__init__(population, environment, config_path, [targets])
         self.herders: Populations = self.population
         self.targets: Populations = targets
         self.environment = cast(ShepherdingEnvironment, self.environment)
@@ -41,6 +79,13 @@ class ShepherdingLamaController(Controller):
         self.rho_g: float = self.config.get('rho_g', 5)
 
     def get_action(self) -> np.ndarray:
+
+        """
+        STEFANO O ITALO TODO
+
+        """
+
+
         # Extract herder and target positions from the observation
         herder_pos = self.herders.x  # Shape (N, 2)
         target_pos = self.targets.x[:, :2]  # Shape (M, 2)
