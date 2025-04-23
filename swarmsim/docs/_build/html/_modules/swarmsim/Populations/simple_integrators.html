@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Populations.simple_integrators &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Population.simple_integrators &#8212; SwarmSim 0.1.0 documentation</title>
   
   
   
@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -252,7 +264,7 @@
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Populations.simple_integrators</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Population.simple_integrators</span></li>
   </ul>
 </nav>
 </div>
@@ -269,15 +281,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for swarmsim.Populations.simple_integrators</h1><div class="highlight"><pre>
+  <h1>Source code for swarmsim.Population.simple_integrators</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 
 
 <div class="viewcode-block" id="SimpleIntegrators">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">SimpleIntegrators</span><span class="p">(</span><span class="n">Populations</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleIntegrators</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that implements (noisy) first order integrators</span>
 
@@ -300,40 +311,21 @@
 <span class="sd">        Resets the state of the agent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s2">&quot;Targets&quot;</span><span class="p">)</span>  <span class="c1"># Population ID</span>
-        
-        <span class="c1">#Load D</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])])</span>
-        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
-        <span class="k">for</span> <span class="n">agent_D</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">agent_D</span>
-            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialization of the external forces</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialization of the control input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;v_max&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span>  <span class="c1"># Action limit</span>
 
 <div class="viewcode-block" id="SimpleIntegrators.get_drift">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_drift">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_drift</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">v_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_max</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SimpleIntegrators.get_diffusion">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span></div>
-
-
-<div class="viewcode-block" id="SimpleIntegrators.reset_state">
-<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators.reset_state">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_initial_conditions</span><span class="p">()</span>  <span class="c1"># Initial conditions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialization of the external forces</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialization of the control input</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">))</span></div>
 </div>
 
 </pre></div>

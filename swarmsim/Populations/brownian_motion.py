@@ -1,9 +1,9 @@
 import numpy as np
-import yaml
-from swarmsim.Populations import Populations
+from typing import Optional
+from swarmsim.Populations import Population
 
 
-class BrownianMotion(Populations):
+class BrownianMotion(Population):
     """
     Implements a biased Brownian motion model with average velocity `mu` and diffusion coefficient `D`.
 
@@ -68,7 +68,7 @@ class BrownianMotion(Populations):
     Notes
     -----
     - For more details on how initial conditions are generated, see the `get_initial_conditions`
-      method in the `Populations` class.
+      method in the `Population` class.
     - The drift component (`mu`) and diffusion component (`D`) can be either predefined lists
       or dynamically generated using callable expressions from the YAML configuration.
 
@@ -90,7 +90,7 @@ class BrownianMotion(Populations):
     assigned predefined drift velocities (`mu`) and diffusion coefficients (`D`).
     """
 
-    def __init__(self, config_path: str) -> None:
+    def __init__(self, config_path: str, name: str = None) -> None:
         """
         Initializes the `BrownianMotion` population by loading parameters from a configuration file.
 
@@ -99,21 +99,26 @@ class BrownianMotion(Populations):
         config_path : str
             Path to the YAML configuration file containing initialization parameters.
         """
-        super().__init__(config_path)
+        super().__init__(config_path, name)
 
-        self.id = self.config["id"]  # Population ID
-        self.f = np.zeros(self.x.shape)  # Initialize external forces
-        self.u = np.zeros(self.x.shape)  # Initialize control input
+        self.mu: Optional[np.ndarray] = None
+        self.D: Optional[np.ndarray] = None
 
-        # Load average velocity `mu`
-        self.mu = np.empty([self.N, len(self.params['mu'][0])])
-        for i, agent_mu in enumerate(self.params['mu']):
-            self.mu[i, :] = agent_mu
+        self.params_shapes = {
+            'mu': (self.state_dim,),
+            'D': (self.state_dim, self.state_dim)
+        }
 
-        # Load diffusion coefficient `D`
-        self.D = np.empty([self.N, len(self.params['D'][0])])
-        for i, agent_D in enumerate(self.params['D']):
-            self.D[i, :] = agent_D
+    def reset(self) -> None:
+        """
+        Resets the state of the population to its initial conditions.
+
+        This method reinitializes the agent states, external forces, and control inputs.
+        """
+        super().reset()
+
+        self.mu = self.params.get('mu')
+        self.D = self.params.get('D')
 
     def get_drift(self) -> np.ndarray:
         """
@@ -144,31 +149,6 @@ class BrownianMotion(Populations):
         Returns
         -------
         np.ndarray
-            Array of shape `(N, state_dim)` representing the diffusion coefficients for each agent.
+            Array of shape `(N, state_dim, state_dim)` representing the diffusion coefficients for each agent.
         """
         return self.D
-
-    def reset_state(self) -> None:
-        """
-        Resets the state of the population to its initial conditions.
-
-        This method reinitializes the agent states, external forces, and control inputs.
-        """
-        self.x = self.get_initial_conditions()  # Initial conditions
-        self.f = np.zeros(self.x.shape)  # Reset external forces
-        self.u = np.zeros(self.x.shape)  # Reset control input
-
-        self.reset_params()
-
-    def reset_params(self) -> None:
-        self.params = self.get_parameters()
-        # Load average velocity `mu`
-        self.mu = np.empty([self.N, len(self.params['mu'][0])])
-        for i, agent_mu in enumerate(self.params['mu']):
-            self.mu[i, :] = agent_mu
-
-        # Load diffusion coefficient `D`
-        self.D = np.empty([self.N, len(self.params['D'][0])])
-        for i, agent_D in enumerate(self.params['D']):
-            self.D[i, :] = agent_D
-

@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../modules.html">
+    swarmsim
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -270,17 +282,33 @@
                 <article class="bd-article">
                   
   <h1>Source code for swarmsim.Simulators.base_simulator</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">progressbar</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interaction</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Controller</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Integrator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Renderer</span>
 
 
 <div class="viewcode-block" id="Simulator">
 <a class="viewcode-back" href="../../../swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Simulator</span><span class="p">:</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">,</span> <span class="n">interactions</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">controllers</span><span class="p">,</span> <span class="n">integrator</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span>
-                 <span class="n">config_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Population</span><span class="p">],</span>
+                 <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span>
+                 <span class="n">integrator</span><span class="p">:</span> <span class="n">Integrator</span><span class="p">,</span>
+                 <span class="n">interactions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interaction</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">controllers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Controller</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">renderer</span><span class="p">:</span> <span class="n">Renderer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;        </span>
 <span class="sd">        Initializes the Simulator class with configuration parameters from a YAML file.</span>
 
@@ -288,22 +316,20 @@
 <span class="sd">            config_path (str): The path to the YAML configuration file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># Load config params from YAML file</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
-            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 
-        <span class="n">simulator_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;simulator&#39;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">integrator</span><span class="o">.</span><span class="n">dt</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">simulator_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">simulator_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;simulator&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">integrator</span><span class="o">.</span><span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">simulator_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
         <span class="c1"># get parameters from initialization</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">populations</span> <span class="o">=</span> <span class="n">populations</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="n">interactions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span> <span class="o">=</span> <span class="n">controllers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="o">=</span> <span class="n">renderer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">integrator</span> <span class="o">=</span> <span class="n">integrator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Population</span><span class="p">]</span> <span class="o">=</span> <span class="n">populations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">environment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interaction</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">interactions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Controller</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">controllers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">:</span> <span class="n">Renderer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">renderer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integrator</span><span class="p">:</span> <span class="n">Integrator</span> <span class="o">=</span> <span class="n">integrator</span>
 
 <div class="viewcode-block" id="Simulator.simulate">
 <a class="viewcode-back" href="../../../swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator.simulate">[docs]</a>
@@ -327,26 +353,27 @@
             <span class="c1">#print(t)</span>
             <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>  <span class="c1"># Log and get done flag</span>
 
-            <span class="c1">#Render the Scene if a rederer is defined</span>
-            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+            <span class="c1"># Render the Scene if a renderer is defined</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
             <span class="c1"># Implement the control actions</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">%</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">c</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_action</span><span class="p">()</span>  <span class="c1"># Controller ha un membro che è la popolazione su cui agisce</span>
+                        <span class="n">c</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_action</span><span class="p">()</span>
 
             <span class="c1"># Compute the interactions between the agents</span>
-            <span class="k">for</span> <span class="n">interact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span>
-                <span class="n">interact</span><span class="o">.</span><span class="n">pop1</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">interact</span><span class="o">.</span><span class="n">get_interaction</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">interact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span>
+                    <span class="n">interact</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">interact</span><span class="o">.</span><span class="n">get_interaction</span><span class="p">()</span>
 
             <span class="c1"># Update the state of the agents</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">)</span>
 
             <span class="c1"># Reset interaction forces</span>
             <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">:</span>
-                <span class="n">population</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">population</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">population</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">population</span><span class="o">.</span><span class="n">input_dim</span><span class="p">])</span>
 
             <span class="c1"># Update the environment</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
@@ -359,7 +386,7 @@
                 <span class="k">break</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 </div>
 

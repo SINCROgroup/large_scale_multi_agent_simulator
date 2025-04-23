@@ -1,7 +1,8 @@
 import numpy as np
 import yaml
 from swarmsim.Interactions import Interaction
-
+from swarmsim.Populations import Population
+from typing import Optional
 
 class HarmonicRepulsion(Interaction):
     """
@@ -13,9 +14,9 @@ class HarmonicRepulsion(Interaction):
 
     Parameters
     ----------
-    pop1 : Population
+    target_population : Population
         The first population (typically the affected agents).
-    pop2 : Population
+    source_population : Population
         The second population (agents exerting repulsion).
     config : str
         Path to the YAML configuration file containing interaction parameters.
@@ -56,32 +57,30 @@ class HarmonicRepulsion(Interaction):
     range of `10.0` units.
     """
 
-    def __init__(self, pop1, pop2, config) -> None:
-        super().__init__(pop1, pop2)
+    def __init__(self,
+                 target_population: Population,
+                 source_population: Population,
+                 config_path: str,
+                 name: str = None) -> None:
 
-        # Load repulsion parameters from YAML configuration file
-        with open(config, "r") as file:
-            pars = yaml.safe_load(file)
+        super().__init__(target_population, source_population, config_path, name)
 
-        # Extract strength and interaction range from the config
-        self.strength_nom = pars["repulsion"]["strength"]  # Maximum repulsion intensity
-        self.distance_nom = pars["repulsion"]["max_distance"]  # Maximum interaction distance
+        self.strength: Optional[np.ndarray] = None
+        self.distance: Optional[np.ndarray] = None
 
-        if pars.get("repulsion").get("std", None) is not None:
-            self.std = pars["repulsion"]["std"]
-        else:
-            self.std = 0
+        self.params_shapes = {
+            "strength": (),
+            "distance": ()
+        }
 
-        self.strength = self.strength_nom
-        self.distance = self.distance_nom
-
-    def reset_params(self):
-        self.strength = np.random.normal(self.strength_nom, self.std * self.strength_nom)
-        self.distance = np.random.normal(self.distance_nom, self.std * self.distance_nom)
+    def reset(self):
+        super().reset()
+        self.strength = self.params['strength']
+        self.distance = self.params['distance']
 
     def get_interaction(self):
         """
-        Computes the repulsion force exerted by `pop2` on `pop1`.
+        Computes the repulsion force exerted by `source_population` on `target_population`.
 
         The repulsion force follows a **harmonic** behavior where:
         - The force is strongest when two agents are very close.
@@ -92,18 +91,18 @@ class HarmonicRepulsion(Interaction):
         -------
         np.ndarray
             A `(N1, D)` array representing the repulsion force applied to each
-            agent in `pop1`, where `N1` is the number of agents in `pop1` and
+            agent in `target_population`, where `N1` is the number of agents in `target_population` and
             `D` is the dimensionality of the state space.
 
         Notes
         -----
-        - The function computes **pairwise distances** between agents in `pop1`
-          and `pop2` and applies the harmonic repulsion formula.
+        - The function computes **pairwise distances** between agents in `target_population`
+          and `source_population` and applies the harmonic repulsion formula.
         - To avoid division by zero, a small epsilon (`1e-6`) is added to distances.
 
         """
-        # Compute pairwise differences between agents in `pop1` and `pop2`
-        differences = self.pop2.x[:, np.newaxis, :] - self.pop1.x[np.newaxis, :, :]
+        # Compute pairwise differences between agents in `target_population` and `source_population`
+        differences = self.source_population.x[:, np.newaxis, :] - self.target_population.x[np.newaxis, :, :]
 
         # Compute Euclidean distances between agents
         distances = np.linalg.norm(differences, axis=2)
@@ -117,12 +116,12 @@ class HarmonicRepulsion(Interaction):
         # Prevent division by zero by setting a small minimum value for distances
         distances_with_min = np.maximum(distances[:, :, np.newaxis], 1e-6)
 
-        # Compute unit vectors pointing from `pop1` to `pop2`
+        # Compute unit vectors pointing from `target_population` to `source_population`
         nearby_unit_vector = nearby_differences / distances_with_min
 
         # Apply harmonic repulsion force formula
-        repulsion = -self.strength * np.sum(
-            (self.distance - distances[:, :, np.newaxis]) * nearby_unit_vector,
+        repulsion = -self.strength[:, np.newaxis] * np.sum(
+            (self.distance[np.newaxis, :, np.newaxis] - distances[:, :, np.newaxis]) * nearby_unit_vector,
             axis=0
         )
 

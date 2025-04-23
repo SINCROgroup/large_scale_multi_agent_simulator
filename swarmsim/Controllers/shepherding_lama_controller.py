@@ -1,38 +1,91 @@
 from swarmsim.Controllers import Controller
 import numpy as np
+from typing import cast
 
 from swarmsim.Utils import compute_distances
+from swarmsim.Environments import ShepherdingEnvironment
+from swarmsim.Populations import Population
 
 
 class ShepherdingLamaController(Controller):
     """
     Implementation of the herders control law from [Lama and di Bernardo, 2024]
-    Arguments
-    -------
-    population : The controlled population
-    environment : The environment
-    other_populations : A list of other populations
 
-    Methods
-    -------
-    get_action(self):
-        Returns the control action for the herders
+
+    Arguments
+    ---------
+        population : Population
+            The population where the control is exerted
+        targets : Population
+            The population of targets
+        environment : ShepherdingEnvironment
+            The environment where the agents live (must be a Sheperding Environment)
+        config_path: str
+            The path of the configuration file
+
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:
+
+    dt: float
+        Sampling time of the controller (time interval between two consecutive control actions)
+    xi: float 
+        Sensing radius of the herder agents
+    v_h: float
+        Speed of the herders when no targets are detected
+    alpha: float
+        Attraction force constant to the selected target
+    lmbda: float
+        Not USED 
+    delta: float
+        Displacement to go behind a target
+    rho_g: float
+        Radius of the goal region
+
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        ShepherdingLamaController:
+            xi: 15
+            v_h: 12
+            alpha: 3
+            lambda: 3
+            delta: 1.5
+            rho_g: 5
+
+    This defines a `ShepherdingLamaController` with xi=15, v_h=12, alpha=3, lambda=3, delta=1.5, rho_g=5.
+    This controller is able to steer a population of targets to the goal region.
 
     """
 
-    def __init__(self, population, targets, environment=None, config_path=None) -> None:
-        super().__init__(population, environment, config_path)
-        self.herders = self.population
-        self.targets = targets
+    def __init__(self, population: Population,
+                 targets: Population,
+                 environment: ShepherdingEnvironment =None,
+                 config_path: str =None) -> None:
 
-        self.xi = self.config.get('xi', 15)
-        self.v_h = self.config.get('v_h', 12)
-        self.alpha = self.config.get('alpha', 3)
-        self.lmbda = self.config.get('lambda', 3)
-        self.delta = self.config.get('delta', 1.5)
-        self.rho_g = self.config.get('rho_g', 5)
+        super().__init__(population, environment, config_path, [targets])
+        self.herders: Population = self.population
+        self.targets: Population = targets
+        self.environment = cast(ShepherdingEnvironment, self.environment)
 
-    def get_action(self):
+        self.xi: float = self.config.get('xi', 15)
+        self.v_h: float = self.config.get('v_h', 12)
+        self.alpha: float = self.config.get('alpha', 3)
+        self.lmbda: float = self.config.get('lambda', 3)
+        self.delta: float = self.config.get('delta', 1.5)
+        self.rho_g: float = self.config.get('rho_g', 5)
+
+    def get_action(self) -> np.ndarray:
+
+        """
+        STEFANO O ITALO TODO
+
+        """
+
+
         # Extract herder and target positions from the observation
         herder_pos = self.herders.x  # Shape (N, 2)
         target_pos = self.targets.x[:, :2]  # Shape (M, 2)
@@ -40,9 +93,6 @@ class ShepherdingLamaController(Controller):
         distances, _ = compute_distances(self.herders.x, target_pos)  # Shape (N, M)
 
         target_distance_from_goal, _ = compute_distances(target_pos, self.environment.goal_pos)  # Shape (M, 2)
-
-        selectable_targets = ((distances < self.xi) &
-                              (np.tile(target_distance_from_goal, self.herders.N).T > self.environment.goal_radius))
 
         # Find the index of the closest herder for each target
         closest_herders = np.argmin(distances, axis=0)  # Shape (M,)
@@ -104,8 +154,5 @@ class ShepherdingLamaController(Controller):
                 self.delta * selected_target_unit_vectors[~no_valid_target_mask]
         )
         )
-
-        herders_on_goal = (herder_abs_distances < self.rho_g)
-        # actions[herders_on_goal] = 0
 
         return actions

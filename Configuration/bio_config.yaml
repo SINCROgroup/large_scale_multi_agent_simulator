@@ -2,15 +2,25 @@
 # In all scripts numpy is imported as np
 
 LightSensitive_PTW:
+  id: 'Euglena_Gracilis'
   N: 4000
   state_dim: 5
-  x0_limits : [[-1800, 1800],[-1000,1000],[20,40],[-3.14, 3.14],[0,0]]
-  x0_mode: Random 
-  params_mode: From_File
-  params_path: ../Configuration/Config_data/Parameters_Euglena.csv
-  id: 'Euglena_Gracilis'
+  input_dim: 1
+
+  initial_conditions:
+    mode: random
+    random:
+      shape: box
+      box:
+        lower_bounds: [-1800, -1000, 20, -3.14, 0]
+        upper_bounds: [1800, 1000, 40, 3.14, 0]
+
+  parameters:
+    mode: file
+    file:
+      file_path: ../Configuration/Config_data/Parameters_Euglena.csv
+
   dt: 0.01
-#[[-900, 900],[-500,500],[20,40],[-3.14, 3.14],[0,0]]
 
 LightPattern:
   pattern_path: ../Configuration/Config_data/BCL.jpeg
@@ -31,7 +41,7 @@ renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
   agent_shapes: ['circle', 'diamond']
-  agent_size: [20, 20]
+  agent_sizes: [20, 20]
   render_mode: 'pygame'
   render_dt: 0.01
 
@@ -41,6 +51,6 @@ logger:
   save_freq: 1000            # Save every save_freq steps information (0: never save)
   save_data_freq: 1000
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: .\logs    # Path where logger should be saved
+  log_path: ./logs    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 

@@ -286,6 +286,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Renderer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
 
 
 <div class="viewcode-block" id="BaseRenderer">
@@ -320,7 +321,7 @@
 <span class="sd">        Color(s) used to render the agents.</span>
 <span class="sd">    agent_shapes : str or list</span>
 <span class="sd">        Shape(s) used to represent agents (e.g., `&quot;circle&quot;`, `&quot;diamond&quot;`).</span>
-<span class="sd">    agent_size : float or list</span>
+<span class="sd">    agent_sizes : float or list</span>
 <span class="sd">        Size of the agents in the rendering.</span>
 <span class="sd">    background_color : str</span>
 <span class="sd">        Background color of the rendering window.</span>
@@ -347,7 +348,7 @@
 <span class="sd">        Default color(s) for the agents (default is `&quot;blue&quot;`).</span>
 <span class="sd">    agent_shapes : str or list, optional</span>
 <span class="sd">        Shape(s) used to render agents (`&quot;circle&quot;` or `&quot;diamond&quot;`, default is `&quot;circle&quot;`).</span>
-<span class="sd">    agent_size : float or list, optional</span>
+<span class="sd">    agent_sizes : float or list, optional</span>
 <span class="sd">        Size of the agents (default is `1`).</span>
 <span class="sd">    background_color : str, optional</span>
 <span class="sd">        Background color of the rendering (default is `&quot;white&quot;`).</span>
@@ -380,7 +381,7 @@
 <span class="sd">    as circles and diamonds, on a black background.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the renderer with the selected visualization mode.</span>
 
@@ -396,32 +397,56 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
 
         <span class="c1"># Load rendering settings from the config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_colors&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">agent_shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_shapes&#39;</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">agent_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_size&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_colors&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agent_shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_shapes&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;circle&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agent_sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_sizes&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;background_color&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;render_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">render_dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;render_dt&#39;</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;background_color&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;render_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
         <span class="c1"># Pygame setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>  <span class="c1"># Smaller arena size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># Matplotlib setup</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="c1"># Inside __init__ or called from it</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">==</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_color</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Position&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Position&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Populations in the Environment&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_matplotlib</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_matplotlib</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize Matplotlib rendering.&quot;&quot;&quot;</span>
+        <span class="n">arena_width</span><span class="p">,</span> <span class="n">arena_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">arena_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">arena_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">arena_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">arena_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_color</span><span class="p">)</span>
+
+        <span class="c1"># Set labels and static elements once</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Position&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Position&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Population in the Environment&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">agent_scatters</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">population</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_shapes</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_sizes</span><span class="p">):</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span> <span class="k">if</span> <span class="n">shape</span> <span class="o">==</span> <span class="s1">&#39;circle&#39;</span> <span class="k">else</span> <span class="s1">&#39;D&#39;</span>
+            <span class="n">marker_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">30</span>  <span class="c1"># Matplotlib marker size</span>
+
+            <span class="c1"># Create empty scatter and cache it</span>
+            <span class="n">scatter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                      <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">marker_size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">agent_scatters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scatter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <div class="viewcode-block" id="BaseRenderer.render">
 <a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render">[docs]</a>
@@ -434,69 +459,38 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            If an unsupported rendering mode is specified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">==</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_matplotlib</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">==</span> <span class="s2">&quot;pygame&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_pygame</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported renderer mode. Use &#39;matplotlib&#39; or &#39;pygame&#39;.&quot;</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">==</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_matplotlib</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">==</span> <span class="s2">&quot;pygame&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_pygame</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported renderer mode. Use &#39;matplotlib&#39; or &#39;pygame&#39;.&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="BaseRenderer.render_matplotlib">
 <a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render_matplotlib">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">render_matplotlib</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Renders agents and the environment using Matplotlib.</span>
-
-<span class="sd">        This method clears the Matplotlib figure and redraws the environment along</span>
-<span class="sd">        with the agent populations. The agents are represented using scatter plots</span>
-<span class="sd">        with configurable colors, shapes, and sizes.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        - The function first clears the previous frame to avoid overlapping plots.</span>
-<span class="sd">        - The axis limits are dynamically set according to the environment dimensions.</span>
-<span class="sd">        - Calls `pre_render_hook_matplotlib()` before plotting.</span>
-<span class="sd">        - Calls `post_render_hook_matplotlib()` after plotting.</span>
-<span class="sd">        - Uses `plt.pause(self.render_dt)` to control rendering speed.</span>
+<span class="sd">        Efficient rendering using pre-created scatter plots.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Clear the previous frame</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="c1"># Update axis limits only if they change</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>  <span class="c1"># Ensure equal scaling for x and y axes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_color</span><span class="p">)</span>
 
-        <span class="c1"># Call the pre-render hook</span>
+        <span class="c1"># Optional pre-hook</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pre_render_hook_matplotlib</span><span class="p">()</span>
 
-        <span class="c1"># Plot each population</span>
-        <span class="k">for</span> <span class="n">population</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_shapes</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_size</span><span class="p">):</span>
-            <span class="c1"># Adjust size for Matplotlib scatter plot</span>
-            <span class="n">marker_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">30</span>  <span class="c1"># Matplotlib `s` parameter is proportional to the area</span>
+        <span class="c1"># Update scatter plot data</span>
+        <span class="k">for</span> <span class="n">scatter</span><span class="p">,</span> <span class="n">population</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_scatters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">):</span>
+            <span class="n">scatter</span><span class="o">.</span><span class="n">set_offsets</span><span class="p">(</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
-            <span class="c1"># Choose marker type based on agent shape</span>
-            <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span> <span class="k">if</span> <span class="n">shape</span> <span class="o">==</span> <span class="s1">&#39;circle&#39;</span> <span class="k">else</span> <span class="s1">&#39;D&#39;</span>  <span class="c1"># &#39;D&#39; represents a diamond shape</span>
-
-            <span class="c1"># Scatter plot for agents</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-                            <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-                            <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">marker_size</span><span class="p">)</span>
-
-        <span class="c1"># Call the post-render hook</span>
+        <span class="c1"># Optional post-hook</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">post_render_hook_matplotlib</span><span class="p">()</span>
 
-        <span class="c1"># Set labels and title</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X Position&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y Position&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Populations in the Environment&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="c1"># Pause to control rendering speed</span>
+        <span class="c1"># Only this is needed for refresh</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render_dt</span><span class="p">)</span></div>
 
 
@@ -527,8 +521,19 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">)</span>
-            <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Populations in the Environment&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Simulation Render&quot;</span><span class="p">)</span>
+
+
+            <span class="c1"># Convert agent colors to Pygame format</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span>
+            <span class="p">]</span>
+
+            <span class="c1"># Calculate scale factor for rendering</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># Fill the screen with the background color</span>
         <span class="n">background_color</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_color</span><span class="p">)</span>
@@ -537,32 +542,22 @@
         <span class="c1"># Call the pre-render hook</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pre_render_hook_pygame</span><span class="p">()</span>
 
-        <span class="c1"># Convert agent colors to Pygame format</span>
-        <span class="n">agent_colors</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pygame</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span>
-        <span class="p">]</span>
-
-        <span class="c1"># Calculate scale factor for rendering</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
         <span class="c1"># Render agents</span>
         <span class="k">for</span> <span class="n">population</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">,</span>
-                                                  <span class="n">agent_colors</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_colors</span><span class="p">,</span>
                                                   <span class="bp">self</span><span class="o">.</span><span class="n">agent_shapes</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_size</span><span class="p">):</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">agent_sizes</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">:</span>
                 <span class="c1"># Convert simulation coordinates to screen coordinates</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">shape</span> <span class="o">==</span> <span class="s1">&#39;circle&#39;</span><span class="p">:</span>
-                    <span class="n">agent_radius</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+                    <span class="n">agent_radius</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
                     <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">agent_radius</span><span class="p">)</span>
 
                 <span class="k">elif</span> <span class="n">shape</span> <span class="o">==</span> <span class="s1">&#39;diamond&#39;</span><span class="p">:</span>
-                    <span class="n">agent_side</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+                    <span class="n">agent_side</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
                     <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">[</span>
                         <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">agent_side</span><span class="p">),</span>  <span class="c1"># Top</span>
                         <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">agent_side</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>  <span class="c1"># Right</span>

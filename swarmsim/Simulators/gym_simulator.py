@@ -1,6 +1,4 @@
-import yaml
-import progressbar
-
+import numpy as np
 from swarmsim.Simulators import Simulator
 
 
@@ -32,10 +30,10 @@ class GymSimulator(Simulator):
 
         # RESET INITIAL CONDITIONS OF THE POPULATIONS AND ENVIRONMENT AND LOGGER
         for population in self.populations:
-            population.reset_state()
+            population.reset()
 
         for interaction in self.interactions:
-            interaction.reset_params()
+            interaction.reset()
 
         self.logger.reset()
 
@@ -45,14 +43,14 @@ class GymSimulator(Simulator):
 
         # Compute the interactions between the agents
         for interact in self.interactions:
-            interact.pop1.f += interact.get_interaction()
+            interact.target_population.f += interact.get_interaction()
 
         # Update the state of the agents
         self.integrator.step(self.populations)
 
         # Reset interaction forces
         for population in self.populations:
-            population.f = 0
+            population.f = np.zeros([population.N, population.input_dim])
 
         # Update the environment
         self.environment.update()

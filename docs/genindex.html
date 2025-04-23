@@ -1,0 +1,1105 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; SwarmS.py 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.add_entry">add_entry() (in module swarmsim.Utils.logger_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_csv">append_csv() (in module swarmsim.Utils.logger_utils)</a>
+</li>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_txt">append_txt() (in module swarmsim.Utils.logger_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger">BaseLogger (class in swarmsim.Loggers.base_logger)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer">BaseRenderer (class in swarmsim.Renderers.base_renderer)</a>
+</li>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion">BrownianMotion (class in swarmsim.Population.brownian_motion)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.close">close() (swarmsim.Loggers.base_logger.BaseLogger method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.close">(swarmsim.Loggers.logger.Logger method)</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.close">(swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer.close">(swarmsim.Renderers.renderer.Renderer method)</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.close">(swarmsim.Simulators.gym_simulator.GymSimulator method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.control_utils.compute_distances">compute_distances() (in module swarmsim.Utils.control_utils)</a>
+</li>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller">Controller (class in swarmsim.Controllers.base_controller)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.double_integrators.DampedDoubleIntegrators">DampedDoubleIntegrators (class in swarmsim.Population.double_integrators)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment">EmptyEnvironment (class in swarmsim.Environments)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment">(class in swarmsim.Environments.empty_environment)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.Environment">Environment (class in swarmsim.Environments)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment">(class in swarmsim.Environments.base_environment)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator">EulerMaruyamaIntegrator (class in swarmsim.Integrators.euler_maruyama)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.fixed_population.FixedPopulation">FixedPopulation (class in swarmsim.Population.fixed_population)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.control_utils.gaussian_input">gaussian_input() (in module swarmsim.Utils.control_utils)</a>
+</li>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion">GaussianRepulsion (class in swarmsim.Controllers.spatial_inputs)</a>
+</li>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller.get_action">get_action() (swarmsim.Controllers.base_controller.Controller method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action">(swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController method)</a>
+</li>
+        <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action">(swarmsim.Controllers.spatial_inputs.GaussianRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action">(swarmsim.Controllers.spatial_inputs.LightPattern method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller.get_action_in_space">get_action_in_space() (swarmsim.Controllers.base_controller.Controller method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space">(swarmsim.Controllers.spatial_inputs.LightPattern method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion">get_diffusion() (swarmsim.Population.brownian_motion.BrownianMotion method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion">(swarmsim.Population.double_integrators.DampedDoubleIntegrators method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion">(swarmsim.Population.fixed_population.FixedPopulation method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations.get_diffusion">(swarmsim.Population.populations.Population method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion">(swarmsim.Population.simple_integrators.SimpleIntegrators method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_done_shepherding">get_done_shepherding() (in module swarmsim.Utils.shepherding_utils)</a>
+</li>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.get_drift">get_drift() (swarmsim.Population.brownian_motion.BrownianMotion method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_drift">(swarmsim.Population.double_integrators.DampedDoubleIntegrators method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.fixed_population.FixedPopulation.get_drift">(swarmsim.Population.fixed_population.FixedPopulation method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations.get_drift">(swarmsim.Population.populations.Population method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_drift">(swarmsim.Population.simple_integrators.SimpleIntegrators method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event">get_event() (swarmsim.Loggers.shepherding_logger.ShepherdingLogger method)</a>
+</li>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.get_forces">get_forces() (swarmsim.Environments.base_environment.Environment method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.get_forces">(swarmsim.Environments.empty_environment.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_forces">(swarmsim.Environments.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_forces">(swarmsim.Environments.Environment method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.get_info">get_info() (swarmsim.Environments.base_environment.Environment method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.get_info">(swarmsim.Environments.empty_environment.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_info">(swarmsim.Environments.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_info">(swarmsim.Environments.Environment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.get_info">(swarmsim.Environments.shepherding_environment.ShepherdingEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.get_info">(swarmsim.Environments.ShepherdingEnvironment method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations.get_initial_conditions">get_initial_conditions() (swarmsim.Population.populations.Population method)</a>
+</li>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction">get_interaction() (swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.get_interaction">(swarmsim.Interactions.HarmonicRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.get_interaction">(swarmsim.Interactions.Interaction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.get_interaction">(swarmsim.Interactions.interaction.Interaction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction">(swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.get_interaction">(swarmsim.Interactions.PowerLawInteraction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.get_interaction">(swarmsim.Interactions.PowerLawRepulsion method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.plot_utils.get_snapshot">get_snapshot() (in module swarmsim.Utils.plot_utils)</a>
+</li>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_target_distance">get_target_distance() (in module swarmsim.Utils.shepherding_utils)</a>
+</li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi">get_xi() (swarmsim.Loggers.shepherding_logger.ShepherdingLogger method)</a>
+</li>
+      <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator">GymSimulator (class in swarmsim.Simulators.gym_simulator)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion">HarmonicRepulsion (class in swarmsim.Interactions)</a>
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion">(class in swarmsim.Interactions.harmonic_repulsion)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator">Integrator (class in swarmsim.Integrators.base_integrator)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction">Interaction (class in swarmsim.Interactions)</a>
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction">(class in swarmsim.Interactions.interaction)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern">LightPattern (class in swarmsim.Controllers.spatial_inputs)</a>
+</li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log">log() (swarmsim.Loggers.base_logger.BaseLogger method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.log">(swarmsim.Loggers.logger.Logger method)</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log">(swarmsim.Loggers.shepherding_logger.ShepherdingLogger method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_external_data">log_external_data() (swarmsim.Loggers.base_logger.BaseLogger method)</a>
+</li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">log_internal_data() (swarmsim.Loggers.base_logger.BaseLogger method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data">(swarmsim.Loggers.shepherding_logger.ShepherdingLogger method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger">Logger (class in swarmsim.Loggers.logger)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers">swarmsim.Controllers</a>
+</li>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.base_controller">swarmsim.Controllers.base_controller</a>
+</li>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.shepherding_lama_controller">swarmsim.Controllers.shepherding_lama_controller</a>
+</li>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.spatial_inputs">swarmsim.Controllers.spatial_inputs</a>
+</li>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments">swarmsim.Environments</a>
+</li>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.base_environment">swarmsim.Environments.base_environment</a>
+</li>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.empty_environment">swarmsim.Environments.empty_environment</a>
+</li>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.shepherding_environment">swarmsim.Environments.shepherding_environment</a>
+</li>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators">swarmsim.Integrators</a>
+</li>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators.base_integrator">swarmsim.Integrators.base_integrator</a>
+</li>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators.euler_maruyama">swarmsim.Integrators.euler_maruyama</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions">swarmsim.Interactions</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.harmonic_repulsion">swarmsim.Interactions.harmonic_repulsion</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.interaction">swarmsim.Interactions.interaction</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.power_law_repulsion">swarmsim.Interactions.power_law_repulsion</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers">swarmsim.Loggers</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.base_logger">swarmsim.Loggers.base_logger</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.logger">swarmsim.Loggers.logger</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.shepherding_logger">swarmsim.Loggers.shepherding_logger</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations">swarmsim.Population</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.brownian_motion">swarmsim.Population.brownian_motion</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.double_integrators">swarmsim.Population.double_integrators</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.fixed_population">swarmsim.Population.fixed_population</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.populations">swarmsim.Population.populations</a>
+</li>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.simple_integrators">swarmsim.Population.simple_integrators</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers">swarmsim.Renderers</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.base_renderer">swarmsim.Renderers.base_renderer</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.renderer">swarmsim.Renderers.renderer</a>
+</li>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.shepherding_renderer">swarmsim.Renderers.shepherding_renderer</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators">swarmsim.Simulators</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators.base_simulator">swarmsim.Simulators.base_simulator</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators.gym_simulator">swarmsim.Simulators.gym_simulator</a>
+</li>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils">swarmsim.Utils</a>
+</li>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.control_utils">swarmsim.Utils.control_utils</a>
+</li>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.logger_utils">swarmsim.Utils.logger_utils</a>
+</li>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.plot_utils">swarmsim.Utils.plot_utils</a>
+</li>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.shepherding_utils">swarmsim.Utils.shepherding_utils</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.output_data">output_data() (swarmsim.Loggers.base_logger.BaseLogger method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations">Population (class in swarmsim.Population.populations)</a>
+</li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.post_render_hook_matplotlib">post_render_hook_matplotlib() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_matplotlib">(swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.post_render_hook_pygame">post_render_hook_pygame() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_pygame">(swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction">PowerLawInteraction (class in swarmsim.Interactions)</a>
+</li>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion">PowerLawRepulsion (class in swarmsim.Interactions)</a>
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion">(class in swarmsim.Interactions.power_law_repulsion)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.pre_render_hook_matplotlib">pre_render_hook_matplotlib() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+</li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.pre_render_hook_pygame">pre_render_hook_pygame() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+</li>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.print_log">print_log() (in module swarmsim.Utils.logger_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render">render() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer.render">(swarmsim.Renderers.renderer.Renderer method)</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.render">(swarmsim.Simulators.gym_simulator.GymSimulator method)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render_matplotlib">render_matplotlib() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+</li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render_pygame">render_pygame() (swarmsim.Renderers.base_renderer.BaseRenderer method)</a>
+</li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer">Renderer (class in swarmsim.Renderers.renderer)</a>
+</li>
+      <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset">reset() (swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.reset">(swarmsim.Interactions.HarmonicRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.reset">(swarmsim.Interactions.Interaction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.reset">(swarmsim.Interactions.interaction.Interaction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset">(swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.reset">(swarmsim.Interactions.PowerLawInteraction method)</a>
+</li>
+        <li><a href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.reset">(swarmsim.Interactions.PowerLawRepulsion method)</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.reset">(swarmsim.Loggers.base_logger.BaseLogger method)</a>
+</li>
+        <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.reset">(swarmsim.Loggers.logger.Logger method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.reset">(swarmsim.Population.brownian_motion.BrownianMotion method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.reset">(swarmsim.Population.double_integrators.DampedDoubleIntegrators method)</a>
+</li>
+        <li><a href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations.reset">(swarmsim.Population.populations.Population method)</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.reset">(swarmsim.Simulators.gym_simulator.GymSimulator method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_npz">save_npz() (in module swarmsim.Utils.logger_utils)</a>
+</li>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment">ShepherdingEnvironment (class in swarmsim.Environments)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment">(class in swarmsim.Environments.shepherding_environment)</a>
+</li>
+      </ul></li>
+      <li><a href="swarmsim.Controllers.html#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController">ShepherdingLamaController (class in swarmsim.Controllers.shepherding_lama_controller)</a>
+</li>
+      <li><a href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger">ShepherdingLogger (class in swarmsim.Loggers.shepherding_logger)</a>
+</li>
+      <li><a href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer">ShepherdingRenderer (class in swarmsim.Renderers.shepherding_renderer)</a>
+</li>
+      <li><a href="swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators">SimpleIntegrators (class in swarmsim.Population.simple_integrators)</a>
+</li>
+      <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator.simulate">simulate() (swarmsim.Simulators.base_simulator.Simulator method)</a>
+</li>
+      <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator">Simulator (class in swarmsim.Simulators.base_simulator)</a>
+</li>
+      <li><a href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator.step">step() (swarmsim.Integrators.base_integrator.Integrator method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step">(swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator method)</a>
+</li>
+        <li><a href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.step">(swarmsim.Simulators.gym_simulator.GymSimulator method)</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Controllers
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Controllers.base_controller
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.base_controller">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Controllers.shepherding_lama_controller
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.shepherding_lama_controller">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Controllers.spatial_inputs
+
+      <ul>
+        <li><a href="swarmsim.Controllers.html#module-swarmsim.Controllers.spatial_inputs">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Environments
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Environments.base_environment
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.base_environment">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Environments.empty_environment
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.empty_environment">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Environments.shepherding_environment
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#module-swarmsim.Environments.shepherding_environment">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Integrators
+
+      <ul>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Integrators.base_integrator
+
+      <ul>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators.base_integrator">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Integrators.euler_maruyama
+
+      <ul>
+        <li><a href="swarmsim.Integrators.html#module-swarmsim.Integrators.euler_maruyama">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Interactions
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Interactions.harmonic_repulsion
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.harmonic_repulsion">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Interactions.interaction
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.interaction">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Interactions.power_law_repulsion
+
+      <ul>
+        <li><a href="swarmsim.Interactions.html#module-swarmsim.Interactions.power_law_repulsion">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Loggers
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    swarmsim.Loggers.base_logger
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.base_logger">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Loggers.logger
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.logger">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Loggers.shepherding_logger
+
+      <ul>
+        <li><a href="swarmsim.Loggers.html#module-swarmsim.Loggers.shepherding_logger">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population.brownian_motion
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.brownian_motion">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population.double_integrators
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.double_integrators">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population.fixed_population
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.fixed_population">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population.populations
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.populations">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Population.simple_integrators
+
+      <ul>
+        <li><a href="swarmsim.Populations.html#module-swarmsim.Populations.simple_integrators">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Renderers
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Renderers.base_renderer
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.base_renderer">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Renderers.renderer
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.renderer">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Renderers.shepherding_renderer
+
+      <ul>
+        <li><a href="swarmsim.Renderers.html#module-swarmsim.Renderers.shepherding_renderer">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Simulators
+
+      <ul>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Simulators.base_simulator
+
+      <ul>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators.base_simulator">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Simulators.gym_simulator
+
+      <ul>
+        <li><a href="swarmsim.Simulators.html#module-swarmsim.Simulators.gym_simulator">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Utils
+
+      <ul>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Utils.control_utils
+
+      <ul>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.control_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Utils.logger_utils
+
+      <ul>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.logger_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Utils.plot_utils
+
+      <ul>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.plot_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    swarmsim.Utils.shepherding_utils
+
+      <ul>
+        <li><a href="swarmsim.Utils.html#module-swarmsim.Utils.shepherding_utils">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.update">update() (swarmsim.Environments.base_environment.Environment method)</a>
+
+      <ul>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.update">(swarmsim.Environments.empty_environment.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.update">(swarmsim.Environments.EmptyEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.Environment.update">(swarmsim.Environments.Environment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.update">(swarmsim.Environments.shepherding_environment.ShepherdingEnvironment method)</a>
+</li>
+        <li><a href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.update">(swarmsim.Environments.ShepherdingEnvironment method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.xi_shepherding">xi_shepherding() (in module swarmsim.Utils.shepherding_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

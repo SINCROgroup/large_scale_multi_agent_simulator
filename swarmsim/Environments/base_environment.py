@@ -1,6 +1,6 @@
-import yaml
 from abc import ABC, abstractmethod
 
+from swarmsim.Utils import load_config
 
 class Environment(ABC):
     """
@@ -52,9 +52,9 @@ class Environment(ABC):
         config_path : str
             Path to the YAML configuration file.
         """
-        # Load config params from YAML file
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
+
+        config = load_config(config_path)
+
         self.params = config['environment']
 
         # Set dimensions (default: 100x100)

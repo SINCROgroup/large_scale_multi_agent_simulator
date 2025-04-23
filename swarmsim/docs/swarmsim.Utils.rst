@@ -1,5 +1,5 @@
-swarmsim.Utils package
-======================
+Utils
+=====
 
 Submodules
 ----------

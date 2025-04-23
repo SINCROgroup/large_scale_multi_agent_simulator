@@ -2,31 +2,44 @@
 # In all scripts numpy is imported as np
 
 BrownianMotion:
+  id: 'Targets'
   N: 100
   state_dim: 2
 
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
 
-  params_mode: Random
-  params_names: ["mu","D"]
-  params_limits: {mu: [[0.1,0.2],[0.1,0.2]], D: [[0,1],[0,1]]}
-  id: 'Targets'
+  parameters:
+    mode: generate    # Options: import, generate
+    generate:
+      mu: 0
+      D: 1
+
+
 
 SimpleIntegrators:
-  N: 10
-
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
-
-  params_mode: Random
-  params_names: ["D"]
-  params_limits: {D: [[0,0], [0,0]]}
-
-  state_dim: 2
   id: 'Herders'
+  N: 10
+  state_dim: 2
+
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
+
+HarmonicRepulsion:
+  id: Herders repulsion
+  parameters:
+    mode: generate
+    generate:
+      strength: 3
+      distance: 2.5
 
 integrator:
   dt: 0.05
@@ -44,9 +57,10 @@ renderer:
   background_color: 'white'
   agent_colors: ['blue', 'red']
   agent_shapes: ['circle', 'diamond']
-  agent_size: [1, 1]
+  agent_sizes: [1, 1]
   render_mode: 'pygame'
   render_dt: 0.05
+#  sensing_radius: 10
 
 logger:
   activate: True         # True to save logger, False otherwise
@@ -54,9 +68,6 @@ logger:
   save_freq: 1            # Save every save_freq steps information (0: never save)
   save_data_freq: 0
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: .\logs    # Path where logger should be saved
+  log_path: ./logs    # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
 
-repulsion:
-  strength: 3
-  max_distance: 2.5

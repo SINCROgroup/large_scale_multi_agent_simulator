@@ -1,9 +1,8 @@
 import numpy as np
-import yaml
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 
 
-class SimpleIntegrators(Populations):
+class SimpleIntegrators(Population):
     """
     A class that implements (noisy) first order integrators
 
@@ -26,33 +25,13 @@ class SimpleIntegrators(Populations):
         Resets the state of the agent.
     """
 
-    def __init__(self, config_path) -> None:
-        super().__init__(config_path)
-
-        self.id = self.config.get('id', "Targets")  # Population ID
-        
-        #Load D
-        self.D = np.empty([self.N,len(self.params['D'][0])])
-        i=0
-        for agent_D in self.params['D']:
-            self.D[i,:] = agent_D
-            i+=1
-
-        self.f = np.zeros(self.x.shape)  # Initialization of the external forces
-        self.u = np.zeros(self.x.shape)  # Initialization of the control input
+    def __init__(self, config_path: str, name: str = None) -> None:
+        super().__init__(config_path, name)
 
         self.v_max = self.config.get('v_max', float('inf'))  # Action limit
 
     def get_drift(self):
-        return self.u + self.f
+        return np.clip(self.u + self.f, -self.v_max, self.v_max)
 
     def get_diffusion(self):
-        return self.D * np.ones((self.N, self.state_dim))
-
-    def reset_state(self):
-        self.x = self.get_initial_conditions()  # Initial conditions
-        self.f = np.zeros(self.x.shape)  # Initialization of the external forces
-        self.u = np.zeros(self.x.shape)  # Initialization of the control input
-
-    def reset_params(self):
-        pass
+        return np.zeros((self.N, self.state_dim))

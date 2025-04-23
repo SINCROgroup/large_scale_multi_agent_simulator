@@ -1,4 +1,4 @@
-import yaml
+from swarmsim.Utils import load_config
 from abc import ABC, abstractmethod
 
 
@@ -45,9 +45,8 @@ class Integrator(ABC):
     """
 
     def __init__(self, config_path: str):
-        # Load configuration parameters from YAML file
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
+
+        config = load_config(config_path)
 
         # Extract timestep value (default: 0.01 if not specified)
         self.dt = config.get('integrator', {}).get('dt', 0.01)

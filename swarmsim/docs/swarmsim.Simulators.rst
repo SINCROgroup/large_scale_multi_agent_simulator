@@ -1,5 +1,5 @@
-swarmsim.Simulators package
-===========================
+Simulators
+==========
 
 Submodules
 ----------

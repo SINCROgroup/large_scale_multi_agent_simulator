@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Populations.brownian_motion &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Population.brownian_motion &#8212; SwarmSim 0.1.0 documentation</title>
   
   
   
@@ -264,7 +264,7 @@
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Populations.brownian_motion</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Population.brownian_motion</span></li>
   </ul>
 </nav>
 </div>
@@ -281,15 +281,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for swarmsim.Populations.brownian_motion</h1><div class="highlight"><pre>
+  <h1>Source code for swarmsim.Population.brownian_motion</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_parameter</span>
 
 
 <div class="viewcode-block" id="BrownianMotion">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BrownianMotion</span><span class="p">(</span><span class="n">Populations</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BrownianMotion</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements a biased Brownian motion model with average velocity `mu` and diffusion coefficient `D`.</span>
 
@@ -354,7 +355,7 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    - For more details on how initial conditions are generated, see the `get_initial_conditions`</span>
-<span class="sd">      method in the `Populations` class.</span>
+<span class="sd">      method in the `Population` class.</span>
 <span class="sd">    - The drift component (`mu`) and diffusion component (`D`) can be either predefined lists</span>
 <span class="sd">      or dynamically generated using callable expressions from the YAML configuration.</span>
 
@@ -376,7 +377,7 @@
 <span class="sd">    assigned predefined drift velocities (`mu`) and diffusion coefficients (`D`).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the `BrownianMotion` population by loading parameters from a configuration file.</span>
 
@@ -385,21 +386,12 @@
 <span class="sd">        config_path : str</span>
 <span class="sd">            Path to the YAML configuration file containing initialization parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>  <span class="c1"># Population ID</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialize external forces</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Initialize control input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># Load average velocity `mu`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])])</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">agent_mu</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">agent_mu</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-        <span class="c1"># Load diffusion coefficient `D`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])])</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">agent_D</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">agent_D</span>
 
 <div class="viewcode-block" id="BrownianMotion.get_drift">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.get_drift">[docs]</a>
@@ -435,22 +427,23 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
-<span class="sd">            Array of shape `(N, state_dim)` representing the diffusion coefficients for each agent.</span>
+<span class="sd">            Array of shape `(N, state_dim, state_dim)` representing the diffusion coefficients for each agent.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span></div>
 
 
-<div class="viewcode-block" id="BrownianMotion.reset_state">
-<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.reset_state">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="BrownianMotion.reset">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resets the state of the population to its initial conditions.</span>
 
 <span class="sd">        This method reinitializes the agent states, external forces, and control inputs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_initial_conditions</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Reset external forces</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Reset control input</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">],</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">,))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_dim</span><span class="p">))</span></div>
 </div>
 
 </pre></div>

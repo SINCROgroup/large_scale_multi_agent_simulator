@@ -99,5 +99,9 @@ class EulerMaruyamaIntegrator(Integrator):
             noise = np.random.normal(0, 1, size=population.x.shape)
 
             # Update the state using the Euler-Maruyama method
-            population.x = population.x + drift * self.dt + diffusion * np.sqrt(self.dt) * noise
+            if np.ndim(diffusion) == 3:  # diffusion is a matrix (e.g. shape (N, d, d))
+                noise_term = np.matmul(diffusion, noise[..., np.newaxis]).squeeze(-1)
+            else:
+                noise_term = diffusion * noise
+            population.x = population.x + drift * self.dt + noise_term * np.sqrt(self.dt)
             population.x = np.clip(population.x, -population.lim, population.lim)

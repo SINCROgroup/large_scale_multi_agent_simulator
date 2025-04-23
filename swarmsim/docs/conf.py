@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
-project = 'SwarmSim'
+project = 'SwarmS.py'
 copyright = '2025, Stefano Covone, Italo Napolitano, Davide Salzano'
 author = 'Stefano Covone, Italo Napolitano, Davide Salzano'
 release = '0.1.0'

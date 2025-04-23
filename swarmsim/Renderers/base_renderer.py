@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pygame
 from swarmsim.Renderers import Renderer
+from swarmsim.Environments import Environment
 
 
 class BaseRenderer(Renderer):
@@ -34,7 +35,7 @@ class BaseRenderer(Renderer):
         Color(s) used to render the agents.
     agent_shapes : str or list
         Shape(s) used to represent agents (e.g., `"circle"`, `"diamond"`).
-    agent_size : float or list
+    agent_sizes : float or list
         Size of the agents in the rendering.
     background_color : str
         Background color of the rendering window.
@@ -61,7 +62,7 @@ class BaseRenderer(Renderer):
         Default color(s) for the agents (default is `"blue"`).
     agent_shapes : str or list, optional
         Shape(s) used to render agents (`"circle"` or `"diamond"`, default is `"circle"`).
-    agent_size : float or list, optional
+    agent_sizes : float or list, optional
         Size of the agents (default is `1`).
     background_color : str, optional
         Background color of the rendering (default is `"white"`).
@@ -94,7 +95,7 @@ class BaseRenderer(Renderer):
     as circles and diamonds, on a black background.
     """
 
-    def __init__(self, populations, environment=None, config_path=None):
+    def __init__(self, populations: list, environment: Environment, config_path: str):
         """
         Initializes the renderer with the selected visualization mode.
 
@@ -110,32 +111,56 @@ class BaseRenderer(Renderer):
         super().__init__(populations, environment, config_path)
 
         # Load rendering settings from the config
-        self.agent_colors = self.config.get('agent_colors', 'blue')
-        self.agent_shapes = self.config.get('agent_shapes', 'circle')
-        self.agent_size = self.config.get('agent_size', 1)
+        self.agent_colors = self.config.get('agent_colors', ['blue'])
+        self.agent_shapes = self.config.get('agent_shapes', ['circle'])
+        self.agent_sizes = self.config.get('agent_sizes', [1])
 
-        self.background_color = self.config.get('background_color', 'white')
-        self.render_mode = self.config.get('render_mode', 'matplotlib')
-        self.render_dt = self.config.get('render_dt', 0.05)
+        self.background_color = self.config.get('background_color', 'white').lower()
+        self.render_mode = self.config.get('render_mode', 'matplotlib').lower()
 
         # Pygame setup
         self.window = None
         self.clock = None
         self.screen_size = (600, 600)
         self.arena_size = (600, 600)  # Smaller arena size
+        self.scale_factor = None
 
-        # Matplotlib setup
-        self.fig, self.ax = None, None
+        # Inside __init__ or called from it
         if self.render_mode == "matplotlib":
-            self.fig, self.ax = plt.subplots(figsize=(8, 8))
-            self.ax.set_xlim(-100 / 2, 100 / 2)
-            self.ax.set_ylim(-100 / 2, 100 / 2)
-            self.ax.set_aspect('equal')
-            self.ax.set_facecolor(self.background_color)
-            self.ax.set_xlabel('X Position')
-            self.ax.set_ylabel('Y Position')
-            self.ax.set_title('Populations in the Environment')
-            self.ax.grid(True)
+            self._setup_matplotlib()
+
+    def _setup_matplotlib(self):
+        """Initialize Matplotlib rendering."""
+        arena_width, arena_height = self.environment.dimensions
+
+        self.fig, self.ax = plt.subplots(figsize=(8, 8))
+        self.ax.set_xlim(-arena_width / 2, arena_width / 2)
+        self.ax.set_ylim(-arena_height / 2, arena_height / 2)
+        self.ax.set_aspect('equal')
+        self.ax.set_facecolor(self.background_color)
+
+        # Set labels and static elements once
+        self.ax.set_xlabel('X Position')
+        self.ax.set_ylabel('Y Position')
+        self.ax.set_title('Population in the Environment')
+        self.ax.grid(True)
+
+        self.agent_scatters = []
+
+        for population, color, shape, size in zip(self.populations,
+                                                  self.agent_colors,
+                                                  self.agent_shapes,
+                                                  self.agent_sizes):
+            marker = 'o' if shape == 'circle' else 'D'
+            marker_size = size * 30  # Matplotlib marker size
+
+            # Create empty scatter and cache it
+            scatter = self.ax.scatter([], [], c=color, label=population.id,
+                                      marker=marker, s=marker_size)
+            self.agent_scatters.append(scatter)
+
+        self.ax.legend(loc='upper right', framealpha=0.8)
+        plt.tight_layout()
 
     def render(self):
         """
@@ -146,66 +171,35 @@ class BaseRenderer(Renderer):
         ValueError
             If an unsupported rendering mode is specified.
         """
-        if self.render_mode == "matplotlib":
-            return self.render_matplotlib()
-        elif self.render_mode == "pygame":
-            return self.render_pygame()
-        else:
-            raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
+        if self.activate:
+            if self.render_mode == "matplotlib":
+                return self.render_matplotlib()
+            elif self.render_mode == "pygame":
+                return self.render_pygame()
+            else:
+                raise ValueError("Unsupported renderer mode. Use 'matplotlib' or 'pygame'.")
+
 
     def render_matplotlib(self):
         """
-        Renders agents and the environment using Matplotlib.
-
-        This method clears the Matplotlib figure and redraws the environment along
-        with the agent populations. The agents are represented using scatter plots
-        with configurable colors, shapes, and sizes.
-
-        Notes
-        -----
-        - The function first clears the previous frame to avoid overlapping plots.
-        - The axis limits are dynamically set according to the environment dimensions.
-        - Calls `pre_render_hook_matplotlib()` before plotting.
-        - Calls `post_render_hook_matplotlib()` after plotting.
-        - Uses `plt.pause(self.render_dt)` to control rendering speed.
+        Efficient rendering using pre-created scatter plots.
         """
-        # Clear the previous frame
-        self.ax.clear()
+        # Update axis limits only if they change
         self.ax.set_xlim(-self.environment.dimensions[0] / 2, self.environment.dimensions[0] / 2)
         self.ax.set_ylim(-self.environment.dimensions[1] / 2, self.environment.dimensions[1] / 2)
-        self.ax.set_aspect('equal')  # Ensure equal scaling for x and y axes
         self.ax.set_facecolor(self.background_color)
 
-        # Call the pre-render hook
+        # Optional pre-hook
         self.pre_render_hook_matplotlib()
 
-        # Plot each population
-        for population, color, shape, size in zip(self.populations,
-                                                  self.agent_colors,
-                                                  self.agent_shapes,
-                                                  self.agent_size):
-            # Adjust size for Matplotlib scatter plot
-            marker_size = size * 30  # Matplotlib `s` parameter is proportional to the area
+        # Update scatter plot data
+        for scatter, population in zip(self.agent_scatters, self.populations):
+            scatter.set_offsets(population.x)
 
-            # Choose marker type based on agent shape
-            marker = 'o' if shape == 'circle' else 'D'  # 'D' represents a diamond shape
-
-            # Scatter plot for agents
-            self.ax.scatter(population.x[:, 0], population.x[:, 1],
-                            c=color, label=population.id,
-                            marker=marker, s=marker_size)
-
-        # Call the post-render hook
+        # Optional post-hook
         self.post_render_hook_matplotlib()
 
-        # Set labels and title
-        self.ax.set_xlabel('X Position')
-        self.ax.set_ylabel('Y Position')
-        self.ax.set_title('Populations in the Environment')
-        self.ax.legend()
-        self.ax.grid(True)
-
-        # Pause to control rendering speed
+        # Only this is needed for refresh
         plt.pause(self.render_dt)
 
     def render_pygame(self):
@@ -233,8 +227,19 @@ class BaseRenderer(Renderer):
         if self.window is None:
             pygame.init()
             self.window = pygame.display.set_mode(self.screen_size)
-            pygame.display.set_caption("Populations in the Environment")
             self.clock = pygame.time.Clock()
+            pygame.display.set_caption("Simulation Render")
+
+
+            # Convert agent colors to Pygame format
+            self.agent_colors = [
+                pygame.Color(color) if isinstance(color, str) else pygame.Color(*color)
+                for color in self.agent_colors
+            ]
+
+            # Calculate scale factor for rendering
+            self.scale_factor = min(self.arena_size[0] / self.environment.dimensions[0],
+                               self.arena_size[1] / self.environment.dimensions[1])
 
         # Fill the screen with the background color
         background_color = pygame.Color(self.background_color)
@@ -243,32 +248,22 @@ class BaseRenderer(Renderer):
         # Call the pre-render hook
         self.pre_render_hook_pygame()
 
-        # Convert agent colors to Pygame format
-        agent_colors = [
-            pygame.Color(color) if isinstance(color, str) else pygame.Color(*color)
-            for color in self.agent_colors
-        ]
-
-        # Calculate scale factor for rendering
-        scale = min(self.arena_size[0] / self.environment.dimensions[0],
-                    self.arena_size[1] / self.environment.dimensions[1])
-
         # Render agents
         for population, color, shape, size in zip(self.populations,
-                                                  agent_colors,
+                                                  self.agent_colors,
                                                   self.agent_shapes,
-                                                  self.agent_size):
+                                                  self.agent_sizes):
             for position in population.x:
                 # Convert simulation coordinates to screen coordinates
-                x = int((position[0] + self.environment.dimensions[0] / 2) * scale)
-                y = int((self.environment.dimensions[1] / 2 - position[1]) * scale)
+                x = int((position[0] + self.environment.dimensions[0] / 2) * self.scale_factor)
+                y = int((self.environment.dimensions[1] / 2 - position[1]) * self.scale_factor)
 
                 if shape == 'circle':
-                    agent_radius = int(size / 2 * scale)
+                    agent_radius = int(size / 2 * self.scale_factor)
                     pygame.draw.circle(self.window, color, (x, y), agent_radius)
 
                 elif shape == 'diamond':
-                    agent_side = int(size * np.sqrt(2) / 2 * scale)
+                    agent_side = int(size * np.sqrt(2) / 2 * self.scale_factor)
                     pygame.draw.polygon(self.window, color, [
                         (x, y - agent_side),  # Top
                         (x + agent_side, y),  # Right

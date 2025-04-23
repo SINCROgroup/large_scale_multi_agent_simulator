@@ -1,9 +1,9 @@
 import numpy as np
-import yaml
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
+from typing import Optional
 
 
-class DampedDoubleIntegrators(Populations):
+class DampedDoubleIntegrators(Population):
     """
     A class that implements (noisy) second order integrators
 
@@ -27,35 +27,36 @@ class DampedDoubleIntegrators(Populations):
         Resets the state of the agent.
     """
 
-    def __init__(self, config_path) -> None:
-        super().__init__(config_path)
+    def __init__(self, config_path: str, name: str = None) -> None:
+        super().__init__(config_path, name)
 
-        # Load the YAML configuration file
-        with open(config_path, "r") as file:
-            config = yaml.safe_load(file)
-        self.config = config.get('DampedDoubleIntegrators', {})
+        self.damping: Optional[np.ndarray] = None
+        self.D: Optional[np.ndarray] = None
 
-        self.id = self.config.get('id', "Targets")  # Population ID
+        self.params_shapes = {
+            'damping': (),
+            'D': (self.state_dim, self.state_dim)
+        }
 
-        self.D = np.array([0, 0, 1, 1]) * self.config.get('D', 0)  # Diffusion matrix
+    def reset(self) -> None:
+        """
+        Resets the state of the population to its initial conditions.
 
-        self.damping = self.config.get('damping', 1)
+        This method reinitializes the agent states, external forces, and control inputs.
+        """
+        super().reset()
 
-        self.f = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the external forces
-        self.u = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the control input
+        self.damping = self.params['damping']
+        self.D = self.params['D']
 
     def get_drift(self):
-        # Combine the first two columns of x and u to form drift
-        return np.hstack((self.x[:, 2:], - self.damping * self.x[:, 2:] + self.u + self.f))
+
+        velocity = self.x[:, self.input_dim:]  # current velocities
+        acceleration = -self.damping[:, np.newaxis] * velocity + self.u + self.f
+
+        return np.hstack((velocity, acceleration))
 
     def get_diffusion(self):
-        return self.D * np.ones((self.N, self.state_dim))
+        return self.D
 
-    def reset_state(self):
-        N = self.N
-        self.x = self.get_initial_conditions()
-        self.f = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the external forces
-        self.u = np.zeros((self.x.shape[0], self.x.shape[1] // 2))  # Initialization of the control input
 
-    def reset_params(self) -> None:
-        pass

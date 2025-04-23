@@ -285,6 +285,7 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
 
 
 <div class="viewcode-block" id="ShepherdingRenderer">
@@ -334,6 +335,23 @@
 <span class="sd">        renderer = ShepherdingRenderer(populations, environment, config_path=&quot;config.yaml&quot;)</span>
 <span class="sd">        renderer.render()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the renderer with the selected visualization mode.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        populations : list</span>
+<span class="sd">            A list of population objects to render.</span>
+<span class="sd">        environment : object, optional</span>
+<span class="sd">            The environment instance in which the populations exist (default is None).</span>
+<span class="sd">        config_path : str, optional</span>
+<span class="sd">            Path to the YAML configuration file (default is None).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensing_radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sensing_radius&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span>
 
 <div class="viewcode-block" id="ShepherdingRenderer.post_render_hook_matplotlib">
 <a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_matplotlib">[docs]</a>
@@ -391,14 +409,12 @@
 <span class="sd">            pygame.draw.circle(shading_surface, shading_color, (goal_x, goal_y), goal_radius)</span>
 <span class="sd">            self.window.blit(shading_surface, (0, 0))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Calculate the scale factor for rendering</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
 
         <span class="c1"># Convert goal position to screen coordinates</span>
-        <span class="n">goal_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span>
-        <span class="n">goal_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span>
-        <span class="n">goal_radius</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_radius</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+        <span class="n">goal_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+        <span class="n">goal_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+        <span class="n">goal_radius</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">goal_radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
 
         <span class="c1"># Create a semi-transparent surface</span>
         <span class="n">shading_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">pygame</span><span class="o">.</span><span class="n">SRCALPHA</span><span class="p">)</span>
@@ -408,31 +424,31 @@
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">shading_surface</span><span class="p">,</span> <span class="n">shading_color</span><span class="p">,</span> <span class="p">(</span><span class="n">goal_x</span><span class="p">,</span> <span class="n">goal_y</span><span class="p">),</span> <span class="n">goal_radius</span><span class="p">)</span>
 
         <span class="c1"># Overlay the shading onto the main window</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">shading_surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">shading_surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># -------- Draw the herders&#39; sensing areas --------</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensing_radius</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">):</span>
+            <span class="n">sensing_radius_sim</span> <span class="o">=</span> <span class="mi">10</span>
+            <span class="n">sensing_radius_screen</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sensing_radius_sim</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+            <span class="c1"># Define the sensing overlay color (blue with low opacity)</span>
+            <span class="n">sensing_color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Blue with alpha = 50 (semi-transparent)</span>
+
+            <span class="c1"># Retrieve herder positions</span>
+            <span class="n">herder_positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">herder_positions</span><span class="p">:</span>
+                <span class="c1"># Convert simulation coordinates to screen coordinates</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
+
+                <span class="c1"># Create a surface for the sensing area overlay</span>
+                <span class="n">sensing_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">sensing_radius_screen</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sensing_radius_screen</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pygame</span><span class="o">.</span><span class="n">SRCALPHA</span><span class="p">)</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">sensing_surface</span><span class="p">,</span> <span class="n">sensing_color</span><span class="p">,</span>
+                                   <span class="p">(</span><span class="n">sensing_radius_screen</span><span class="p">,</span> <span class="n">sensing_radius_screen</span><span class="p">),</span>
+                                   <span class="n">sensing_radius_screen</span><span class="p">)</span>
+                <span class="c1"># Blit the sensing overlay so that it centers on the herder</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sensing_surface</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">sensing_radius_screen</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">sensing_radius_screen</span><span class="p">))</span></div>
 </div>
 
-
-        <span class="c1"># # -------- Draw the herders&#39; sensing areas --------</span>
-        <span class="c1"># # Sensing radius in simulation units is defined as 15.</span>
-        <span class="c1"># sensing_radius_sim = 10</span>
-        <span class="c1"># sensing_radius_screen = int(sensing_radius_sim * scale)</span>
-        <span class="c1"># # Define the sensing overlay color (blue with low opacity)</span>
-        <span class="c1"># sensing_color = (0, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)</span>
-        <span class="c1">#</span>
-        <span class="c1"># # Retrieve herder positions</span>
-        <span class="c1"># herder_positions = self.populations[1].x[:, :2]</span>
-        <span class="c1"># for pos in herder_positions:</span>
-        <span class="c1">#     # Convert simulation coordinates to screen coordinates</span>
-        <span class="c1">#     x = int((pos[0] + self.environment.dimensions[0] / 2) * scale) + 100</span>
-        <span class="c1">#     y = int((self.environment.dimensions[1] / 2 - pos[1]) * scale) + 100</span>
-        <span class="c1">#</span>
-        <span class="c1">#     # Create a surface for the sensing area overlay</span>
-        <span class="c1">#     sensing_surface = pygame.Surface((sensing_radius_screen * 2, sensing_radius_screen * 2), pygame.SRCALPHA)</span>
-        <span class="c1">#     pygame.draw.circle(sensing_surface, sensing_color,</span>
-        <span class="c1">#                        (sensing_radius_screen, sensing_radius_screen),</span>
-        <span class="c1">#                        sensing_radius_screen)</span>
-        <span class="c1">#     # Blit the sensing overlay so that it centers on the herder</span>
-        <span class="c1">#     self.window.blit(sensing_surface, (x - sensing_radius_screen, y - sensing_radius_screen))</span>
 </pre></div>
 
                 </article>

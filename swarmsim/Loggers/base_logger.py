@@ -116,7 +116,7 @@ class BaseLogger(Logger):
             self.step_count = 0  # Keep track of time
         return self.activate
 
-    def log(self, data: dict = None):
+    def log(self, data: dict | None =None):
         """
         A function that defines the information to log.
 

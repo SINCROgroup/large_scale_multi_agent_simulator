@@ -1,5 +1,5 @@
-swarmsim.Renderers package
-==========================
+Renderers
+=========
 
 Submodules
 ----------

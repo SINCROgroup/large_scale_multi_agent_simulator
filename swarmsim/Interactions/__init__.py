@@ -21,7 +21,7 @@ To use an interaction model, import it and instantiate with a configuration file
 .. code-block:: python
 
     from swarmsim.interactions import HarmonicRepulsion
-    interaction = HarmonicRepulsion(pop1, pop2, config="config.yaml")
+    interaction = HarmonicRepulsion(target_population, source_population, config="config.yaml")
     forces = interaction.get\_interaction()
 
 
@@ -50,5 +50,6 @@ from .interaction import Interaction
 from .harmonic_repulsion import HarmonicRepulsion
 from .power_law_repulsion import PowerLawRepulsion
 from .power_law_interaction import PowerLawInteraction
+from .lennard_jones import LennardJones
 
-__all__ = ["Interaction", "HarmonicRepulsion", "PowerLawRepulsion", "PowerLawInteraction"]
+__all__ = ["Interaction", "HarmonicRepulsion", "PowerLawRepulsion", "PowerLawInteraction", "LennardJones"]

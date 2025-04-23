@@ -4,29 +4,76 @@
 seed: 1
 
 DampedDoubleIntegrators:
-  N: 2
+  id: 'Targets'
+  N: 5
   state_dim: 4
+  input_dim: 2
   # lim: ['inf', 'inf', 'inf', 'inf']
 
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
 
-  D: 1
-  damping: 3
-  id: 'Targets'
+  parameters:
+    mode: generate
+    generate:
+      D: 0.1
+      damping: 3
+
+
 
 SimpleIntegrators:
-  N: 1
-  state_dim: 2
-  x0_mode: Random
-  x0_shape: circle
-  max_initial_radius: 25
-
-  params_mode: Random
-  params_names: ["D"]
-  params_limits: {D: [[0,0], [0,0]]}
   id: 'Herders'
+  N: 5
+  state_dim: 2
+
+  initial_conditions:
+    mode: random
+    random:
+      shape: circle
+      circle:
+        max_radius: 25
+
+
+RepulsionLongRange:
+  p: 2
+  parameters:
+    mode: generate
+    generate:
+      strength: 15
+      max_distance: 5
+
+RepulsionShortRange:
+  p: 4
+  parameters:
+    mode: generate
+    generate:
+      strength: 10
+      max_distance: 1.5
+
+AttractionLongRange:
+  p: 2
+  parameters:
+    mode: generate
+    generate:
+      strength: 0   # -2 for cohesion
+      max_distance: 10
+
+TargetInteraction:
+  p_attr: 2
+  p_rep: 4
+  is_attractive: False
+  parameters:
+    mode: generate
+    generate:
+      strength_attr: 4
+      strength_rep: 10
+      max_distance: 15
+
+
 
 integrator:
   dt: 0.01
@@ -43,10 +90,11 @@ environment:
   start_step: 2000
 
 renderer:
+  activate: True
   background_color: 'white'
   agent_colors: ['magenta', 'blue']
   agent_shapes: ['circle', 'diamond']
-  agent_size: [1, 1]
+  agent_sizes: [1, 1]
   render_mode: 'pygame'
   render_dt: 0.01
 
@@ -55,31 +103,8 @@ logger:
   log_freq: 0             # Print every log_freq steps information (0: never print)
   save_freq: 1            # Save every save_freq steps information (0: never save)
   comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: .\logs        # Path where logger should be saved
+  log_path: ./logs        # Path where logger should be saved
   log_name: ''            # String appended to date in the name of the file
-
-RepulsionLongRange:
-  strength: 15
-  max_distance: 5
-  p: 2
-
-RepulsionShortRange:
-  strength: 10
-  max_distance: 1.5
-  p: 4
-
-AttractionLongRange:
-  strength: -0 #-2
-  max_distance: 10
-  p: 2
-
-TargetInteraction:
-  strength_attr: 4
-  strength_rep: 10
-  max_distance: 15
-  p_attr: 2
-  p_rep: 4
-  is_attractive: False
 
 Gym:
   num_episodes : 10
