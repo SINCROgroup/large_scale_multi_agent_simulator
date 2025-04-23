@@ -3,7 +3,7 @@ import progressbar
 import numpy as np
 
 from swarmsim.Environments import Environment
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 from swarmsim.Interactions import Interaction
 from swarmsim.Controllers import Controller
 from swarmsim.Integrators import Integrator
@@ -15,7 +15,7 @@ class Simulator:
 
     def __init__(self,
                  config_path: str,
-                 populations: list[Populations],
+                 populations: list[Population],
                  environment: Environment,
                  integrator: Integrator,
                  interactions: list[Interaction] | None =None,
@@ -37,7 +37,7 @@ class Simulator:
         self.T: float = simulator_config.get('T', 10)
 
         # get parameters from initialization
-        self.populations: list[Populations] = populations
+        self.populations: list[Population] = populations
         self.environment: Environment = environment
         self.interactions: list[Interaction] | None = interactions
         self.controllers: list[Controller] | None = controllers
@@ -60,7 +60,14 @@ class Simulator:
         )
 
         self.logger.reset()
-        
+
+        for population in self.populations:
+            population.reset()
+
+        if self.interactions is not None:
+            for interaction in self.interactions:
+                interaction.reset()
+
         for t in range(num_steps):
             #print(t)
             done = self.logger.log()  # Log and get done flag
@@ -72,7 +79,7 @@ class Simulator:
             # Implement the control actions
             if self.controllers is not None:
                 for c in self.controllers:
-                    if (t % (round(c.dt / self.dt))) == 0:
+                    if c.dt is None or (t % (round(c.dt / self.dt))) == 0:
                         c.population.u = c.get_action()
 
             # Compute the interactions between the agents

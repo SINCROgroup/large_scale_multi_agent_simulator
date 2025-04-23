@@ -1,9 +1,8 @@
 import numpy as np
 import yaml
 from swarmsim.Interactions import Interaction
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 from typing import Optional
-from swarmsim.Utils import set_parameter
 
 class HarmonicRepulsion(Interaction):
     """
@@ -59,21 +58,25 @@ class HarmonicRepulsion(Interaction):
     """
 
     def __init__(self,
-                 target_population: Populations,
-                 source_population: Populations,
+                 target_population: Population,
+                 source_population: Population,
                  config_path: str,
                  name: str = None) -> None:
+
+        super().__init__(target_population, source_population, config_path, name)
 
         self.strength: Optional[np.ndarray] = None
         self.distance: Optional[np.ndarray] = None
 
-        super().__init__(target_population, source_population, config_path, name)
-
+        self.params_shapes = {
+            "strength": (),
+            "distance": ()
+        }
 
     def reset(self):
         super().reset()
-        self.strength = set_parameter(self.params['strength'])
-        self.distance = set_parameter(self.params['distance'])
+        self.strength = self.params['strength']
+        self.distance = self.params['distance']
 
     def get_interaction(self):
         """

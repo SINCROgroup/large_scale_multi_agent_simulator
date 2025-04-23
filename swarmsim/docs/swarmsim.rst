@@ -13,7 +13,7 @@ Subpackages
    swarmsim.Integrators
    swarmsim.Interactions
    swarmsim.Loggers
-   swarmsim.Populations
+   swarmsim.Population
    swarmsim.Renderers
    swarmsim.Simulators
    swarmsim.Utils

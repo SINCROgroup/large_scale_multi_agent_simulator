@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from swarmsim.Utils import load_config
 
 from swarmsim.Environments import Environment
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 
 
 class Controller(ABC):
@@ -28,10 +28,10 @@ class Controller(ABC):
 
     """
 
-    def __init__(self, population: Populations, environment: Environment =None, config_path: str =None, other_populations = None) -> None:
+    def __init__(self, population: Population, environment: Environment =None, config_path: str =None, other_populations = None) -> None:
         
         super().__init__()
-        self.population: Populations = population
+        self.population: Population = population
         self.environment: Environment = environment
         self.other_populations = other_populations
 

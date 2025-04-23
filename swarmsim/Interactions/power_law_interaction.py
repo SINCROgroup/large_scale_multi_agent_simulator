@@ -1,8 +1,8 @@
 import numpy as np
 import yaml
 from swarmsim.Interactions import Interaction
-from swarmsim.Utils import compute_distances, set_parameter
-from swarmsim.Populations import Populations
+from swarmsim.Utils import compute_distances
+from swarmsim.Populations import Population
 from typing import Optional
 
 
@@ -71,16 +71,23 @@ class PowerLawInteraction(Interaction):
 
 
     def __init__(self,
-                 target_population: Populations,
-                 source_population: Populations,
+                 target_population: Population,
+                 source_population: Population,
                  config_path: str,
                  name: str = None) -> None:
+
+        super().__init__(target_population, source_population, config_path, name)
 
         self.strength_attr: Optional[np.ndarray] = None
         self.strength_rep: Optional[np.ndarray] = None
         self.max_distance: Optional[np.ndarray] = None
 
-        super().__init__(target_population, source_population, config_path, name)
+        self.params_shapes = {
+            "strength_attr": (),
+            "strength_rep": (),
+            "max_distance": ()
+        }
+
 
         self.p_attr: int = self.config.get("p_attr")
         self.p_rep: int = self.config.get("p_rep")
@@ -89,9 +96,9 @@ class PowerLawInteraction(Interaction):
     def reset(self):
         super().reset()
         
-        self.strength_attr = set_parameter(self.params['strength_attr'])
-        self.strength_rep = set_parameter(self.params['strength_rep'])
-        self.max_distance = set_parameter(self.params['max_distance'])
+        self.strength_attr = self.params['strength_attr']
+        self.strength_rep = self.params['strength_rep']
+        self.max_distance = self.params.get('max_distance', None)
 
     def get_interaction(self):
         """
@@ -126,17 +133,21 @@ class PowerLawInteraction(Interaction):
         distances = np.maximum(distances, 1e-6)
 
         # Attraction and repulsion kernel
-        shift = (self.strength_rep / (self.max_distance ** self.p_rep) -
-                 self.strength_attr / (self.max_distance ** self.p_attr))
+        if self.max_distance is not None:
+            shift = (self.strength_rep / (self.max_distance ** self.p_rep) -
+                     self.strength_attr / (self.max_distance ** self.p_attr))
+        else:
+            shift = 0
 
-        mask = distances <= self.max_distance
 
         kernel = (self.strength_rep / (distances ** self.p_rep) -
                   self.strength_attr / (distances ** self.p_attr)) - shift
 
-        kernel = mask * kernel
+        if self.max_distance is not None:
+            mask = distances <= self.max_distance
+            kernel = mask * kernel
 
-        kernel = np.minimum(kernel, 10)
+        kernel = np.minimum(kernel, 1000)
         if not self.is_attractive:
             kernel = np.maximum(kernel, 0)
 

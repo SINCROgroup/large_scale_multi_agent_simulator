@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 import numpy as np
 import pandas as pd
 from typing import Optional
@@ -46,14 +46,14 @@ class Interaction(ABC):
     """
 
     def __init__(self,
-                 target_population: Populations,
-                 source_population: Populations,
+                 target_population: Population,
+                 source_population: Population,
                  config_path: str,
                  name: str = None) -> None:
 
         super().__init__()
-        self.target_population: Populations = target_population  # The affected population
-        self.source_population: Populations = source_population  # The interacting population
+        self.target_population: Population = target_population  # The affected population
+        self.source_population: Population = source_population  # The interacting population
 
         config_file = load_config(config_path)
 
@@ -66,9 +66,14 @@ class Interaction(ABC):
         self.id: str = self.config.get("id", name)  # Population ID
 
         # Initialize params, state and inputs
-        self.params: Optional[pd.DataFrame] = None
+        self.params: Optional[dict[str, np.ndarray]] = None
+        self.params_shapes: Optional[dict[str, tuple]] = None
 
-        self.reset()
+        # self.reset()
+
+    def reset(self) -> None:
+        if self.param_config is not None:
+            self.params = get_parameters(self.param_config, self.params_shapes, self.target_population.N)
 
     @abstractmethod
     def get_interaction(self) -> np.ndarray:
@@ -91,6 +96,3 @@ class Interaction(ABC):
         """
         pass
 
-    def reset(self) -> None:
-        if self.params is None and self.param_config is not None:
-            self.params = get_parameters(self.param_config, self.target_population.N)

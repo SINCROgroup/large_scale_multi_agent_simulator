@@ -1,7 +1,7 @@
 import numpy as np
 from swarmsim.Interactions import Interaction
-from swarmsim.Populations import Populations
-from swarmsim.Utils import compute_distances, set_parameter
+from swarmsim.Populations import Population
+from swarmsim.Utils import compute_distances
 from typing import Optional
 
 
@@ -69,22 +69,27 @@ class PowerLawRepulsion(Interaction):
     """
 
     def __init__(self,
-                 target_population: Populations,
-                 source_population: Populations,
+                 target_population: Population,
+                 source_population: Population,
                  config_path: str,
                  name: str = None) -> None:
+
+        super().__init__(target_population, source_population, config_path, name)
 
         self.strength: Optional[np.ndarray] = None
         self.max_distance: Optional[np.ndarray] = None
 
-        super().__init__(target_population, source_population, config_path, name)
+        self.params_shapes = {
+            "strength": (),
+            "max_distance": ()
+        }
 
         self.p: int = self.config.get("p")
 
     def reset(self):
         super().reset()
-        self.strength = set_parameter(self.params['strength'])
-        self.max_distance = set_parameter(self.params['max_distance'])
+        self.strength = self.params['strength']
+        self.max_distance = self.params['max_distance']
 
 
     def get_interaction(self):

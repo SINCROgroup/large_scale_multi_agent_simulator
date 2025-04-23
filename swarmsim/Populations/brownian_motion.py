@@ -1,10 +1,9 @@
 import numpy as np
 from typing import Optional
-from swarmsim.Populations import Populations
-from swarmsim.Utils import set_parameter
+from swarmsim.Populations import Population
 
 
-class BrownianMotion(Populations):
+class BrownianMotion(Population):
     """
     Implements a biased Brownian motion model with average velocity `mu` and diffusion coefficient `D`.
 
@@ -69,7 +68,7 @@ class BrownianMotion(Populations):
     Notes
     -----
     - For more details on how initial conditions are generated, see the `get_initial_conditions`
-      method in the `Populations` class.
+      method in the `Population` class.
     - The drift component (`mu`) and diffusion component (`D`) can be either predefined lists
       or dynamically generated using callable expressions from the YAML configuration.
 
@@ -100,12 +99,26 @@ class BrownianMotion(Populations):
         config_path : str
             Path to the YAML configuration file containing initialization parameters.
         """
+        super().__init__(config_path, name)
 
         self.mu: Optional[np.ndarray] = None
         self.D: Optional[np.ndarray] = None
 
-        super().__init__(config_path, name)
+        self.params_shapes = {
+            'mu': (self.state_dim,),
+            'D': (self.state_dim, self.state_dim)
+        }
 
+    def reset(self) -> None:
+        """
+        Resets the state of the population to its initial conditions.
+
+        This method reinitializes the agent states, external forces, and control inputs.
+        """
+        super().reset()
+
+        self.mu = self.params.get('mu')
+        self.D = self.params.get('D')
 
     def get_drift(self) -> np.ndarray:
         """
@@ -139,14 +152,3 @@ class BrownianMotion(Populations):
             Array of shape `(N, state_dim, state_dim)` representing the diffusion coefficients for each agent.
         """
         return self.D
-
-    def reset(self) -> None:
-        """
-        Resets the state of the population to its initial conditions.
-
-        This method reinitializes the agent states, external forces, and control inputs.
-        """
-        super().reset()
-
-        self.mu = set_parameter(self.params['mu'], (self.state_dim,))
-        self.D = set_parameter(self.params['D'], (self.state_dim, self.state_dim))

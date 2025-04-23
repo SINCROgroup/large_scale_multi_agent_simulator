@@ -12,6 +12,7 @@ def set_global_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
+
 def load_config(config_path: str) -> dict:
 # Verify that the configuration file exists
     if not Path(config_path).exists():

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Populations.brownian_motion &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Population.brownian_motion &#8212; SwarmSim 0.1.0 documentation</title>
   
   
   
@@ -264,7 +264,7 @@
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Populations.brownian_motion</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Population.brownian_motion</span></li>
   </ul>
 </nav>
 </div>
@@ -281,16 +281,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for swarmsim.Populations.brownian_motion</h1><div class="highlight"><pre>
+  <h1>Source code for swarmsim.Population.brownian_motion</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_parameter</span>
 
 
 <div class="viewcode-block" id="BrownianMotion">
 <a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BrownianMotion</span><span class="p">(</span><span class="n">Populations</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BrownianMotion</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements a biased Brownian motion model with average velocity `mu` and diffusion coefficient `D`.</span>
 
@@ -355,7 +355,7 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    - For more details on how initial conditions are generated, see the `get_initial_conditions`</span>
-<span class="sd">      method in the `Populations` class.</span>
+<span class="sd">      method in the `Population` class.</span>
 <span class="sd">    - The drift component (`mu`) and diffusion component (`D`) can be either predefined lists</span>
 <span class="sd">      or dynamically generated using callable expressions from the YAML configuration.</span>
 

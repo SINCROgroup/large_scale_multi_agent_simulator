@@ -4,7 +4,7 @@ from typing import cast
 
 from swarmsim.Utils import compute_distances
 from swarmsim.Environments import ShepherdingEnvironment
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 
 
 class ShepherdingLamaController(Controller):
@@ -14,9 +14,9 @@ class ShepherdingLamaController(Controller):
 
     Arguments
     ---------
-        population : Populations
+        population : Population
             The population where the control is exerted
-        targets : Populations
+        targets : Population
             The population of targets
         environment : ShepherdingEnvironment
             The environment where the agents live (must be a Sheperding Environment)
@@ -61,14 +61,14 @@ class ShepherdingLamaController(Controller):
 
     """
 
-    def __init__(self, population: Populations,
-                 targets: Populations,
+    def __init__(self, population: Population,
+                 targets: Population,
                  environment: ShepherdingEnvironment =None,
                  config_path: str =None) -> None:
 
         super().__init__(population, environment, config_path, [targets])
-        self.herders: Populations = self.population
-        self.targets: Populations = targets
+        self.herders: Population = self.population
+        self.targets: Population = targets
         self.environment = cast(ShepherdingEnvironment, self.environment)
 
         self.xi: float = self.config.get('xi', 15)

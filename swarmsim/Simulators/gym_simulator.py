@@ -1,6 +1,4 @@
-import yaml
-import progressbar
-
+import numpy as np
 from swarmsim.Simulators import Simulator
 
 
@@ -52,7 +50,7 @@ class GymSimulator(Simulator):
 
         # Reset interaction forces
         for population in self.populations:
-            population.f = 0
+            population.f = np.zeros([population.N, population.input_dim])
 
         # Update the environment
         self.environment.update()

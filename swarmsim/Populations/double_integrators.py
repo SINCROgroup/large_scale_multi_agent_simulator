@@ -1,10 +1,9 @@
 import numpy as np
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 from typing import Optional
-from swarmsim.Utils import set_parameter
 
 
-class DampedDoubleIntegrators(Populations):
+class DampedDoubleIntegrators(Population):
     """
     A class that implements (noisy) second order integrators
 
@@ -29,22 +28,15 @@ class DampedDoubleIntegrators(Populations):
     """
 
     def __init__(self, config_path: str, name: str = None) -> None:
-
-        self.damping: Optional[float] = None
-        self.D: Optional[np.ndarray] = None
-
         super().__init__(config_path, name)
 
-    def get_drift(self):
-        d = self.state_dim // 2  # position and velocity dimension
+        self.damping: Optional[np.ndarray] = None
+        self.D: Optional[np.ndarray] = None
 
-        velocity = self.x[:, d:]  # current velocities
-        acceleration = -self.damping * velocity + self.u + self.f
-
-        return np.hstack((velocity, acceleration))
-
-    def get_diffusion(self):
-        return self.D
+        self.params_shapes = {
+            'damping': (),
+            'D': (self.state_dim, self.state_dim)
+        }
 
     def reset(self) -> None:
         """
@@ -54,6 +46,17 @@ class DampedDoubleIntegrators(Populations):
         """
         super().reset()
 
-        self.damping = set_parameter(self.params['damping'], (1,))
-        self.D = set_parameter(self.params['D'], (self.state_dim, self.state_dim))
+        self.damping = self.params['damping']
+        self.D = self.params['D']
+
+    def get_drift(self):
+
+        velocity = self.x[:, self.input_dim:]  # current velocities
+        acceleration = -self.damping[:, np.newaxis] * velocity + self.u + self.f
+
+        return np.hstack((velocity, acceleration))
+
+    def get_diffusion(self):
+        return self.D
+
 

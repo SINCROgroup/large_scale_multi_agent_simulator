@@ -1,20 +1,9 @@
 # Configuration file 
 # In all scripts numpy is imported as np
 
-#BrownianMotion:
-#  N: 100
-#  state_dim: 2
-#  x0_limits : [[-25, 25],[-25,25]]
-#  x0_mode: Random
-#  x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv
-#  params_mode: Random
-#  params_names: ["mu","D"]
-#  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
-#  id: 'BrownianMotion'
-
 BrownianMotion:
   id: 'BrownianMotion'
-  N: 2000
+  N: 1000
   state_dim: 2
 
   initial_conditions:
@@ -28,44 +17,25 @@ BrownianMotion:
   parameters:
     mode: generate    # Options: import, generate
     generate:
-      mu:
-        sampler: uniform
-        positional_args: [-1, 1]
-        shape: [2]
+      mu: 0
       D:
         sampler: normal
         args:
-          loc: 1
+          loc: 0.5
           scale: 0.1
         homogeneous: False
 
-
-FixedPopulation:
-  id: 'Fixed'
-  N: 100
-  state_dim: 2
-
-  initial_conditions:
-    mode: Random
-    random:
-      shape: circle
-      circle:
-        min_radius: 0
-        max_radius: 10
-
-
-HarmonicRepulsion:
-  id: Interaction Force
+Interaction:
   parameters:
     mode: generate
     generate:
-      strength: 0.1
-      distance: 10
+      epsilon: 0.005
+      sigma: 1
 
 
 
 integrator:
-  dt: 0.01
+  dt: 0.001
 
 simulator:
   dt: 0.001
@@ -80,7 +50,7 @@ renderer:
   agent_shapes: ['circle', 'diamond']
   agent_sizes: [1, 1]
   render_mode: 'pygame'
-  render_dt: 0.01
+  render_dt: 0.001
 
 logger:
   activate: True          # True to save logger, False otherwise

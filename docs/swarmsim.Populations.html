@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Populations &#8212; SwarmS.py 0.1.0 documentation</title>
+    <title>Population &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -242,7 +242,7 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Populations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Population</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
@@ -289,7 +289,7 @@
     
     <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Populations</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Population</span></li>
   </ul>
 </nav>
 </div>
@@ -307,16 +307,16 @@
                 <article class="bd-article">
                   
   <section id="populations">
-<h1>Populations<a class="headerlink" href="#populations" title="Link to this heading">#</a></h1>
+<h1>Population<a class="headerlink" href="#populations" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Populations.brownian_motion">
-<span id="swarmsim-populations-brownian-motion-module"></span><h2>swarmsim.Populations.brownian_motion module<a class="headerlink" href="#module-swarmsim.Populations.brownian_motion" title="Link to this heading">#</a></h2>
+<span id="swarmsim-populations-brownian-motion-module"></span><h2>swarmsim.Population.brownian_motion module<a class="headerlink" href="#module-swarmsim.Populations.brownian_motion" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.brownian_motion.</span></span><span class="sig-name descname"><span class="pre">BrownianMotion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Population.brownian_motion.</span></span><span class="sig-name descname"><span class="pre">BrownianMotion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
 <p>Implements a biased Brownian motion model with average velocity <cite>mu</cite> and diffusion coefficient <cite>D</cite>.</p>
 <p>This model simulates agent movement with a constant drift (<cite>mu</cite>) and stochastic diffusion (<cite>D</cite>),
 influenced by external forces (<cite>f</cite>) and control inputs (<cite>u</cite>).</p>
@@ -371,7 +371,7 @@ as a function that initializes <cite>mu</cite>.</p></li>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>For more details on how initial conditions are generated, see the <cite>get_initial_conditions</cite>
-method in the <cite>Populations</cite> class.</p></li>
+method in the <cite>Population</cite> class.</p></li>
 <li><p>The drift component (<cite>mu</cite>) and diffusion component (<cite>D</cite>) can be either predefined lists
 or dynamically generated using callable expressions from the YAML configuration.</p></li>
 </ul>
@@ -441,11 +441,11 @@ assigned predefined drift velocities (<cite>mu</cite>) and diffusion coefficient
 
 </section>
 <section id="module-swarmsim.Populations.double_integrators">
-<span id="swarmsim-populations-double-integrators-module"></span><h2>swarmsim.Populations.double_integrators module<a class="headerlink" href="#module-swarmsim.Populations.double_integrators" title="Link to this heading">#</a></h2>
+<span id="swarmsim-populations-double-integrators-module"></span><h2>swarmsim.Population.double_integrators module<a class="headerlink" href="#module-swarmsim.Populations.double_integrators" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.double_integrators.</span></span><span class="sig-name descname"><span class="pre">DampedDoubleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Population.double_integrators.</span></span><span class="sig-name descname"><span class="pre">DampedDoubleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
 <p>A class that implements (noisy) second order integrators</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -508,11 +508,11 @@ assigned predefined drift velocities (<cite>mu</cite>) and diffusion coefficient
 
 </section>
 <section id="module-swarmsim.Populations.fixed_population">
-<span id="swarmsim-populations-fixed-population-module"></span><h2>swarmsim.Populations.fixed_population module<a class="headerlink" href="#module-swarmsim.Populations.fixed_population" title="Link to this heading">#</a></h2>
+<span id="swarmsim-populations-fixed-population-module"></span><h2>swarmsim.Population.fixed_population module<a class="headerlink" href="#module-swarmsim.Populations.fixed_population" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.fixed_population.</span></span><span class="sig-name descname"><span class="pre">FixedPopulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Population.fixed_population.</span></span><span class="sig-name descname"><span class="pre">FixedPopulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
 <p>A class that implements a population that does not move.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -585,10 +585,10 @@ assigned predefined drift velocities (<cite>mu</cite>) and diffusion coefficient
 
 </section>
 <section id="module-swarmsim.Populations.populations">
-<span id="swarmsim-populations-populations-module"></span><h2>swarmsim.Populations.populations module<a class="headerlink" href="#module-swarmsim.Populations.populations" title="Link to this heading">#</a></h2>
+<span id="swarmsim-populations-populations-module"></span><h2>swarmsim.Population.populations module<a class="headerlink" href="#module-swarmsim.Populations.populations" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Populations.populations.Populations">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.populations.</span></span><span class="sig-name descname"><span class="pre">Populations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/populations.html#Populations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.populations.Populations" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Population.populations.</span></span><span class="sig-name descname"><span class="pre">Population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/populations.html#Populations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.populations.Populations" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Abstract base class that defines the structure for agent populations in a multi-agent system.</p>
 <p>This class provides methods for initializing agent states and parameters from either
@@ -688,11 +688,11 @@ Depending on the mode setting, the conditions are either loaded from file or gen
 
 </section>
 <section id="module-swarmsim.Populations.simple_integrators">
-<span id="swarmsim-populations-simple-integrators-module"></span><h2>swarmsim.Populations.simple_integrators module<a class="headerlink" href="#module-swarmsim.Populations.simple_integrators" title="Link to this heading">#</a></h2>
+<span id="swarmsim-populations-simple-integrators-module"></span><h2>swarmsim.Population.simple_integrators module<a class="headerlink" href="#module-swarmsim.Populations.simple_integrators" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.simple_integrators.</span></span><span class="sig-name descname"><span class="pre">SimpleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Populations.populations.Populations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Populations</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Population.simple_integrators.</span></span><span class="sig-name descname"><span class="pre">SimpleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
 <p>A class that implements (noisy) first order integrators</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -794,7 +794,7 @@ Depending on the mode setting, the conditions are either loaded from file or gen
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.brownian_motion">swarmsim.Populations.brownian_motion module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.brownian_motion">swarmsim.Population.brownian_motion module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion"><code class="docutils literal notranslate"><span class="pre">BrownianMotion</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_drift"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion"><code class="docutils literal notranslate"><span class="pre">BrownianMotion.get_diffusion()</span></code></a></li>
@@ -803,7 +803,7 @@ Depending on the mode setting, the conditions are either loaded from file or gen
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.double_integrators">swarmsim.Populations.double_integrators module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.double_integrators">swarmsim.Population.double_integrators module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators"><code class="docutils literal notranslate"><span class="pre">DampedDoubleIntegrators</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_drift"><code class="docutils literal notranslate"><span class="pre">DampedDoubleIntegrators.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion"><code class="docutils literal notranslate"><span class="pre">DampedDoubleIntegrators.get_diffusion()</span></code></a></li>
@@ -812,7 +812,7 @@ Depending on the mode setting, the conditions are either loaded from file or gen
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.fixed_population">swarmsim.Populations.fixed_population module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.fixed_population">swarmsim.Population.fixed_population module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation"><code class="docutils literal notranslate"><span class="pre">FixedPopulation</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_drift"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion"><code class="docutils literal notranslate"><span class="pre">FixedPopulation.get_diffusion()</span></code></a></li>
@@ -820,17 +820,17 @@ Depending on the mode setting, the conditions are either loaded from file or gen
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.populations">swarmsim.Populations.populations module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations"><code class="docutils literal notranslate"><span class="pre">Populations</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_drift"><code class="docutils literal notranslate"><span class="pre">Populations.get_drift()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_diffusion"><code class="docutils literal notranslate"><span class="pre">Populations.get_diffusion()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.reset"><code class="docutils literal notranslate"><span class="pre">Populations.reset()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_initial_conditions"><code class="docutils literal notranslate"><span class="pre">Populations.get_initial_conditions()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.populations">swarmsim.Population.populations module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_drift"><code class="docutils literal notranslate"><span class="pre">Population.get_drift()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_diffusion"><code class="docutils literal notranslate"><span class="pre">Population.get_diffusion()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.reset"><code class="docutils literal notranslate"><span class="pre">Population.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.populations.Populations.get_initial_conditions"><code class="docutils literal notranslate"><span class="pre">Population.get_initial_conditions()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.simple_integrators">swarmsim.Populations.simple_integrators module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Populations.simple_integrators">swarmsim.Population.simple_integrators module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators"><code class="docutils literal notranslate"><span class="pre">SimpleIntegrators</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_drift"><code class="docutils literal notranslate"><span class="pre">SimpleIntegrators.get_drift()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion"><code class="docutils literal notranslate"><span class="pre">SimpleIntegrators.get_diffusion()</span></code></a></li>

@@ -1,11 +1,10 @@
 import numpy as np
 import yaml
-from swarmsim.Populations import Populations
-from swarmsim.Utils import set_parameter
+from swarmsim.Populations import Population
 from typing import Optional
 
 
-class LightSensitive_PTW(Populations):
+class LightSensitive_PTW(Population):
     '''
     TODO 
     A class that implements a Persistent Turining Walkers that respond to external light inputs
@@ -34,7 +33,7 @@ class LightSensitive_PTW(Populations):
 
     def __init__(self, config_path: str, name: str = None) -> None:
 
-        self.u_old: Optional[np.ndarray] = None
+        super().__init__(config_path, name)
 
         self.u_old: Optional[np.ndarray] = None
 
@@ -52,10 +51,48 @@ class LightSensitive_PTW(Populations):
         self.gamma_w: Optional[np.ndarray] = None
         self.sigma_w: Optional[np.ndarray] = None
 
-        super().__init__(config_path, name)
+        self.params_shapes = {
+            'theta_s': (),
+            'mu_s': (),
+            'alpha_s': (),
+            'beta_s': (),
+            'gamma_s': (),
+            'sigma_s': (),
+
+            'theta_w': (),
+            'mu_w': (),
+            'alpha_w': (),
+            'beta_w': (),
+            'gamma_w': (),
+            'sigma_w': ()
+        }
+
 
         self.dt = self.config["dt"]
 
+    def reset(self) -> None:
+        """
+        Resets the state of the population to its initial conditions.
+
+        This method reinitializes the agent states, external forces, and control inputs.
+        """
+        super().reset()
+
+        self.theta_s = self.params['theta_s']
+        self.mu_s = self.params['mu_s']
+        self.alpha_s = self.params['alpha_s']
+        self.beta_s = self.params['beta_s']
+        self.gamma_s = self.params['gamma_s']
+        self.sigma_s = self.params['sigma_s']
+
+        self.theta_w = self.params['theta_w']
+        self.mu_w = self.params['mu_w']
+        self.alpha_w = self.params['alpha_w']
+        self.beta_w = self.params['beta_w']
+        self.gamma_w = self.params['gamma_w']
+        self.sigma_w = self.params['sigma_w']
+
+        self.u_old = np.zeros([self.N, self.input_dim])  # Initialization of the last control input applied
 
     def get_drift(self) -> np.array :
         '''
@@ -63,7 +100,7 @@ class LightSensitive_PTW(Populations):
 
         Returns:
         ------
-            drift: numpy array (num_agents x dim_state)         
+            drift: numpy array (num_agents x dim_state)
                 Dirft of the population
 
         '''
@@ -110,27 +147,4 @@ class LightSensitive_PTW(Populations):
 
         return diffusion
 
-    def reset(self) -> None:
-        """
-        Resets the state of the population to its initial conditions.
-
-        This method reinitializes the agent states, external forces, and control inputs.
-        """
-        super().reset()
-
-        self.theta_s = set_parameter(self.params['theta_s'], ())
-        self.mu_s = set_parameter(self.params['mu_s'], ())
-        self.alpha_s = set_parameter(self.params['alpha_s'], ())
-        self.beta_s = set_parameter(self.params['beta_s'], ())
-        self.gamma_s = set_parameter(self.params['gamma_s'], ())
-        self.sigma_s = set_parameter(self.params['sigma_s'], ())
-
-        self.theta_w = set_parameter(self.params['theta_w'], ())
-        self.mu_w = set_parameter(self.params['mu_w'], ())
-        self.alpha_w = set_parameter(self.params['alpha_w'], ())
-        self.beta_w = set_parameter(self.params['beta_w'], ())
-        self.gamma_w = set_parameter(self.params['gamma_w'], ())
-        self.sigma_w = set_parameter(self.params['sigma_w'], ())
-
-        self.u_old = np.zeros([self.N, self.input_dim])  # Initialization of the last control input applied
 

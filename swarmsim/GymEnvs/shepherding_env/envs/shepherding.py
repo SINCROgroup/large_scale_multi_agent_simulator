@@ -70,7 +70,7 @@ class ShepherdingEnv(gym.Env):
         obs_min = -np.inf
         obs_max = np.inf
 
-        action_shape = herders.u.shape
+        action_shape = (herders.input_dim,)
         action_max = params["action_bound"]
         action_min = -action_max
 

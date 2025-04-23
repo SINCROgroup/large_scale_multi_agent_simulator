@@ -288,7 +288,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distances</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShepherdingEnvironment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Populations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 
 
 <div class="viewcode-block" id="ShepherdingLamaController">
@@ -300,9 +300,9 @@
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
-<span class="sd">        population : Populations</span>
+<span class="sd">        population : Population</span>
 <span class="sd">            The population where the control is exerted</span>
-<span class="sd">        targets : Populations</span>
+<span class="sd">        targets : Population</span>
 <span class="sd">            The population of targets</span>
 <span class="sd">        environment : ShepherdingEnvironment</span>
 <span class="sd">            The environment where the agents live (must be a Sheperding Environment)</span>
@@ -347,14 +347,14 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
-                 <span class="n">targets</span><span class="p">:</span> <span class="n">Populations</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span>
+                 <span class="n">targets</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span>
                  <span class="n">environment</span><span class="p">:</span> <span class="n">ShepherdingEnvironment</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">,</span> <span class="p">[</span><span class="n">targets</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">herders</span><span class="p">:</span> <span class="n">Populations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">targets</span><span class="p">:</span> <span class="n">Populations</span> <span class="o">=</span> <span class="n">targets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">herders</span><span class="p">:</span> <span class="n">Population</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets</span><span class="p">:</span> <span class="n">Population</span> <span class="o">=</span> <span class="n">targets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ShepherdingEnvironment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">xi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xi&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>

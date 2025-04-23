@@ -1,8 +1,8 @@
 import numpy as np
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 
 
-class FixedPopulation(Populations):
+class FixedPopulation(Population):
     """
     A class that implements a population that does not move.
 

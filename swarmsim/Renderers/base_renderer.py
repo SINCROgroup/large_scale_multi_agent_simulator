@@ -142,7 +142,7 @@ class BaseRenderer(Renderer):
         # Set labels and static elements once
         self.ax.set_xlabel('X Position')
         self.ax.set_ylabel('Y Position')
-        self.ax.set_title('Populations in the Environment')
+        self.ax.set_title('Population in the Environment')
         self.ax.grid(True)
 
         self.agent_scatters = []

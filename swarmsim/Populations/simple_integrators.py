@@ -1,8 +1,8 @@
 import numpy as np
-from swarmsim.Populations import Populations
+from swarmsim.Populations import Population
 
 
-class SimpleIntegrators(Populations):
+class SimpleIntegrators(Population):
     """
     A class that implements (noisy) first order integrators
 

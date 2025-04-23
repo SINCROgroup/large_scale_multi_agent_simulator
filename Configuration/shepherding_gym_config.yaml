@@ -5,7 +5,7 @@ seed: 1
 
 DampedDoubleIntegrators:
   id: 'Targets'
-  N: 10
+  N: 5
   state_dim: 4
   input_dim: 2
   # lim: ['inf', 'inf', 'inf', 'inf']
@@ -90,7 +90,7 @@ environment:
   start_step: 2000
 
 renderer:
-  activate: False
+  activate: True
   background_color: 'white'
   agent_colors: ['magenta', 'blue']
   agent_shapes: ['circle', 'diamond']
