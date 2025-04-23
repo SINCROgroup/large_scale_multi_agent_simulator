@@ -66,7 +66,7 @@ class BaseLogger(Logger):
         self.log_freq = logger_config.get('log_freq', 0)  # Print frequency
         self.save_freq = logger_config.get('save_freq', 0)  # Save frequency
         self.save_data_freq = logger_config.get('save_data_freq', 0)
-        self.log_path = logger_config.get('log_path', '.\logs')
+        self.log_path = logger_config.get('log_path', './logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
         self.environment = environment
