@@ -27,6 +27,7 @@ class DampedDoubleIntegrators(Population):
         Resets the state of the agent.
     """
 
+
     def __init__(self, config_path: str, name: str = None) -> None:
         super().__init__(config_path, name)
 
@@ -35,7 +36,7 @@ class DampedDoubleIntegrators(Population):
 
         self.params_shapes = {
             'damping': (),
-            'D': (self.state_dim, self.state_dim)
+            'D': ()
         }
 
     def reset(self) -> None:
@@ -47,7 +48,7 @@ class DampedDoubleIntegrators(Population):
         super().reset()
 
         self.damping = self.params['damping']
-        self.D = self.params['D']
+        self.D = self.params['D'][:,np.newaxis] * np.array([0, 0, 1, 1])
 
     def get_drift(self):
 

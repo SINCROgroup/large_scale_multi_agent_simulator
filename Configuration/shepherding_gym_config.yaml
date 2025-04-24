@@ -19,7 +19,7 @@ Targets:
   parameters:
     mode: generate
     generate:
-      D: 0.1
+      D: 3
       damping: 3
 
 
@@ -74,7 +74,7 @@ TargetInteraction:
 
 
 integrator:
-  dt: 0.01
+  dt: 0.05
 
 simulator:
   T: 100
@@ -94,7 +94,7 @@ renderer:
   agent_shapes: ['circle', 'diamond']
   agent_sizes: [1, 1]
   render_mode: 'pygame'
-  render_dt: 0.01
+  render_dt: 0.05
 
 logger:
   activate: True         # True to save logger, False otherwise
