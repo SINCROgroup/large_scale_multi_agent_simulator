@@ -83,6 +83,7 @@ class ShepherdingEnvironment(EmptyEnvironment):
 
         # Load goal parameters from the configuration file
         self.goal_radius = self.params.get('goal_radius', 5)
+        self.buffer = self.params.get('buffer_size', 0)
         self.goal_pos = np.array(self.params.get('goal_pos', (0, 0)), dtype=np.float32)
         self.final_goal_pos = np.array(self.params.get('final_goal_pos', (0, 0)), dtype=np.float32)
         self.num_steps = self.params.get('num_steps', 2000)  # Total steps over which goal moves

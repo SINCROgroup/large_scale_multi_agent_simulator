@@ -30,8 +30,8 @@ class ShepherdingEnv(gym.Env):
 
         environment = ShepherdingEnvironment(config_path)
 
-        targets = DampedDoubleIntegrators(config_path)
-        herders = SimpleIntegrators(config_path)
+        targets = DampedDoubleIntegrators(config_path, "Targets")
+        herders = SimpleIntegrators(config_path, "Herders")
         populations = [targets, herders]
 
         self.herders = herders
@@ -70,7 +70,7 @@ class ShepherdingEnv(gym.Env):
         obs_min = -np.inf
         obs_max = np.inf
 
-        action_shape = (herders.input_dim,)
+        action_shape = (herders.N,herders.input_dim)
         action_max = params["action_bound"]
         action_min = -action_max
 

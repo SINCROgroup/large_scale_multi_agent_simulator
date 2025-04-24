@@ -3,8 +3,7 @@
 
 seed: 1
 
-DampedDoubleIntegrators:
-  id: 'Targets'
+Targets:
   N: 5
   state_dim: 4
   input_dim: 2
@@ -25,8 +24,7 @@ DampedDoubleIntegrators:
 
 
 
-SimpleIntegrators:
-  id: 'Herders'
+Herders:
   N: 5
   state_dim: 2
 
