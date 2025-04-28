@@ -1,9 +1,13 @@
 SwarmS.py documentation
 ========================
 
-[TODO: Add a high level description of the software, with all the functionalities]
+SwarmS.py is a large scale multi-agent simulator ...
 
+:doc:`installation`
+-------------------
 
+:doc:`quickstart`
+-----------------
 
 .. toctree::
    :maxdepth: 3
