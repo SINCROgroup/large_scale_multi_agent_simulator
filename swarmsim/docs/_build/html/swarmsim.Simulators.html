@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Simulators';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utils" href="swarmsim.Utils.html" />
+    <link rel="next" title="Utilities" href="swarmsim.Utils.html" />
     <link rel="prev" title="Renderers" href="swarmsim.Renderers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -242,10 +242,9 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,11 +307,14 @@
                   
   <section id="simulators">
 <h1>Simulators<a class="headerlink" href="#simulators" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Simulators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Simulators" title="Link to this heading">#</a></h2>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Simulators.base_simulator">
-<span id="swarmsim-simulators-base-simulator-module"></span><h2>swarmsim.Simulators.base_simulator module<a class="headerlink" href="#module-swarmsim.Simulators.base_simulator" title="Link to this heading">#</a></h2>
+<span id="base-simulator"></span><h2>Base Simulator<a class="headerlink" href="#module-swarmsim.Simulators.base_simulator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Simulators.base_simulator.Simulator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.base_simulator.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controllers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/base_simulator.html#Simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.base_simulator.Simulator" title="Link to this definition">#</a></dt>
@@ -321,7 +323,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>populations</strong> (<em>list</em><em>[</em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a><em>]</em>)</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em>[</em><em>Population</em><em>]</em>)</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment" title="swarmsim.Environments.base_environment.Environment"><em>Environment</em></a>)</p></li>
 <li><p><strong>integrator</strong> (<a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><em>Integrator</em></a>)</p></li>
 <li><p><strong>interactions</strong> (<em>list</em><em>[</em><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><em>Interaction</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
@@ -340,7 +342,7 @@
 
 </section>
 <section id="module-swarmsim.Simulators.gym_simulator">
-<span id="swarmsim-simulators-gym-simulator-module"></span><h2>swarmsim.Simulators.gym_simulator module<a class="headerlink" href="#module-swarmsim.Simulators.gym_simulator" title="Link to this heading">#</a></h2>
+<span id="gym-simulator"></span><h2>Gym Simulator<a class="headerlink" href="#module-swarmsim.Simulators.gym_simulator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Simulators.gym_simulator.GymSimulator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.gym_simulator.</span></span><span class="sig-name descname"><span class="pre">GymSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/gym_simulator.html#GymSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.gym_simulator.GymSimulator" title="Link to this definition">#</a></dt>
@@ -370,9 +372,6 @@
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Simulators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Simulators" title="Link to this heading">#</a></h2>
-</section>
 </section>
 
 
@@ -399,7 +398,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Utils</p>
+        <p class="prev-next-title">Utilities</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,15 +421,16 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators">Module contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.base_simulator">swarmsim.Simulators.base_simulator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.base_simulator">Base Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.base_simulator.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.base_simulator.Simulator.simulate"><code class="docutils literal notranslate"><span class="pre">Simulator.simulate()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.gym_simulator">swarmsim.Simulators.gym_simulator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.gym_simulator">Gym Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator"><code class="docutils literal notranslate"><span class="pre">GymSimulator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator.reset"><code class="docutils literal notranslate"><span class="pre">GymSimulator.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator.step"><code class="docutils literal notranslate"><span class="pre">GymSimulator.step()</span></code></a></li>
@@ -440,7 +440,6 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators">Module contents</a></li>
 </ul>
   </nav></div>
 

@@ -1,41 +1,6 @@
 Loggers
 =======
 
-Submodules
-----------
-
-swarmsim.Loggers.base\_logger module
-------------------------------------
-
-.. automodule:: swarmsim.Loggers.base_logger
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-swarmsim.Loggers.logger module
-------------------------------
-
-.. automodule:: swarmsim.Loggers.logger
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-swarmsim.Loggers.shepherding\_gym\_logger module
-------------------------------------------------
-
-.. automodule:: swarmsim.Loggers.shepherding_gym_logger
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-swarmsim.Loggers.shepherding\_logger module
--------------------------------------------
-
-.. automodule:: swarmsim.Loggers.shepherding_logger
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 
@@ -43,3 +8,43 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+
+
+Submodules
+----------
+
+Logger Interface
+----------------
+
+.. automodule:: swarmsim.Loggers.base_logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Base Logger
+-----------
+
+.. automodule:: swarmsim.Loggers.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Shepherding Logger
+------------------
+
+.. automodule:: swarmsim.Loggers.shepherding_logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Shepherding Gym Logger
+----------------------
+
+.. automodule:: swarmsim.Loggers.shepherding_gym_logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+

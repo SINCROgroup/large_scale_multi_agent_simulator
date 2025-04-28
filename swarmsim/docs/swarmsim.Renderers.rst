@@ -1,37 +1,41 @@
 Renderers
 =========
 
-Submodules
-----------
+Module contents
+---------------
 
-swarmsim.Renderers.base\_renderer module
-----------------------------------------
-
-.. automodule:: swarmsim.Renderers.base_renderer
+.. automodule:: swarmsim.Renderers
    :members:
    :undoc-members:
    :show-inheritance:
 
-swarmsim.Renderers.renderer module
-----------------------------------
+Submodules
+----------
+
+
+Renderer Interface
+------------------
 
 .. automodule:: swarmsim.Renderers.renderer
    :members:
    :undoc-members:
    :show-inheritance:
 
-swarmsim.Renderers.shepherding\_renderer module
------------------------------------------------
 
-.. automodule:: swarmsim.Renderers.shepherding_renderer
+Base Renderer
+-------------
+
+.. automodule:: swarmsim.Renderers.base_renderer
    :members:
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: swarmsim.Renderers
+
+Shepherding Renderer
+--------------------
+
+.. automodule:: swarmsim.Renderers.shepherding_renderer
    :members:
    :undoc-members:
    :show-inheritance:

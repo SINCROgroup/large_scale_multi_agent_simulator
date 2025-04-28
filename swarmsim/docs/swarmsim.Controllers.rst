@@ -1,6 +1,8 @@
 Controllers
 ===========
 
+Module contents
+---------------
 
 .. automodule:: swarmsim.Controllers
    :members:
@@ -8,8 +10,8 @@ Controllers
    :show-inheritance:
 
 
-Base controller
----------------
+Controller Interface
+--------------------
 
 .. automodule:: swarmsim.Controllers.base_controller
    :members:

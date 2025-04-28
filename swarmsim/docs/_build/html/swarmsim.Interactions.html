@@ -242,10 +242,9 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,257 +307,6 @@
                   
   <section id="interactions">
 <h1>Interactions<a class="headerlink" href="#interactions" title="Link to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-swarmsim.Interactions.harmonic_repulsion">
-<span id="swarmsim-interactions-harmonic-repulsion-module"></span><h2>swarmsim.Interactions.harmonic_repulsion module<a class="headerlink" href="#module-swarmsim.Interactions.harmonic_repulsion" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.harmonic_repulsion.</span></span><span class="sig-name descname"><span class="pre">HarmonicRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
-<p>Implements a finite-range harmonic repulsion force between two populations.</p>
-<p>This interaction models a repulsive force between agents in two populations,
-where the force magnitude decreases linearly as the distance increases, up to
-a maximum interaction distance.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target_population</strong> (<em>Population</em>) – The first population (typically the affected agents).</p></li>
-<li><p><strong>source_population</strong> (<em>Population</em>) – The second population (agents exerting repulsion).</p></li>
-<li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>name</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>strength</strong> (<em>float</em>) – Maximum intensity of the repulsion force.</p></li>
-<li><p><strong>distance</strong> (<em>float</em>) – Maximum distance at which the interaction takes place.</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>repulsion</strong> –</p>
-<dl class="simple">
-<dt>strength<span class="classifier">float</span></dt><dd><p>Maximum repulsion force intensity.</p>
-</dd>
-<dt>max_distance<span class="classifier">float</span></dt><dd><p>Maximum interaction range.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
-<li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>Example YAML configuration:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">repulsion</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">strength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span>
-<span class="w">    </span><span class="nt">max_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
-</pre></div>
-</div>
-<p>This sets a repulsion force with a strength of <cite>1.5</cite> and an interaction
-range of <cite>10.0</cite> units.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction">
-<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction" title="Link to this definition">#</a></dt>
-<dd><p>Computes the repulsion force exerted by <cite>source_population</cite> on <cite>target_population</cite>.</p>
-<p>The repulsion force follows a <strong>harmonic</strong> behavior where:
-- The force is strongest when two agents are very close.
-- It decreases linearly as the distance increases.
-- It becomes zero when the distance exceeds <cite>max_distance</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the repulsion force applied to each
-agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and
-<cite>D</cite> is the dimensionality of the state space.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The function computes <strong>pairwise distances</strong> between agents in <cite>target_population</cite>
-and <cite>source_population</cite> and applies the harmonic repulsion formula.</p></li>
-<li><p>To avoid division by zero, a small epsilon (<cite>1e-6</cite>) is added to distances.</p></li>
-</ul>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-swarmsim.Interactions.interaction">
-<span id="swarmsim-interactions-interaction-module"></span><h2>swarmsim.Interactions.interaction module<a class="headerlink" href="#module-swarmsim.Interactions.interaction" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.interaction.</span></span><span class="sig-name descname"><span class="pre">Interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class that defines the structure for interactions between two populations.</p>
-<p>This class serves as an interface for all interaction models in a multi-agent system.
-It requires subclasses to implement the <cite>get_interaction</cite> method, which computes
-the effect that <cite>pop2</cite> (e.g., herders) has on <cite>pop1</cite> (e.g., targets).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target_population</strong> (<em>Population</em>) – The first population that is influenced by the interaction.</p></li>
-<li><p><strong>source_population</strong> (<em>Population</em>) – The second population that applies the interaction force.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>name</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>target_population</strong> (<em>Population</em>) – The population affected by the interaction.</p></li>
-<li><p><strong>source_population</strong> (<em>Population</em>) – The population exerting the interaction force.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The <cite>get_interaction</cite> method must be implemented in all subclasses.</p></li>
-<li><p>This class is designed for interactions such as <strong>repulsion, attraction,</strong> and <strong>alignment</strong>.</p></li>
-</ul>
-<p class="rubric">Examples</p>
-<p>Example of a subclass implementing a specific interaction:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">HarmonicRepulsion</span><span class="p">(</span><span class="n">Interaction</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Compute repulsion forces here</span>
-        <span class="k">return</span> <span class="n">forces</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction.get_interaction">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction.get_interaction" title="Link to this definition">#</a></dt>
-<dd><p>Computes the forces that <cite>source_population</cite> applies on <cite>target_population</cite>.</p>
-<p>This method must be implemented by subclasses to define the specific
-interaction between the two populations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the forces exerted by <cite>source_population</cite> on <cite>target_population</cite>,
-where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and <cite>D</cite> is the state space dimension.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>NotImplementedError</strong> – If called directly from the base class.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>ndarray</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction.reset" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-swarmsim.Interactions.power_law_repulsion">
-<span id="swarmsim-interactions-power-law-repulsion-module"></span><h2>swarmsim.Interactions.power_law_repulsion module<a class="headerlink" href="#module-swarmsim.Interactions.power_law_repulsion" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.power_law_repulsion.</span></span><span class="sig-name descname"><span class="pre">PowerLawRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
-<p>Implements a power-law repulsion interaction between two populations.</p>
-<p>This interaction models a repulsive force that decays according to a power-law function
-with respect to the distance between agents. The strength of the force is determined by
-the power exponent <cite>p</cite> and is active within a defined maximum interaction range.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pop1</strong> (<em>Population</em>) – The first population that is influenced by the interaction.</p></li>
-<li><p><strong>pop2</strong> (<em>Population</em>) – The second population that applies the repulsion force.</p></li>
-<li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
-<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
-<li><p><strong>target_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
-<li><p><strong>source_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>name</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>params</strong> (<em>dict</em>) – Dictionary containing interaction parameters loaded from the configuration file.</p></li>
-<li><p><strong>strength</strong> (<em>float</em>) – Maximum intensity of the repulsion force.</p></li>
-<li><p><strong>max_distance</strong> (<em>float</em>) – Maximum distance at which the interaction takes place.</p></li>
-<li><p><strong>p</strong> (<em>float</em>) – Power exponent controlling the decay rate of the repulsion force.</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
-<li><p><strong>strength</strong> (<em>float</em>) – The maximum repulsion force intensity.</p></li>
-<li><p><strong>max_distance</strong> (<em>float</em>) – The maximum interaction range.</p></li>
-<li><p><strong>p</strong> (<em>float</em>) – The power exponent determining the force decay.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
-<li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>Example YAML configuration:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">power_law_repulsion</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">strength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
-<span class="w">    </span><span class="nt">max_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
-<span class="w">    </span><span class="nt">p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span>
-</pre></div>
-</div>
-<p>This sets a repulsion force with <cite>strength = 2.0</cite>, active within <cite>5.0</cite> units,
-and decaying with a power exponent <cite>p = 3.0</cite>.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction">
-<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction" title="Link to this definition">#</a></dt>
-<dd><p>Computes the repulsion force exerted by <cite>source_population</cite> on <cite>target_population</cite> using a power-law function.</p>
-<p>The repulsion force is computed as:</p>
-<blockquote>
-<div><p>F_repulsion = strength * (1/distance^p - 1/max_distance^p)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>where:</dt><dd><ul class="simple">
-<li><p><cite>distance</cite> is the Euclidean distance between agents in <cite>target_population</cite> and <cite>source_population</cite>.</p></li>
-<li><p><cite>max_distance</cite> defines the interaction cutoff beyond which no force is applied.</p></li>
-<li><p><cite>p</cite> controls how rapidly the force decays with distance.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the repulsion force applied to each
-agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and
-<cite>D</cite> is the dimensionality of the state space.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The function prevents division by zero by setting a minimum distance (<cite>1e-6</cite>).</p></li>
-<li><p>The force is capped at <cite>10</cite> to avoid numerical instabilities.</p></li>
-</ul>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-swarmsim.Interactions">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Interactions" title="Link to this heading">#</a></h2>
 <section id="interactions-module">
@@ -635,6 +383,16 @@ the effect that <cite>pop2</cite> (e.g., herders) has on <cite>pop1</cite> (e.g.
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.Interaction.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.Interaction.reset" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Interactions.Interaction.get_interaction">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.Interaction.get_interaction" title="Link to this definition">#</a></dt>
 <dd><p>Computes the forces that <cite>source_population</cite> applies on <cite>target_population</cite>.</p>
@@ -650,16 +408,6 @@ where <cite>N1</cite> is the number of agents in <cite>target_population</cite> 
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>ndarray</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Interactions.Interaction.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.Interaction.reset" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -760,8 +508,8 @@ the power exponent <cite>p</cite> and is active within a defined maximum interac
 <li><p><strong>pop2</strong> (<em>Population</em>) – The second population that applies the repulsion force.</p></li>
 <li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
 <li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
-<li><p><strong>target_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
-<li><p><strong>source_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
+<li><p><strong>target_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>)</p></li>
 <li><p><strong>config_path</strong> (<em>str</em>)</p></li>
 <li><p><strong>name</strong> (<em>str</em>)</p></li>
 </ul>
@@ -851,8 +599,8 @@ the power exponent <cite>p</cite> and is active within a defined maximum interac
 <li><p><strong>pop2</strong> (<em>Population</em>) – The second population that applies the repulsion force.</p></li>
 <li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
 <li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
-<li><p><strong>target_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
-<li><p><strong>source_population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a>)</p></li>
+<li><p><strong>target_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>)</p></li>
 <li><p><strong>config_path</strong> (<em>str</em>)</p></li>
 <li><p><strong>name</strong> (<em>str</em>)</p></li>
 </ul>
@@ -898,6 +646,295 @@ and decaying with a power exponent <cite>p = 3.0</cite>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Interactions.PowerLawInteraction.get_interaction">
 <span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_interaction.html#PowerLawInteraction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.PowerLawInteraction.get_interaction" title="Link to this definition">#</a></dt>
+<dd><p>Computes the repulsion force exerted by <cite>source_population</cite> on <cite>target_population</cite> using a power-law function.</p>
+<p>The repulsion force is computed as:</p>
+<blockquote>
+<div><p>F_repulsion = strength * (1/distance^p - 1/max_distance^p)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><cite>distance</cite> is the Euclidean distance between agents in <cite>target_population</cite> and <cite>source_population</cite>.</p></li>
+<li><p><cite>max_distance</cite> defines the interaction cutoff beyond which no force is applied.</p></li>
+<li><p><cite>p</cite> controls how rapidly the force decays with distance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the repulsion force applied to each
+agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and
+<cite>D</cite> is the dimensionality of the state space.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function prevents division by zero by setting a minimum distance (<cite>1e-6</cite>).</p></li>
+<li><p>The force is capped at <cite>10</cite> to avoid numerical instabilities.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Interactions.LennardJones">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.</span></span><span class="sig-name descname"><span class="pre">LennardJones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/lennard_jones.html#LennardJones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.LennardJones" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.LennardJones.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/lennard_jones.html#LennardJones.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.LennardJones.reset" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.LennardJones.get_interaction">
+<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/lennard_jones.html#LennardJones.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.LennardJones.get_interaction" title="Link to this definition">#</a></dt>
+<dd><p>Computes the forces that <cite>source_population</cite> applies on <cite>target_population</cite>.</p>
+<p>This method must be implemented by subclasses to define the specific
+interaction between the two populations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the forces exerted by <cite>source_population</cite> on <cite>target_population</cite>,
+where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and <cite>D</cite> is the state space dimension.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If called directly from the base class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-swarmsim.Interactions.interaction">
+<span id="interaction-interface"></span><h2>Interaction Interface<a class="headerlink" href="#module-swarmsim.Interactions.interaction" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.interaction.</span></span><span class="sig-name descname"><span class="pre">Interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class that defines the structure for interactions between two populations.</p>
+<p>This class serves as an interface for all interaction models in a multi-agent system.
+It requires subclasses to implement the <cite>get_interaction</cite> method, which computes
+the effect that <cite>pop2</cite> (e.g., herders) has on <cite>pop1</cite> (e.g., targets).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_population</strong> (<em>Population</em>) – The first population that is influenced by the interaction.</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>) – The second population that applies the interaction force.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>target_population</strong> (<em>Population</em>) – The population affected by the interaction.</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>) – The population exerting the interaction force.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The <cite>get_interaction</cite> method must be implemented in all subclasses.</p></li>
+<li><p>This class is designed for interactions such as <strong>repulsion, attraction,</strong> and <strong>alignment</strong>.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Example of a subclass implementing a specific interaction:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">HarmonicRepulsion</span><span class="p">(</span><span class="n">Interaction</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Compute repulsion forces here</span>
+        <span class="k">return</span> <span class="n">forces</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction.reset" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.interaction.Interaction.get_interaction">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/interaction.html#Interaction.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.interaction.Interaction.get_interaction" title="Link to this definition">#</a></dt>
+<dd><p>Computes the forces that <cite>source_population</cite> applies on <cite>target_population</cite>.</p>
+<p>This method must be implemented by subclasses to define the specific
+interaction between the two populations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the forces exerted by <cite>source_population</cite> on <cite>target_population</cite>,
+where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and <cite>D</cite> is the state space dimension.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If called directly from the base class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-swarmsim.Interactions.harmonic_repulsion">
+<span id="harmonic-repulsion"></span><h2>Harmonic Repulsion<a class="headerlink" href="#module-swarmsim.Interactions.harmonic_repulsion" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.harmonic_repulsion.</span></span><span class="sig-name descname"><span class="pre">HarmonicRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
+<p>Implements a finite-range harmonic repulsion force between two populations.</p>
+<p>This interaction models a repulsive force between agents in two populations,
+where the force magnitude decreases linearly as the distance increases, up to
+a maximum interaction distance.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_population</strong> (<em>Population</em>) – The first population (typically the affected agents).</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>) – The second population (agents exerting repulsion).</p></li>
+<li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>strength</strong> (<em>float</em>) – Maximum intensity of the repulsion force.</p></li>
+<li><p><strong>distance</strong> (<em>float</em>) – Maximum distance at which the interaction takes place.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repulsion</strong> –</p>
+<dl class="simple">
+<dt>strength<span class="classifier">float</span></dt><dd><p>Maximum repulsion force intensity.</p>
+</dd>
+<dt>max_distance<span class="classifier">float</span></dt><dd><p>Maximum interaction range.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
+<li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">repulsion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">strength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span>
+<span class="w">    </span><span class="nt">max_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+</pre></div>
+</div>
+<p>This sets a repulsion force with a strength of <cite>1.5</cite> and an interaction
+range of <cite>10.0</cite> units.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction">
+<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/harmonic_repulsion.html#HarmonicRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction" title="Link to this definition">#</a></dt>
+<dd><p>Computes the repulsion force exerted by <cite>source_population</cite> on <cite>target_population</cite>.</p>
+<p>The repulsion force follows a <strong>harmonic</strong> behavior where:
+- The force is strongest when two agents are very close.
+- It decreases linearly as the distance increases.
+- It becomes zero when the distance exceeds <cite>max_distance</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – A <cite>(N1, D)</cite> array representing the repulsion force applied to each
+agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of agents in <cite>target_population</cite> and
+<cite>D</cite> is the dimensionality of the state space.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function computes <strong>pairwise distances</strong> between agents in <cite>target_population</cite>
+and <cite>source_population</cite> and applies the harmonic repulsion formula.</p></li>
+<li><p>To avoid division by zero, a small epsilon (<cite>1e-6</cite>) is added to distances.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-swarmsim.Interactions.power_law_repulsion">
+<span id="power-law-repulsion"></span><h2>Power Law Repulsion<a class="headerlink" href="#module-swarmsim.Interactions.power_law_repulsion" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.power_law_repulsion.</span></span><span class="sig-name descname"><span class="pre">PowerLawRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
+<p>Implements a power-law repulsion interaction between two populations.</p>
+<p>This interaction models a repulsive force that decays according to a power-law function
+with respect to the distance between agents. The strength of the force is determined by
+the power exponent <cite>p</cite> and is active within a defined maximum interaction range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pop1</strong> (<em>Population</em>) – The first population that is influenced by the interaction.</p></li>
+<li><p><strong>pop2</strong> (<em>Population</em>) – The second population that applies the repulsion force.</p></li>
+<li><p><strong>config</strong> (<em>str</em>) – Path to the YAML configuration file containing interaction parameters.</p></li>
+<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
+<li><p><strong>target_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>source_population</strong> (<em>Population</em>)</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Dictionary containing interaction parameters loaded from the configuration file.</p></li>
+<li><p><strong>strength</strong> (<em>float</em>) – Maximum intensity of the repulsion force.</p></li>
+<li><p><strong>max_distance</strong> (<em>float</em>) – Maximum distance at which the interaction takes place.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – Power exponent controlling the decay rate of the repulsion force.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repulsion_name</strong> (<em>str</em>) – The section name in the YAML file specifying the repulsion parameters.</p></li>
+<li><p><strong>strength</strong> (<em>float</em>) – The maximum repulsion force intensity.</p></li>
+<li><p><strong>max_distance</strong> (<em>float</em>) – The maximum interaction range.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – The power exponent determining the force decay.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
+<li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">power_law_repulsion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">strength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">max_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
+<span class="w">    </span><span class="nt">p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span>
+</pre></div>
+</div>
+<p>This sets a repulsion force with <cite>strength = 2.0</cite>, active within <cite>5.0</cite> units,
+and decaying with a power exponent <cite>p = 3.0</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction">
+<span class="sig-name descname"><span class="pre">get_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_repulsion.html#PowerLawRepulsion.get_interaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction" title="Link to this definition">#</a></dt>
 <dd><p>Computes the repulsion force exerted by <cite>source_population</cite> on <cite>target_population</cite> using a power-law function.</p>
 <p>The repulsion force is computed as:</p>
 <blockquote>
@@ -977,31 +1014,6 @@ agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of 
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.harmonic_repulsion">swarmsim.Interactions.harmonic_repulsion module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.reset()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.get_interaction()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.interaction">swarmsim.Interactions.interaction module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.power_law_repulsion">swarmsim.Interactions.power_law_repulsion module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.reset()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactions-module">Interactions Module</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#available-interactions">Available Interactions</a></li>
@@ -1009,8 +1021,8 @@ agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of 
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul class="nav section-nav flex-column">
@@ -1026,6 +1038,36 @@ agent in <cite>target_population</cite>, where <cite>N1</cite> is the number of 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawInteraction.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.PowerLawInteraction.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.get_interaction()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.LennardJones.reset"><code class="docutils literal notranslate"><span class="pre">LennardJones.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.LennardJones.get_interaction"><code class="docutils literal notranslate"><span class="pre">LennardJones.get_interaction()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.interaction">Interaction Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.interaction.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.harmonic_repulsion">Harmonic Repulsion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.get_interaction()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Interactions.power_law_repulsion">Power Law Repulsion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
 </ul>
 </li>
 </ul>
