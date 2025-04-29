@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Utils.logger_utils &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Utils.logger_utils &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -272,12 +284,26 @@
   <h1>Source code for swarmsim.Utils.logger_utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
 
 <div class="viewcode-block" id="add_entry">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.add_entry">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">add_entry</span><span class="p">(</span><span class="n">current_info</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">current_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span></div>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_entry</span><span class="p">(</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">txt_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">csv_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">npz_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mat_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">current_info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;print_flag&#39;</span><span class="p">:</span> <span class="n">print_flag</span><span class="p">,</span> <span class="s1">&#39;txt_flag&#39;</span><span class="p">:</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="s1">&#39;csv_flag&#39;</span><span class="p">:</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="s1">&#39;npz_flag&#39;</span><span class="p">:</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="s1">&#39;mat_flag&#39;</span><span class="p">:</span> <span class="n">mat_flag</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="print_log">
+<a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.print_log">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_log</span><span class="p">(</span><span class="n">current_info</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to print information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;print_flag&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">; &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 
@@ -287,18 +313,76 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
         <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;txt_flag&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="append_csv">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_csv">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">append_csv</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">current_info</span><span class="p">):</span>
+    <span class="n">current_info_csv</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;csv_flag&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">current_info_csv</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_info_csv</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]})</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
-        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">current_info</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">current_info_csv</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">csvfile</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Write header if the file is empty</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
-        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">current_info</span><span class="p">)</span></div>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">current_info_csv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_npz">
+<a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_npz">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_npz</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A function to save multiple tensors in a single .npz file to store relevant data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        log_name: string of the .npz output name</span>
+<span class="sd">        data: dict of {name_tensor: value} where name_tensor is a string and value is np.array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -------</span>
+<span class="sd">    Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    -------</span>
+<span class="sd">    settling_times = np.array([1,2,3,4,5])</span>
+<span class="sd">    control_efforts = np.array([6,7,8,9,10])</span>
+<span class="sd">    data = {&#39;settling_time&#39;:settling_times, &#39;control_efforts&#39;:control_efforts}</span>
+<span class="sd">    logger.save_data(&#39;my_data.npz&#39;, data)</span>
+
+<span class="sd">    data_loaded = np.load(&#39;path\\my_data.npz&#39;)</span>
+<span class="sd">    settling_times_ = data_loaded[&#39;settling_times&#39;]</span>
+<span class="sd">    control_efforts_  = data_loaded[&#39;control_efforts&#39;]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">npz_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;npz_flag&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">npz_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]})</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="o">**</span><span class="n">npz_data</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_mat">
+<a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_mat">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_mat</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">mat_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;mat_flag&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">mat_data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]})</span>
+    <span class="n">sio</span><span class="o">.</span><span class="n">savemat</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">mat_data</span><span class="p">)</span></div>
 
 </pre></div>
 

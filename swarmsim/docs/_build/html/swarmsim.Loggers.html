@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Loggers';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Population" href="swarmsim.Populations.html" />
+    <link rel="next" title="Populations" href="swarmsim.Populations.html" />
     <link rel="prev" title="Interactions" href="swarmsim.Interactions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -242,10 +242,10 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,11 +308,14 @@
                   
   <section id="loggers">
 <h1>Loggers<a class="headerlink" href="#loggers" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Loggers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Loggers" title="Link to this heading">#</a></h2>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Loggers.base_logger">
-<span id="swarmsim-loggers-base-logger-module"></span><h2>swarmsim.Loggers.base_logger module<a class="headerlink" href="#module-swarmsim.Loggers.base_logger" title="Link to this heading">#</a></h2>
+<span id="logger-interface"></span><h2>Logger Interface<a class="headerlink" href="#module-swarmsim.Loggers.base_logger" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.base_logger.</span></span><span class="sig-name descname"><span class="pre">BaseLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger" title="Link to this definition">#</a></dt>
@@ -414,12 +417,12 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_external_data">
-<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">
-<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -431,7 +434,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 </section>
 <section id="module-swarmsim.Loggers.logger">
-<span id="swarmsim-loggers-logger-module"></span><h2>swarmsim.Loggers.logger module<a class="headerlink" href="#module-swarmsim.Loggers.logger" title="Link to this heading">#</a></h2>
+<span id="base-logger"></span><h2>Base Logger<a class="headerlink" href="#module-swarmsim.Loggers.logger" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger" title="Link to this definition">#</a></dt>
@@ -472,11 +475,8 @@ By default, it does not truncate episode early.</p>
 </dd></dl>
 
 </section>
-<section id="swarmsim-loggers-shepherding-gym-logger-module">
-<h2>swarmsim.Loggers.shepherding_gym_logger module<a class="headerlink" href="#swarmsim-loggers-shepherding-gym-logger-module" title="Link to this heading">#</a></h2>
-</section>
 <section id="module-swarmsim.Loggers.shepherding_logger">
-<span id="swarmsim-loggers-shepherding-logger-module"></span><h2>swarmsim.Loggers.shepherding_logger module<a class="headerlink" href="#module-swarmsim.Loggers.shepherding_logger" title="Link to this heading">#</a></h2>
+<span id="shepherding-logger"></span><h2>Shepherding Logger<a class="headerlink" href="#module-swarmsim.Loggers.shepherding_logger" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.shepherding_logger.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger" title="Link to this definition">#</a></dt>
@@ -580,8 +580,8 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Loggers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Loggers" title="Link to this heading">#</a></h2>
+<section id="shepherding-gym-logger">
+<h2>Shepherding Gym Logger<a class="headerlink" href="#shepherding-gym-logger" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -609,7 +609,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Population</p>
+        <p class="prev-next-title">Populations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -632,8 +632,9 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers">Module contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.base_logger">swarmsim.Loggers.base_logger module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.base_logger">Logger Interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.reset"><code class="docutils literal notranslate"><span class="pre">BaseLogger.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.log"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log()</span></code></a></li>
@@ -645,7 +646,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.logger">swarmsim.Loggers.logger module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.logger">Base Logger</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger.reset"><code class="docutils literal notranslate"><span class="pre">Logger.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger.log"><code class="docutils literal notranslate"><span class="pre">Logger.log()</span></code></a></li>
@@ -654,8 +655,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim-loggers-shepherding-gym-logger-module">swarmsim.Loggers.shepherding_gym_logger module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.shepherding_logger">swarmsim.Loggers.shepherding_logger module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.shepherding_logger">Shepherding Logger</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log_internal_data()</span></code></a></li>
@@ -665,7 +665,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shepherding-gym-logger">Shepherding Gym Logger</a></li>
 </ul>
   </nav></div>
 

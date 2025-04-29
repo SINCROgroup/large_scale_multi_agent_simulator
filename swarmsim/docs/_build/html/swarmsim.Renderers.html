@@ -45,7 +45,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Simulators" href="swarmsim.Simulators.html" />
-    <link rel="prev" title="Population" href="swarmsim.Populations.html" />
+    <link rel="prev" title="Loggers" href="swarmsim.Loggers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -242,10 +242,9 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,11 +307,103 @@
                   
   <section id="renderers">
 <h1>Renderers<a class="headerlink" href="#renderers" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Renderers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Renderers" title="Link to this heading">#</a></h2>
+<section id="swarmsim-renderers">
+<h3>swarmsim.Renderers<a class="headerlink" href="#swarmsim-renderers" title="Link to this heading">#</a></h3>
+<p>This module provides rendering utilities for visualizing multi-agent environments.</p>
+<dl class="simple">
+<dt>It includes:</dt><dd><ul class="simple">
+<li><p>A <strong>base renderer</strong> (<cite>BaseRenderer</cite>) supporting both <strong>Matplotlib</strong> and <strong>Pygame</strong>.</p></li>
+<li><p>A <strong>specialized renderer</strong> (<cite>ShepherdingRenderer</cite>) for shepherding simulations, which includes a <strong>goal region visualization</strong>.</p></li>
+<li><p>An <strong>abstract interface</strong> (<cite>Renderer</cite>) to define custom rendering implementations.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id1">
+<h4>Module Contents<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>Renderer</cite> : Abstract base class defining the rendering interface.</p></li>
+<li><p><cite>BaseRenderer</cite> : General-purpose renderer supporting Matplotlib and Pygame.</p></li>
+<li><p><cite>ShepherdingRenderer</cite> : Specialized renderer with goal visualization.</p></li>
+</ul>
+</div></blockquote>
+<p class="rubric">Examples</p>
+<p>Example usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
+
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">BaseRenderer</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>If <cite>render_mode=”matplotlib”</cite>, the renderer creates a static figure with a pause interval.</p></li>
+<li><p>If <cite>render_mode=”pygame”</cite>, a Pygame window is created for interactive rendering.</p></li>
+<li><p>The <strong>ShepherdingRenderer</strong> adds a visualized goal region for shepherding tasks.</p></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
+<section id="module-swarmsim.Renderers.renderer">
+<span id="renderer-interface"></span><h2>Renderer Interface<a class="headerlink" href="#module-swarmsim.Renderers.renderer" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Renderers.renderer.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class that defines the interface for rendering environments and agents.</p>
+<p>This class provides an interface for visualizing multi-agent environments, requiring
+subclasses to implement <cite>render</cite> and <cite>close</cite> methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to render.</p></li>
+<li><p><strong>environment</strong> (<em>object</em>) – The environment instance in which the populations exist.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing rendering settings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to be rendered.</p></li>
+<li><p><strong>environment</strong> (<em>object</em>) – The environment in which the agents operate.</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – Dictionary containing rendering configuration parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>renderer</strong> – The YAML configuration file must contain a <cite>renderer</cite> section specifying visualization settings.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This is an abstract base class (ABC) and must be subclassed.</p></li>
+<li><p>The <cite>render</cite> method must be implemented to display the environment and agent states.</p></li>
+<li><p>The <cite>close</cite> method should release any resources allocated for rendering.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.render">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.render" title="Link to this definition">#</a></dt>
+<dd><p>Renders the environment and the agents in it.</p>
+<p>This method should be implemented by subclasses to define how the environment
+and agents are visually represented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.close">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.close" title="Link to this definition">#</a></dt>
+<dd><p>Closes the rendering interface and releases any allocated resources.</p>
+<p>This method should be implemented in subclasses to properly clean up
+rendering-related resources such as open windows, memory buffers, or GPU contexts.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-swarmsim.Renderers.base_renderer">
-<span id="swarmsim-renderers-base-renderer-module"></span><h2>swarmsim.Renderers.base_renderer module<a class="headerlink" href="#module-swarmsim.Renderers.base_renderer" title="Link to this heading">#</a></h2>
+<span id="base-renderer"></span><h2>Base Renderer<a class="headerlink" href="#module-swarmsim.Renderers.base_renderer" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Renderers.base_renderer.BaseRenderer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Renderers.base_renderer.</span></span><span class="sig-name descname"><span class="pre">BaseRenderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/base_renderer.html#BaseRenderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.base_renderer.BaseRenderer" title="Link to this definition">#</a></dt>
@@ -469,61 +560,8 @@ up any allocated resources.</p>
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Renderers.renderer">
-<span id="swarmsim-renderers-renderer-module"></span><h2>swarmsim.Renderers.renderer module<a class="headerlink" href="#module-swarmsim.Renderers.renderer" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Renderers.renderer.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class that defines the interface for rendering environments and agents.</p>
-<p>This class provides an interface for visualizing multi-agent environments, requiring
-subclasses to implement <cite>render</cite> and <cite>close</cite> methods.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to render.</p></li>
-<li><p><strong>environment</strong> (<em>object</em>) – The environment instance in which the populations exist.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing rendering settings.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to be rendered.</p></li>
-<li><p><strong>environment</strong> (<em>object</em>) – The environment in which the agents operate.</p></li>
-<li><p><strong>config</strong> (<em>dict</em>) – Dictionary containing rendering configuration parameters.</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>renderer</strong> – The YAML configuration file must contain a <cite>renderer</cite> section specifying visualization settings.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>This is an abstract base class (ABC) and must be subclassed.</p></li>
-<li><p>The <cite>render</cite> method must be implemented to display the environment and agent states.</p></li>
-<li><p>The <cite>close</cite> method should release any resources allocated for rendering.</p></li>
-</ul>
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.render">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.render" title="Link to this definition">#</a></dt>
-<dd><p>Renders the environment and the agents in it.</p>
-<p>This method should be implemented by subclasses to define how the environment
-and agents are visually represented.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.close">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.close" title="Link to this definition">#</a></dt>
-<dd><p>Closes the rendering interface and releases any allocated resources.</p>
-<p>This method should be implemented in subclasses to properly clean up
-rendering-related resources such as open windows, memory buffers, or GPU contexts.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-swarmsim.Renderers.shepherding_renderer">
-<span id="swarmsim-renderers-shepherding-renderer-module"></span><h2>swarmsim.Renderers.shepherding_renderer module<a class="headerlink" href="#module-swarmsim.Renderers.shepherding_renderer" title="Link to this heading">#</a></h2>
+<span id="shepherding-renderer"></span><h2>Shepherding Renderer<a class="headerlink" href="#module-swarmsim.Renderers.shepherding_renderer" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Renderers.shepherding_renderer.</span></span><span class="sig-name descname"><span class="pre">ShepherdingRenderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/shepherding_renderer.html#ShepherdingRenderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer" title="Link to this definition">#</a></dt>
@@ -610,45 +648,6 @@ visually indicating where the target agents should be herded.</p>
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Renderers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Renderers" title="Link to this heading">#</a></h2>
-<section id="swarmsim-renderers">
-<h3>swarmsim.Renderers<a class="headerlink" href="#swarmsim-renderers" title="Link to this heading">#</a></h3>
-<p>This module provides rendering utilities for visualizing multi-agent environments.</p>
-<dl class="simple">
-<dt>It includes:</dt><dd><ul class="simple">
-<li><p>A <strong>base renderer</strong> (<cite>BaseRenderer</cite>) supporting both <strong>Matplotlib</strong> and <strong>Pygame</strong>.</p></li>
-<li><p>A <strong>specialized renderer</strong> (<cite>ShepherdingRenderer</cite>) for shepherding simulations, which includes a <strong>goal region visualization</strong>.</p></li>
-<li><p>An <strong>abstract interface</strong> (<cite>Renderer</cite>) to define custom rendering implementations.</p></li>
-</ul>
-</dd>
-</dl>
-<section id="id1">
-<h4>Module Contents<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<blockquote>
-<div><ul class="simple">
-<li><p><cite>Renderer</cite> : Abstract base class defining the rendering interface.</p></li>
-<li><p><cite>BaseRenderer</cite> : General-purpose renderer supporting Matplotlib and Pygame.</p></li>
-<li><p><cite>ShepherdingRenderer</cite> : Specialized renderer with goal visualization.</p></li>
-</ul>
-</div></blockquote>
-<p class="rubric">Examples</p>
-<p>Example usage:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
-
-<span class="n">renderer</span> <span class="o">=</span> <span class="n">BaseRenderer</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
-<span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-</pre></div>
-</div>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>If <cite>render_mode=”matplotlib”</cite>, the renderer creates a static figure with a pause interval.</p></li>
-<li><p>If <cite>render_mode=”pygame”</cite>, a Pygame window is created for interactive rendering.</p></li>
-<li><p>The <strong>ShepherdingRenderer</strong> adds a visualized goal region for shepherding tasks.</p></li>
-</ul>
-</section>
-</section>
-</section>
 </section>
 
 
@@ -662,12 +661,12 @@ visually indicating where the target agents should be herded.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="swarmsim.Populations.html"
+       href="swarmsim.Loggers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Population</p>
+        <p class="prev-next-title">Loggers</p>
       </div>
     </a>
     <a class="right-next"
@@ -698,8 +697,23 @@ visually indicating where the target agents should be herded.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim-renderers">swarmsim.Renderers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.base_renderer">swarmsim.Renderers.base_renderer module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.renderer">Renderer Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer.render"><code class="docutils literal notranslate"><span class="pre">Renderer.render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer.close"><code class="docutils literal notranslate"><span class="pre">Renderer.close()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.base_renderer">Base Renderer</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.base_renderer.BaseRenderer.render"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.render()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.base_renderer.BaseRenderer.render_matplotlib"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.render_matplotlib()</span></code></a></li>
@@ -713,25 +727,10 @@ visually indicating where the target agents should be herded.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.renderer">swarmsim.Renderers.renderer module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer.render"><code class="docutils literal notranslate"><span class="pre">Renderer.render()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.renderer.Renderer.close"><code class="docutils literal notranslate"><span class="pre">Renderer.close()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.shepherding_renderer">swarmsim.Renderers.shepherding_renderer module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers.shepherding_renderer">Shepherding Renderer</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_matplotlib"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer.post_render_hook_matplotlib()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_pygame"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer.post_render_hook_pygame()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Renderers">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim-renderers">swarmsim.Renderers</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Module Contents</a></li>
 </ul>
 </li>
 </ul>

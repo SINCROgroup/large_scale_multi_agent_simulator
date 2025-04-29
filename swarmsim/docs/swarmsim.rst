@@ -1,10 +1,6 @@
 swarms_py
 =========
 
-
-Subpackages
------------
-
 .. toctree::
    :maxdepth: 4
 
@@ -13,7 +9,7 @@ Subpackages
    swarmsim.Integrators
    swarmsim.Interactions
    swarmsim.Loggers
-   swarmsim.Population
+   swarmsim.Populations
    swarmsim.Renderers
    swarmsim.Simulators
    swarmsim.Utils

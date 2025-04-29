@@ -242,10 +242,9 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,11 +307,46 @@
                   
   <section id="integrators">
 <h1>Integrators<a class="headerlink" href="#integrators" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Integrators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading">#</a></h2>
+<p>The <cite>Integrators</cite> module provides numerical integration methods for simulating
+the movement of agents.</p>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>Integrator</cite>:</dt><dd><ul>
+<li><p>Abstract base class for numerical integration.</p></li>
+<li><p>Requires implementation of the <cite>step</cite> method.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>EulerMaruyamaIntegrator</cite>:</dt><dd><ul>
+<li><p>Stochastic integration method that updates agent positions based on drift and diffusion terms.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h3>
+<p>To use an integrator, import it and instantiate with a configuration file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyamaIntegrator</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyamaIntegrator</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+<span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will perform a <strong>single integration step</strong> using the Euler-Maruyama method.</p>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Integrators.base_integrator">
-<span id="swarmsim-integrators-base-integrator-module"></span><h2>swarmsim.Integrators.base_integrator module<a class="headerlink" href="#module-swarmsim.Integrators.base_integrator" title="Link to this heading">#</a></h2>
+<span id="integrator-interface"></span><h2>Integrator Interface<a class="headerlink" href="#module-swarmsim.Integrators.base_integrator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.base_integrator.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator" title="Link to this definition">#</a></dt>
@@ -364,7 +398,7 @@ integration is performed for a given set of populations.</p>
 
 </section>
 <section id="module-swarmsim.Integrators.euler_maruyama">
-<span id="swarmsim-integrators-euler-maruyama-module"></span><h2>swarmsim.Integrators.euler_maruyama module<a class="headerlink" href="#module-swarmsim.Integrators.euler_maruyama" title="Link to this heading">#</a></h2>
+<span id="euler-maruyama"></span><h2>Euler Maruyama<a class="headerlink" href="#module-swarmsim.Integrators.euler_maruyama" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.euler_maruyama.</span></span><span class="sig-name descname"><span class="pre">EulerMaruyamaIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator" title="Link to this definition">#</a></dt>
@@ -436,41 +470,6 @@ Each population object must have:
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Integrators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading">#</a></h2>
-<p>The <cite>Integrators</cite> module provides numerical integration methods for simulating
-the movement of agents.</p>
-<section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><dl class="simple">
-<dt><cite>Integrator</cite>:</dt><dd><ul>
-<li><p>Abstract base class for numerical integration.</p></li>
-<li><p>Requires implementation of the <cite>step</cite> method.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><cite>EulerMaruyamaIntegrator</cite>:</dt><dd><ul>
-<li><p>Stochastic integration method that updates agent positions based on drift and diffusion terms.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</section>
-<section id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h3>
-<p>To use an integrator, import it and instantiate with a configuration file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyamaIntegrator</span>
-<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyamaIntegrator</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
-<span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This will perform a <strong>single integration step</strong> using the Euler-Maruyama method.</p>
-</section>
-</section>
 </section>
 
 
@@ -520,24 +519,24 @@ the movement of agents.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">swarmsim.Integrators.base_integrator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">Integrator Interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.euler_maruyama">swarmsim.Integrators.euler_maruyama module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.euler_maruyama">Euler Maruyama</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator.step()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 </ul>
 </li>
 </ul>
