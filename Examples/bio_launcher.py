@@ -47,7 +47,7 @@ if __name__ == '__main__':
     population1 = LightSensitive_PTW(config_path)
     populations = [population1]
 
-    controller = LightPattern(population1,environment,config_path) 
+    controller = LightPattern(population1, environment, config_path)
     controllers = [controller]
 
     interactions = []

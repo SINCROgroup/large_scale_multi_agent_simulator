@@ -66,6 +66,7 @@ class BaseLogger(Logger):
         self.log_freq = logger_config.get('log_freq', 0)  # Print frequency
         self.save_freq = logger_config.get('save_freq', 0)  # Save frequency
         self.save_data_freq = logger_config.get('save_data_freq', 0)
+        self.save_global_data_freq = logger_config.get('save_global_data_freq', 0)
         self.log_path = logger_config.get('log_path', './logs')
         self.comment_enable = logger_config.get('comment_enable', False)
         self.populations = populations
@@ -83,8 +84,10 @@ class BaseLogger(Logger):
         self.start = None  # Time start
         self.end = None  # Time end
         self.step_count = None  # Count steps for frequency check and logging
+        self.experiment_count = None
         self.done = None  # Episode truncation
         self.current_info = None
+        self.global_info = None
 
         # If there are any comments to describe the experiment add them, otherwise empty
         if self.activate:
@@ -114,9 +117,11 @@ class BaseLogger(Logger):
             # Initialize logger: create file with date, current config settings, and add eventual comments
             self.start = time.time()  # Start counter for elapsed time
             self.step_count = 0  # Keep track of time
+            self.experiment_count = 0
+            self.global_info = {}
         return self.activate
 
-    def log(self, data: dict | None =None):
+    def log(self, data: dict | None = None):
         """
         A function that defines the information to log.
 
@@ -165,6 +170,7 @@ class BaseLogger(Logger):
 
         # Log final step before closing
         if self.activate:
+            self.experiment_count += 1
             self.done = self.log(data)  # Log last time step before closing
             self.end = time.time()  # Get end time for elapsed time
 
@@ -183,14 +189,14 @@ class BaseLogger(Logger):
 
         return self.activate
 
-    def log_external_data(self, data, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=True, mat_flag=True):
+    def log_external_data(self, data, save_mode=['npz', 'mat']):
         if data is not None:
             for key, value in data.items():
-                add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag,**{key: value})
+                add_entry(self.current_info, save_mode, **{key: value})
 
-    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False, mat_flag=False):
-        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag, step=self.step_count)  # Get timestamp
-        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, mat_flag, done=self.done)  # Add done flag
+    def log_internal_data(self, save_mode=['txt', 'print']):
+        add_entry(self.current_info, save_mode, step=self.step_count)  # Get timestamp
+        add_entry(self.current_info, save_mode, done=self.done)  # Add done flag
 
     def output_data(self):
         # Print line if wanted
@@ -207,9 +213,13 @@ class BaseLogger(Logger):
                 # Save to TXT
                 append_txt(self.log_name_txt, self.current_info)
 
-        # Save to npz if wanted
+        # Save to npz and mat if wanted
         if self.save_data_freq > 0:
             if self.step_count % self.save_data_freq == 0:
                 save_npz(self.log_name_npz, self.current_info)
                 save_mat(self.log_name_mat, self.current_info)
 
+        if self.save_global_data_freq and self.experiment_count > 0:
+            if self.experiment_count % self.save_global_data_freq == 0:
+                save_npz(self.log_name_npz, self.global_info)
+                save_mat(self.log_name_mat, self.global_info)

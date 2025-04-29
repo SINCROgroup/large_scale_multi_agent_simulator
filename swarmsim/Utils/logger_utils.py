@@ -1,10 +1,29 @@
 import csv
+import os
+
 import numpy as np
 import scipy.io as sio
 
-def add_entry(current_info, print_flag=False, txt_flag=False, csv_flag=False, npz_flag=False, mat_flag=False, **kwargs):
+
+def add_entry(current_info, save_mode=[], **kwargs):
     for key, value in kwargs.items():
-        current_info[key] = {'value': value, 'print_flag': print_flag, 'txt_flag': txt_flag, 'csv_flag': csv_flag, 'npz_flag': npz_flag, 'mat_flag': mat_flag}
+        current_info[key] = {'value': value, 'save_mode': save_mode}
+
+
+def append_entry(info, save_mode=[], **kwargs):
+    for key, value in kwargs.items():
+        if key in info:
+            info[key] = {'value': np.vstack([info[key]['value'], value]), 'save_mode': save_mode}
+        else:
+            info[key] = {'value': np.asarray([value]), 'save_mode': save_mode}  # Create first row
+
+
+def get_positions(info, populations, save_mode):
+    for pop in populations:
+        for d in range(pop.state_dim):
+            col_name = str(pop.id + '_state' + str(d))
+            value = pop.x[:, d]
+            append_entry(info, save_mode, **{col_name: value})
 
 
 def print_log(current_info):
@@ -12,7 +31,7 @@ def print_log(current_info):
     Function to print information
     """
     for key, value in current_info.items():
-        if value['print_flag'] is True:
+        if 'print' in value['save_mode']:
             print(f"{key}: {value['value']}; ", end=" ")
     print('\n')
 
@@ -21,14 +40,14 @@ def append_txt(log_name, current_info):
     with open(log_name, mode="a") as txtfile:
         txtfile.write("\n")
         for key, value in current_info.items():
-            if value['txt_flag'] is True:
+            if 'txt' in value['save_mode']:
                 txtfile.write(f"{key}: {value['value']}\n")
 
 
 def append_csv(log_name, current_info):
     current_info_csv = {}
     for key, value in current_info.items():
-        if value['csv_flag']:
+        if 'csv' in value['save_mode']:
             if isinstance(value['value'], np.ndarray):
                 current_info_csv.update({key: value['value'].tolist()})
             else:
@@ -71,7 +90,7 @@ def save_npz(log_name, data):
     """
     npz_data = {}
     for key, value in data.items():
-        if value['npz_flag'] is True:
+        if 'npz' in value['save_mode']:
             npz_data.update({key: value['value']})
     np.savez(log_name, **npz_data)
 
@@ -79,6 +98,6 @@ def save_npz(log_name, data):
 def save_mat(log_name, data):
     mat_data = {}
     for key, value in data.items():
-        if value['mat_flag'] is True:
+        if 'mat' in value['save_mode']:
             mat_data.update({key: value['value']})
     sio.savemat(log_name, mat_data)

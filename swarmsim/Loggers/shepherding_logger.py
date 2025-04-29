@@ -78,9 +78,9 @@ class ShepherdingLogger(BaseLogger):
 
         return self.done
 
-    def log_internal_data(self, print_flag=True, txt_flag=True, csv_flag=True, npz_flag=False):
-        super().log_internal_data(print_flag, txt_flag, csv_flag, npz_flag)
-        add_entry(self.current_info, print_flag, txt_flag, csv_flag, npz_flag, xi=self.xi)
+    def log_internal_data(self, save_mode=['print', 'txt']):
+        super().log_internal_data(save_mode)
+        add_entry(self.current_info, save_mode, xi=self.xi)
 
     def get_xi(self) -> float:
         """
