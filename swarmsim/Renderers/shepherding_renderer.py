@@ -66,6 +66,7 @@ class ShepherdingRenderer(BaseRenderer):
         super().__init__(populations, environment, config_path)
 
         self.sensing_radius = self.config.get('sensing_radius', float('inf'))
+        self.goal_circle = None
 
     def post_render_hook_matplotlib(self):
         """
@@ -90,9 +91,14 @@ class ShepherdingRenderer(BaseRenderer):
                                      color='green', alpha=0.3, label='Goal Region')
             self.ax.add_artist(goal_circle)
         """
-        goal_circle = plt.Circle(self.environment.goal_pos, self.environment.goal_radius,
-                                 color='green', alpha=0.3, label='Goal Region')
-        self.ax.add_artist(goal_circle)
+        if self.goal_circle is None:
+            self.goal_circle = plt.Circle(self.environment.goal_pos,
+                                          self.environment.goal_radius,
+                                          color='green', alpha=0.3, label='Goal Region')
+            self.ax.add_artist(self.goal_circle)
+        else:
+            self.goal_circle.center = self.environment.goal_pos
+            self.goal_circle.set_radius(self.environment.goal_radius)
 
     def post_render_hook_pygame(self):
         """
