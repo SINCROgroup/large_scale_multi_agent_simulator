@@ -139,12 +139,11 @@ class PowerLawInteraction(Interaction):
         else:
             shift = 0
 
-
-        kernel = (self.strength_rep / (distances ** self.p_rep) -
-                  self.strength_attr / (distances ** self.p_attr)) - shift
+        kernel = (self.strength_rep[:, np.newaxis] / (distances ** self.p_rep) -
+                  self.strength_attr[:, np.newaxis] / (distances ** self.p_attr)) - shift[:, np.newaxis]
 
         if self.max_distance is not None:
-            mask = distances <= self.max_distance
+            mask = distances <= self.max_distance[:, np.newaxis]
             kernel = mask * kernel
 
         kernel = np.minimum(kernel, 1000)
