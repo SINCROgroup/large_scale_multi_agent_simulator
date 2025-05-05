@@ -127,7 +127,7 @@ class PowerLawRepulsion(Interaction):
         # Compute the force kernel using power-law repulsion
         y_f = 1 / (self.max_distance ** self.p)
         kernel = (1 / (distances ** self.p) - y_f[:, np.newaxis])
-        kernel = self.strength[:, np.newaxis] * np.minimum(np.maximum(kernel, 0), 10)  # Cap forces to avoid instability
+        kernel = self.strength[:, np.newaxis] * np.minimum(np.maximum(kernel, 0), 1000)  # Cap forces to avoid instability
 
         # Compute final repulsion forces
         repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
