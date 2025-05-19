@@ -61,3 +61,21 @@ class DampedDoubleIntegrators(Population):
         return self.D
 
 
+import numba
+
+
+@numba.njit
+def get_drift_numba(x: np.ndarray, u: np.ndarray, f: np.ndarray, damping: np.ndarray, input_dim: int) -> np.ndarray:
+    N, D2 = x.shape
+    D = D2 // 2
+    drift = np.empty((N, 2 * D))
+
+    for i in range(N):
+        for d in range(D):
+            v = x[i, D + d]
+            a = -damping[i] * v + u[i, d] + f[i, d]
+            drift[i, d] = v  # velocity
+            drift[i, D + d] = a  # acceleration
+    return drift
+
+

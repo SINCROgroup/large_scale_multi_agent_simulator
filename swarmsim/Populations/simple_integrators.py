@@ -35,3 +35,20 @@ class SimpleIntegrators(Population):
 
     def get_diffusion(self):
         return np.zeros((self.N, self.state_dim))
+
+
+import numba
+
+@numba.njit
+def get_drift_numba(u: np.ndarray, f: np.ndarray, v_max: float) -> np.ndarray:
+    N, D = u.shape
+    drift = np.empty((N, D))
+    for i in range(N):
+        for d in range(D):
+            val = u[i, d] + f[i, d]
+            if val > v_max:
+                val = v_max
+            elif val < -v_max:
+                val = -v_max
+            drift[i, d] = val
+    return drift

@@ -1,7 +1,7 @@
 import numpy as np
 from swarmsim.Interactions import Interaction
 from swarmsim.Populations import Population
-from swarmsim.Utils import compute_distances
+from swarmsim.Utils import compute_distances_numba
 from typing import Optional
 
 
@@ -118,18 +118,54 @@ class PowerLawRepulsion(Interaction):
         - The force is capped at `10` to avoid numerical instabilities.
         """
 
-        # Compute pairwise distances and relative positions between agents
-        distances, relative_positions = compute_distances(self.target_population.x[:, :2], self.source_population.x[:, :2])
+        # # Compute pairwise distances and relative positions between agents
+        # distances, relative_positions = compute_distances(self.target_population.x[:, :2], self.source_population.x[:, :2])
+        #
+        # # Prevent division by zero
+        # distances = np.maximum(distances, 1e-6)
+        #
+        # # Compute the force kernel using power-law repulsion
+        # y_f = 1 / (self.max_distance ** self.p)
+        # kernel = (1 / (distances ** self.p) - y_f[:, np.newaxis])
+        # kernel = self.strength[:, np.newaxis] * np.minimum(np.maximum(kernel, 0), 1000)  # Cap forces to avoid instability
+        #
+        # # Compute final repulsion forces
+        # repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
+        #
+        # return repulsion
 
-        # Prevent division by zero
-        distances = np.maximum(distances, 1e-6)
 
-        # Compute the force kernel using power-law repulsion
-        y_f = 1 / (self.max_distance ** self.p)
-        kernel = (1 / (distances ** self.p) - y_f[:, np.newaxis])
-        kernel = self.strength[:, np.newaxis] * np.minimum(np.maximum(kernel, 0), 1000)  # Cap forces to avoid instability
+        distances, relative_positions = compute_distances_numba(
+            self.target_population.x[:, :2],
+            self.source_population.x[:, :2]
+        )
 
-        # Compute final repulsion forces
-        repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)
+        return compute_powerlaw_repulsion_numba(
+            distances,
+            relative_positions,
+            self.strength,
+            self.max_distance,
+            self.p
+        )
 
-        return repulsion
+
+from numba import njit, prange
+
+@njit(fastmath=True)
+def compute_powerlaw_repulsion_numba(distances, relative_positions, strength, max_distance, p):
+    N1, N2 = distances.shape
+    D = relative_positions.shape[2]
+    repulsion = np.zeros((N1, D))
+
+    for i in range(N1):  # Parallel over target agents
+        y_f = 1.0 / (max_distance[i] ** p)
+        for j in range(N2):
+            d = distances[i, j]
+            if d < 1e-6:
+                d = 1e-6
+            kernel = (1.0 / (d ** p)) - y_f
+            kernel = strength[i] * np.minimum(np.maximum(kernel, 0.0), 1000.0)
+            for d_idx in range(D):
+                repulsion[i, d_idx] += kernel * relative_positions[i, j, d_idx]
+
+    return repulsion

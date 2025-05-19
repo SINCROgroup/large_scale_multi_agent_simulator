@@ -91,17 +91,47 @@ class EulerMaruyamaIntegrator(Integrator):
             If any population object does not have the required methods (`get_drift`, `get_diffusion`) or attributes (`x`).
         """
         for population in populations:
-            # Compute the drift and diffusion terms
+
             drift = population.get_drift()
             diffusion = population.get_diffusion()
-
-            # Generate random noise (standard normal distribution)
             noise = np.random.normal(0, 1, size=population.x.shape)
 
-            # Update the state using the Euler-Maruyama method
-            if np.ndim(diffusion) == 3:  # diffusion is a matrix (e.g. shape (N, d, d))
-                noise_term = np.matmul(diffusion, noise[..., np.newaxis]).squeeze(-1)
+            # Only handle element-wise (diagonal) diffusion here for Numba optimization
+            if np.ndim(diffusion) == 2:
+                lim = population.lim
+                if lim.ndim == 1:
+                    lim = lim * np.ones(population.state_dim)
+                population.x = euler_maruyama_step_numba(
+                    population.x, drift, diffusion, noise, self.dt, lim
+                )
             else:
-                noise_term = diffusion * noise
-            population.x = population.x + drift * self.dt + noise_term * np.sqrt(self.dt)
-            population.x = np.clip(population.x, -population.lim, population.lim)
+                # Fallback for non-elementwise diffusion (e.g. full matrix)
+                noise_term = np.matmul(diffusion, noise[..., np.newaxis]).squeeze(-1)
+                population.x = population.x + drift * self.dt + noise_term * np.sqrt(self.dt)
+                population.x = np.clip(population.x, -population.lim, population.lim)
+
+
+from numba import njit, prange
+
+@njit(fastmath=True)
+def euler_maruyama_step_numba(x, drift, diffusion, noise, dt, lim):
+    N, D = x.shape
+    sqrt_dt = np.sqrt(dt)
+    updated_x = np.empty((N, D))
+
+    for i in range(N):  # parallelized loop over agents
+        for d in range(D):
+            noise_term = diffusion[i, d] * noise[i, d]
+            new_val = x[i, d] + drift[i, d] * dt + noise_term * sqrt_dt
+
+            # Avoid branching if possible (faster in vector code)
+            upper = lim[d]
+            lower = -lim[d]
+            if new_val < lower:
+                new_val = lower
+            elif new_val > upper:
+                new_val = upper
+
+            updated_x[i, d] = new_val
+
+    return updated_x
