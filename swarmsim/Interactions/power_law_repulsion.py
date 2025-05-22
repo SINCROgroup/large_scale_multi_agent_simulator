@@ -79,17 +79,26 @@ class PowerLawRepulsion(Interaction):
         self.strength: Optional[np.ndarray] = None
         self.max_distance: Optional[np.ndarray] = None
 
-        self.params_shapes = {
-            "strength": (),
-            "max_distance": ()
-        }
+        self.truncate: bool = self.config.get("truncate", False)
+
+        if self.truncate:
+            self.params_shapes = {
+                "strength": (),
+                "max_distance": ()
+            }
+        else:
+            self.params_shapes = {
+                "strength": (),
+            }
+            self.max_distance = np.inf * np.ones(self.target_population.N)
 
         self.p: int = self.config.get("p")
 
     def reset(self):
         super().reset()
         self.strength = self.params['strength']
-        self.max_distance = self.params['max_distance']
+        if self.truncate:
+            self.max_distance = self.params['max_distance']
 
 
     def get_interaction(self):
@@ -144,28 +153,28 @@ class PowerLawRepulsion(Interaction):
             distances,
             relative_positions,
             self.strength,
-            self.max_distance,
-            self.p
+            self.p,
+            self.max_distance
         )
 
 
 from numba import njit, prange
 
 @njit(fastmath=True)
-def compute_powerlaw_repulsion_numba(distances, relative_positions, strength, max_distance, p):
+def compute_powerlaw_repulsion_numba(distances, relative_positions, strength, p, max_distance):
     N1, N2 = distances.shape
     D = relative_positions.shape[2]
     repulsion = np.zeros((N1, D))
 
     for i in range(N1):  # Parallel over target agents
-        y_f = 1.0 / (max_distance[i] ** p)
         for j in range(N2):
             d = distances[i, j]
             if d < 1e-6:
                 d = 1e-6
-            kernel = (1.0 / (d ** p)) - y_f
+            kernel = (1.0 / (d ** p))
             kernel = strength[i] * np.minimum(np.maximum(kernel, 0.0), 1000.0)
             for d_idx in range(D):
-                repulsion[i, d_idx] += kernel * relative_positions[i, j, d_idx]
+                if d <= max_distance[i]:
+                    repulsion[i, d_idx] += kernel * relative_positions[i, j, d_idx]
 
     return repulsion

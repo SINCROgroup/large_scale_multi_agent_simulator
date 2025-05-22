@@ -100,6 +100,39 @@ class ShepherdingRenderer(BaseRenderer):
             self.goal_circle.center = self.environment.goal_pos
             self.goal_circle.set_radius(self.environment.goal_radius)
 
+        # Draw herder angular sectors
+
+        import numpy as np
+        herder_positions = self.populations[1].x[:, :2]
+        herder_vectors = herder_positions - self.environment.goal_pos
+        herder_angles = np.arctan2(herder_vectors[:, 1], herder_vectors[:, 0]) % (2 * np.pi)
+        NH = herder_positions.shape[0]
+
+        # Clear previously drawn sector lines (orange-colored)
+        lines_to_remove = [line for line in self.ax.lines if line.get_color() == 'orange']
+        for line in lines_to_remove:
+            line.remove()
+
+        LB = np.zeros(NH)
+        UB = np.zeros(NH)
+        for j in range(NH):
+            j_prev = (j - 1) % NH
+            j_next = (j + 1) % NH
+            zeta_minus = (herder_angles[j] - herder_angles[j_prev]) % (2 * np.pi)
+            zeta_plus = (herder_angles[j_next] - herder_angles[j]) % (2 * np.pi)
+            LB[j] = (herder_angles[j] - zeta_minus / 2) % (2 * np.pi)
+            UB[j] = (herder_angles[j] + zeta_plus / 2) % (2 * np.pi)
+
+            radius = 25
+
+            # Plot boundary lines
+            x1_lb, y1_lb = radius * np.cos(LB[j]), radius * np.sin(LB[j])
+            x1_ub, y1_ub = radius * np.cos(UB[j]), radius * np.sin(UB[j])
+            self.ax.plot([0, x1_lb], [0, y1_lb], color='orange', linestyle='--', linewidth=1)
+            self.ax.plot([0, x1_ub], [0, y1_ub], color='orange', linestyle='--', linewidth=1)
+
+
+
     def post_render_hook_pygame(self):
         """
         Adds the goal region rendering in Pygame.
