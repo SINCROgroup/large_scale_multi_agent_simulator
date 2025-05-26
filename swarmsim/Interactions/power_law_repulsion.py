@@ -172,7 +172,7 @@ def compute_powerlaw_repulsion_numba(distances, relative_positions, strength, p,
             if d < 1e-6:
                 d = 1e-6
             kernel = (1.0 / (d ** p))
-            kernel = strength[i] * np.minimum(np.maximum(kernel, 0.0), 1000.0)
+            kernel = strength[i] * np.minimum(np.maximum(kernel, 0.0), 10.0)
             for d_idx in range(D):
                 if d <= max_distance[i]:
                     repulsion[i, d_idx] += kernel * relative_positions[i, j, d_idx]
