@@ -184,3 +184,86 @@ class LightPattern(Controller):
 
 
 
+class Temporal_pulses(Controller):
+
+    """
+    This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation
+
+    Arguments
+    ---------
+    population : Population
+        The population where the control is exerted
+    environment : Environment
+        The environment where the agents live
+    config_path: str
+        The path of the configuration file
+    
+    Config requirements
+    -------------------
+    The YAML configuration file must contain the following parameters under the population's section:    
+    
+    pattern_path: str
+        The path (relative or absolute) of the pattern of light that you want to project in the environment
+    
+    Examples
+    --------
+    Example YAML configuration:
+
+    .. code-block:: yaml
+
+        LightPattern:
+            pattern_path: ../Configuration/Config_data/BCL.jpeg
+
+    This defines a `LightPattern` that project the content of BCL.jpeg over the environment.
+
+    """
+
+    def __init__(self, population, environment, config_path=None) -> None:
+
+        super().__init__(population, environment, config_path)
+        self.T = self.config.get('Period', 1.0)  # Period of the temporal pulses
+        self.current_time = 0.0  # Initialize the current time
+
+        
+
+
+    def get_action(self):
+        
+        """
+
+            This function returns the light intensity projected by the pattern defined at the pattern_path. 
+            All agents that are outside the boundaries of the arena are considered as being at the borders of the arena.
+        
+        """
+        self.current_time += self.dt  # Update the current time
+        if np.mod(self.current_time,self.T) < (self.T/2):
+            #print("t:"+ str(self.current_time)  +"YES light")
+            u = np.ones((self.population.x.shape[0], 1))
+        else:
+            #print("t:"+ str(self.current_time)  +"NO light")
+            u = np.zeros((self.population.x.shape[0], 1))
+        
+        
+
+        return u
+    
+
+    def get_action_in_space(self,positions):
+
+        """
+
+            Returns the light intensity at the position specified in the positions vector
+
+            Arguments
+            ---------
+            positions : numpy.Array(num_positions, num_dimensions)
+                The positions where you want to retrieve the value of the control action
+
+        """
+        print("t:"+ str(np.mod(self.current_time,self.T)))
+        if np.mod(self.current_time,self.T) < (self.T/2):
+            u = np.ones((len(positions), 1))
+        else:
+            u = np.zeros((len(positions), 1))
+
+        return u

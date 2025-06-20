@@ -23,6 +23,7 @@ class BioRenderer(BaseRenderer):
     def pre_render_hook_pygame(self):
 
         # Draw surface
+        #self.create_spatial_input()
         pygame.display.get_surface().blit(self.spatial_input, (0, 0))
 
     
@@ -43,7 +44,11 @@ class BioRenderer(BaseRenderer):
 
         Pixels_positions = np.column_stack((X.T.ravel(), Y.T.ravel()))
         
-        Pixel_ity = self.controller.get_action_in_space(Pixels_positions)
+        if self.controller is None:
+            # If no controller is provided, create a default spatial input
+            Pixel_ity = np.zeros((self.screen_size[0] * self.screen_size[1], 1))
+        else:
+            Pixel_ity = self.controller.get_action_in_space(Pixels_positions)
         Pixel_ity = Pixel_ity.reshape(self.screen_size[0],self.screen_size[1])
 
 

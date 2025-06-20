@@ -23,7 +23,7 @@ from swarmsim.Populations.parsistent_turning_walker import LightSensitive_PTW
 from swarmsim.Interactions import HarmonicRepulsion
 from swarmsim.Integrators import EulerMaruyamaIntegrator
 
-from swarmsim.Controllers.spatial_inputs import LightPattern
+from swarmsim.Controllers.spatial_inputs import LightPattern, Temporal_pulses
 
 from swarmsim.Renderers.bio_renderer import BioRenderer
 
@@ -47,12 +47,14 @@ if __name__ == '__main__':
     population1 = LightSensitive_PTW(config_path)
     populations = [population1]
 
-    controller = LightPattern(population1, environment, config_path)
+    #controller = LightPattern(population1, environment, config_path)
+    controller = Temporal_pulses(population1, environment, config_path)
+
     controllers = [controller]
 
     interactions = []
 
-    renderer = BioRenderer(populations, environment, config_path, controller)
+    renderer = None #BioRenderer(populations, environment, config_path, controller)
     logger = PositionLogger(populations, environment, config_path)
 
     simulator = Simulator(populations=populations, environment=environment, controllers=controllers,
