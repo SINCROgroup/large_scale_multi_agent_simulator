@@ -104,4 +104,4 @@ class EulerMaruyamaIntegrator(Integrator):
             else:
                 noise_term = diffusion * noise
             population.x = population.x + drift * self.dt + noise_term * np.sqrt(self.dt)
-            population.x = np.clip(population.x, -population.lim, population.lim)
+            population.x = np.clip(population.x, population.lim_i, population.lim_s)

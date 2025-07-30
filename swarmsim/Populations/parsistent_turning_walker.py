@@ -108,7 +108,7 @@ class LightSensitive_PTW(Population):
         # State Variables: x, y, v, theta, omega(w)
 
         
-        self.x[:,2] = np.clip(self.x[:,2], 0,None)  # Ensure speed is non-negative
+        #self.x[:,2] = np.clip(self.x[:,2], 0,None)  # Ensure speed is non-negative
         v = self.x[:,2]
         self.x[:,3] = np.mod(self.x[:,3], 2 * np.pi)  # Ensure theta is in [0, 2*pi]
         theta = self.x[:,3]

@@ -3,9 +3,11 @@
 
 LightSensitive_PTW:
   id: 'Euglena_Gracilis'
-  N: 4000
+  N: 4
   state_dim: 5
   input_dim: 1
+  lim_i: [-1920, -1080, 0, -inf, -inf]  # Lower bounds for the state
+  lim_s: [1920, 1080, inf, inf, inf]  # Upper bounds for the state
 
   initial_conditions:
     mode: random
@@ -28,14 +30,14 @@ LightPattern:
 
 Temporal_pulses:
   dt: 0.01
-  Period: 120  # 10 seconds
+  Period: 10  # 10 seconds
 
 integrator:
   dt: 0.01
 
 simulator:
   dt: 0.01
-  T: 300  # 300
+  T: 1000  # 300
 
 environment:
   dimensions: [3840, 2160] 
@@ -49,12 +51,15 @@ renderer:
   render_mode: 'pygame'
   render_dt: 0.01
 
-logger:
-  activate: True          # True to save logger, False otherwise
-  log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 50           # Save every save_freq steps information (0: never save)
-  save_data_freq: 50
-  save_global_data_freq: 1 # do not touch 
-  comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: ./logs    # Path where logger should be saved
-  log_name: ''            # String appended to date in the name of the file
+PositionLogger:
+  activate: True            # True to save logger, False otherwise
+  log_freq: 0               # Print every log_freq steps information (0: never print)
+  save_freq: 500            # Save every save_freq steps information (0: never save)
+  save_data_freq: 0
+  save_global_data_freq: 1  # do not touch 
+  comment_enable: False     # Add initial and final comments to the logger about the experiment
+  log_path: ./logs          # Path where logger should be saved
+  log_name: 'Rectangular_Feedback'            # String appended to date in the name of the file
+
+AngularFeedback:
+  dt: 0.01

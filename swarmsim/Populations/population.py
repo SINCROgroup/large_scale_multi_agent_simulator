@@ -71,8 +71,10 @@ class Population(ABC):
         self.input_dim: int = self.config.get("input_dim", self.state_dim)
 
         # Limit configuration, with a clear default (no limit: inf)
-        lim_values = self.config.get('lim', ['inf'])
-        self.lim: np.ndarray = np.array([float(value) for value in lim_values])
+        lim_values = self.config.get('lim_i', ['-inf'])
+        self.lim_i: np.ndarray = np.array([float(value) for value in lim_values])
+        lim_values = self.config.get('lim_s', ['inf'])
+        self.lim_s: np.ndarray = np.array([float(value) for value in lim_values])
 
         # Initialize params, states, inputs, and dynamics explicitly
         self.params: Optional[dict[str, np.ndarray]] = None

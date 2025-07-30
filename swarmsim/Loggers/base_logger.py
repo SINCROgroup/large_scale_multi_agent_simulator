@@ -6,60 +6,102 @@ import yaml
 import time
 import os
 import numpy as np
+from swarmsim.Utils.sim_utils import load_config
 
 
 class BaseLogger(Logger):
     """
-    A class that implements a logger.
+    A class that implements the simplest version of a logger.
 
     Parameters
-    -------
-        populations: list of instances of clas populations.
+    ----------
+        populations: list of instances of class populations.
         environment: Instance of class environment.
         config_path: str (Path of the configuration file).
 
     Attributes
-    -------
-        - config: dict                                  Dictionary of parameters
-        - activate: bool                                Flag to activate and save logger
-        - date: date object                             Current date to log and name files
-        - log_freq: int                                 Print information frequency
-        - save_freq: int                                Save information frequency
-        - log_path: str                                 Path where logger is saved
-        - comment_enable: bool                          Flag to enable adding comment at the beginning and end of an experiment
-        - populations: list of population objects       List of populations in the experiment
-        - environment: environment object               Environment of the experiment
-        - name: str                                     Name of the logger, appended to the date to name output files
-        - log_name_csv: str                             Name of the .csv machine-readable file
-        - log_name_txt: str                             Name of the .txt human-readable file
-        - log_name_npz: str                             Name of the .npz file to store tensors
-        - start: time object                            Starting time of the simulation
-        - end: time object                              Final time of the simulation
-        - step_count: int                               Step counter to track time
-        - done: bool                                    Flag to truncate experiment early
-        - current_info: dict                            Information to log in a specific time step as a dict of {name_variable: value}
+    ----------
+        - config: dict                                  
+            Dictionary of parameters
+        - activate: bool                                
+            Flag to activate and save logger
+        - date: date object                             
+            Current date to log and name files
+        - log_freq: int                                 
+            Print information frequency
+        - save_freq: int                                
+            Save information frequency
+        - log_path: str                                 
+            Path where logger is saved
+        - comment_enable: bool                          
+            Flag to enable adding comment at the beginning and end of an experiment
+        - populations: list of population objects       
+            List of populations in the experiment
+        - environment: environment object               
+            Environment of the experiment
+        - name: str                                     
+            Name of the logger, appended to the date to name output files
+        - log_name_csv: str                             
+            Name of the .csv machine-readable file
+        - log_name_txt: str                             
+            Name of the .txt human-readable file
+        - log_name_npz: str                             
+            Name of the .npz file to store tensors
+        - start: time object                             
+            Starting time of the simulation
+        - end: time object                               
+            Final time of the simulation
+        - step_count: int                                 
+            Step counter to track time
+        - done: bool                                    
+            Flag to truncate experiment early
+        - current_info: dict                            
+            Information to log in a specific time step as a dict of {name_variable: value}
 
-    Configuration file requirements
-        - activate: bool            True to have logger, False otherwise
-        - log_freq: int             Print every log_freq steps information (0: never print)
-        - save_freq: int            Save every save_freq steps information (0: never save)
-        - comment_enable: bool      If true, add initial and final comments to the logger about the experiment
-        - log_path: str             Path where logger output should be saved
-        - log_name: str             String appended to date in the name of the file
+    Config requirements
+    -------------------
+
+        - activate: bool            
+            True to have logger, False otherwise
+        - log_freq: int             
+            Print every log_freq steps information (0: never print)
+        - save_freq: int            
+            Save every save_freq steps information (0: never save)
+        - save_data_freq: int
+            TBD
+        - save_global_data_freq: int
+            TBD
+        - comment_enable: bool      
+            If true, add initial and final comments to the logger about the experiment
+        - log_path: str             
+            Path where logger output should be saved
+        - log_name: str             
+            String appended to date in the name of the file
+        
+        
 
     Notes
-    -------
+    -----
+
         If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
         Moreover, save_data stores a .npz of the data given in input.
 
     """
+
+    
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__()
-        with open(config_path, 'r') as config_file:
-            config = yaml.safe_load(config_file)
-        logger_config = config.get('logger', {})
-        self.config = config  # Get config to track experiments
+
+        # Load configuration file
+        config:dict = load_config(config_path)
+        class_name = type(self).__name__
+        logger_config = config.get(class_name, {})
+        self.config = config  
         self.logger_config = logger_config
+         
+
+        
+        # Initialize parameters
         self.date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')  # Get current date to init logger
         self.name = datetime.today().strftime('%Y%m%d_%H%M%S') + logger_config.get('log_name', '')
         self.activate = logger_config.get('activate', True)  # Activate
@@ -72,15 +114,22 @@ class BaseLogger(Logger):
         self.populations = populations
         self.environment = environment
 
+        log_folder = self.log_path + '/' + self.name
         # If the path does not exist, create it
-        if not os.path.exists(self.log_path):
-            os.makedirs(self.log_path)
+        if not os.path.exists(log_folder):
+            os.makedirs(log_folder)
 
-        #  Initialize variables
-        self.log_name_csv = self.log_path + '/' + self.name + '.csv'
-        self.log_name_txt = self.log_path + '/' + self.name + '.txt'
-        self.log_name_npz = self.log_path + '/' + self.name + '.npz'
-        self.log_name_mat = self.log_path + '/' + self.name + '.mat'
+
+
+        #  Generate log file names
+        self.log_name_csv = log_folder + '/' + self.name + '.csv'
+        self.log_name_txt = log_folder + '/' + self.name + '.txt'
+        self.log_name_npz = log_folder + '/' + self.name + '.npz'
+        self.log_name_mat = log_folder + '/' + self.name + '.mat'
+
+
+
+        # Initialize auxiliary variables
         self.start = None  # Time start
         self.end = None  # Time end
         self.step_count = None  # Count steps for frequency check and logging
@@ -89,12 +138,14 @@ class BaseLogger(Logger):
         self.current_info = None
         self.global_info = None
 
-        # If there are any comments to describe the experiment add them, otherwise empty
+        
         if self.activate:
+            # If there are any comments to describe the experiment add them, otherwise empty
             if self.comment_enable:
                 comment = input('Comment: ')
             else:
                 comment = ''
+            
 
             # Create file with current date, setting, and comment (if active)
             with open(self.log_name_txt, 'w') as file:
@@ -112,11 +163,12 @@ class BaseLogger(Logger):
         -------
             activate: bool  flag to check whether the logger is active
         """
+
         self.done = False
         if self.activate:
             # Initialize logger: create file with date, current config settings, and add eventual comments
             self.start = time.time()  # Start counter for elapsed time
-            self.step_count = 0  # Keep track of time
+            self.step_count = 0  # Keeps track of time
             self.experiment_count = 0
             self.global_info = {}
         return self.activate
@@ -134,7 +186,7 @@ class BaseLogger(Logger):
             done: bool flag to truncate a simulation early. Default value=False.
 
         Notes
-        -------
+        -----
             In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.
             By default, it does not truncate episode early.
             See add_data from Utils/logger_utils.py to quickly add variables to log.
@@ -160,7 +212,7 @@ class BaseLogger(Logger):
         Function to store final step information, end-of-the-experiment information and close logger
 
         Parameters
-        -------
+        ----------
             data: dict  composed of {name_variabile: value} to log
 
         Returns
