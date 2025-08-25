@@ -9,3 +9,4 @@
 /build/
 *.jpeg
 /__pycache__/
+uv.lock

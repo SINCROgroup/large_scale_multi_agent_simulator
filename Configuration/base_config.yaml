@@ -1,92 +1,80 @@
-# Configuration file 
-# In all scripts numpy is imported as np
-
-#BrownianMotion:
-#  N: 100
-#  state_dim: 2
-#  x0_limits : [[-25, 25],[-25,25]]
-#  x0_mode: Random
-#  x0_path: .\Configuration\Config_data\Initial_Conditions_BrownianMotion.csv
-#  params_mode: Random
-#  params_names: ["mu","D"]
-#  params_limits: {mu: [[0.1,2],[0.1,2]], D: [[0,1],[0,1]]}
-#  id: 'BrownianMotion'
-
 BrownianMotion:
-  id: 'BrownianMotion'
   N: 2000
-  state_dim: 2
-
-  initial_conditions:
-    mode: Random         # Options: Random, From_File
-    random:
-      shape: box         # Options: box, circle (only used when mode: Random)
-      box:
-        lower_bounds: [-25, -25]
-        upper_bounds: [25, 25]
-
-  parameters:
-    mode: generate    # Options: import, generate
-    generate:
-      mu:
-        sampler: uniform
-        positional_args: [-1, 1]
-        shape: [2]
-      D:
-        sampler: normal
-        args:
-          loc: 1
-          scale: 0.1
-        homogeneous: False
-
-
-FixedPopulation:
-  id: 'Fixed'
-  N: 100
-  state_dim: 2
-
+  id: BrownianMotion
   initial_conditions:
     mode: Random
     random:
-      shape: circle
+      box:
+        lower_bounds:
+        - -25
+        - -25
+        upper_bounds:
+        - 25
+        - 25
+      shape: box
+  parameters:
+    generate:
+      D:
+        args:
+          loc: 1
+          scale: 0.1
+        homogeneous: 0
+        sampler: normal
+      mu:
+        positional_args:
+        - -1
+        - 1
+        sampler: uniform
+        shape:
+        - 2
+    mode: generate
+  state_dim: 2
+FixedPopulation:
+  N: 100
+  id: Fixed
+  initial_conditions:
+    mode: Random
+    random:
       circle:
-        min_radius: 0
         max_radius: 10
-
-
+        min_radius: 0
+      shape: circle
+  state_dim: 2
 HarmonicRepulsion:
   id: Interaction Force
   parameters:
-    mode: generate
     generate:
-      strength: 0.1
       distance: 10
-
-
-
+      strength: 0.1
+    mode: generate
+PositionLogger:
+  activate: 1
+  comment_enable: 0
+  log_freq: 0
+  log_name: Base_Simulation
+  log_path: ./logs
+  save_data_freq: 0
+  save_freq: 500
+  save_global_data_freq: 1
+environment:
+  dimensions:
+  - 50
+  - 50
 integrator:
   dt: 0.01
-
-simulator:
-  dt: 0.001
-  T: 10
-
-environment:
-  dimensions: [50, 50]
-
 renderer:
-  background_color: 'white'
-  agent_colors: ['blue', 'red']
-  agent_shapes: ['circle', 'diamond']
-  agent_sizes: [1, 1]
-  render_mode: 'pygame'
+  agent_colors:
+  - blue
+  - red
+  agent_shapes:
+  - circle
+  - diamond
+  agent_sizes:
+  - 1
+  - 1
+  background_color: white
   render_dt: 0.01
-
-logger:
-  activate: True          # True to save logger, False otherwise
-  log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 1            # Save every save_freq steps information (0: never save)
-  save_data_freq: 0
-  comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: ./logs         # Path where logger should be saved
-  log_name: ''            # String appended to date in the name of the file
+  render_mode: pygame
+simulator:
+  T: 10
+  dt: 0.001

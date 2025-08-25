@@ -1,65 +1,78 @@
-# Configuration file 
-# In all scripts numpy is imported as np
-
+AngularFeedback:
+  dt: 0.01
+LightPattern:
+  dt: 0.01
+  pattern_path: ./Configuration/Config_data/BCL.jpeg
 LightSensitive_PTW:
-  id: 'Euglena_Gracilis'
   N: 4
-  state_dim: 5
-  input_dim: 1
-  lim_i: [-1920, -1080, 0, -inf, -inf]  # Lower bounds for the state
-  lim_s: [1920, 1080, inf, inf, inf]  # Upper bounds for the state
-
+  dt: 0.01
+  id: Euglena_Gracilis
   initial_conditions:
     mode: random
     random:
-      shape: box
       box:
-        lower_bounds: [-1800, -1000, 20, -3.14, 0]
-        upper_bounds: [1800, 1000, 40, 3.14, 0]
-
+        lower_bounds:
+        - -1800
+        - -1000
+        - 20
+        - -3.14
+        - 0
+        upper_bounds:
+        - 1800
+        - 1000
+        - 40
+        - 3.14
+        - 0
+      shape: box
+  input_dim: 1
+  lim_i:
+  - -1920
+  - -1080
+  - 0
+  - -inf
+  - -inf
+  lim_s:
+  - 1920
+  - 1080
+  - inf
+  - inf
+  - inf
   parameters:
-    mode: file
     file:
-      file_path: ../Configuration/Config_data/Parameters_Euglena.csv
-
-  dt: 0.01
-
-LightPattern:
-  pattern_path: ../Configuration/Config_data/BCL.jpeg
-  dt: 0.01
-
+      file_path: ./Configuration/Config_data/Parameters_Euglena.csv
+    mode: file
+  state_dim: 5
+PositionLogger:
+  activate: 1
+  comment_enable: 0
+  log_freq: 0
+  log_name: Rectangular_Feedback
+  log_path: ./logs
+  save_data_freq: 0
+  save_freq: 500
+  save_global_data_freq: 1
 Temporal_pulses:
+  Period: 10
   dt: 0.01
-  Period: 10  # 10 seconds
-
+environment:
+  dimensions:
+  - 3840
+  - 2160
 integrator:
   dt: 0.01
-
-simulator:
-  dt: 0.01
-  T: 1000  # 300
-
-environment:
-  dimensions: [3840, 2160] 
-#[1920, 1080] #[3840, 2160]
-
 renderer:
-  background_color: 'white'
-  agent_colors: ['blue', 'red']
-  agent_shapes: ['circle', 'diamond']
-  agent_sizes: [20, 20]
-  render_mode: 'pygame'
+  agent_colors:
+  - blue
+  - red
+  agent_shapes:
+  - circle
+  - diamond
+  agent_sizes:
+  - 20
+  - 20
+  background_color: white
   render_dt: 0.01
-
-PositionLogger:
-  activate: True            # True to save logger, False otherwise
-  log_freq: 0               # Print every log_freq steps information (0: never print)
-  save_freq: 500            # Save every save_freq steps information (0: never save)
-  save_data_freq: 0
-  save_global_data_freq: 1  # do not touch 
-  comment_enable: False     # Add initial and final comments to the logger about the experiment
-  log_path: ./logs          # Path where logger should be saved
-  log_name: 'Rectangular_Feedback'            # String appended to date in the name of the file
-
-AngularFeedback:
+  render_mode: pygame
+simulator:
+  T: 10
   dt: 0.01
