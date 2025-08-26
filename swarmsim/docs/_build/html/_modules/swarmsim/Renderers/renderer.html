@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Renderers.renderer &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Renderers.renderer &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -292,54 +292,77 @@
 <a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Renderer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract base class that defines the interface for rendering environments and agents.</span>
+<span class="sd">    Abstract base class for real-time visualization of multi-agent simulations.</span>
 
-<span class="sd">    This class provides an interface for visualizing multi-agent environments, requiring</span>
-<span class="sd">    subclasses to implement `render` and `close` methods.</span>
+<span class="sd">    This class provides the interface for rendering environments and agent populations</span>
+<span class="sd">    during simulation execution. Renderers can use different visualization backends</span>
+<span class="sd">    (Matplotlib, Pygame, etc.) to provide real-time feedback on simulation state.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    populations : list</span>
-<span class="sd">        A list of population objects to render.</span>
-<span class="sd">    environment : object</span>
-<span class="sd">        The environment instance in which the populations exist.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of agent populations to visualize.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The environment instance containing spatial and visual information.</span>
 <span class="sd">    config_path : str</span>
-<span class="sd">        Path to the YAML configuration file containing rendering settings.</span>
+<span class="sd">        Path to the YAML configuration file containing rendering parameters.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    populations : list</span>
-<span class="sd">        A list of population objects to be rendered.</span>
-<span class="sd">    environment : object</span>
-<span class="sd">        The environment in which the agents operate.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of populations being rendered.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The simulation environment.</span>
 <span class="sd">    config : dict</span>
-<span class="sd">        Dictionary containing rendering configuration parameters.</span>
+<span class="sd">        Configuration parameters for rendering settings.</span>
+<span class="sd">    render_dt : float</span>
+<span class="sd">        Time delay between rendering frames in seconds.</span>
+<span class="sd">    activate : bool</span>
+<span class="sd">        Flag to enable/disable rendering.</span>
 
-<span class="sd">    Config requirements</span>
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    renderer:</span>
-<span class="sd">        The YAML configuration file must contain a `renderer` section specifying visualization settings.</span>
+<span class="sd">    The YAML configuration file should contain a renderer section with:</span>
+
+<span class="sd">    render_dt : float, optional</span>
+<span class="sd">        Time delay between frames in seconds. Default is ``0.05``.</span>
+<span class="sd">    activate : bool, optional</span>
+<span class="sd">        Whether to enable rendering. Default is ``True``.</span>
+
+<span class="sd">    Additional renderer-specific parameters depend on the implementation.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    - This is an abstract base class (ABC) and must be subclassed.</span>
-<span class="sd">    - The `render` method must be implemented to display the environment and agent states.</span>
-<span class="sd">    - The `close` method should release any resources allocated for rendering.</span>
+<span class="sd">    - Subclasses must implement the abstract methods `render()` and `close()`.</span>
+<span class="sd">    - The renderer is called at each simulation timestep if activated.</span>
+<span class="sd">    - Common visualization elements include:</span>
+<span class="sd">      </span>
+<span class="sd">      * Agent positions and orientations</span>
+<span class="sd">      * Environment boundaries and obstacles</span>
+<span class="sd">      * Interaction forces or fields</span>
+<span class="sd">      * Trajectories and paths</span>
+<span class="sd">      * Performance metrics</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the renderer with the configuration parameters.</span>
+<span class="sd">        Initialize the renderer with simulation components and configuration.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        populations : list</span>
-<span class="sd">            A list of population objects to render.</span>
-<span class="sd">        environment : object</span>
-<span class="sd">            An instance of the environment class.</span>
+<span class="sd">        populations : list of Population</span>
+<span class="sd">            List of agent populations to visualize.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The simulation environment instance.</span>
 <span class="sd">        config_path : str</span>
-<span class="sd">            Path to the YAML configuration file.</span>
+<span class="sd">            Path to the YAML configuration file containing rendering parameters.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Subclasses should call this constructor to initialize common attributes</span>
+<span class="sd">        and then set up their specific visualization backend (windows, graphics contexts, etc.).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 
@@ -355,10 +378,20 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Renders the environment and the agents in it.</span>
+<span class="sd">        Render the current state of the simulation.</span>
 
-<span class="sd">        This method should be implemented by subclasses to define how the environment</span>
-<span class="sd">        and agents are visually represented.</span>
+<span class="sd">        This method should update the visual representation to show the current</span>
+<span class="sd">        positions and states of all agents, environment features, and any additional</span>
+<span class="sd">        visualization elements (forces, trajectories, metrics, etc.).</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementations should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Render environment features and boundaries</span>
+<span class="sd">        - Apply any visual transformations (scaling, rotation, translation)</span>
+
+<span class="sd">        The method is called at each simulation timestep when rendering is active.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
@@ -368,10 +401,22 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Closes the rendering interface and releases any allocated resources.</span>
+<span class="sd">        Clean up rendering resources and close visualization windows.</span>
 
-<span class="sd">        This method should be implemented in subclasses to properly clean up</span>
-<span class="sd">        rendering-related resources such as open windows, memory buffers, or GPU contexts.</span>
+<span class="sd">        This method should properly shut down the visualization backend and release</span>
+<span class="sd">        any allocated resources such as graphics contexts, windows, memory buffers,</span>
+<span class="sd">        or GPU resources.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementations should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Close any open windows or graphics contexts</span>
+<span class="sd">        - Clean up any temporary files created during rendering</span>
+<span class="sd">        - Save final frames or animations if configured</span>
+
+<span class="sd">        This method is called when the simulation ends or when the renderer</span>
+<span class="sd">        is explicitly shut down.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>
@@ -426,7 +471,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

@@ -310,39 +310,87 @@
 <h1>Controllers<a class="headerlink" href="#controllers" title="Link to this heading">#</a></h1>
 <section id="module-swarmsim.Controllers">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Controllers" title="Link to this heading">#</a></h2>
-<p>The <cite>controllers</cite> module provides both an interface to implement custom controllers and some examples of controllers.</p>
+<section id="controllers-module">
+<h3>Controllers Module<a class="headerlink" href="#controllers-module" title="Link to this heading">#</a></h3>
+<p>This module provides interfaces and implementations for controlling agent behavior in multi-agent simulations.
+Controllers compute control actions that influence agent dynamics based on current states and objectives.</p>
 <section id="available-controllers">
-<h3>Available Controllers<a class="headerlink" href="#available-controllers" title="Link to this heading">#</a></h3>
-<p><cite>Controller</cite> : Abstract base class for defining custom controllers.
-<cite>ShepherdingLamaController</cite> : A controller that guides the population to move behind the most distant target.
-<cite>GaussianRepulsion</cite> : A controller that implements radial repulsion force whose intensity is shaped like a gaussian profile of null mean a Identity sandard deviation
-<cite>LightPattern</cite> : A controller that projects a light pattern on the environment.</p>
-<section id="usage">
-<h4>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h4>
-<p>To use a controller, import it and instantiate with a configuration file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.controller</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShepherdingLamaController</span>
-<span class="n">lamaController</span> <span class="o">=</span> <span class="n">ShepherdingLamaController</span><span class="p">(</span><span class="n">herders</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
-<span class="n">controllers</span> <span class="o">=</span> <span class="p">[</span><span class="n">lamaController</span><span class="p">]</span>
+<h4>Available Controllers<a class="headerlink" href="#available-controllers" title="Link to this heading">#</a></h4>
+<dl class="simple">
+<dt>Controller</dt><dd><p>Abstract base class defining the interface for all controller types.</p>
+</dd>
+<dt>ShepherdingLamaController</dt><dd><p>Shepherding controller that guides one population using another population as herders.
+Implements the LAMA (Large Area Multi-agent) shepherding algorithm.</p>
+</dd>
+<dt>GaussianRepulsion</dt><dd><p>Implements spatially-varying repulsion forces with Gaussian intensity profiles.</p>
+</dd>
+<dt>LightPattern</dt><dd><p>Projects spatial light patterns from image files onto the environment for phototaxis control.</p>
+</dd>
+<dt>Temporal_pulses</dt><dd><p>Generates temporally-varying pulse signals with periodic on/off patterns.</p>
+</dd>
+<dt>RectangularFeedback</dt><dd><p>Provides binary feedback based on agent orientation relative to radial direction.</p>
+</dd>
+<dt>AngularFeedback</dt><dd><p>Creates dynamic visual feedback using angular light patterns behind agents.</p>
+</dd>
+</dl>
+</section>
+<section id="key-features">
+<h4>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Modular Design</strong>: Easy to implement custom control strategies</p></li>
+<li><p><strong>Multi-Population Support</strong>: Controllers can coordinate multiple populations</p></li>
+<li><p><strong>Spatial Control</strong>: Support for spatially-varying control fields</p></li>
+<li><p><strong>Configurable Timing</strong>: Controllers can operate at different sampling rates</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Basic controller usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShepherdingLamaController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmptyEnvironment</span>
+
+<span class="c1"># Create populations and environment</span>
+<span class="n">herders</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;Herders&#39;</span><span class="p">)</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;Targets&#39;</span><span class="p">)</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">EmptyEnvironment</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create controller</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">ShepherdingLamaController</span><span class="p">(</span>
+    <span class="n">population</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span>
+    <span class="n">environment</span><span class="o">=</span><span class="n">environment</span><span class="p">,</span>
+    <span class="n">config_path</span><span class="o">=</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span>
+    <span class="n">other_populations</span><span class="o">=</span><span class="p">[</span><span class="n">herders</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Get control action</span>
+<span class="n">control_input</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">get_action</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
-<section id="modules">
-<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><cite>base_controller</cite> : Defines the abstract <cite>controller</cite> class, which serves as an interface for implementing custom control laws.</p></li>
-<li><p><cite>sheperding_lama_controller</cite> : Implements <cite>ShepherdingLamaController</cite>, which is tasked with solving a sheperding problem.</p></li>
-<li><p><cite>spatial_inputs</cite> : Implements <cite>GaussianRepulsion</cite> and <cite>LightPattern</cite>, which are control spatially heterogeneous static control laws.</p></li>
-</ul>
-<p class="rubric">Examples</p>
-<p>Example YAML configuration:</p>
-<blockquote>
-<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">LightPattern</span><span class="p">:</span>
+<section id="configuration-examples">
+<h4>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading">#</a></h4>
+<p>Shepherding controller:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ShepherdingLamaController</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">target_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
+</pre></div>
+</div>
+<p>Light pattern controller:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">LightPattern</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">pattern_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../Configuration/Config_data/BCL.jpeg</span>
 <span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </pre></div>
 </div>
-<p>This defines a <cite>LightPattern</cite> that project the content of BCL.jpeg over the environment and that updates the control applied to the agents every 0.1 temporal siumlation units.</p>
-</div></blockquote>
+<p>This defines a controller that projects the content of BCL.jpeg over the environment
+and updates the control applied to agents every 0.1 simulation time units.</p>
+</section>
+<section id="modules">
+<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>base_controller</cite>: Defines the abstract Controller class interface</p></li>
+<li><p><cite>shepherding_lama_controller</cite>: Implements shepherding strategies</p></li>
+<li><p><cite>spatial_inputs</cite>: Implements spatially heterogeneous control laws</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -352,39 +400,91 @@
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.base_controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_populations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>An interface that defines all the methods that a controller should implement</p>
+<p>Abstract base class for implementing control strategies.</p>
+<p>This class provides the interface for controllers that compute control actions to influence
+agent behaviors. Controllers can access population states, environment information, and other
+populations to make informed control decisions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population where the control is exerted</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment where the agents live</p></li>
-<li><p><strong>other_populations</strong> (<em>list</em><em>[</em><em>Population</em><em>]</em>) – A list of other populations that can influence the control action</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>population</strong> (<em>Population</em>) – The target population that this controller will influence.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a><em>, </em><em>optional</em>) – The environment where the agents operate. Can be None if environmental information
+is not needed for control.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters.</p></li>
+<li><p><strong>other_populations</strong> (<em>list</em><em> of </em><em>Population</em><em>, </em><em>optional</em>) – List of other populations that may influence the control strategy.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Config requirements<span class="colon">:</span></dt>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
-<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller (time interval between two consecutive control actions)</p></li>
+<li><p><strong>population</strong> (<em>Population</em>) – The target population being controlled.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a><em> or </em><em>None</em>) – The environment instance (None if environmental information are not relevant).</p></li>
+<li><p><strong>other_populations</strong> (<em>list</em><em> of </em><em>Population</em><em> or </em><em>None</em>) – List of other populations required to compute the control action.</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – Configuration parameters specific to this controller class.</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time interval between two consecutive control actions.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the controller’s section</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller (time interval between consecutive control actions).</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Subclasses must implement the abstract method <cite>get_action()</cite> to define the control strategy.</p></li>
+<li><p>The <cite>get_action_in_space()</cite> method can be optionally overridden for spatially non-uniform control actions.</p></li>
+<li><p>Controllers operate at discrete time intervals specified by <cite>dt</cite>.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration for a controller:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">MyController</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+</pre></div>
+</div>
+<p>This configuration sets the controller sampling time to 0.1 seconds.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.get_action">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action" title="Link to this definition">#</a></dt>
-<dd><p>The get_action method uses the information given to the Controller class to compute the control acting on “Population”.
-NOTE: This is the method you need to OVERRIDE to implement your controller</p>
+<dd><p>Compute the control action for the target population.</p>
+<p>This abstract method must be implemented by subclasses to define the specific
+control strategy. The method should use the current state of the population,
+environment, and other available information to compute appropriate control inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Control action array of shape (N, input_dim) where N is the number of agents
+in the target population and input_dim is the dimensionality of the control input.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>ndarray</em></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is the core method that defines the controller behavior and must be overridden in subclasses.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.get_action_in_space">
 <span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action_in_space" title="Link to this definition">#</a></dt>
-<dd><p>For spatially non uniform control actions, this method gives back the control action at the positions specified in the positions vector</p>
+<dd><p>Computes spatially varying control actions at specified positions.</p>
+<p>This method provides control actions at arbitrary spatial locations. It can be overridden by subclasses that
+implement spatially varying control strategies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>positions</strong> (<em>numpy.Array</em><em>(</em><em>num_positions</em><em>, </em><em>num_dimensions</em><em>)</em>) – The positions where you want to retrieve the value of the control action</p>
+<dd class="field-odd"><p><strong>positions</strong> (<em>np.ndarray</em>) – Array of shape (num_positions, state_dim) specifying the positions where
+control actions should be evaluated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>np.ndarray</em> – Control action array of shape (num_positions, input_dim) representing the
+control field values at the specified positions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The default implementation returns None. Subclasses should override this method
+if they implement spatially varying control fields.</p>
 </dd></dl>
 
 </dd></dl>
@@ -396,32 +496,64 @@ NOTE: This is the method you need to OVERRIDE to implement your controller</p>
 <dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.shepherding_lama_controller.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLamaController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
-<p>Implementation of the herders control law from [Lama and di Bernardo, 2024]</p>
+<p>Implementation of the shepherding controller implemented in Lama (2024).</p>
+<p>This controller implements the herding control law from Lama (2024) for
+shepherding applications. It coordinates herder agents to guide target agents toward
+a goal region by positioning herders behind the most distant targets and applying
+repulsive forces to drive the targets toward the goal.</p>
+<p>The controller selects the farthest target from the goal within each herder’s sensing
+radius and positions the herder behind that target at a specified distance. This
+creates a shepherding behavior where herders push targets toward the goal region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population where the control is exerted</p></li>
-<li><p><strong>targets</strong> (<em>Population</em>) – The population of targets</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a>) – The environment where the agents live (must be a Sheperding Environment)</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – The path of the configuration file</p></li>
+<li><p><strong>population</strong> (<em>Population</em>) – The herder population that will be controlled by this controller.</p></li>
+<li><p><strong>targets</strong> (<em>Population</em>) – The target population that needs to be shepherded to the goal.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a><em>, </em><em>optional</em>) – The shepherding environment containing goal information. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Config requirements<span class="colon">:</span></dt>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
-<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller (time interval between two consecutive control actions)</p></li>
-<li><p><strong>xi</strong> (<em>float</em>) – Sensing radius of the herder agents</p></li>
-<li><p><strong>v_h</strong> (<em>float</em>) – Speed of the herders when no targets are detected</p></li>
-<li><p><strong>alpha</strong> (<em>float</em>) – Attraction force constant to the selected target</p></li>
-<li><p><strong>lmbda</strong> (<em>float</em>) – Not USED</p></li>
-<li><p><strong>delta</strong> (<em>float</em>) – Displacement to go behind a target</p></li>
-<li><p><strong>rho_g</strong> (<em>float</em>) – Radius of the goal region</p></li>
+<li><p><strong>herders</strong> (<em>Population</em>) – Reference to the herder population (same as population).</p></li>
+<li><p><strong>targets</strong> (<em>Population</em>) – The target population being shepherded.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a>) – The shepherding environment with goal position information.</p></li>
+<li><p><strong>xi</strong> (<em>float</em>) – Sensing radius of herder agents for target detection.</p></li>
+<li><p><strong>v_h</strong> (<em>float</em>) – Speed of herders when no targets are detected within sensing radius.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Attraction force constant toward the selected target position.</p></li>
+<li><p><strong>lmbda</strong> (<em>float</em>) – Lambda parameter (currently not used in implementation).</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – Displacement distance to position herders behind targets.</p></li>
+<li><p><strong>rho_g</strong> (<em>float</em>) – Radius of the goal region.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the controller’s section</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller (time interval between control actions).</p></li>
+<li><p><strong>xi</strong> (<em>float, optional</em>) – Sensing radius of herder agents. Default is <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
+<li><p><strong>v_h</strong> (<em>float, optional</em>) – Speed of herders when no targets are detected. Default is <code class="docutils literal notranslate"><span class="pre">12</span></code>.</p></li>
+<li><p><strong>alpha</strong> (<em>float, optional</em>) – Attraction force constant to the selected target. Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>lambda</strong> (<em>float, optional</em>) – Lambda parameter (not currently used). Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>delta</strong> (<em>float, optional</em>) – Displacement to go behind a target. Default is <code class="docutils literal notranslate"><span class="pre">1.5</span></code>.</p></li>
+<li><p><strong>rho_g</strong> (<em>float, optional</em>) – Radius of the goal region. Default is <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The controller algorithm works as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Target Selection</strong>: Each herder identifies targets within its sensing radius <cite>xi</cite></p></li>
+<li><p><strong>Distance Calculation</strong>: Among detected targets, select the one farthest from the goal</p></li>
+<li><p><strong>Position Calculation</strong>: Position herder behind the selected target at distance <cite>delta</cite></p></li>
+<li><p><strong>Control Action</strong>: Apply attractive force with strength <cite>alpha</cite> toward the desired position</p></li>
+<li><p><strong>No Target Behavior</strong>: If no targets detected, move away from goal with speed <cite>v_h</cite></p></li>
+</ol>
+<p>The controller assumes a shepherding environment with a defined goal position and
+requires both herder and target populations to be properly initialized.</p>
 <p class="rubric">Examples</p>
 <p>Example YAML configuration:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ShepherdingLamaController</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 <span class="w">    </span><span class="nt">xi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
 <span class="w">    </span><span class="nt">v_h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
@@ -432,15 +564,40 @@ NOTE: This is the method you need to OVERRIDE to implement your controller</p>
 </div>
 <p>This defines a <cite>ShepherdingLamaController</cite> with xi=15, v_h=12, alpha=3, lambda=3, delta=1.5, rho_g=5.
 This controller is able to steer a population of targets to the goal region.</p>
+<p class="rubric">References</p>
+<p>Lama, Andrea, and Mario di Bernardo. “Shepherding and herdability in complex multiagent systems.” Physical Review Research 6.3 (2024): L032012</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action">
 <span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action" title="Link to this definition">#</a></dt>
-<dd><p>STEFANO O ITALO TODO</p>
+<dd><p>Compute the shepherding control action for herder agents.</p>
+<p>This method implements the LAMA shepherding algorithm by:
+1. Finding targets within each herder’s sensing radius
+2. Selecting the target farthest from the goal for each herder
+3. Computing desired herder positions behind selected targets
+4. Apply attractive force toward desired herder positions</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>ndarray</em></p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Control actions of shape (N_herders, 2) representing force vectors
+for each herder agent in the x and y directions.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>ndarray</em></p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The algorithm follows these steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Target Detection</strong>: For each herder, find all targets within sensing radius <cite>xi</cite></p></li>
+<li><p><strong>Target Selection</strong>: Each herder selects the target farthest from the goal</p></li>
+<li><p><strong>Position Calculation</strong>: Compute desired position behind selected target</p></li>
+<li><p><strong>Force Calculation</strong>: Computes attractive force toward desired position</p></li>
+</ol>
+<p>If no targets are within sensing range:
+- Herders inside goal region (distance &lt; rho_g) remain stationary
+- Herders outside goal region move away from origin with speed v_h</p>
+<p>If a target is selected:
+- Apply attractive force: alpha * (desired_position - current_position)
+- Desired position is behind target: target_pos + delta * target_unit_vector</p>
 </dd></dl>
 
 </dd></dl>
@@ -452,34 +609,77 @@ This controller is able to steer a population of targets to the goal region.</p>
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">GaussianRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
-<p>This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation</p>
+<p>Implements a spatially-varying radial repulsion force with Gaussian intensity profile.</p>
+<p>This controller creates a repulsion field centered at the origin with intensity that
+follows a 2D Gaussian distribution. Agents experience repulsive forces that push them
+away from the center, with force magnitude determined by the Gaussian profile and
+direction determined by their position relative to the origin.</p>
+<p>The controller uses spatial interpolation to efficiently compute force values at
+agent positions from a discretized Gaussian field defined on a regular grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population where the control is exerted</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment where the agents live</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – The path of the configuration file</p></li>
+<li><p><strong>population</strong> (<em>Population</em>) – The population of agents to be controlled by this repulsion field.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and dimensions.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Config requirements<span class="colon">:</span></dt>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
-<li><p><strong>disc_pts</strong> (<em>int</em>) – Number of points of the discretization grid for the Gaussian input</p></li>
+<li><p><strong>disc_pts</strong> (<em>int</em>) – Number of discretization points along each axis for the Gaussian field grid.</p></li>
+<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator object for efficient evaluation of the Gaussian field at arbitrary positions.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file should contain the following parameters</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller.</p></li>
+<li><p><strong>disc_pts</strong> (<em>int, optional</em>) – Number of points in the discretization grid for the Gaussian input field.
+Default is <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The repulsion force is computed as:</p>
+<blockquote>
+<div><p>F(x, y) = G(x, y) * (x, y) / ||x, y||</p>
+</div></blockquote>
+<p>where:
+- G(x, y) is the Gaussian intensity at position (x, y)
+- (x, y) / ||x, y|| is the unit vector pointing away from the origin
+- The result is a radial repulsion force with Gaussian-modulated strength</p>
+<p>The Gaussian field is pre-computed on a regular grid and interpolated for efficiency.
+The grid spans the environment dimensions with the specified number of discretization points.</p>
 <p class="rubric">Examples</p>
 <p>Example YAML configuration:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">GaussianRepulsion</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">disc_pts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">disc_pts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
 </pre></div>
 </div>
-<p>This defines a <cite>GaussianRepulsion</cite> force that uses a 30x30 meshgrid to approximate the gaussian in the environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action">
 <span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action" title="Link to this definition">#</a></dt>
-<dd><p>This method computes a radial repulsion force from the origin, whose intensity is scaled using
-a Gaussian distribution in a 2D space.</p>
+<dd><p>Compute the Gaussian repulsion forces for all agents.</p>
+<p>This method evaluates the Gaussian intensity field at each agent’s position
+and computes radial repulsion forces pointing away from the origin. The force
+magnitude is modulated by the Gaussian intensity profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Repulsion forces of shape (N, 2) where N is the number of agents.
+Each row contains the [x, y] force components for the corresponding agent.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The repulsion force computation involves:</p>
+<ol class="arabic simple">
+<li><p><strong>Intensity Evaluation</strong>: Sample Gaussian field at agent positions using interpolation</p></li>
+<li><p><strong>Distance Calculation</strong>: Compute distance from each agent to the origin</p></li>
+<li><p><strong>Direction Calculation</strong>: Compute unit vectors pointing away from origin</p></li>
+<li><p><strong>Force Combination</strong>: Multiply intensity by direction to get final forces</p></li>
+</ol>
+<p>Agents at the exact origin (distance = 0) are assigned a small offset to avoid
+division by zero in the direction calculation.</p>
 </dd></dl>
 
 </dd></dl>
@@ -488,45 +688,311 @@ a Gaussian distribution in a 2D space.</p>
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">LightPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
-<p>This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation</p>
+<p>Projects a spatial light pattern loaded from an image file onto the environment.</p>
+<p>This controller reads an image file and uses it to create a spatial control field
+that agents can sense. The image is mapped to the environment coordinates, and
+the blue channel intensity is used as the control signal. This enables complex
+spatial patterns to be used for agent guidance and control.</p>
+<p>The controller is particularly useful for biological agent models where light
+intensity can influence agent behavior, such as phototaxis or photophobic responses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population where the control is exerted</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment where the agents live</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – The path of the configuration file</p></li>
+<li><p><strong>population</strong> (<em>Population</em>) – The population of agents that will sense the light pattern.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and coordinate mapping.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Config requirements<span class="colon">:</span></dt>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
-<li><p><strong>pattern_path</strong> (<em>str</em>) – The path (relative or absolute) of the pattern of light that you want to project in the environment</p></li>
+<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator object for evaluating light intensity at arbitrary positions.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Reference to the environment for boundary checking.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller.</p></li>
+<li><p><strong>pattern_path</strong> (<em>str</em>) – Path (relative or absolute) to the image file containing the light pattern.
+Supported formats include JPEG, PNG, and other common image formats.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The controller implementation:</p>
+<ol class="arabic simple">
+<li><p><strong>Image Loading</strong>: Reads the specified image file using matplotlib</p></li>
+<li><p><strong>Coordinate Mapping</strong>: Maps image pixels to environment coordinates</p></li>
+<li><p><strong>Channel Extraction</strong>: Uses the blue channel (RGB[2]) as intensity values</p></li>
+<li><p><strong>Normalization</strong>: Normalizes pixel values to [0, 1] range</p></li>
+<li><p><strong>Interpolation</strong>: Creates interpolator for continuous intensity evaluation</p></li>
+</ol>
+<p>Agents outside the environment boundaries are clamped to the boundary values
+to ensure consistent behavior at the edges.</p>
 <p class="rubric">Examples</p>
 <p>Example YAML configuration:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">LightPattern</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 <span class="w">    </span><span class="nt">pattern_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../Configuration/Config_data/BCL.jpeg</span>
 </pre></div>
 </div>
-<p>This defines a <cite>LightPattern</cite> that project the content of BCL.jpeg over the environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern.get_action">
 <span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action" title="Link to this definition">#</a></dt>
-<dd><p>This function returns the light intensity projected by the pattern defined at the pattern_path.
-All agents that are outside the boundaries of the arena are considered as being at the borders of the arena.</p>
+<dd><p>Get the light intensity values at the current agent positions.</p>
+<p>This method evaluates the light pattern at each agent’s current position,
+applying boundary clamping to ensure agents outside the environment
+boundaries receive the edge intensity values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Light intensity values of shape (N, 1) where N is the number of agents.
+Values are normalized to the range [0, 1] based on the image data.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The method performs the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Boundary Clamping</strong>: Clip agent positions to environment boundaries</p></li>
+<li><p><strong>Interpolation</strong>: Evaluate light pattern at clamped positions</p></li>
+<li><p><strong>Reshaping</strong>: Return as column vector for compatibility</p></li>
+</ol>
+<p>Agents outside the defined pattern area receive the boundary values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space">
 <span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate the light pattern at specified spatial positions.</p>
+<p>This method allows querying the light intensity at arbitrary positions
+in the environment, useful for analysis and visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>positions</strong> (<em>np.ndarray</em>) – Array of shape (num_positions, 2) containing [x, y] coordinates
+where light intensity should be evaluated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>np.ndarray</em> – Light intensity values of shape (num_positions, 1) at the specified positions.
+Values are normalized to the range [0, 1] based on the image data.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method provides direct access to the interpolated light pattern.</p>
+<p>Useful for:
+- Analyzing light patterns before simulation
+- Creating visualizations of the control field
+- Implementing predictive control strategies</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">Temporal_pulses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
+<p>Implements a temporally-varying control signal with periodic on/off pulses.</p>
+<p>This controller generates a uniform control signal that alternates between
+‘on’ (value = 1) and ‘off’ (value = 0) states with a specified period.
+The signal is spatially uniform but varies in time, creating synchronized
+temporal stimulation across all agents.</p>
+<p>The controller is useful for studying temporal entrainment, circadian rhythm
+effects, or synchronized behavioral responses in agent populations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<em>Population</em>) – The population of agents to receive the temporal pulse signal.</p></li>
+<li><p><strong>Period</strong> (<em>float</em><em>, </em><em>optional</em>) – The period of the temporal pulses (time for one complete on/off cycle).</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment" title="swarmsim.Environments.base_environment.Environment"><em>Environment</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>T</strong> (<em>float</em>) – Period of the temporal pulses (time for one complete on/off cycle).</p></li>
+<li><p><strong>current_time</strong> (<em>float</em>) – Current simulation time, updated at each control action.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file should contain the following parameters</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller.</p></li>
+<li><p><strong>Period</strong> (<em>float, optional</em>) – Period of the temporal pulses in simulation time units. Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The pulse pattern follows a square wave:
+- First half of period (0 ≤ t mod T &lt; T/2): Signal = 1 (ON)
+- Second half of period (T/2 ≤ t mod T &lt; T): Signal = 0 (OFF)</p>
+<p>The controller maintains its own internal time counter that is incremented
+by <cite>dt</cite> at each call to <cite>get_action()</cite>.</p>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Temporal_pulses</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">Period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+</pre></div>
+</div>
+<p>This creates pulses with 2-second period (1 second ON, 1 second OFF).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action">
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action" title="Link to this definition">#</a></dt>
+<dd><p>Generate the current temporal pulse state for all agents.</p>
+<p>This method updates the internal time counter and returns the current
+pulse state (1 for ON, 0 for OFF) based on the temporal position
+within the pulse period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Pulse state array of shape (N, 1) where N is the number of agents.
+All agents receive the same pulse value: 1 during ON phase, 0 during OFF phase.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The method performs the following:</p>
+<ol class="arabic simple">
+<li><p><strong>Time Update</strong>: Increment internal time by dt</p></li>
+<li><p><strong>Phase Calculation</strong>: Compute position within current pulse period</p></li>
+<li><p><strong>State Determination</strong>: Return 1 if in first half of period, 0 otherwise</p></li>
+</ol>
+<p>The pulse timing is deterministic and synchronized across all agents,
+making it suitable for studying collective temporal responses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space">
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space" title="Link to this definition">#</a></dt>
 <dd><p>Returns the light intensity at the position specified in the positions vector</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>positions</strong> (<em>numpy.Array</em><em>(</em><em>num_positions</em><em>, </em><em>num_dimensions</em><em>)</em>) – The positions where you want to retrieve the value of the control action</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">AngularFeedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
+<p>Implements dynamic visual feedback using angular light patterns behind agents.</p>
+<p>This controller creates dynamic light patterns by drawing lines behind each agent
+based on their current position and a specified angular width. The patterns are
+updated periodically and projected as visual feedback that agents can sense.</p>
+<p>The controller generates wedge-shaped light patterns extending radially outward
+from each agent’s position, creating a dynamic feedback system that can influence
+agent behavior through phototaxis or photophobic responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<em>Population</em>) – The population of agents for which light patterns will be generated.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and coordinate mapping.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>line_width</strong> (<em>int</em>) – Width of the lines drawn in the light pattern (in pixels).</p></li>
+<li><p><strong>angle_width</strong> (<em>float</em>) – Angular width of the wedge pattern behind each agent (in radians).</p></li>
+<li><p><strong>agent_distance</strong> (<em>float</em>) – Distance behind each agent where the wedge pattern starts.</p></li>
+<li><p><strong>update_time</strong> (<em>float</em>) – Time interval between pattern updates (in simulation time units).</p></li>
+<li><p><strong>last_update</strong> (<em>float</em>) – Timestamp of the last pattern update.</p></li>
+<li><p><strong>current_time</strong> (<em>float</em>) – Current simulation time.</p></li>
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Grid x-coordinates for spatial discretization.</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Grid y-coordinates for spatial discretization.</p></li>
+<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator for evaluating light intensity at arbitrary positions.</p></li>
+<li><p><strong>img_count</strong> (<em>int</em>) – Counter for saved debug images.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file should contain the following parameters</strong></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling time of the controller.</p></li>
+<li><p><strong>line_width</strong> (<em>int, optional</em>) – Width of the drawn lines in pixels. Default is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>angle_width</strong> (<em>float, optional</em>) – Angular width of the wedge pattern in radians. Default is <code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">45</span> <span class="pre">*</span> <span class="pre">π/180</span></code> (22.5 degrees).</p></li>
+<li><p><strong>agent_distance</strong> (<em>float, optional</em>) – Distance behind agents where patterns start. Default is <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p></li>
+<li><p><strong>update_time</strong> (<em>float, optional</em>) – Time interval between pattern updates. Default is <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">*</span> <span class="pre">dt</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The controller algorithm:</p>
+<ol class="arabic simple">
+<li><p><strong>Time Management</strong>: Track simulation time and update patterns periodically</p></li>
+<li><p><strong>Pattern Generation</strong>: Create wedge-shaped light patterns behind each agent</p></li>
+<li><p><strong>Image Creation</strong>: Use PIL to draw patterns on a digital canvas</p></li>
+<li><p><strong>Interpolation Setup</strong>: Create interpolator for smooth light evaluation</p></li>
+<li><p><strong>Light Evaluation</strong>: Return light intensity at current agent positions</p></li>
+</ol>
+<p>The patterns are dynamic and respond to agent movement, creating a feedback
+loop where agent behavior influences the light field they experience.</p>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AngularFeedback</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">angle_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.785</span><span class="w">  </span><span class="c1"># π/4 radians (45 degrees)</span>
+<span class="w">    </span><span class="nt">agent_distance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">    </span><span class="nt">update_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+</pre></div>
+</div>
+<p>Applications include:
+- Dynamic visual feedback systems
+- Agent-responsive light environments
+- Collective behavior with environmental coupling
+- Adaptive spatial guidance systems</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action">
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action" title="Link to this definition">#</a></dt>
+<dd><p>Generate and evaluate the current angular light pattern.</p>
+<p>This method updates the dynamic light pattern based on current agent positions
+and returns the light intensity values experienced by each agent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Light intensity values of shape (N, 1) where N is the number of agents.
+Values represent the blue channel intensity (0-1) at each agent’s position.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The method operates in two phases:</p>
+<ol class="arabic simple">
+<li><p><strong>Pattern Update</strong> (if update_time has elapsed):
+- Calculate wedge patterns behind each agent
+- Draw lines using PIL imaging library
+- Update the spatial interpolator with new pattern</p></li>
+<li><p><strong>Light Evaluation</strong> (every call):
+- Clip agent positions to environment boundaries
+- Evaluate light intensity at current positions
+- Return intensity values</p></li>
+</ol>
+<p>The wedge patterns are generated by drawing two lines from a point behind
+each agent to positions that create the specified angular width.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space">
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate the angular light pattern at specified spatial positions.</p>
+<p>This method allows querying the current light pattern at arbitrary positions
+in the environment, useful for analysis and visualization of the dynamic
+feedback patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>positions</strong> (<em>np.ndarray</em>) – Array of shape (num_positions, 2) containing [x, y] coordinates
+where light intensity should be evaluated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>np.ndarray</em> – Light intensity values of shape (num_positions, 1) at the specified positions.
+Values represent the blue channel intensity (0-1) from the current pattern.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method evaluates the most recently generated angular pattern at the
+specified positions. The pattern reflects the agent positions at the time
+of the last update (controlled by update_time parameter).</p>
+<p>Useful for:
+- Visualizing the dynamic light patterns
+- Analyzing spatial feedback structures
+- Creating movies or animations of pattern evolution</p>
 </dd></dl>
 
 </dd></dl>
@@ -582,8 +1048,10 @@ All agents that are outside the boundaries of the arena are considered as being 
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Controllers">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#available-controllers">Available Controllers</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controllers-module">Controllers Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#available-controllers">Available Controllers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-examples">Configuration Examples</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modules">Modules</a></li>
 </ul>
 </li>
@@ -612,6 +1080,16 @@ All agents that are outside the boundaries of the arena are considered as being 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern"><code class="docutils literal notranslate"><span class="pre">LightPattern</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action_in_space()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action_in_space()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback"><code class="docutils literal notranslate"><span class="pre">AngularFeedback</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action_in_space()</span></code></a></li>
 </ul>
 </li>
 </ul>

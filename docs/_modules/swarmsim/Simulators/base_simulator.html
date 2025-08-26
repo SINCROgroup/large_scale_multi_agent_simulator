@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Simulators.base_simulator &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Simulators.base_simulator &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -287,7 +287,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interaction</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Controller</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Integrator</span>
@@ -298,6 +298,105 @@
 <div class="viewcode-block" id="Simulator">
 <a class="viewcode-back" href="../../../swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Simulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main simulation engine that orchestrates multi-agent system simulations.</span>
+
+<span class="sd">    The Simulator class coordinates all components of a multi-agent system including populations,</span>
+<span class="sd">    environment, interactions, controllers, integrators, loggers, and renderers. It manages the</span>
+<span class="sd">    simulation loop and ensures proper execution order of all simulation steps.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing simulation parameters.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of agent populations to simulate.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The environment in which agents operate.</span>
+<span class="sd">    integrator : Integrator</span>
+<span class="sd">        Numerical integration scheme for updating agent states.</span>
+<span class="sd">    interactions : list of Interaction, optional</span>
+<span class="sd">        List of interaction models between agents. Default is None.</span>
+<span class="sd">    controllers : list of Controller, optional</span>
+<span class="sd">        List of controllers that influence agent behavior. Default is None.</span>
+<span class="sd">    logger : Logger, optional</span>
+<span class="sd">        Logger instance for recording simulation data. Default is None.</span>
+<span class="sd">    renderer : Renderer, optional</span>
+<span class="sd">        Renderer instance for visualization. Default is None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt : float</span>
+<span class="sd">        Simulation timestep, inherited from the integrator.</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Total simulation time duration.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of agent populations in the simulation.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The simulation environment.</span>
+<span class="sd">    interactions : list of Interaction or None</span>
+<span class="sd">        List of interaction models.</span>
+<span class="sd">    controllers : list of Controller or None</span>
+<span class="sd">        List of control strategies.</span>
+<span class="sd">    logger : Logger or None</span>
+<span class="sd">        Data logger instance.</span>
+<span class="sd">    renderer : Renderer or None</span>
+<span class="sd">        Visualization renderer.</span>
+<span class="sd">    integrator : Integrator</span>
+<span class="sd">        Numerical integration scheme.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the simulator section:</span>
+
+<span class="sd">    T : float, optional</span>
+<span class="sd">        Total simulation time. Default is ``10.0``.</span>
+<span class="sd">    dt : float, optional</span>
+<span class="sd">        Simulation timestep. Default is ``0.01``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The simulation loop executes the following steps in order:</span>
+<span class="sd">    </span>
+<span class="sd">    1. **Logging**: Record current simulation state</span>
+<span class="sd">    2. **Rendering**: Visualize current state (if renderer is provided)</span>
+<span class="sd">    3. **Control**: Computes control actions (if controllers are provided)</span>
+<span class="sd">    4. **Interactions**: Computes inter-agent forces (if interactions are provided)</span>
+<span class="sd">    5. **Integration**: Update agent states using numerical integration</span>
+<span class="sd">    6. **Reset Forces**: Clear interaction forces for next timestep</span>
+<span class="sd">    7. **Environment Update**: Update environment state</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic simulation setup:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim import BrownianMotion, Simulator</span>
+<span class="sd">        from swarmsim.Environments import EmptyEnvironment</span>
+<span class="sd">        from swarmsim.Integrators import EulerMaruyama</span>
+<span class="sd">        </span>
+<span class="sd">        # Create components</span>
+<span class="sd">        population = BrownianMotion(&#39;config.yaml&#39;)</span>
+<span class="sd">        environment = EmptyEnvironment(&#39;config.yaml&#39;)</span>
+<span class="sd">        integrator = EulerMaruyama(&#39;config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create and run simulator</span>
+<span class="sd">        simulator = Simulator(</span>
+<span class="sd">            config_path=&#39;config.yaml&#39;,</span>
+<span class="sd">            populations=[population],</span>
+<span class="sd">            environment=environment,</span>
+<span class="sd">            integrator=integrator</span>
+<span class="sd">        )</span>
+<span class="sd">        simulator.simulate()</span>
+
+<span class="sd">    Example YAML configuration:</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        simulator:</span>
+<span class="sd">            T: 50.0  # Run simulation for 50 time units</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -309,11 +408,32 @@
                  <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">renderer</span><span class="p">:</span> <span class="n">Renderer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;        </span>
-<span class="sd">        Initializes the Simulator class with configuration parameters from a YAML file.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Simulator with all required and optional components.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            config_path (str): The path to the YAML configuration file.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        config_path : str</span>
+<span class="sd">            Path to the YAML configuration file containing simulation parameters.</span>
+<span class="sd">        populations : list of Population</span>
+<span class="sd">            List of agent populations to include in the simulation.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The environment where agents operate.</span>
+<span class="sd">        integrator : Integrator</span>
+<span class="sd">            Numerical integration scheme for state evolution.</span>
+<span class="sd">        interactions : list of Interaction, optional</span>
+<span class="sd">            Inter-agent interaction models. Default is None.</span>
+<span class="sd">        controllers : list of Controller, optional</span>
+<span class="sd">            Control strategies for influencing agent behavior. Default is None.</span>
+<span class="sd">        logger : Logger, optional</span>
+<span class="sd">            Data recording component. Default is None.</span>
+<span class="sd">        renderer : Renderer, optional</span>
+<span class="sd">            Visualization component. Default is None.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the configuration file cannot be found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
@@ -334,6 +454,36 @@
 <div class="viewcode-block" id="Simulator.simulate">
 <a class="viewcode-back" href="../../../swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator.simulate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute the main simulation loop.</span>
+
+<span class="sd">        This method runs the complete simulation from t=0 to t=T, coordinating all</span>
+<span class="sd">        simulation components in the proper sequence. It includes progress tracking</span>
+<span class="sd">        and handles early termination if requested by the logger.</span>
+
+<span class="sd">        The simulation loop performs the following steps at each timestep:</span>
+<span class="sd">        </span>
+<span class="sd">        1. **Data Logging**: Record current simulation state and check for termination</span>
+<span class="sd">        2. **Visualization**: Render current state if renderer is available</span>
+<span class="sd">        3. **Control Actions**: Apply control inputs from all controllers</span>
+<span class="sd">        4. **Agent Interactions**: Compute forces between agents</span>
+<span class="sd">        5. **State Integration**: Update agent positions using the integrator</span>
+<span class="sd">        6. **Force Reset**: Clear interaction forces for the next timestep</span>
+<span class="sd">        7. **Environment Update**: Update environmental conditions</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Progress is displayed using a progress bar</span>
+<span class="sd">        - Controllers operate at their specified sampling rates</span>
+<span class="sd">        - Interaction forces are reset at each timestep</span>
+<span class="sd">        - Early termination is possible if the logger returns a done flag</span>
+<span class="sd">        - All populations are reset to initial conditions before simulation starts</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        RuntimeError</span>
+<span class="sd">            If any component fails during simulation execution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">num_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>  <span class="c1"># Calculate the number of steps as an integer</span>
 
@@ -348,7 +498,14 @@
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        
+
+        <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">:</span>
+            <span class="n">population</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">interaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions</span><span class="p">:</span>
+                <span class="n">interaction</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
             <span class="c1">#print(t)</span>
             <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>  <span class="c1"># Log and get done flag</span>
@@ -360,7 +517,7 @@
             <span class="c1"># Implement the control actions</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">%</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">t</span> <span class="o">%</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">c</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_action</span><span class="p">()</span>
 
             <span class="c1"># Compute the interactions between the agents</span>
@@ -440,7 +597,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Loggers.shepherding_logger &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Loggers.shepherding_logger &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -121,6 +121,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -192,6 +198,12 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -270,65 +282,116 @@
                 <article class="bd-article">
                   
   <h1>Source code for swarmsim.Loggers.shepherding_logger</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLogger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_csv</span><span class="p">,</span> <span class="n">append_txt</span><span class="p">,</span> <span class="n">get_done_shepherding</span><span class="p">,</span> <span class="n">xi_shepherding</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLogger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">get_done_shepherding</span><span class="p">,</span> <span class="n">xi_shepherding</span>
 
 
 <div class="viewcode-block" id="ShepherdingLogger">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ShepherdingLogger</span><span class="p">(</span><span class="n">BaseLogger</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A class that implements a logger.</span>
+<span class="sd">    Specialized logger for shepherding simulations with task-specific metrics.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        -------</span>
-<span class="sd">            populations: list of instances of clas populations.</span>
-<span class="sd">            environment: Instance of class environment.</span>
-<span class="sd">            config_path: str (Path of the configuration file).</span>
+<span class="sd">    This logger extends the BaseLogger to capture and analyze shepherding-specific</span>
+<span class="sd">    metrics such as target capture rates, completion status, and task progression.</span>
+<span class="sd">    It monitors the effectiveness of shepherding algorithms by tracking how many</span>
+<span class="sd">    targets are successfully guided to goal regions.</span>
 
-<span class="sd">        Attributes</span>
-<span class="sd">        -------</span>
-<span class="sd">            - config: dict                                  Dictionary of parameters</span>
-<span class="sd">            - activate: bool                                Flag to activate and save logger</span>
-<span class="sd">            - date: date object                             Current date to log and name files</span>
-<span class="sd">            - log_freq: int                                 Print information frequency</span>
-<span class="sd">            - save_freq: int                                Save information frequency</span>
-<span class="sd">            - log_path: str                                 Path where logger is saved</span>
-<span class="sd">            - comment_enable: bool                          Flag to enable adding comment at the beginning and end of an experiment</span>
-<span class="sd">            - populations: list of population objects       List of populations in the experiment</span>
-<span class="sd">            - environment: environment object               Environment of the experiment</span>
-<span class="sd">            - name: str                                     Name of the logger, appended to the date to name output files</span>
-<span class="sd">            - log_name_csv: str                             Name of the .csv machine-readable file</span>
-<span class="sd">            - log_name_txt: str                             Name of the .txt human-readable file</span>
-<span class="sd">            - log_name_npz: str                             Name of the .npz file to store tensors</span>
-<span class="sd">            - start: time object                            Starting time of the simulation</span>
-<span class="sd">            - end: time object                              Final time of the simulation</span>
-<span class="sd">            - step_count: int                               Step counter to track time</span>
-<span class="sd">            - done: bool                                    Flag to truncate experiment early</span>
-<span class="sd">            - current_info: dict                            Information to log in a specific time step as a dict of {name_variable: value}</span>
+<span class="sd">    The logger computes the shepherding metric xi (ξ), which represents the fraction</span>
+<span class="sd">    of targets successfully captured, and monitors task completion to enable early</span>
+<span class="sd">    termination when all targets reach the goal region.</span>
 
-<span class="sd">        Configuration file requirements</span>
-<span class="sd">            - activate: bool            True to have logger, False otherwise</span>
-<span class="sd">            - log_freq: int             Print every log_freq steps information (0: never print)</span>
-<span class="sd">            - save_freq: int            Save every save_freq steps information (0: never save)</span>
-<span class="sd">            - comment_enable: bool      If true, add initial and final comments to the logger about the experiment</span>
-<span class="sd">            - log_path: str             Path where logger output should be saved</span>
-<span class="sd">            - log_name: str             String appended to date in the name of the file</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of population objects in the shepherding simulation.</span>
+<span class="sd">        Typically includes target agents (index 0) and optionally shepherd agents.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Shepherding environment object containing goal regions and spatial boundaries.</span>
+<span class="sd">        Must support shepherding-specific geometric calculations.</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing logger parameters.</span>
 
-<span class="sd">        Notes</span>
-<span class="sd">        -------</span>
-<span class="sd">            If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.</span>
-<span class="sd">            Moreover, save_data stores a .npz of the data given in input.</span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        Population objects being monitored, inherited from BaseLogger.</span>
+<span class="sd">        First population (index 0) is typically the target agents.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Shepherding environment with goal regions, inherited from BaseLogger.</span>
+<span class="sd">    xi : float</span>
+<span class="sd">        Current shepherding metric (fraction of captured targets).</span>
+<span class="sd">        Range: [0.0, 1.0] where 1.0 indicates all targets captured.</span>
+<span class="sd">    done : bool</span>
+<span class="sd">        Task completion flag indicating whether all targets are captured.</span>
+<span class="sd">    current_info : dict</span>
+<span class="sd">        Current timestep information including shepherding metrics.</span>
+<span class="sd">    global_info : dict</span>
+<span class="sd">        Accumulated simulation data across all timesteps.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain logger parameters under the class section:</span>
+
+<span class="sd">    ShepherdingLogger : dict</span>
+<span class="sd">        Configuration section for the shepherding logger:</span>
+<span class="sd">        - ``activate`` : bool, optional</span>
+<span class="sd">            Enable/disable logging. Default: ``True``</span>
+<span class="sd">        - ``log_freq`` : int, optional</span>
+<span class="sd">            Print frequency (0 = never). Default: ``0``</span>
+<span class="sd">        - ``save_freq`` : int, optional</span>
+<span class="sd">            Save frequency (0 = never). Default: ``1``</span>
+<span class="sd">        - ``save_data_freq`` : int, optional</span>
+<span class="sd">            Data save frequency. Default: ``0``</span>
+<span class="sd">        - ``save_global_data_freq`` : int, optional</span>
+<span class="sd">            Global data save frequency. Default: ``0``</span>
+<span class="sd">        - ``log_path`` : str, optional</span>
+<span class="sd">            Output directory path. Default: ``&quot;./logs&quot;``</span>
+<span class="sd">        - ``log_name`` : str, optional</span>
+<span class="sd">            Log file name suffix. Default: ``&quot;&quot;``</span>
+<span class="sd">        - ``comment_enable`` : bool, optional</span>
+<span class="sd">            Enable experiment comments. Default: ``False``</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Shepherding Metrics:**</span>
+
+<span class="sd">    The logger computes several task-specific metrics:</span>
+
+<span class="sd">    - **Xi (ξ)**: Fraction of targets successfully captured in goal region</span>
+<span class="sd">    - **Task Completion**: Boolean flag indicating complete task success</span>
+<span class="sd">    - **Temporal Progression**: Evolution of capture rate over time</span>
+
+<span class="sd">    **Early Termination:**</span>
+
+<span class="sd">    The logger can trigger early simulation termination when all targets</span>
+<span class="sd">    are successfully shepherded to the goal region, improving computational</span>
+<span class="sd">    efficiency for successful trials.</span>
+
+<span class="sd">    **Integration with Shepherding Utils:**</span>
+
+<span class="sd">    Uses specialized utility functions:</span>
+
+<span class="sd">    - ``xi_shepherding()``: Computes capture fraction metric</span>
+<span class="sd">    - ``get_done_shepherding()``: Determines task completion status</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    **Basic Configuration:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        ShepherdingLogger:</span>
+<span class="sd">            activate: true</span>
+<span class="sd">            log_freq: 10</span>
+<span class="sd">            save_freq: 1</span>
+<span class="sd">            log_path: &quot;./shepherding_logs&quot;</span>
+<span class="sd">            log_name: &quot;shepherding_experiment&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="ShepherdingLogger.log">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log">[docs]</a>
@@ -351,35 +414,20 @@
 <span class="sd">            See add_data from Utils/logger_utils.py to quickly add variables to log.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Get log info</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_event</span><span class="p">()</span>  <span class="c1"># Verify if episode is done</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
             <span class="c1"># Get metrics</span>
-            <span class="n">xi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xi</span><span class="p">()</span>
-
-            <span class="c1"># Include desired information</span>
-            <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span><span class="p">)</span>  <span class="c1"># Get timestamp</span>
-            <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">xi</span><span class="o">=</span><span class="n">xi</span><span class="p">)</span>
-            <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
-
-            <span class="c1"># Print line if wanted</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">print_log</span><span class="p">()</span>
-
-            <span class="c1"># Save line if wanted</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Update step counter</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xi</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_event</span><span class="p">()</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span></div>
+
+
+<div class="viewcode-block" id="ShepherdingLogger.log_internal_data">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_internal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="s1">&#39;txt&#39;</span><span class="p">]):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">log_internal_data</span><span class="p">(</span><span class="n">save_mode</span><span class="p">)</span>
+        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">,</span> <span class="n">xi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">xi</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ShepherdingLogger.get_xi">
@@ -457,7 +505,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

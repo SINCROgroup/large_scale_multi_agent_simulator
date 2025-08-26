@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Loggers.base_logger &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Loggers.base_logger &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -285,98 +285,383 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_csv</span><span class="p">,</span> <span class="n">append_txt</span><span class="p">,</span> <span class="n">print_log</span><span class="p">,</span> <span class="n">save_npz</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_csv</span><span class="p">,</span> <span class="n">append_txt</span><span class="p">,</span> <span class="n">print_log</span><span class="p">,</span> <span class="n">save_npz</span><span class="p">,</span> <span class="n">save_mat</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils.sim_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
 
 
 <div class="viewcode-block" id="BaseLogger">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseLogger</span><span class="p">(</span><span class="n">Logger</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class that implements a logger.</span>
+<span class="sd">    Comprehensive base logger for multi-agent simulation data collection and analysis.</span>
+
+<span class="sd">    This logger provides the foundational logging infrastructure for recording simulation</span>
+<span class="sd">    data, managing file outputs, timing execution, and providing extensible hooks for</span>
+<span class="sd">    specialized logging behaviors. It handles multiple output formats, configurable</span>
+<span class="sd">    logging frequencies, and automatic file organization with timestamped naming.</span>
+
+<span class="sd">    The BaseLogger serves as the parent class for all specialized loggers in the framework,</span>
+<span class="sd">    providing common functionality while allowing customization through method overriding.</span>
+<span class="sd">    It automatically manages file creation, data serialization, and experiment metadata.</span>
 
 <span class="sd">    Parameters</span>
-<span class="sd">    -------</span>
-<span class="sd">        populations: list of instances of clas populations.</span>
-<span class="sd">        environment: Instance of class environment.</span>
-<span class="sd">        config_path: str (Path of the configuration file).</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of population objects whose data will be logged throughout the simulation.</span>
+<span class="sd">        Each population provides state information and dynamics data.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Environment object containing spatial and contextual information for the simulation.</span>
+<span class="sd">        Provides environmental state and parameters for logging.</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing logger parameters and settings.</span>
 
 <span class="sd">    Attributes</span>
-<span class="sd">    -------</span>
-<span class="sd">        - config: dict                                  Dictionary of parameters</span>
-<span class="sd">        - activate: bool                                Flag to activate and save logger</span>
-<span class="sd">        - date: date object                             Current date to log and name files</span>
-<span class="sd">        - log_freq: int                                 Print information frequency</span>
-<span class="sd">        - save_freq: int                                Save information frequency</span>
-<span class="sd">        - log_path: str                                 Path where logger is saved</span>
-<span class="sd">        - comment_enable: bool                          Flag to enable adding comment at the beginning and end of an experiment</span>
-<span class="sd">        - populations: list of population objects       List of populations in the experiment</span>
-<span class="sd">        - environment: environment object               Environment of the experiment</span>
-<span class="sd">        - name: str                                     Name of the logger, appended to the date to name output files</span>
-<span class="sd">        - log_name_csv: str                             Name of the .csv machine-readable file</span>
-<span class="sd">        - log_name_txt: str                             Name of the .txt human-readable file</span>
-<span class="sd">        - log_name_npz: str                             Name of the .npz file to store tensors</span>
-<span class="sd">        - start: time object                            Starting time of the simulation</span>
-<span class="sd">        - end: time object                              Final time of the simulation</span>
-<span class="sd">        - step_count: int                               Step counter to track time</span>
-<span class="sd">        - done: bool                                    Flag to truncate experiment early</span>
-<span class="sd">        - current_info: dict                            Information to log in a specific time step as a dict of {name_variable: value}</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config : dict</span>
+<span class="sd">        Complete configuration dictionary loaded from the YAML file.</span>
+<span class="sd">    logger_config : dict</span>
+<span class="sd">        Logger-specific configuration subset extracted from the main config.</span>
+<span class="sd">    activate : bool</span>
+<span class="sd">        Flag controlling whether logging is active. If False, logging operations are skipped.</span>
+<span class="sd">    date : str</span>
+<span class="sd">        Human-readable timestamp of logger initialization for metadata.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Unique identifier for the logging session, combining timestamp and config name.</span>
+<span class="sd">    log_freq : int</span>
+<span class="sd">        Frequency (in simulation steps) for printing progress information to console.</span>
+<span class="sd">        Set to 0 to disable console output.</span>
+<span class="sd">    save_freq : int</span>
+<span class="sd">        Frequency (in simulation steps) for saving data to files.</span>
+<span class="sd">        Set to 0 to disable file saving.</span>
+<span class="sd">    save_data_freq : int</span>
+<span class="sd">        Frequency for saving raw data arrays (positions, states, etc.).</span>
+<span class="sd">    save_global_data_freq : int</span>
+<span class="sd">        Frequency for saving accumulated global simulation data.</span>
+<span class="sd">    log_path : str</span>
+<span class="sd">        Base directory path where all log files will be stored.</span>
+<span class="sd">    comment_enable : bool</span>
+<span class="sd">        Whether to prompt for and include user comments in the log files.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        Reference to the populations being logged.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Reference to the simulation environment.</span>
+<span class="sd">    log_name_csv : str</span>
+<span class="sd">        Full path to the CSV output file for tabular data.</span>
+<span class="sd">    log_name_txt : str</span>
+<span class="sd">        Full path to the human-readable text output file.</span>
+<span class="sd">    log_name_npz : str</span>
+<span class="sd">        Full path to the compressed NumPy data file.</span>
+<span class="sd">    log_name_mat : str</span>
+<span class="sd">        Full path to the MATLAB-compatible data file.</span>
+<span class="sd">    start : float or None</span>
+<span class="sd">        Timestamp when logging session started.</span>
+<span class="sd">    end : float or None</span>
+<span class="sd">        Timestamp when logging session ended.</span>
+<span class="sd">    step_count : int or None</span>
+<span class="sd">        Current simulation step counter.</span>
+<span class="sd">    experiment_count : int or None</span>
+<span class="sd">        Counter for multiple experiment runs.</span>
+<span class="sd">    done : bool or None</span>
+<span class="sd">        Flag indicating if the simulation should terminate early.</span>
+<span class="sd">    current_info : dict or None</span>
+<span class="sd">        Dictionary containing data for the current simulation timestep.</span>
+<span class="sd">    global_info : dict or None</span>
+<span class="sd">        Dictionary containing accumulated data across all timesteps.</span>
 
-<span class="sd">    Configuration file requirements</span>
-<span class="sd">        - activate: bool            True to have logger, False otherwise</span>
-<span class="sd">        - log_freq: int             Print every log_freq steps information (0: never print)</span>
-<span class="sd">        - save_freq: int            Save every save_freq steps information (0: never save)</span>
-<span class="sd">        - comment_enable: bool      If true, add initial and final comments to the logger about the experiment</span>
-<span class="sd">        - log_path: str             Path where logger output should be saved</span>
-<span class="sd">        - log_name: str             String appended to date in the name of the file</span>
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the logger&#39;s class section:</span>
+
+<span class="sd">    BaseLogger : dict</span>
+<span class="sd">        Configuration section for the base logger:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``activate`` : bool, optional - Enable/disable logging. Default: ``True``</span>
+<span class="sd">        - ``log_freq`` : int, optional - Console output frequency (0 = never). Default: ``0``</span>
+<span class="sd">        - ``save_freq`` : int, optional - File save frequency (0 = never). Default: ``1``</span>
+<span class="sd">        - ``save_data_freq`` : int, optional - Raw data save frequency. Default: ``0``</span>
+<span class="sd">        - ``save_global_data_freq`` : int, optional - Global data save frequency. Default: ``0``</span>
+<span class="sd">        - ``log_path`` : str, optional - Output directory path. Default: ``&quot;./logs&quot;``</span>
+<span class="sd">        - ``log_name`` : str, optional - Log file name suffix. Default: ``&quot;&quot;``</span>
+<span class="sd">        - ``comment_enable`` : bool, optional - Enable user comments. Default: ``False``</span>
 
 <span class="sd">    Notes</span>
-<span class="sd">    -------</span>
-<span class="sd">        If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.</span>
-<span class="sd">        Moreover, save_data stores a .npz of the data given in input.</span>
+<span class="sd">    -----</span>
+<span class="sd">    **File Organization:**</span>
 
+<span class="sd">    The logger creates a directory structure:</span>
+<span class="sd">    ```</span>
+<span class="sd">    log_path/</span>
+<span class="sd">    └── YYYYMMDD_HHMMSS_log_name/</span>
+<span class="sd">        ├── YYYYMMDD_HHMMSS_log_name.csv    # Tabular data</span>
+<span class="sd">        ├── YYYYMMDD_HHMMSS_log_name.txt    # Human-readable</span>
+<span class="sd">        ├── YYYYMMDD_HHMMSS_log_name.npz    # NumPy arrays</span>
+<span class="sd">        └── YYYYMMDD_HHMMSS_log_name.mat    # MATLAB format</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    **Logging Workflow:**</span>
+
+<span class="sd">    1. **Initialization**: Create directories, initialize files</span>
+<span class="sd">    2. **Start Experiment**: Begin timing and setup data structures</span>
+<span class="sd">    3. **Step Logging**: Record data at each simulation timestep</span>
+<span class="sd">    4. **End Experiment**: Finalize files and compute summary statistics</span>
+
+<span class="sd">    **Extensibility:**</span>
+
+<span class="sd">    Subclasses can override key methods:</span>
+<span class="sd">    - ``log()``: Customize what data is collected each step</span>
+<span class="sd">    - ``log_internal_data()``: Modify data processing and storage</span>
+<span class="sd">    - ``start_experiment()``: Add initialization procedures</span>
+<span class="sd">    - ``end_experiment()``: Add finalization procedures</span>
+
+<span class="sd">    **Performance Considerations:**</span>
+
+<span class="sd">    - Data is accumulated in memory between save operations</span>
+<span class="sd">    - Large simulations should use appropriate ``save_freq`` values</span>
+<span class="sd">    - Multiple output formats can be disabled for performance</span>
+<span class="sd">    - File I/O is batched for efficiency</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    **Basic Configuration:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        BaseLogger:</span>
+<span class="sd">            activate: true</span>
+<span class="sd">            log_freq: 100</span>
+<span class="sd">            save_freq: 10</span>
+<span class="sd">            log_path: &quot;./simulation_logs&quot;</span>
+<span class="sd">            log_name: &quot;base_experiment&quot;</span>
+<span class="sd">            comment_enable: false</span>
+
+<span class="sd">    **High-Frequency Logging:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        BaseLogger:</span>
+<span class="sd">            activate: true</span>
+<span class="sd">            log_freq: 1      # Print every step</span>
+<span class="sd">            save_freq: 1     # Save every step</span>
+<span class="sd">            save_data_freq: 10</span>
+<span class="sd">            log_path: &quot;./detailed_logs&quot;</span>
+
+<span class="sd">    **Usage in Simulation:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim.Loggers import BaseLogger</span>
+<span class="sd">        from swarmsim.Populations import BrownianMotion</span>
+<span class="sd">        from swarmsim.Environments import EmptyEnvironment</span>
+
+<span class="sd">        # Create simulation components</span>
+<span class="sd">        agents = BrownianMotion(&#39;agent_config.yaml&#39;)</span>
+<span class="sd">        env = EmptyEnvironment(&#39;env_config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create logger</span>
+<span class="sd">        logger = BaseLogger([agents], env, &#39;logger_config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Start logging session</span>
+<span class="sd">        logger.start_experiment()</span>
+<span class="sd">        </span>
+<span class="sd">        # Simulation loop</span>
+<span class="sd">        for step in range(1000):</span>
+<span class="sd">            # ... simulation dynamics ...</span>
+<span class="sd">            </span>
+<span class="sd">            # Log current step</span>
+<span class="sd">            done = logger.log({</span>
+<span class="sd">                &#39;custom_metric&#39;: np.mean(agents.x),</span>
+<span class="sd">                &#39;step&#39;: step</span>
+<span class="sd">            })</span>
+<span class="sd">            </span>
+<span class="sd">            if done:</span>
+<span class="sd">                break</span>
+<span class="sd">        </span>
+<span class="sd">        # End logging session</span>
+<span class="sd">        logger.end_experiment()</span>
+
+<span class="sd">    **Custom Logger Extension:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        class CustomLogger(BaseLogger):</span>
+<span class="sd">            def log(self, data: dict = None) -&gt; bool:</span>
+<span class="sd">                \&quot;\&quot;\&quot;Override to add custom logging behavior\&quot;\&quot;\&quot;</span>
+<span class="sd">                if self.activate:</span>
+<span class="sd">                    # Add custom metrics</span>
+<span class="sd">                    custom_data = {</span>
+<span class="sd">                        &#39;center_of_mass&#39;: np.mean(self.populations[0].x, axis=0),</span>
+<span class="sd">                        &#39;max_speed&#39;: np.max(np.linalg.norm(self.populations[0].x, axis=1)),</span>
+<span class="sd">                        &#39;population_spread&#39;: np.std(self.populations[0].x)</span>
+<span class="sd">                    }</span>
+<span class="sd">                    </span>
+<span class="sd">                    # Merge with provided data</span>
+<span class="sd">                    if data is not None:</span>
+<span class="sd">                        custom_data.update(data)</span>
+<span class="sd">                    </span>
+<span class="sd">                    # Call parent logging</span>
+<span class="sd">                    return super().log(custom_data)</span>
+<span class="sd">                </span>
+<span class="sd">                return False</span>
+
+<span class="sd">    **Multi-Population Logging:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Log multiple populations with different behaviors</span>
+<span class="sd">        predators = BrownianMotion(&#39;predator_config.yaml&#39;)</span>
+<span class="sd">        prey = BrownianMotion(&#39;prey_config.yaml&#39;)</span>
+<span class="sd">        obstacles = FixedPopulation(&#39;obstacle_config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        logger = BaseLogger([predators, prey, obstacles], env, &#39;config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # All populations will be tracked automatically</span>
+
+<span class="sd">    **Performance Monitoring:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import time</span>
+<span class="sd">        </span>
+<span class="sd">        logger = BaseLogger(populations, env, &#39;config.yaml&#39;)</span>
+<span class="sd">        logger.start_experiment()</span>
+<span class="sd">        </span>
+<span class="sd">        simulation_times = []</span>
+<span class="sd">        </span>
+<span class="sd">        for step in range(num_steps):</span>
+<span class="sd">            step_start = time.time()</span>
+<span class="sd">            </span>
+<span class="sd">            # ... run simulation step ...</span>
+<span class="sd">            </span>
+<span class="sd">            step_time = time.time() - step_start</span>
+<span class="sd">            simulation_times.append(step_time)</span>
+<span class="sd">            </span>
+<span class="sd">            # Log with timing data</span>
+<span class="sd">            logger.log({</span>
+<span class="sd">                &#39;step_duration&#39;: step_time,</span>
+<span class="sd">                &#39;cumulative_time&#39;: sum(simulation_times)</span>
+<span class="sd">            })</span>
+<span class="sd">        </span>
+<span class="sd">        logger.end_experiment()</span>
+<span class="sd">        </span>
+<span class="sd">        print(f&quot;Average step time: {np.mean(simulation_times):.3f}s&quot;)</span>
+
+<span class="sd">    **Data Analysis Integration:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # After simulation, analyze logged data</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        </span>
+<span class="sd">        # Load CSV data for analysis</span>
+<span class="sd">        data = pd.read_csv(logger.log_name_csv)</span>
+<span class="sd">        </span>
+<span class="sd">        # Load NumPy arrays for detailed analysis</span>
+<span class="sd">        arrays = np.load(logger.log_name_npz)</span>
+<span class="sd">        </span>
+<span class="sd">        # Extract specific metrics</span>
+<span class="sd">        steps = data[&#39;step&#39;]</span>
+<span class="sd">        metrics = data[&#39;custom_metric&#39;]</span>
+<span class="sd">        </span>
+<span class="sd">        # Perform analysis</span>
+<span class="sd">        print(f&quot;Simulation ran for {len(steps)} steps&quot;)</span>
+<span class="sd">        print(f&quot;Final metric value: {metrics.iloc[-1]:.3f}&quot;)</span>
+
+<span class="sd">    **Debugging and Monitoring:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Configure for debugging</span>
+<span class="sd">        debug_config = {</span>
+<span class="sd">            &#39;BaseLogger&#39;: {</span>
+<span class="sd">                &#39;activate&#39;: True,</span>
+<span class="sd">                &#39;log_freq&#39;: 1,      # Print every step</span>
+<span class="sd">                &#39;save_freq&#39;: 10,    # Save less frequently</span>
+<span class="sd">                &#39;log_path&#39;: &#39;./debug_logs&#39;,</span>
+<span class="sd">                &#39;comment_enable&#39;: True  # Allow comments for debugging</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+<span class="sd">        </span>
+<span class="sd">        # Monitor specific conditions</span>
+<span class="sd">        logger = BaseLogger(populations, env, &#39;debug_config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        for step in range(max_steps):</span>
+<span class="sd">            # ... simulation step ...</span>
+<span class="sd">            </span>
+<span class="sd">            # Check for anomalies</span>
+<span class="sd">            max_speed = np.max(np.linalg.norm(populations[0].x, axis=1))</span>
+<span class="sd">            </span>
+<span class="sd">            if max_speed &gt; 10.0:  # Anomaly threshold</span>
+<span class="sd">                logger.log({</span>
+<span class="sd">                    &#39;anomaly_detected&#39;: True,</span>
+<span class="sd">                    &#39;max_speed&#39;: max_speed,</span>
+<span class="sd">                    &#39;step&#39;: step</span>
+<span class="sd">                })</span>
+<span class="sd">                print(f&quot;Anomaly detected at step {step}: max_speed = {max_speed}&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
-            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
-        <span class="n">logger_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>  <span class="c1"># Get config to track experiments</span>
+
+        <span class="c1"># Load configuration file</span>
+        <span class="n">config</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">logger_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">logger_config</span> <span class="o">=</span> <span class="n">logger_config</span>
+         
+
+        
+        <span class="c1"># Initialize parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>  <span class="c1"># Get current date to init logger</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activate</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activate&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Activate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Print frequency</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Save frequency</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_data_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_path&#39;</span><span class="p">,</span> <span class="s1">&#39;.\logs&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_global_data_freq</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_global_data_freq&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log_path&#39;</span><span class="p">,</span> <span class="s1">&#39;./logs&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comment_enable</span> <span class="o">=</span> <span class="n">logger_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comment_enable&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">populations</span> <span class="o">=</span> <span class="n">populations</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
 
+        <span class="n">log_folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
         <span class="c1"># If the path does not exist, create it</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_folder</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">log_folder</span><span class="p">)</span>
 
-        <span class="c1">#  Initialize variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_csv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.npz&#39;</span>
+
+
+        <span class="c1">#  Generate log file names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_csv</span> <span class="o">=</span> <span class="n">log_folder</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span> <span class="o">=</span> <span class="n">log_folder</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span> <span class="o">=</span> <span class="n">log_folder</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.npz&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_name_mat</span> <span class="o">=</span> <span class="n">log_folder</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.mat&#39;</span>
+
+
+
+        <span class="c1"># Initialize auxiliary variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Time start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Time end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Count steps for frequency check and logging</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_count</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Episode truncation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># If there are any comments to describe the experiment add them, otherwise empty</span>
+        
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
+            <span class="c1"># If there are any comments to describe the experiment add them, otherwise empty</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comment_enable</span><span class="p">:</span>
                 <span class="n">comment</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Comment: &#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">comment</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            
 
             <span class="c1"># Create file with current date, setting, and comment (if active)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -396,17 +681,20 @@
 <span class="sd">        -------</span>
 <span class="sd">            activate: bool  flag to check whether the logger is active</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
             <span class="c1"># Initialize logger: create file with date, current config settings, and add eventual comments</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Start counter for elapsed time</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Keep track of time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Keeps track of time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">experiment_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span></div>
 
 
 <div class="viewcode-block" id="BaseLogger.log">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A function that defines the information to log.</span>
 
@@ -419,7 +707,7 @@
 <span class="sd">            done: bool flag to truncate a simulation early. Default value=False.</span>
 
 <span class="sd">        Notes</span>
-<span class="sd">        -------</span>
+<span class="sd">        -----</span>
 <span class="sd">            In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.</span>
 <span class="sd">            By default, it does not truncate episode early.</span>
 <span class="sd">            See add_data from Utils/logger_utils.py to quickly add variables to log.</span>
@@ -448,7 +736,7 @@
 <span class="sd">        Function to store final step information, end-of-the-experiment information and close logger</span>
 
 <span class="sd">        Parameters</span>
-<span class="sd">        -------</span>
+<span class="sd">        ----------</span>
 <span class="sd">            data: dict  composed of {name_variabile: value} to log</span>
 
 <span class="sd">        Returns</span>
@@ -458,6 +746,7 @@
 
         <span class="c1"># Log final step before closing</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">experiment_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Log last time step before closing</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Get end time for elapsed time</span>
 
@@ -479,17 +768,17 @@
 
 <div class="viewcode-block" id="BaseLogger.log_external_data">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_external_data">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log_external_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">txt_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">csv_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">npz_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_external_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;npz&#39;</span><span class="p">,</span> <span class="s1">&#39;mat&#39;</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span></div>
+                <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span></div>
 
 
 <div class="viewcode-block" id="BaseLogger.log_internal_data">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log_internal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">txt_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">csv_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">npz_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span><span class="p">)</span>  <span class="c1"># Get timestamp</span>
-        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">print_flag</span><span class="p">,</span> <span class="n">txt_flag</span><span class="p">,</span> <span class="n">csv_flag</span><span class="p">,</span> <span class="n">npz_flag</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">)</span>  <span class="c1"># Add done flag</span></div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_internal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="s1">&#39;print&#39;</span><span class="p">]):</span>
+        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_count</span><span class="p">)</span>  <span class="c1"># Get timestamp</span>
+        <span class="n">add_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">)</span>  <span class="c1"># Add done flag</span></div>
 
 
 <div class="viewcode-block" id="BaseLogger.output_data">
@@ -509,12 +798,17 @@
                 <span class="c1"># Save to TXT</span>
                 <span class="n">append_txt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_txt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
 
-        <span class="c1"># Save external data to npz if wanted</span>
+        <span class="c1"># Save to npz and mat if wanted</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_data_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">save_npz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span></div>
-</div>
+                <span class="n">save_npz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
+                <span class="n">save_mat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_info</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_global_data_freq</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_global_data_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">save_npz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="p">)</span>
+                <span class="n">save_mat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_name_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
 
@@ -566,7 +860,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

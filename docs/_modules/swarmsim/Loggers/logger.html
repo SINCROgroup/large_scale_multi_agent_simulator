@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Loggers.logger &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Loggers.logger &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -290,18 +290,54 @@
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract base class for a logger.</span>
+<span class="sd">    Abstract base class for data logging in multi-agent simulations.</span>
+
+<span class="sd">    This class defines the interface for recording simulation data, including agent states,</span>
+<span class="sd">    environment information, and custom metrics. Loggers can write data to various formats</span>
+<span class="sd">    (CSV, NPZ, HDF5, etc.) and provide mechanisms for early simulation termination.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Subclasses must implement the abstract methods:</span>
+<span class="sd">    </span>
+<span class="sd">    - `reset()`: Initialize logging for a new simulation run</span>
+<span class="sd">    - `log()`: Record data at each timestep and return termination flag</span>
+<span class="sd">    - `close()`: Finalize logging and close files/connections</span>
+
+<span class="sd">    The logger operates in the simulation loop and can influence simulation control</span>
+<span class="sd">    by returning a termination flag from the `log()` method.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Logger base class.</span>
+
+<span class="sd">        Subclasses should call this constructor and then initialize their specific</span>
+<span class="sd">        logging infrastructure (files, databases, network connections, etc.).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    <span class="c1"># This method</span>
 <div class="viewcode-block" id="Logger.reset">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.reset">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize or reset the logger for a new simulation run.</span>
+
+<span class="sd">        This method should prepare the logger for a new simulation by clearing previous</span>
+<span class="sd">        data, creating new files, or resetting internal state. It is called before</span>
+<span class="sd">        the simulation loop begins.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementations should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Clear any accumulated data from previous runs</span>
+<span class="sd">        - Create new output files or database entries</span>
+<span class="sd">        - Initialize timestamps and counters</span>
+<span class="sd">        - Set up any required data structures</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
@@ -310,30 +346,64 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A function that defines the information to log.</span>
+<span class="sd">        Record simulation data at the current timestep.</span>
+
+<span class="sd">        This method is called at each simulation timestep to record relevant data.</span>
+<span class="sd">        It can log agent positions, velocities, environment state, performance metrics,</span>
+<span class="sd">        or any other simulation data. The method can also signal early termination.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">            data: dict (composed of {name_variabile: value} to log)</span>
+<span class="sd">        data : dict or None, optional</span>
+<span class="sd">            Dictionary containing custom data to log, with format {variable_name: value}.</span>
+<span class="sd">            If None, the logger should record default simulation data. Default is None.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">            done: bool (flag to truncate a simulation early). Default value=False.</span>
+<span class="sd">        bool</span>
+<span class="sd">            Flag indicating whether the simulation should terminate early. If True,</span>
+<span class="sd">            the simulation loop will exit before reaching the specified end time.</span>
 
 <span class="sd">        Notes</span>
-<span class="sd">        -------</span>
-<span class="sd">            In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.</span>
-<span class="sd">            By default, it does not truncate episode early.</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementations should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Record current simulation state (time, agent positions, etc.)</span>
+<span class="sd">        - Process and store custom data if provided</span>
+<span class="sd">        - Update any running calculations (averages, statistics, etc.)</span>
+<span class="sd">        - Check termination conditions (convergence, time limits, etc.)</span>
+<span class="sd">        - Return True only if early termination is desired</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="n">done</span></div>
+<span class="sd">        The logger has access to all simulation components and can extract data</span>
+<span class="sd">        from populations, environment, controllers, and interactions.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="Logger.close">
 <a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.close">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finalize logging and clean up resources.</span>
+
+<span class="sd">        This method is called at the end of a simulation to properly close files,</span>
+<span class="sd">        save final data, and clean up any resources used by the logger. It should</span>
+<span class="sd">        ensure all data is safely stored and accessible for analysis.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Implementations should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Close any open files or database connections</span>
+<span class="sd">        - Save accumulated data to persistent storage</span>
+<span class="sd">        - Write metadata (simulation parameters, timing info, etc.)</span>
+<span class="sd">        - Compress or archive data if appropriate</span>
+<span class="sd">        - Clean up temporary files or memory structures</span>
+<span class="sd">        - Print summary information if desired</span>
+
+<span class="sd">        This method is called even if the simulation terminates early due to</span>
+<span class="sd">        the logger returning True from the `log()` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>
 
@@ -387,7 +457,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

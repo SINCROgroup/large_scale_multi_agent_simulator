@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Interactions.interaction &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Interactions.interaction &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -283,7 +283,7 @@
                   
   <h1>Source code for swarmsim.Interactions.interaction</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
@@ -291,43 +291,82 @@
 
 
 <div class="viewcode-block" id="Interaction">
-<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction">[docs]</a>
+<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Interaction</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract base class that defines the structure for interactions between two populations.</span>
+<span class="sd">    Abstract base class for modeling interactions between agent populations.</span>
 
-<span class="sd">    This class serves as an interface for all interaction models in a multi-agent system.</span>
-<span class="sd">    It requires subclasses to implement the `get_interaction` method, which computes</span>
-<span class="sd">    the effect that `pop2` (e.g., herders) has on `pop1` (e.g., targets).</span>
+<span class="sd">    This class provides the framework for implementing various types of inter-agent</span>
+<span class="sd">    interactions such as repulsion, attraction, alignment, and collision avoidance.</span>
+<span class="sd">    It defines how one population (source) influences another population (target)</span>
+<span class="sd">    through force computations.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    target_population : Population</span>
-<span class="sd">        The first population that is influenced by the interaction.</span>
+<span class="sd">        The population that receives the interaction forces.</span>
 <span class="sd">    source_population : Population</span>
-<span class="sd">        The second population that applies the interaction force.</span>
+<span class="sd">        The population that generates the interaction forces.</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing interaction parameters.</span>
+<span class="sd">    name : str, optional</span>
+<span class="sd">        Name identifier for the interaction. If None, defaults to the class name.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    target_population : Population</span>
-<span class="sd">        The population affected by the interaction.</span>
+<span class="sd">        The population affected by the interaction forces.</span>
 <span class="sd">    source_population : Population</span>
-<span class="sd">        The population exerting the interaction force.</span>
+<span class="sd">        The population generating the interaction forces.</span>
+<span class="sd">    config : dict</span>
+<span class="sd">        Configuration parameters specific to this interaction type.</span>
+<span class="sd">    param_config : dict</span>
+<span class="sd">        Parameter configuration for interaction-specific parameters.</span>
+<span class="sd">    id : str</span>
+<span class="sd">        Identifier for this interaction instance.</span>
+<span class="sd">    params : dict of np.ndarray or None</span>
+<span class="sd">        Dictionary containing interaction-specific parameters.</span>
+<span class="sd">    params_shapes : dict of tuple or None</span>
+<span class="sd">        Dictionary defining expected shapes for interaction parameters.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file should contain parameters under the interaction&#39;s section:</span>
+
+<span class="sd">    id : str, optional</span>
+<span class="sd">        Identifier for the interaction. Defaults to the class name.</span>
+<span class="sd">    parameters : dict, optional</span>
+<span class="sd">        Configuration for interaction-specific parameters.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    - The `get_interaction` method must be implemented in all subclasses.</span>
-<span class="sd">    - This class is designed for interactions such as **repulsion, attraction,** and **alignment**.</span>
+<span class="sd">    - Subclasses must implement the abstract method `get_interaction()`.</span>
+<span class="sd">    - Interactions are computed at each simulation timestep.</span>
+<span class="sd">    </span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Example of a subclass implementing a specific interaction:</span>
+<span class="sd">    Example YAML configuration for an interaction:</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        HarmonicRepulsion:</span>
+<span class="sd">            id: &quot;repulsion_interaction&quot;</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                params_mode: &quot;Random&quot;</span>
+<span class="sd">                params_names: [&quot;strength&quot;, &quot;range&quot;]</span>
+<span class="sd">                params_limits:</span>
+<span class="sd">                    strength: [1.0, 5.0]</span>
+<span class="sd">                    range: [0.5, 2.0]</span>
+
+<span class="sd">    Example of implementing a custom interaction:</span>
 
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        class HarmonicRepulsion(Interaction):</span>
+<span class="sd">        class CustomInteraction(Interaction):</span>
 <span class="sd">            def get_interaction(self):</span>
-<span class="sd">                # Compute repulsion forces here</span>
+<span class="sd">                # Compute interaction forces here</span>
+<span class="sd">                </span>
 <span class="sd">                return forces</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -336,6 +375,25 @@
                  <span class="n">source_population</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span>
                  <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Interaction with target and source populations.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_population : Population</span>
+<span class="sd">            The population that will be affected by the interaction forces.</span>
+<span class="sd">        source_population : Population</span>
+<span class="sd">            The population that will generate the interaction forces.</span>
+<span class="sd">        config_path : str</span>
+<span class="sd">            Path to the YAML configuration file containing interaction parameters.</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            Name identifier for the interaction. If None, defaults to the class name.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the configuration file cannot be found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_population</span><span class="p">:</span> <span class="n">Population</span> <span class="o">=</span> <span class="n">target_population</span>  <span class="c1"># The affected population</span>
@@ -352,40 +410,55 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>  <span class="c1"># Population ID</span>
 
         <span class="c1"># Initialize params, state and inputs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_shapes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="c1"># self.reset()</span>
+
+<div class="viewcode-block" id="Interaction.reset">
+<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the interaction parameters to their initial values.</span>
+
+<span class="sd">        This method reinitializes interaction-specific parameters based on the</span>
+<span class="sd">        configuration. It should be called before starting a new simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="Interaction.get_interaction">
-<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.get_interaction">[docs]</a>
+<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction.get_interaction">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the forces that `source_population` applies on `target_population`.</span>
+<span class="sd">        Compute the interaction forces between source and target populations.</span>
 
-<span class="sd">        This method must be implemented by subclasses to define the specific</span>
-<span class="sd">        interaction between the two populations.</span>
+<span class="sd">        This abstract method must be implemented by subclasses to define the specific</span>
+<span class="sd">        interaction. It calculates the forces that the source population exerts</span>
+<span class="sd">        on the target population based on their current states and interaction parameters.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
-<span class="sd">            A `(N1, D)` array representing the forces exerted by `source_population` on `target_population`,</span>
-<span class="sd">            where `N1` is the number of agents in `target_population` and `D` is the state space dimension.</span>
+<span class="sd">            Array of shape (N_target, state_dim) representing the interaction forces</span>
+<span class="sd">            applied to each agent in the target population, where N_target is the number</span>
+<span class="sd">            of agents in the target population and state_dim is the spatial dimension.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The returned forces will be added to the target population&#39;s force accumulator</span>
+<span class="sd">        and integrated by the numerical integrator.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        NotImplementedError</span>
-<span class="sd">            If called directly from the base class.</span>
+<span class="sd">            If called directly from the base class without implementation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="Interaction.reset">
-<a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.reset">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_population</span><span class="o">.</span><span class="n">N</span><span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 
@@ -437,7 +510,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

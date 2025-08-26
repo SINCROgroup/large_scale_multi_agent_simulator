@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Controllers.spatial_inputs &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Controllers.spatial_inputs &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -282,11 +282,14 @@
                 <article class="bd-article">
                   
   <h1>Source code for swarmsim.Controllers.spatial_inputs</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Controller</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Controller</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations.population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_input</span>
 
 
@@ -295,24 +298,56 @@
 <a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GaussianRepulsion</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation</span>
+<span class="sd">    Implements a spatially-varying radial repulsion force with Gaussian intensity profile.</span>
 
-<span class="sd">    Arguments</span>
-<span class="sd">    ---------</span>
+<span class="sd">    This controller creates a repulsion field centered at the origin with intensity that</span>
+<span class="sd">    follows a 2D Gaussian distribution. Agents experience repulsive forces that push them</span>
+<span class="sd">    away from the center, with force magnitude determined by the Gaussian profile and</span>
+<span class="sd">    direction determined by their position relative to the origin.</span>
+
+<span class="sd">    The controller uses spatial interpolation to efficiently compute force values at</span>
+<span class="sd">    agent positions from a discretized Gaussian field defined on a regular grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
 <span class="sd">    population : Population</span>
-<span class="sd">        The population where the control is exerted</span>
+<span class="sd">        The population of agents to be controlled by this repulsion field.</span>
 <span class="sd">    environment : Environment</span>
-<span class="sd">        The environment where the agents live</span>
-<span class="sd">    config_path: str</span>
-<span class="sd">        The path of the configuration file</span>
-<span class="sd">    </span>
-<span class="sd">    Config requirements</span>
+<span class="sd">        The environment providing spatial boundaries and dimensions.</span>
+<span class="sd">    config_path : str, optional</span>
+<span class="sd">        Path to the YAML configuration file containing controller parameters. Default is None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    disc_pts : int</span>
+<span class="sd">        Number of discretization points along each axis for the Gaussian field grid.</span>
+<span class="sd">    interpolator : scipy.interpolate.RegularGridInterpolator</span>
+<span class="sd">        Interpolator object for efficient evaluation of the Gaussian field at arbitrary positions.</span>
+
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    The YAML configuration file must contain the following parameters under the population&#39;s section:    </span>
-<span class="sd">    </span>
-<span class="sd">    disc_pts: int</span>
-<span class="sd">        Number of points of the discretization grid for the Gaussian input </span>
-<span class="sd">    </span>
+<span class="sd">    The YAML configuration file should contain the following parameters:</span>
+
+<span class="sd">    dt : float</span>
+<span class="sd">        Sampling time of the controller.</span>
+<span class="sd">    disc_pts : int, optional</span>
+<span class="sd">        Number of points in the discretization grid for the Gaussian input field.</span>
+<span class="sd">        Default is ``30``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The repulsion force is computed as:</span>
+
+<span class="sd">        F(x, y) = G(x, y) * (x, y) / ||x, y||</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - G(x, y) is the Gaussian intensity at position (x, y)</span>
+<span class="sd">    - (x, y) / ||x, y|| is the unit vector pointing away from the origin</span>
+<span class="sd">    - The result is a radial repulsion force with Gaussian-modulated strength</span>
+
+<span class="sd">    The Gaussian field is pre-computed on a regular grid and interpolated for efficiency.</span>
+<span class="sd">    The grid spans the environment dimensions with the specified number of discretization points.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    Example YAML configuration:</span>
@@ -320,13 +355,26 @@
 <span class="sd">    .. code-block:: yaml</span>
 
 <span class="sd">        GaussianRepulsion:</span>
-<span class="sd">            disc_pts: 30</span>
+<span class="sd">            dt: 0.1</span>
+<span class="sd">            disc_pts: 50</span>
 
-<span class="sd">    This defines a `GaussianRepulsion` force that uses a 30x30 meshgrid to approximate the gaussian in the environment.</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Gaussian repulsion controller.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        population : Population</span>
+<span class="sd">            The population to be controlled by the repulsion field.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The environment providing spatial dimensions.</span>
+<span class="sd">        config_path : str, optional</span>
+<span class="sd">            Path to the configuration file. Default is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
 
@@ -334,7 +382,7 @@
         <span class="n">x_dim</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">y_dim</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">disc_pts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;disc_pts&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_pts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;disc_pts&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 
         <span class="c1"># Create a grid of points</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">x_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_pts</span><span class="p">)</span>  <span class="c1"># disc_pts points between the bounds of the arena for x-axis</span>
@@ -355,11 +403,30 @@
 <div class="viewcode-block" id="GaussianRepulsion.get_action">
 <a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the Gaussian repulsion forces for all agents.</span>
 
-<span class="sd">            This method computes a radial repulsion force from the origin, whose intensity is scaled using </span>
-<span class="sd">            a Gaussian distribution in a 2D space.</span>
+<span class="sd">        This method evaluates the Gaussian intensity field at each agent&#39;s position</span>
+<span class="sd">        and computes radial repulsion forces pointing away from the origin. The force</span>
+<span class="sd">        magnitude is modulated by the Gaussian intensity profile.</span>
 
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Repulsion forces of shape (N, 2) where N is the number of agents.</span>
+<span class="sd">            Each row contains the [x, y] force components for the corresponding agent.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The repulsion force computation involves:</span>
+
+<span class="sd">        1. **Intensity Evaluation**: Sample Gaussian field at agent positions using interpolation</span>
+<span class="sd">        2. **Distance Calculation**: Compute distance from each agent to the origin</span>
+<span class="sd">        3. **Direction Calculation**: Compute unit vectors pointing away from origin</span>
+<span class="sd">        4. **Force Combination**: Multiply intensity by direction to get final forces</span>
+
+<span class="sd">        Agents at the exact origin (distance = 0) are assigned a small offset to avoid</span>
+<span class="sd">        division by zero in the direction calculation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">rep_strength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="c1">#Strength of repulsion from the center (Gaussian)</span>
@@ -377,26 +444,56 @@
 <div class="viewcode-block" id="LightPattern">
 <a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LightPattern</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class implements a radial repulsion force whose intensity is shaped like a Gaussian distribution centered in the origin with 1 as standard deviation</span>
+<span class="sd">    Projects a spatial light pattern loaded from an image file onto the environment.</span>
 
-<span class="sd">    Arguments</span>
-<span class="sd">    ---------</span>
+<span class="sd">    This controller reads an image file and uses it to create a spatial control field</span>
+<span class="sd">    that agents can sense. The image is mapped to the environment coordinates, and</span>
+<span class="sd">    the blue channel intensity is used as the control signal. This enables complex</span>
+<span class="sd">    spatial patterns to be used for agent guidance and control.</span>
+
+<span class="sd">    The controller is particularly useful for biological agent models where light</span>
+<span class="sd">    intensity can influence agent behavior, such as phototaxis or photophobic responses.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
 <span class="sd">    population : Population</span>
-<span class="sd">        The population where the control is exerted</span>
+<span class="sd">        The population of agents that will sense the light pattern.</span>
 <span class="sd">    environment : Environment</span>
-<span class="sd">        The environment where the agents live</span>
-<span class="sd">    config_path: str</span>
-<span class="sd">        The path of the configuration file</span>
-<span class="sd">    </span>
-<span class="sd">    Config requirements</span>
+<span class="sd">        The environment providing spatial boundaries and coordinate mapping.</span>
+<span class="sd">    config_path : str, optional</span>
+<span class="sd">        Path to the YAML configuration file containing controller parameters. Default is None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    interpolator : scipy.interpolate.RegularGridInterpolator</span>
+<span class="sd">        Interpolator object for evaluating light intensity at arbitrary positions.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Reference to the environment for boundary checking.</span>
+
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    The YAML configuration file must contain the following parameters under the population&#39;s section:    </span>
-<span class="sd">    </span>
-<span class="sd">    pattern_path: str</span>
-<span class="sd">        The path (relative or absolute) of the pattern of light that you want to project in the environment</span>
-<span class="sd">    </span>
+<span class="sd">    The YAML configuration file must contain the following parameters:</span>
+
+<span class="sd">    dt : float</span>
+<span class="sd">        Sampling time of the controller.</span>
+<span class="sd">    pattern_path : str</span>
+<span class="sd">        Path (relative or absolute) to the image file containing the light pattern.</span>
+<span class="sd">        Supported formats include JPEG, PNG, and other common image formats.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The controller implementation:</span>
+
+<span class="sd">    1. **Image Loading**: Reads the specified image file using matplotlib</span>
+<span class="sd">    2. **Coordinate Mapping**: Maps image pixels to environment coordinates</span>
+<span class="sd">    3. **Channel Extraction**: Uses the blue channel (RGB[2]) as intensity values</span>
+<span class="sd">    4. **Normalization**: Normalizes pixel values to [0, 1] range</span>
+<span class="sd">    5. **Interpolation**: Creates interpolator for continuous intensity evaluation</span>
+
+<span class="sd">    Agents outside the environment boundaries are clamped to the boundary values</span>
+<span class="sd">    to ensure consistent behavior at the edges.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    Example YAML configuration:</span>
@@ -404,13 +501,31 @@
 <span class="sd">    .. code-block:: yaml</span>
 
 <span class="sd">        LightPattern:</span>
+<span class="sd">            dt: 0.1</span>
 <span class="sd">            pattern_path: ../Configuration/Config_data/BCL.jpeg</span>
-
-<span class="sd">    This defines a `LightPattern` that project the content of BCL.jpeg over the environment.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the light pattern controller.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        population : Population</span>
+<span class="sd">            The population that will sense the light pattern.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The environment providing spatial coordinate mapping.</span>
+<span class="sd">        config_path : str, optional</span>
+<span class="sd">            Path to the configuration file. Default is None.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the specified pattern image file cannot be found.</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If the required pattern_path parameter is missing from configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
 
@@ -434,12 +549,28 @@
 <div class="viewcode-block" id="LightPattern.get_action">
 <a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the light intensity values at the current agent positions.</span>
 
-<span class="sd">            This function returns the light intensity projected by the pattern defined at the pattern_path. </span>
-<span class="sd">            All agents that are outside the boundaries of the arena are considered as being at the borders of the arena.</span>
-<span class="sd">        </span>
+<span class="sd">        This method evaluates the light pattern at each agent&#39;s current position,</span>
+<span class="sd">        applying boundary clamping to ensure agents outside the environment</span>
+<span class="sd">        boundaries receive the edge intensity values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Light intensity values of shape (N, 1) where N is the number of agents.</span>
+<span class="sd">            Values are normalized to the range [0, 1] based on the image data.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The method performs the following steps:</span>
+
+<span class="sd">        1. **Boundary Clamping**: Clip agent positions to environment boundaries</span>
+<span class="sd">        2. **Interpolation**: Evaluate light pattern at clamped positions</span>
+<span class="sd">        3. **Reshaping**: Return as column vector for compatibility</span>
+
+<span class="sd">        Agents outside the defined pattern area receive the boundary values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1"># All agents outside the bounds are considered at the bound</span>
@@ -463,6 +594,169 @@
 <div class="viewcode-block" id="LightPattern.get_action_in_space">
 <a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_action_in_space</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the light pattern at specified spatial positions.</span>
+
+<span class="sd">        This method allows querying the light intensity at arbitrary positions</span>
+<span class="sd">        in the environment, useful for analysis and visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        positions : np.ndarray</span>
+<span class="sd">            Array of shape (num_positions, 2) containing [x, y] coordinates</span>
+<span class="sd">            where light intensity should be evaluated.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Light intensity values of shape (num_positions, 1) at the specified positions.</span>
+<span class="sd">            Values are normalized to the range [0, 1] based on the image data.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method provides direct access to the interpolated light pattern.</span>
+
+<span class="sd">        Useful for:</span>
+<span class="sd">        - Analyzing light patterns before simulation</span>
+<span class="sd">        - Creating visualizations of the control field</span>
+<span class="sd">        - Implementing predictive control strategies</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">light_ity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> 
+
+        <span class="k">return</span> <span class="n">light_ity</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Temporal_pulses">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Temporal_pulses</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements a temporally-varying control signal with periodic on/off pulses.</span>
+
+<span class="sd">    This controller generates a uniform control signal that alternates between</span>
+<span class="sd">    &#39;on&#39; (value = 1) and &#39;off&#39; (value = 0) states with a specified period.</span>
+<span class="sd">    The signal is spatially uniform but varies in time, creating synchronized</span>
+<span class="sd">    temporal stimulation across all agents.</span>
+
+<span class="sd">    The controller is useful for studying temporal entrainment, circadian rhythm</span>
+<span class="sd">    effects, or synchronized behavioral responses in agent populations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    population : Population</span>
+<span class="sd">        The population of agents to receive the temporal pulse signal.</span>
+<span class="sd">    Period: float, optional</span>
+<span class="sd">        The period of the temporal pulses (time for one complete on/off cycle).</span>
+<span class="sd">    config_path : str, optional</span>
+<span class="sd">        Path to the YAML configuration file containing controller parameters. Default is None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Period of the temporal pulses (time for one complete on/off cycle).</span>
+<span class="sd">    current_time : float</span>
+<span class="sd">        Current simulation time, updated at each control action.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file should contain the following parameters:</span>
+
+<span class="sd">    dt : float</span>
+<span class="sd">        Sampling time of the controller.</span>
+<span class="sd">    Period : float, optional</span>
+<span class="sd">        Period of the temporal pulses in simulation time units. Default is ``1.0``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The pulse pattern follows a square wave:</span>
+<span class="sd">    - First half of period (0 ≤ t mod T &lt; T/2): Signal = 1 (ON)</span>
+<span class="sd">    - Second half of period (T/2 ≤ t mod T &lt; T): Signal = 0 (OFF)</span>
+
+<span class="sd">    The controller maintains its own internal time counter that is incremented</span>
+<span class="sd">    by `dt` at each call to `get_action()`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Example YAML configuration:</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        Temporal_pulses:</span>
+<span class="sd">            dt: 0.01</span>
+<span class="sd">            Period: 2.0</span>
+
+<span class="sd">    This creates pulses with 2-second period (1 second ON, 1 second OFF).</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">:</span> <span class="n">Population</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the temporal pulse controller.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        population : Population</span>
+<span class="sd">            The population to receive temporal pulse signals.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The environment (required for interface compatibility).</span>
+<span class="sd">        config_path : str, optional</span>
+<span class="sd">            Path to the configuration file. Default is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Period&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Period of the temporal pulses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Initialize the current time</span>
+
+        
+
+
+<div class="viewcode-block" id="Temporal_pulses.get_action">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate the current temporal pulse state for all agents.</span>
+
+<span class="sd">        This method updates the internal time counter and returns the current</span>
+<span class="sd">        pulse state (1 for ON, 0 for OFF) based on the temporal position</span>
+<span class="sd">        within the pulse period.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Pulse state array of shape (N, 1) where N is the number of agents.</span>
+<span class="sd">            All agents receive the same pulse value: 1 during ON phase, 0 during OFF phase.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The method performs the following:</span>
+
+<span class="sd">        1. **Time Update**: Increment internal time by dt</span>
+<span class="sd">        2. **Phase Calculation**: Compute position within current pulse period</span>
+<span class="sd">        3. **State Determination**: Return 1 if in first half of period, 0 otherwise</span>
+
+<span class="sd">        The pulse timing is deterministic and synchronized across all agents,</span>
+<span class="sd">        making it suitable for studying collective temporal responses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>  <span class="c1"># Update the current time</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+            <span class="c1">#print(&quot;t:&quot;+ str(self.current_time)  +&quot;YES light&quot;)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#print(&quot;t:&quot;+ str(self.current_time)  +&quot;NO light&quot;)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        
+        
+
+        <span class="k">return</span> <span class="n">u</span></div>
+
+    
+
+<div class="viewcode-block" id="Temporal_pulses.get_action_in_space">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_in_space</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -474,14 +768,288 @@
 <span class="sd">                The positions where you want to retrieve the value of the control action</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t:&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">u</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AngularFeedback">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AngularFeedback</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements dynamic visual feedback using angular light patterns behind agents.</span>
+
+<span class="sd">    This controller creates dynamic light patterns by drawing lines behind each agent</span>
+<span class="sd">    based on their current position and a specified angular width. The patterns are</span>
+<span class="sd">    updated periodically and projected as visual feedback that agents can sense.</span>
+<span class="sd">    </span>
+<span class="sd">    The controller generates wedge-shaped light patterns extending radially outward</span>
+<span class="sd">    from each agent&#39;s position, creating a dynamic feedback system that can influence</span>
+<span class="sd">    agent behavior through phototaxis or photophobic responses.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    population : Population</span>
+<span class="sd">        The population of agents for which light patterns will be generated.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The environment providing spatial boundaries and coordinate mapping.</span>
+<span class="sd">    config_path : str, optional</span>
+<span class="sd">        Path to the YAML configuration file containing controller parameters. Default is None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    line_width : int</span>
+<span class="sd">        Width of the lines drawn in the light pattern (in pixels).</span>
+<span class="sd">    angle_width : float</span>
+<span class="sd">        Angular width of the wedge pattern behind each agent (in radians).</span>
+<span class="sd">    agent_distance : float</span>
+<span class="sd">        Distance behind each agent where the wedge pattern starts.</span>
+<span class="sd">    update_time : float</span>
+<span class="sd">        Time interval between pattern updates (in simulation time units).</span>
+<span class="sd">    last_update : float</span>
+<span class="sd">        Timestamp of the last pattern update.</span>
+<span class="sd">    current_time : float</span>
+<span class="sd">        Current simulation time.</span>
+<span class="sd">    x : np.ndarray</span>
+<span class="sd">        Grid x-coordinates for spatial discretization.</span>
+<span class="sd">    y : np.ndarray</span>
+<span class="sd">        Grid y-coordinates for spatial discretization.</span>
+<span class="sd">    interpolator : scipy.interpolate.RegularGridInterpolator</span>
+<span class="sd">        Interpolator for evaluating light intensity at arbitrary positions.</span>
+<span class="sd">    img_count : int</span>
+<span class="sd">        Counter for saved debug images.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file should contain the following parameters:</span>
+
+<span class="sd">    dt : float</span>
+<span class="sd">        Sampling time of the controller.</span>
+<span class="sd">    line_width : int, optional</span>
+<span class="sd">        Width of the drawn lines in pixels. Default is ``3``.</span>
+<span class="sd">    angle_width : float, optional</span>
+<span class="sd">        Angular width of the wedge pattern in radians. Default is ``0.5 * 45 * π/180`` (22.5 degrees).</span>
+<span class="sd">    agent_distance : float, optional</span>
+<span class="sd">        Distance behind agents where patterns start. Default is ``10``.</span>
+<span class="sd">    update_time : float, optional</span>
+<span class="sd">        Time interval between pattern updates. Default is ``20 * dt``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The controller algorithm:</span>
+
+<span class="sd">    1. **Time Management**: Track simulation time and update patterns periodically</span>
+<span class="sd">    2. **Pattern Generation**: Create wedge-shaped light patterns behind each agent</span>
+<span class="sd">    3. **Image Creation**: Use PIL to draw patterns on a digital canvas</span>
+<span class="sd">    4. **Interpolation Setup**: Create interpolator for smooth light evaluation</span>
+<span class="sd">    5. **Light Evaluation**: Return light intensity at current agent positions</span>
+
+<span class="sd">    The patterns are dynamic and respond to agent movement, creating a feedback</span>
+<span class="sd">    loop where agent behavior influences the light field they experience.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Example YAML configuration:</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        AngularFeedback:</span>
+<span class="sd">            dt: 0.01</span>
+<span class="sd">            line_width: 5</span>
+<span class="sd">            angle_width: 0.785  # π/4 radians (45 degrees)</span>
+<span class="sd">            agent_distance: 15</span>
+<span class="sd">            update_time: 0.5</span>
+
+<span class="sd">    Applications include:</span>
+<span class="sd">    - Dynamic visual feedback systems</span>
+<span class="sd">    - Agent-responsive light environments</span>
+<span class="sd">    - Collective behavior with environmental coupling</span>
+<span class="sd">    - Adaptive spatial guidance systems</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the angular feedback controller.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        population : Population</span>
+<span class="sd">            The population for which angular light patterns will be generated.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The environment providing spatial boundaries.</span>
+<span class="sd">        config_path : str, optional</span>
+<span class="sd">            Path to the configuration file. Default is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+
+        
+        
+
+        <span class="c1"># Set the parameters of the controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Width of the lines drawn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;angle_width&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="mi">45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>  <span class="c1"># Width of the angle in radians</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agent_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agent_distance&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># Distance behind</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;update_time&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>  <span class="c1"># Change in update time (otherwise it depends on the simulation dt)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_update</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">update_time</span>  <span class="c1"># Initialize the last update time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Update the current time</span>
+
+
+
+        <span class="c1"># Initialize the controller with a black Image</span>
+        <span class="n">x_dim</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y_dim</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">environment</span>
+        <span class="c1"># Create a grid of points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">x_dim</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">y_dim</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y_dim</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  
+        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">light_pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">light_pattern</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="mi">255</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">RegularGridInterpolator</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">Z</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+
+
+<div class="viewcode-block" id="AngularFeedback.get_action">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate and evaluate the current angular light pattern.</span>
+
+<span class="sd">        This method updates the dynamic light pattern based on current agent positions</span>
+<span class="sd">        and returns the light intensity values experienced by each agent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Light intensity values of shape (N, 1) where N is the number of agents.</span>
+<span class="sd">            Values represent the blue channel intensity (0-1) at each agent&#39;s position.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The method operates in two phases:</span>
+
+<span class="sd">        1. **Pattern Update** (if update_time has elapsed):</span>
+<span class="sd">           - Calculate wedge patterns behind each agent</span>
+<span class="sd">           - Draw lines using PIL imaging library</span>
+<span class="sd">           - Update the spatial interpolator with new pattern</span>
+<span class="sd">           </span>
+<span class="sd">        2. **Light Evaluation** (every call):</span>
+<span class="sd">           - Clip agent positions to environment boundaries</span>
+<span class="sd">           - Evaluate light intensity at current positions</span>
+<span class="sd">           - Return intensity values</span>
+
+<span class="sd">        The wedge patterns are generated by drawing two lines from a point behind</span>
+<span class="sd">        each agent to positions that create the specified angular width.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>           <span class="c1"># Get the position of all the agents</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Clip the state to the limits of the environment</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>  <span class="c1"># Update the current time</span>
+
+
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_update</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_time</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_update</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span>  <span class="c1"># Update the last update time</span>
+
+            <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">state</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># Calculate angle with respect to origin</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Calculate the distance from the origin</span>
+
+        
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="n">img_draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+
+            <span class="n">x_start</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_distance</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">y_start</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_distance</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+            <span class="n">x_incr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_distance</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angle_width</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+            <span class="n">y_incr</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_distance</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angle_width</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+
+            <span class="n">x_end1</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_incr</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">y_end1</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">y_incr</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+            <span class="n">x_end2</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_incr</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">y_end2</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_incr</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            
+            
+
+            <span class="c1">#x_end1 = r * np.cos(phi + self.angle_width) + self.environment.dimensions[0] / 2</span>
+            <span class="c1">#y_end1 = r * np.sin(phi + self.angle_width) + self.environment.dimensions[1] / 2</span>
+
+            <span class="c1">#x_end2 = r * np.cos(phi - self.angle_width) + self.environment.dimensions[0] / 2</span>
+            <span class="c1">#y_end2 = r * np.sin(phi - self.angle_width) + self.environment.dimensions[1] / 2</span>
+
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])):</span>
+                <span class="n">img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">([</span><span class="n">x_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x_end1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_end1</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>  <span class="c1"># blue line for the center</span>
+                <span class="n">img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">([</span><span class="n">x_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x_end2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_end2</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>  <span class="c1"># blue line for the center</span>
+
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">light_pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            <span class="n">Z</span> <span class="o">=</span> <span class="n">light_pattern</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="mi">255</span>  <span class="c1"># Extract the blue channel and transpose it</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">RegularGridInterpolator</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">Z</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+            <span class="c1">#img.save(&quot;logs/&quot; + str(self.img_count) + &quot;.png&quot;)  # Save the image for debugging</span>
+
+
+
+        <span class="n">light_ity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">light_ity</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="AngularFeedback.get_action_in_space">
+<a class="viewcode-back" href="../../../swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_in_space</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the angular light pattern at specified spatial positions.</span>
+
+<span class="sd">        This method allows querying the current light pattern at arbitrary positions</span>
+<span class="sd">        in the environment, useful for analysis and visualization of the dynamic</span>
+<span class="sd">        feedback patterns.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        positions : np.ndarray</span>
+<span class="sd">            Array of shape (num_positions, 2) containing [x, y] coordinates</span>
+<span class="sd">            where light intensity should be evaluated.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Light intensity values of shape (num_positions, 1) at the specified positions.</span>
+<span class="sd">            Values represent the blue channel intensity (0-1) from the current pattern.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method evaluates the most recently generated angular pattern at the</span>
+<span class="sd">        specified positions. The pattern reflects the agent positions at the time</span>
+<span class="sd">        of the last update (controlled by update_time parameter).</span>
+
+<span class="sd">        Useful for:</span>
+<span class="sd">        - Visualizing the dynamic light patterns</span>
+<span class="sd">        - Analyzing spatial feedback structures</span>
+<span class="sd">        - Creating movies or animations of pattern evolution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">light_ity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> 
 
         <span class="k">return</span> <span class="n">light_ity</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span></div>
 </div>
-
-
-
 
 </pre></div>
 
@@ -533,7 +1101,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

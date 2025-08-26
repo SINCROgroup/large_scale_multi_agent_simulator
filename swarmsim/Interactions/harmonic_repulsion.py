@@ -6,35 +6,81 @@ from typing import Optional
 
 class HarmonicRepulsion(Interaction):
     """
-    Implements a finite-range harmonic repulsion force between two populations.
+    Harmonic repulsion interaction with finite interaction range.
 
-    This interaction models a repulsive force between agents in two populations,
-    where the force magnitude decreases linearly as the distance increases, up to
-    a maximum interaction distance.
+    This interaction implements a linearly decaying repulsive force between agents
+    from two different populations. The repulsion follows a harmonic potential that
+    provides short-range repulsion up to a finite interaction range.
+
+    The repulsion force magnitude follows:
+
+    .. math::
+        F_i = \\sum_{j \\in population} F_{ij}(r_{ij})
+
+        F_{ij}(r_{ij}) = \\begin{cases}
+        -k (r_{max} - r_{ij}) \\hat{r}_{ij} & \\text{if } r_{ij} < r_{max} \\\\
+        0 & \\text{if } r_{ij} \\geq r_{max}
+        \\end{cases}
+
+    where:
+    - :math:`F_i` is the total force on agent i
+    - :math:`k` is the strength parameter
+    - :math:`r_{max}` is the maximum interaction distance
+    - :math:`r_{ij}` is the distance between agents i and j
+    - :math:`\\hat{r}_{ij}` is the unit vector joining agents i and j
 
     Parameters
     ----------
     target_population : Population
-        The first population (typically the affected agents).
+        The population that receives repulsion forces.
     source_population : Population
-        The second population (agents exerting repulsion).
-    config : str
+        The population that generates repulsion forces.
+    config_path : str
         Path to the YAML configuration file containing interaction parameters.
+    name : str, optional
+        Name identifier for the interaction. Defaults to class name if None.
 
     Attributes
     ----------
-    strength : float
-        Maximum intensity of the repulsion force.
-    distance : float
-        Maximum distance at which the interaction takes place.
+    target_population : Population
+        Population affected by repulsion forces.
+    source_population : Population
+        Population generating repulsion forces.
+    strength : np.ndarray or None
+        Repulsion strength parameter(s), shape depends on parameter configuration.
+    distance : np.ndarray or None
+        Maximum interaction distance parameter(s), shape depends on parameter configuration.
+    params_shapes : dict
+        Defines expected shapes for interaction parameters.
 
-    Config requirements
+    Config Requirements
     -------------------
-    repulsion:
-        strength : float
-            Maximum repulsion force intensity.
-        max_distance : float
-            Maximum interaction range.
+    The YAML configuration file must contain the following parameters under the interaction's section:
+
+    strength : float or list 
+        Repulsion strength parameter(s)
+    distance : float or list 
+        Maximum interaction distance parameter(s)
+    parameters : dict
+        Parameter configuration for the harmonic repulsion. Typical structure:
+        
+        - ``mode`` : str - Parameter assignment mode
+        
+    Notes
+    -----
+    **Force Characteristics:**
+
+    - **Linear Decay**: Force decreases linearly with distance until cutoff
+    - **Finite Range**: No interaction beyond maximum distance
+    - **Pairwise Computation**: All source-target agent pairs are evaluated
+    - **Vectorized**: Efficient computation using NumPy broadcasting
+
+    **Parameter Flexibility:**
+
+    Parameters can be configured as:
+    - **Fixed values**: Same for all interactions
+    - **Random ranges**: Sampled for each agent or interaction
+    - **Population-dependent**: Different values for different populations
 
     Raises
     ------
@@ -42,19 +88,6 @@ class HarmonicRepulsion(Interaction):
         If the configuration file is not found.
     KeyError
         If required interaction parameters are missing in the configuration file.
-
-    Examples
-    --------
-    Example YAML configuration:
-
-    .. code-block:: yaml
-
-        repulsion:
-            strength: 1.5
-            max_distance: 10.0
-
-    This sets a repulsion force with a strength of `1.5` and an interaction
-    range of `10.0` units.
     """
 
     def __init__(self,
@@ -80,25 +113,34 @@ class HarmonicRepulsion(Interaction):
 
     def get_interaction(self):
         """
-        Computes the repulsion force exerted by `source_population` on `target_population`.
+        Compute harmonic repulsion forces between source and target populations.
 
-        The repulsion force follows a **harmonic** behavior where:
-        - The force is strongest when two agents are very close.
-        - It decreases linearly as the distance increases.
-        - It becomes zero when the distance exceeds `max_distance`.
+        This method calculates the repulsive forces that source population agents
+        exert on target population agents using the harmonic repulsion model.
+        Forces decay linearly with distance and have finite interaction range.
 
         Returns
         -------
         np.ndarray
-            A `(N1, D)` array representing the repulsion force applied to each
-            agent in `target_population`, where `N1` is the number of agents in `target_population` and
-            `D` is the dimensionality of the state space.
+            Repulsion forces array of shape ``(N_target, D)`` where:
+            - ``N_target`` is the number of agents in the target population
+            - ``D`` is the spatial dimension (typically 2 or 3)
+            Each row represents the total repulsion force on one target agent.
 
         Notes
         -----
-        - The function computes **pairwise distances** between agents in `target_population`
-          and `source_population` and applies the harmonic repulsion formula.
-        - To avoid division by zero, a small epsilon (`1e-6`) is added to distances.
+        **Algorithm Steps:**
+
+        1. **Distance Computation**: Calculate pairwise distances between all source-target pairs
+        2. **Range Filtering**: Identify agent pairs within interaction range
+        3. **Force Calculation**: Apply harmonic repulsion formula for nearby pairs
+        4. **Force Summation**: Sum contributions from all source agents for each target
+
+        **Numerical Stability:**
+
+        - Minimum distance threshold (``1e-6``) prevents division by zero
+        - Vectorized operations ensure computational efficiency
+        - Broadcasting handles different parameter shapes automatically
 
         """
         # Compute pairwise differences between agents in `target_population` and `source_population`

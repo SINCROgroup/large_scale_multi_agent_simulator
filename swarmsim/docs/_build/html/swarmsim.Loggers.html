@@ -320,52 +320,267 @@
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.base_logger.</span></span><span class="sig-name descname"><span class="pre">BaseLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Loggers.logger.Logger" title="swarmsim.Loggers.logger.Logger"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a></p>
-<p>A class that implements a logger.</p>
+<p>Comprehensive base logger for multi-agent simulation data collection and analysis.</p>
+<p>This logger provides the foundational logging infrastructure for recording simulation
+data, managing file outputs, timing execution, and providing extensible hooks for
+specialized logging behaviors. It handles multiple output formats, configurable
+logging frequencies, and automatic file organization with timestamped naming.</p>
+<p>The BaseLogger serves as the parent class for all specialized loggers in the framework,
+providing common functionality while allowing customization through method overriding.
+It automatically manages file creation, data serialization, and experiment metadata.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>instances</em><em> of </em><em>clas populations.</em>)</p></li>
-<li><p><strong>environment</strong> (<em>Instance</em><em> of </em><em>class environment.</em>)</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em> (</em><em>Path</em><em> of </em><em>the configuration file</em><em>)</em><em>.</em>)</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of population objects whose data will be logged throughout the simulation.
+Each population provides state information and dynamics data.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment object containing spatial and contextual information for the simulation.
+Provides environmental state and parameters for logging.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing logger parameters and settings.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>config</strong> (<em>-</em>)</p></li>
-<li><p><strong>activate</strong> (<em>-</em>)</p></li>
-<li><p><strong>date</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_freq</strong> (<em>-</em>)</p></li>
-<li><p><strong>save_freq</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_path</strong> (<em>-</em>)</p></li>
-<li><p><strong>comment_enable</strong> (<em>-</em>)</p></li>
-<li><p><strong>populations</strong> (<em>-</em>)</p></li>
-<li><p><strong>environment</strong> (<em>-</em>)</p></li>
-<li><p><strong>name</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_csv</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_txt</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_npz</strong> (<em>-</em>)</p></li>
-<li><p><strong>start</strong> (<em>-</em>)</p></li>
-<li><p><strong>end</strong> (<em>-</em>)</p></li>
-<li><p><strong>step_count</strong> (<em>-</em>)</p></li>
-<li><p><strong>done</strong> (<em>-</em>)</p></li>
-<li><p><strong>current_info</strong> (<em>-</em>)</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – Complete configuration dictionary loaded from the YAML file.</p></li>
+<li><p><strong>logger_config</strong> (<em>dict</em>) – Logger-specific configuration subset extracted from the main config.</p></li>
+<li><p><strong>activate</strong> (<em>bool</em>) – Flag controlling whether logging is active. If False, logging operations are skipped.</p></li>
+<li><p><strong>date</strong> (<em>str</em>) – Human-readable timestamp of logger initialization for metadata.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier for the logging session, combining timestamp and config name.</p></li>
+<li><p><strong>log_freq</strong> (<em>int</em>) – Frequency (in simulation steps) for printing progress information to console.
+Set to 0 to disable console output.</p></li>
+<li><p><strong>save_freq</strong> (<em>int</em>) – Frequency (in simulation steps) for saving data to files.
+Set to 0 to disable file saving.</p></li>
+<li><p><strong>save_data_freq</strong> (<em>int</em>) – Frequency for saving raw data arrays (positions, states, etc.).</p></li>
+<li><p><strong>save_global_data_freq</strong> (<em>int</em>) – Frequency for saving accumulated global simulation data.</p></li>
+<li><p><strong>log_path</strong> (<em>str</em>) – Base directory path where all log files will be stored.</p></li>
+<li><p><strong>comment_enable</strong> (<em>bool</em>) – Whether to prompt for and include user comments in the log files.</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – Reference to the populations being logged.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Reference to the simulation environment.</p></li>
+<li><p><strong>log_name_csv</strong> (<em>str</em>) – Full path to the CSV output file for tabular data.</p></li>
+<li><p><strong>log_name_txt</strong> (<em>str</em>) – Full path to the human-readable text output file.</p></li>
+<li><p><strong>log_name_npz</strong> (<em>str</em>) – Full path to the compressed NumPy data file.</p></li>
+<li><p><strong>log_name_mat</strong> (<em>str</em>) – Full path to the MATLAB-compatible data file.</p></li>
+<li><p><strong>start</strong> (<em>float</em><em> or </em><em>None</em>) – Timestamp when logging session started.</p></li>
+<li><p><strong>end</strong> (<em>float</em><em> or </em><em>None</em>) – Timestamp when logging session ended.</p></li>
+<li><p><strong>step_count</strong> (<em>int</em><em> or </em><em>None</em>) – Current simulation step counter.</p></li>
+<li><p><strong>experiment_count</strong> (<em>int</em><em> or </em><em>None</em>) – Counter for multiple experiment runs.</p></li>
+<li><p><strong>done</strong> (<em>bool</em><em> or </em><em>None</em>) – Flag indicating if the simulation should terminate early.</p></li>
+<li><p><strong>current_info</strong> (<em>dict</em><em> or </em><em>None</em>) – Dictionary containing data for the current simulation timestep.</p></li>
+<li><p><strong>global_info</strong> (<em>dict</em><em> or </em><em>None</em>) – Dictionary containing accumulated data across all timesteps.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Configuration file requirements</dt><dd><ul class="simple">
-<li><p>activate: bool            True to have logger, False otherwise</p></li>
-<li><p>log_freq: int             Print every log_freq steps information (0: never print)</p></li>
-<li><p>save_freq: int            Save every save_freq steps information (0: never save)</p></li>
-<li><p>comment_enable: bool      If true, add initial and final comments to the logger about the experiment</p></li>
-<li><p>log_path: str             Path where logger output should be saved</p></li>
-<li><p>log_name: str             String appended to date in the name of the file</p></li>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the logger’s class section</strong></p></li>
+<li><p><strong>BaseLogger</strong> (<em>dict</em>) – Configuration section for the base logger:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">activate</span></code> : bool, optional - Enable/disable logging. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_freq</span></code> : int, optional - Console output frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_freq</span></code> : int, optional - File save frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_data_freq</span></code> : int, optional - Raw data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_global_data_freq</span></code> : int, optional - Global data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code> : str, optional - Output directory path. Default: <code class="docutils literal notranslate"><span class="pre">&quot;./logs&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_name</span></code> : str, optional - Log file name suffix. Default: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comment_enable</span></code> : bool, optional - Enable user comments. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
-Moreover, save_data stores a .npz of the data given in input.</p>
+<p><strong>File Organization:</strong></p>
+<p>The logger creates a directory structure:
+<a href="#id1"><span class="problematic" id="id2">``</span></a>`
+log_path/
+└── YYYYMMDD_HHMMSS_log_name/</p>
+<blockquote>
+<div><p>├── YYYYMMDD_HHMMSS_log_name.csv    # Tabular data
+├── YYYYMMDD_HHMMSS_log_name.txt    # Human-readable
+├── YYYYMMDD_HHMMSS_log_name.npz    # NumPy arrays
+└── YYYYMMDD_HHMMSS_log_name.mat    # MATLAB format</p>
+</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+<p><strong>Logging Workflow:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong>: Create directories, initialize files</p></li>
+<li><p><strong>Start Experiment</strong>: Begin timing and setup data structures</p></li>
+<li><p><strong>Step Logging</strong>: Record data at each simulation timestep</p></li>
+<li><p><strong>End Experiment</strong>: Finalize files and compute summary statistics</p></li>
+</ol>
+<p><strong>Extensibility:</strong></p>
+<p>Subclasses can override key methods:
+- <code class="docutils literal notranslate"><span class="pre">log()</span></code>: Customize what data is collected each step
+- <code class="docutils literal notranslate"><span class="pre">log_internal_data()</span></code>: Modify data processing and storage
+- <code class="docutils literal notranslate"><span class="pre">start_experiment()</span></code>: Add initialization procedures
+- <code class="docutils literal notranslate"><span class="pre">end_experiment()</span></code>: Add finalization procedures</p>
+<p><strong>Performance Considerations:</strong></p>
+<ul class="simple">
+<li><p>Data is accumulated in memory between save operations</p></li>
+<li><p>Large simulations should use appropriate <code class="docutils literal notranslate"><span class="pre">save_freq</span></code> values</p></li>
+<li><p>Multiple output formats can be disabled for performance</p></li>
+<li><p>File I/O is batched for efficiency</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p><strong>Basic Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">BaseLogger</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">activate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">log_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">save_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./simulation_logs&quot;</span>
+<span class="w">    </span><span class="nt">log_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;base_experiment&quot;</span>
+<span class="w">    </span><span class="nt">comment_enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p><strong>High-Frequency Logging:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">BaseLogger</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">activate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">log_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span><span class="c1"># Print every step</span>
+<span class="w">    </span><span class="nt">save_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">     </span><span class="c1"># Save every step</span>
+<span class="w">    </span><span class="nt">save_data_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./detailed_logs&quot;</span>
+</pre></div>
+</div>
+<p><strong>Usage in Simulation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLogger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmptyEnvironment</span>
+
+<span class="c1"># Create simulation components</span>
+<span class="n">agents</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;agent_config.yaml&#39;</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">EmptyEnvironment</span><span class="p">(</span><span class="s1">&#39;env_config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">([</span><span class="n">agents</span><span class="p">],</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;logger_config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Start logging session</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">()</span>
+
+<span class="c1"># Simulation loop</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="c1"># ... simulation dynamics ...</span>
+
+    <span class="c1"># Log current step</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
+        <span class="s1">&#39;custom_metric&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">agents</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
+        <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step</span>
+    <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="c1"># End logging session</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Custom Logger Extension:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomLogger</span><span class="p">(</span><span class="n">BaseLogger</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to add custom logging behavior&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
+            <span class="c1"># Add custom metrics</span>
+            <span class="n">custom_data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;center_of_mass&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                <span class="s1">&#39;population_spread&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="c1"># Merge with provided data</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">custom_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="c1"># Call parent logging</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">custom_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p><strong>Multi-Population Logging:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Log multiple populations with different behaviors</span>
+<span class="n">predators</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;predator_config.yaml&#39;</span><span class="p">)</span>
+<span class="n">prey</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;prey_config.yaml&#39;</span><span class="p">)</span>
+<span class="n">obstacles</span> <span class="o">=</span> <span class="n">FixedPopulation</span><span class="p">(</span><span class="s1">&#39;obstacle_config.yaml&#39;</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">([</span><span class="n">predators</span><span class="p">,</span> <span class="n">prey</span><span class="p">,</span> <span class="n">obstacles</span><span class="p">],</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># All populations will be tracked automatically</span>
+</pre></div>
+</div>
+<p><strong>Performance Monitoring:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">()</span>
+
+<span class="n">simulation_times</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
+    <span class="n">step_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="c1"># ... run simulation step ...</span>
+
+    <span class="n">step_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">step_start</span>
+    <span class="n">simulation_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step_time</span><span class="p">)</span>
+
+    <span class="c1"># Log with timing data</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
+        <span class="s1">&#39;step_duration&#39;</span><span class="p">:</span> <span class="n">step_time</span><span class="p">,</span>
+        <span class="s1">&#39;cumulative_time&#39;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">simulation_times</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average step time: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">simulation_times</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Data Analysis Integration:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># After simulation, analyze logged data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load CSV data for analysis</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">log_name_csv</span><span class="p">)</span>
+
+<span class="c1"># Load NumPy arrays for detailed analysis</span>
+<span class="n">arrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">)</span>
+
+<span class="c1"># Extract specific metrics</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;custom_metric&#39;</span><span class="p">]</span>
+
+<span class="c1"># Perform analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulation ran for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final metric value: </span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Debugging and Monitoring:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure for debugging</span>
+<span class="n">debug_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;BaseLogger&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;activate&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;log_freq&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Print every step</span>
+        <span class="s1">&#39;save_freq&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>    <span class="c1"># Save less frequently</span>
+        <span class="s1">&#39;log_path&#39;</span><span class="p">:</span> <span class="s1">&#39;./debug_logs&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;comment_enable&#39;</span><span class="p">:</span> <span class="kc">True</span>  <span class="c1"># Allow comments for debugging</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Monitor specific conditions</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;debug_config.yaml&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+    <span class="c1"># ... simulation step ...</span>
+
+    <span class="c1"># Check for anomalies</span>
+    <span class="n">max_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">max_speed</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>  <span class="c1"># Anomaly threshold</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
+            <span class="s1">&#39;anomaly_detected&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="n">max_speed</span><span class="p">,</span>
+            <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step</span>
+        <span class="p">})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Anomaly detected at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: max_speed = </span><span class="si">{</span><span class="n">max_speed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.reset" title="Link to this definition">#</a></dt>
@@ -417,12 +632,12 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_external_data">
-<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['npz',</span> <span class="pre">'mat']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">
-<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['txt',</span> <span class="pre">'print']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -439,38 +654,91 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class for a logger.</p>
+<p>Abstract base class for data logging in multi-agent simulations.</p>
+<p>This class defines the interface for recording simulation data, including agent states,
+environment information, and custom metrics. Loggers can write data to various formats
+(CSV, NPZ, HDF5, etc.) and provide mechanisms for early simulation termination.</p>
+<p class="rubric">Notes</p>
+<p>Subclasses must implement the abstract methods:</p>
+<ul class="simple">
+<li><p><cite>reset()</cite>: Initialize logging for a new simulation run</p></li>
+<li><p><cite>log()</cite>: Record data at each timestep and return termination flag</p></li>
+<li><p><cite>close()</cite>: Finalize logging and close files/connections</p></li>
+</ul>
+<p>The logger operates in the simulation loop and can influence simulation control
+by returning a termination flag from the <cite>log()</cite> method.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.reset">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.reset" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Initialize or reset the logger for a new simulation run.</p>
+<p>This method should prepare the logger for a new simulation by clearing previous
+data, creating new files, or resetting internal state. It is called before
+the simulation loop begins.</p>
+<p class="rubric">Notes</p>
+<p>Implementations should:</p>
+<ul class="simple">
+<li><p>Clear any accumulated data from previous runs</p></li>
+<li><p>Create new output files or database entries</p></li>
+<li><p>Initialize timestamps and counters</p></li>
+<li><p>Set up any required data structures</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.log">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.log" title="Link to this definition">#</a></dt>
-<dd><p>A function that defines the information to log.</p>
+<dd><p>Record simulation data at the current timestep.</p>
+<p>This method is called at each simulation timestep to record relevant data.
+It can log agent positions, velocities, environment state, performance metrics,
+or any other simulation data. The method can also signal early termination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em> (</em><em>composed</em><em> of </em><em>{name_variabile: value} to log</em><em>)</em>)</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Dictionary containing custom data to log, with format {variable_name: value}.
+If None, the logger should record default simulation data. Default is None.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>done</strong> (<em>bool (flag to truncate a simulation early). Default value=False.</em>)</p>
+<dd class="field-even"><p><em>bool</em> – Flag indicating whether the simulation should terminate early. If True,
+the simulation loop will exit before reaching the specified end time.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>In the configuration file (a yaml file) there should be a namespace with the name of the log you are creating.
-By default, it does not truncate episode early.</p>
+<p>Implementations should:</p>
+<ul class="simple">
+<li><p>Record current simulation state (time, agent positions, etc.)</p></li>
+<li><p>Process and store custom data if provided</p></li>
+<li><p>Update any running calculations (averages, statistics, etc.)</p></li>
+<li><p>Check termination conditions (convergence, time limits, etc.)</p></li>
+<li><p>Return True only if early termination is desired</p></li>
+</ul>
+<p>The logger has access to all simulation components and can extract data
+from populations, environment, controllers, and interactions.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.close">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.close" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Finalize logging and clean up resources.</p>
+<p>This method is called at the end of a simulation to properly close files,
+save final data, and clean up any resources used by the logger. It should
+ensure all data is safely stored and accessible for analysis.</p>
+<p class="rubric">Notes</p>
+<p>Implementations should:</p>
+<ul class="simple">
+<li><p>Close any open files or database connections</p></li>
+<li><p>Save accumulated data to persistent storage</p></li>
+<li><p>Write metadata (simulation parameters, timing info, etc.)</p></li>
+<li><p>Compress or archive data if appropriate</p></li>
+<li><p>Clean up temporary files or memory structures</p></li>
+<li><p>Print summary information if desired</p></li>
+</ul>
+<p>This method is called even if the simulation terminates early due to
+the logger returning True from the <cite>log()</cite> method.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -481,52 +749,113 @@ By default, it does not truncate episode early.</p>
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.shepherding_logger.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Loggers.base_logger.BaseLogger" title="swarmsim.Loggers.base_logger.BaseLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></p>
-<p>A class that implements a logger.</p>
-<dl class="field-list simple">
+<p>Specialized logger for shepherding simulations with task-specific metrics.</p>
+<p>This logger extends the BaseLogger to capture and analyze shepherding-specific
+metrics such as target capture rates, completion status, and task progression.
+It monitors the effectiveness of shepherding algorithms by tracking how many
+targets are successfully guided to goal regions.</p>
+<p>The logger computes the shepherding metric xi (ξ), which represents the fraction
+of targets successfully captured, and monitors task completion to enable early
+termination when all targets reach the goal region.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>instances</em><em> of </em><em>clas populations.</em>)</p></li>
-<li><p><strong>environment</strong> (<em>Instance</em><em> of </em><em>class environment.</em>)</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em> (</em><em>Path</em><em> of </em><em>the configuration file</em><em>)</em><em>.</em>)</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of population objects in the shepherding simulation.
+Typically includes target agents (index 0) and optionally shepherd agents.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Shepherding environment object containing goal regions and spatial boundaries.
+Must support shepherding-specific geometric calculations.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing logger parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>config</strong> (<em>-</em>)</p></li>
-<li><p><strong>activate</strong> (<em>-</em>)</p></li>
-<li><p><strong>date</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_freq</strong> (<em>-</em>)</p></li>
-<li><p><strong>save_freq</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_path</strong> (<em>-</em>)</p></li>
-<li><p><strong>comment_enable</strong> (<em>-</em>)</p></li>
-<li><p><strong>populations</strong> (<em>-</em>)</p></li>
-<li><p><strong>environment</strong> (<em>-</em>)</p></li>
-<li><p><strong>name</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_csv</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_txt</strong> (<em>-</em>)</p></li>
-<li><p><strong>log_name_npz</strong> (<em>-</em>)</p></li>
-<li><p><strong>start</strong> (<em>-</em>)</p></li>
-<li><p><strong>end</strong> (<em>-</em>)</p></li>
-<li><p><strong>step_count</strong> (<em>-</em>)</p></li>
-<li><p><strong>done</strong> (<em>-</em>)</p></li>
-<li><p><strong>current_info</strong> (<em>-</em>)</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – Population objects being monitored, inherited from BaseLogger.
+First population (index 0) is typically the target agents.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Shepherding environment with goal regions, inherited from BaseLogger.</p></li>
+<li><p><strong>xi</strong> (<em>float</em>) – Current shepherding metric (fraction of captured targets).
+Range: [0.0, 1.0] where 1.0 indicates all targets captured.</p></li>
+<li><p><strong>done</strong> (<em>bool</em>) – Task completion flag indicating whether all targets are captured.</p></li>
+<li><p><strong>current_info</strong> (<em>dict</em>) – Current timestep information including shepherding metrics.</p></li>
+<li><p><strong>global_info</strong> (<em>dict</em>) – Accumulated simulation data across all timesteps.</p></li>
 </ul>
 </dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>The YAML configuration file must contain logger parameters under the class section</strong></p></li>
+<li><p><strong>ShepherdingLogger</strong> (<em>dict</em>) – Configuration section for the shepherding logger:
+- <code class="docutils literal notranslate"><span class="pre">activate</span></code> : bool, optional</p>
+<blockquote>
+<div><p>Enable/disable logging. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Print frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
 </dl>
-<dl class="simple">
-<dt>Configuration file requirements</dt><dd><ul class="simple">
-<li><p>activate: bool            True to have logger, False otherwise</p></li>
-<li><p>log_freq: int             Print every log_freq steps information (0: never print)</p></li>
-<li><p>save_freq: int            Save every save_freq steps information (0: never save)</p></li>
-<li><p>comment_enable: bool      If true, add initial and final comments to the logger about the experiment</p></li>
-<li><p>log_path: str             Path where logger output should be saved</p></li>
-<li><p>log_name: str             String appended to date in the name of the file</p></li>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Save frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_data_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_global_data_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Global data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_path</span></code><span class="classifier">str, optional</span></dt><dd><p>Output directory path. Default: <code class="docutils literal notranslate"><span class="pre">&quot;./logs&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_name</span></code><span class="classifier">str, optional</span></dt><dd><p>Log file name suffix. Default: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">comment_enable</span></code><span class="classifier">bool, optional</span></dt><dd><p>Enable experiment comments. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
-Moreover, save_data stores a .npz of the data given in input.</p>
+<p><strong>Shepherding Metrics:</strong></p>
+<p>The logger computes several task-specific metrics:</p>
+<ul class="simple">
+<li><p><strong>Xi (ξ)</strong>: Fraction of targets successfully captured in goal region</p></li>
+<li><p><strong>Task Completion</strong>: Boolean flag indicating complete task success</p></li>
+<li><p><strong>Temporal Progression</strong>: Evolution of capture rate over time</p></li>
+</ul>
+<p><strong>Early Termination:</strong></p>
+<p>The logger can trigger early simulation termination when all targets
+are successfully shepherded to the goal region, improving computational
+efficiency for successful trials.</p>
+<p><strong>Integration with Shepherding Utils:</strong></p>
+<p>Uses specialized utility functions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xi_shepherding()</span></code>: Computes capture fraction metric</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_done_shepherding()</span></code>: Determines task completion status</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p><strong>Basic Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ShepherdingLogger</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">activate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">log_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">save_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./shepherding_logs&quot;</span>
+<span class="w">    </span><span class="nt">log_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;shepherding_experiment&quot;</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log">
 <span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log" title="Link to this definition">#</a></dt>
@@ -550,7 +879,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data">
-<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['print',</span> <span class="pre">'txt']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

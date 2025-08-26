@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Environments.shepherding_environment &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Environments.shepherding_environment &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -287,14 +287,19 @@
 
 
 <div class="viewcode-block" id="ShepherdingEnvironment">
-<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment">[docs]</a>
+<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ShepherdingEnvironment</span><span class="p">(</span><span class="n">EmptyEnvironment</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A shepherding environment where the goal position moves along a linear path</span>
-<span class="sd">    from (0, 0) to a final position specified in the configuration file.</span>
+<span class="sd">    Dynamic environment for shepherding tasks with moving goal positions.</span>
 
-<span class="sd">    This environment extends `EmptyEnvironment` and updates the goal position</span>
-<span class="sd">    at each time step, allowing dynamic goal movement for shepherding tasks.</span>
+<span class="sd">    This environment extends EmptyEnvironment to support shepherding scenarios where</span>
+<span class="sd">    the goal position moves along a predefined trajectory. The goal starts at</span>
+<span class="sd">    an initial position and moves toward a final destination over a specified number</span>
+<span class="sd">    of simulation steps, creating dynamic targets for shepherding controllers.</span>
+
+<span class="sd">    The environment is designed for multi-agent shepherding tasks where herder agents</span>
+<span class="sd">    must guide target agents to a moving goal region. The linear goal movement creates</span>
+<span class="sd">    realistic scenarios where the target location changes predictably over time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -304,39 +309,51 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    goal_radius : float</span>
-<span class="sd">        Radius of the goal region where agents need to reach.</span>
+<span class="sd">        Radius of the goal region where agents are considered to have reached the target.</span>
 <span class="sd">    goal_pos : np.ndarray</span>
-<span class="sd">        Current position of the goal.</span>
+<span class="sd">        Current 2D position of the goal center.</span>
 <span class="sd">    final_goal_pos : np.ndarray</span>
-<span class="sd">        The final coordinates of the goal, loaded from the configuration.</span>
+<span class="sd">        Final 2D coordinates where the goal will stop moving.</span>
 <span class="sd">    num_steps : int</span>
-<span class="sd">        The total number of steps over which the goal moves.</span>
+<span class="sd">        Total number of simulation steps over which the goal moves.</span>
 <span class="sd">    step_count : int</span>
-<span class="sd">        Counter to track the current time step.</span>
-<span class="sd">    start_step: int</span>
-<span class="sd">        The step at which the goal region starts moving.</span>
+<span class="sd">        Current simulation step counter for tracking goal movement progress.</span>
+<span class="sd">    start_step : int</span>
+<span class="sd">        Simulation step at which goal movement begins (allows for initial stationary period).</span>
 <span class="sd">    direction : np.ndarray</span>
-<span class="sd">        The unit vector representing the direction of movement from `(0,0)` to the final position.</span>
+<span class="sd">        Unit direction vector from initial to final goal position.</span>
 
-<span class="sd">    Config requirements</span>
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    goal_radius : float, optional</span>
-<span class="sd">        The radius of the goal region. Default is ``5``.</span>
-<span class="sd">    goal_pos : tuple of (float, float), optional</span>
-<span class="sd">        The initial position of the goal. Default is ``(0, 0)``.</span>
-<span class="sd">    final_goal_pos : tuple of (float, float), required</span>
-<span class="sd">        The final position of the goal. This must be specified in the configuration.</span>
-<span class="sd">    num_steps : int, optional</span>
-<span class="sd">        The total number of time steps over which the goal moves. Default is ``2000``.</span>
-<span class="sd">    start_step: int, optional</span>
-<span class="sd">        The step at which the goal region starts moving. Default is ``0``</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the environment section:</span>
 
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    FileNotFoundError</span>
-<span class="sd">        If the configuration file is not found.</span>
-<span class="sd">    KeyError</span>
-<span class="sd">        If required environment parameters are missing in the configuration file.</span>
+<span class="sd">    goal_radius : float, optional</span>
+<span class="sd">        Radius of the goal region in environment units. Default is ``5.0``.</span>
+<span class="sd">    goal_pos : list of float, optional</span>
+<span class="sd">        Initial 2D coordinates [x, y] of the goal position. Default is ``[0, 0]``.</span>
+<span class="sd">    final_goal_pos : list of float</span>
+<span class="sd">        Final 2D coordinates [x, y] where the goal movement terminates. Required parameter.</span>
+<span class="sd">    num_steps : int, optional</span>
+<span class="sd">        Number of simulation steps for the complete goal trajectory. Default is ``2000``.</span>
+<span class="sd">    start_step : int, optional</span>
+<span class="sd">        Simulation step when goal movement begins. Default is ``0``.</span>
+<span class="sd">    dimensions : list of int, optional</span>
+<span class="sd">        Environment dimensions [width, height]. Inherited from EmptyEnvironment.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The goal movement follows a linear trajectory:</span>
+
+<span class="sd">        goal_pos(t) = initial_pos + (t - start_step) / num_steps * (final_pos - initial_pos)</span>
+
+<span class="sd">    where t is the current step count. The goal remains stationary before start_step</span>
+<span class="sd">    and after reaching the final position.</span>
+
+<span class="sd">    Key features:</span>
+<span class="sd">    - **Linear Movement**: Goal moves in straight line from initial to final position</span>
+<span class="sd">    - **Configurable Timing**: Movement start time and duration are adjustable</span>
+<span class="sd">    - **Goal Region**: Circular region around goal position with specified radius</span>
+<span class="sd">    - **Status Tracking**: Provides information about goal state and agent proximity</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -345,30 +362,78 @@
 <span class="sd">    .. code-block:: yaml</span>
 
 <span class="sd">        environment:</span>
-<span class="sd">            goal_radius: 5</span>
+<span class="sd">            dimensions: [100, 100]</span>
+<span class="sd">            goal_radius: 8.0</span>
 <span class="sd">            goal_pos: [0, 0]</span>
-<span class="sd">            final_goal_pos: [20, -20]</span>
-<span class="sd">            num_steps: 2000</span>
+<span class="sd">            final_goal_pos: [30, -20]</span>
+<span class="sd">            num_steps: 1500</span>
+<span class="sd">            start_step: 100</span>
 
-<span class="sd">    This will move the goal position from ``(0, 0)`` to ``(20, -20)`` over ``2000`` steps.</span>
+<span class="sd">    Advanced usage with shepherding simulation:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim.Environments import ShepherdingEnvironment</span>
+<span class="sd">        from swarmsim.Populations import BrownianMotion</span>
+<span class="sd">        from swarmsim.Controllers import ShepherdingLamaController</span>
+
+<span class="sd">        # Create environment</span>
+<span class="sd">        env = ShepherdingEnvironment(&#39;config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create populations</span>
+<span class="sd">        targets = BrownianMotion(&#39;config.yaml&#39;, &#39;Targets&#39;)</span>
+<span class="sd">        herders = BrownianMotion(&#39;config.yaml&#39;, &#39;Herders&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create shepherding controller</span>
+<span class="sd">        controller = ShepherdingLamaController(</span>
+<span class="sd">            population=herders,</span>
+<span class="sd">            targets=targets,</span>
+<span class="sd">            environment=env,</span>
+<span class="sd">            config_path=&#39;config.yaml&#39;</span>
+<span class="sd">        )</span>
+<span class="sd">        </span>
+<span class="sd">        # Environment automatically updates goal position each step</span>
+<span class="sd">        env.update()  # Advances goal along trajectory</span>
+<span class="sd">        </span>
+<span class="sd">        # Check if targets are near current goal</span>
+<span class="sd">        info = env.get_info()</span>
+<span class="sd">        print(f&quot;Goal position: {env.goal_pos}&quot;)</span>
+<span class="sd">        print(f&quot;Targets in goal: {info[&#39;targets_in_goal&#39;]}&quot;)</span>
+
+<span class="sd">    Applications include:</span>
+<span class="sd">    - Dynamic shepherding scenarios</span>
+<span class="sd">    - Moving target tracking problems</span>
+<span class="sd">    - Adaptive goal-seeking behaviors</span>
+<span class="sd">    - Multi-phase shepherding tasks</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the ShepherdingEnvironment with the configuration parameters from a YAML file.</span>
-
-<span class="sd">        The goal position moves from `(0, 0)` towards a final position specified in</span>
-<span class="sd">        the configuration file over a number of time steps.</span>
+<span class="sd">        Initialize the ShepherdingEnvironment with dynamic goal movement.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        config_path : str</span>
-<span class="sd">            The path to the YAML configuration file.</span>
+<span class="sd">            Path to the YAML configuration file containing environment parameters.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the configuration file cannot be found.</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If required parameters are missing from the configuration.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The initialization computes the step-wise movement vector based on the</span>
+<span class="sd">        linear trajectory from initial to final goal position over the specified</span>
+<span class="sd">        number of steps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 
         <span class="c1"># Load goal parameters from the configuration file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">goal_radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;goal_radius&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;buffer_size&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">goal_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;goal_pos&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">final_goal_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_goal_pos&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;num_steps&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>  <span class="c1"># Total steps over which goal moves</span>
@@ -380,41 +445,59 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">displacement</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span>  <span class="c1"># Step-wise movement vector</span>
 
 <div class="viewcode-block" id="ShepherdingEnvironment.get_info">
-<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.get_info">[docs]</a>
+<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.get_info">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves environment information including the goal region radius and center.</span>
+<span class="sd">        Retrieve current environment state information for logging and monitoring.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
-<span class="sd">            A dictionary containing:</span>
-<span class="sd">            - ``Goal region radius``: The radius of the goal region.</span>
-<span class="sd">            - ``Goal region center``: The current position of the goal.</span>
+<span class="sd">            Dictionary containing environment status with keys:</span>
+<span class="sd">            </span>
+<span class="sd">            - &#39;Goal region radius&#39;: float</span>
+<span class="sd">                Current radius of the goal region</span>
+<span class="sd">            - &#39;Goal region center&#39;: np.ndarray</span>
+<span class="sd">                Current 2D coordinates of the goal center</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This information can be used by:</span>
+<span class="sd">        - Loggers to track goal movement over time</span>
+<span class="sd">        - Controllers to access current goal state</span>
+<span class="sd">        - Renderers to visualize the goal region</span>
+<span class="sd">        - Analysis tools to compute performance metrics</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;Goal region radius&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_radius</span><span class="p">,</span> <span class="s1">&#39;Goal region center&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_pos</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="ShepherdingEnvironment.update">
-<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.update">[docs]</a>
+<a class="viewcode-back" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the goal position at every time step.</span>
+<span class="sd">        Advance the goal position along its trajectory.</span>
 
-<span class="sd">        The goal moves incrementally in a straight line from `(0,0)` to the final</span>
-<span class="sd">        position specified in the configuration file. Once it reaches the final</span>
-<span class="sd">        position, it stops moving.</span>
-
-<span class="sd">        The movement follows the equation:</span>
-
-<span class="sd">            goal_pos = goal_pos + direction</span>
-
-<span class="sd">        where ``direction`` is the step-wise movement vector.</span>
+<span class="sd">        This method is called at each simulation timestep to update the goal position.</span>
+<span class="sd">        The goal moves linearly from its initial position toward the final position</span>
+<span class="sd">        over the specified number of steps, starting at the configured start step.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        - The goal starts moving **after 1000 steps**.</span>
-<span class="sd">        - The goal stops moving once it reaches the final position.</span>
+<span class="sd">        The goal movement algorithm:</span>
+
+<span class="sd">        1. **Step Counting**: Increment internal step counter</span>
+<span class="sd">        2. **Movement Window**: Check if current step is within movement period</span>
+<span class="sd">        3. **Position Update**: Add direction vector to current goal position</span>
+<span class="sd">        4. **Boundary Conditions**: Goal stops at final position</span>
+
+<span class="sd">        Movement occurs only when:</span>
+<span class="sd">        - Current step &gt; start_step (allows initial stationary period)</span>
+<span class="sd">        - Current step &lt; start_step + num_steps (prevents overshoot)</span>
+
+<span class="sd">        The direction vector is pre-computed during initialization as:</span>
+<span class="sd">            direction = (final_pos - initial_pos) / num_steps</span>
+
+<span class="sd">        After num_steps, the goal remains stationary at the final position.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Ensure the goal stops moving once it reaches the final position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -472,7 +555,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

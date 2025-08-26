@@ -11,81 +11,151 @@ from swarmsim.Utils.sim_utils import load_config
 
 class BaseLogger(Logger):
     """
-    A class that implements the simplest version of a logger.
+    Comprehensive base logger for multi-agent simulation data collection and analysis.
+
+    This logger provides the foundational logging infrastructure for recording simulation
+    data, managing file outputs, timing execution, and providing extensible hooks for
+    specialized logging behaviors. It handles multiple output formats, configurable
+    logging frequencies, and automatic file organization with timestamped naming.
+
+    The BaseLogger serves as the parent class for all specialized loggers in the framework,
+    providing common functionality while allowing customization through method overriding.
+    It automatically manages file creation, data serialization, and experiment metadata.
 
     Parameters
     ----------
-        populations: list of instances of class populations.
-        environment: Instance of class environment.
-        config_path: str (Path of the configuration file).
+    populations : list of Population
+        List of population objects whose data will be logged throughout the simulation.
+        Each population provides state information and dynamics data.
+    environment : Environment
+        Environment object containing spatial and contextual information for the simulation.
+        Provides environmental state and parameters for logging.
+    config_path : str
+        Path to the YAML configuration file containing logger parameters and settings.
 
     Attributes
     ----------
-        - config: dict                                  
-            Dictionary of parameters
-        - activate: bool                                
-            Flag to activate and save logger
-        - date: date object                             
-            Current date to log and name files
-        - log_freq: int                                 
-            Print information frequency
-        - save_freq: int                                
-            Save information frequency
-        - log_path: str                                 
-            Path where logger is saved
-        - comment_enable: bool                          
-            Flag to enable adding comment at the beginning and end of an experiment
-        - populations: list of population objects       
-            List of populations in the experiment
-        - environment: environment object               
-            Environment of the experiment
-        - name: str                                     
-            Name of the logger, appended to the date to name output files
-        - log_name_csv: str                             
-            Name of the .csv machine-readable file
-        - log_name_txt: str                             
-            Name of the .txt human-readable file
-        - log_name_npz: str                             
-            Name of the .npz file to store tensors
-        - start: time object                             
-            Starting time of the simulation
-        - end: time object                               
-            Final time of the simulation
-        - step_count: int                                 
-            Step counter to track time
-        - done: bool                                    
-            Flag to truncate experiment early
-        - current_info: dict                            
-            Information to log in a specific time step as a dict of {name_variable: value}
+    config : dict
+        Complete configuration dictionary loaded from the YAML file.
+    logger_config : dict
+        Logger-specific configuration subset extracted from the main config.
+    activate : bool
+        Flag controlling whether logging is active. If False, logging operations are skipped.
+    date : str
+        Human-readable timestamp of logger initialization for metadata.
+    name : str
+        Unique identifier for the logging session, combining timestamp and config name.
+    log_freq : int
+        Frequency (in simulation steps) for printing progress information to console.
+        Set to 0 to disable console output.
+    save_freq : int
+        Frequency (in simulation steps) for saving data to files.
+        Set to 0 to disable file saving.
+    save_data_freq : int
+        Frequency for saving raw data arrays (positions, states, etc.).
+    save_global_data_freq : int
+        Frequency for saving accumulated global simulation data.
+    log_path : str
+        Base directory path where all log files will be stored.
+    comment_enable : bool
+        Whether to prompt for and include user comments in the log files.
+    populations : list of Population
+        Reference to the populations being logged.
+    environment : Environment
+        Reference to the simulation environment.
+    log_name_csv : str
+        Full path to the CSV output file for tabular data.
+    log_name_txt : str
+        Full path to the human-readable text output file.
+    log_name_npz : str
+        Full path to the compressed NumPy data file.
+    log_name_mat : str
+        Full path to the MATLAB-compatible data file.
+    start : float or None
+        Timestamp when logging session started.
+    end : float or None
+        Timestamp when logging session ended.
+    step_count : int or None
+        Current simulation step counter.
+    experiment_count : int or None
+        Counter for multiple experiment runs.
+    done : bool or None
+        Flag indicating if the simulation should terminate early.
+    current_info : dict or None
+        Dictionary containing data for the current simulation timestep.
+    global_info : dict or None
+        Dictionary containing accumulated data across all timesteps.
 
-    Config requirements
+    Config Requirements
     -------------------
+    The YAML configuration file must contain the following parameters under the BaseLogger's class section:
 
-        - activate: bool            
-            True to have logger, False otherwise
-        - log_freq: int             
-            Print every log_freq steps information (0: never print)
-        - save_freq: int            
-            Save every save_freq steps information (0: never save)
-        - save_data_freq: int
-            TBD
-        - save_global_data_freq: int
-            TBD
-        - comment_enable: bool      
-            If true, add initial and final comments to the logger about the experiment
-        - log_path: str             
-            Path where logger output should be saved
-        - log_name: str             
-            String appended to date in the name of the file
-        
-        
+        - ``activate`` : bool, optional
+            Enable/disable logging. Default: ``True``
+        - ``log_freq`` : int, optional 
+            Console output frequency (0 = never). Default: ``0``
+        - ``save_freq`` : int, optional
+            File save frequency (0 = never). Default: ``1``
+        - ``save_data_freq`` : int, optional
+            Raw data save frequency. Default: ``0``
+        - ``save_global_data_freq`` : int, optional
+            Global data save frequency. Default: ``0``
+        - ``log_path`` : str, optional
+            Output directory path. Default: ``"./logs"``
+        - ``log_name`` : str, optional
+            Log file name suffix. Default: ``""``
+        - ``comment_enable`` : bool, optional
+            Enable user comments. Default: ``False``
 
     Notes
     -----
+    **File Organization:**
 
-        If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
-        Moreover, save_data stores a .npz of the data given in input.
+    The logger creates a directory structure:
+    ```
+    log_path/
+    └── YYYYMMDD_HHMMSS_log_name/
+        ├── YYYYMMDD_HHMMSS_log_name.csv    # Tabular data
+        ├── YYYYMMDD_HHMMSS_log_name.txt    # Human-readable
+        ├── YYYYMMDD_HHMMSS_log_name.npz    # NumPy arrays
+        └── YYYYMMDD_HHMMSS_log_name.mat    # MATLAB format
+    ```
 
+    **Logging Workflow:**
+
+    1. **Initialization**: Create directories, initialize files
+    2. **Start Experiment**: Begin timing and setup data structures
+    3. **Step Logging**: Record data at each simulation timestep
+    4. **End Experiment**: Finalize files and compute summary statistics
+
+    **Extensibility:**
+
+    Subclasses can override key methods:
+    - ``log()``: Customize what data is collected each step
+    - ``log_internal_data()``: Modify data processing and storage
+    - ``start_experiment()``: Add initialization procedures
+    - ``end_experiment()``: Add finalization procedures
+
+    **Performance Considerations:**
+
+    - Data is accumulated in memory between save operations
+    - Large simulations should use appropriate ``save_freq`` values
+    - Multiple output formats can be disabled for performance
+    - File I/O is batched for efficiency
+
+    Examples
+    --------
+    **Basic Configuration:**
+
+    .. code-block:: yaml
+
+        BaseLogger:
+            activate: true
+            log_freq: 100
+            save_freq: 10
+            log_path: "./simulation_logs"
+            log_name: "base_experiment"
+            comment_enable: false
     """
 
     

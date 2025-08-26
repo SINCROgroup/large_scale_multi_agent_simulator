@@ -8,40 +8,79 @@ from swarmsim.Utils import get_parameters, load_config
 
 class Interaction(ABC):
     """
-    Abstract base class that defines the structure for interactions between two populations.
+    Abstract base class for modeling interactions between agent populations.
 
-    This class serves as an interface for all interaction models in a multi-agent system.
-    It requires subclasses to implement the `get_interaction` method, which computes
-    the effect that `pop2` (e.g., herders) has on `pop1` (e.g., targets).
+    This class provides the framework for implementing various types of inter-agent
+    interactions such as repulsion, attraction, alignment, and collision avoidance.
+    It defines how one population (source) influences another population (target)
+    through force computations.
 
     Parameters
     ----------
     target_population : Population
-        The first population that is influenced by the interaction.
+        The population that receives the interaction forces.
     source_population : Population
-        The second population that applies the interaction force.
+        The population that generates the interaction forces.
+    config_path : str
+        Path to the YAML configuration file containing interaction parameters.
+    name : str, optional
+        Name identifier for the interaction. If None, defaults to the class name.
 
     Attributes
     ----------
     target_population : Population
-        The population affected by the interaction.
+        The population affected by the interaction forces.
     source_population : Population
-        The population exerting the interaction force.
+        The population generating the interaction forces.
+    config : dict
+        Configuration parameters specific to this interaction type.
+    param_config : dict
+        Parameter configuration for interaction-specific parameters.
+    id : str
+        Identifier for this interaction instance.
+    params : dict of np.ndarray or None
+        Dictionary containing interaction-specific parameters.
+    params_shapes : dict of tuple or None
+        Dictionary defining expected shapes for interaction parameters.
+
+    Config Requirements
+    -------------------
+    The YAML configuration file should contain parameters under the interaction's section:
+
+    id : str, optional
+        Identifier for the interaction. Defaults to the class name.
+    parameters : dict, optional
+        Configuration for interaction-specific parameters.
 
     Notes
     -----
-    - The `get_interaction` method must be implemented in all subclasses.
-    - This class is designed for interactions such as **repulsion, attraction,** and **alignment**.
+    - Subclasses must implement the abstract method `get_interaction()`.
+    - Interactions are computed at each simulation timestep.
+    
 
     Examples
     --------
-    Example of a subclass implementing a specific interaction:
+    Example YAML configuration for an interaction:
+
+    .. code-block:: yaml
+
+        HarmonicRepulsion:
+            id: "repulsion_interaction"
+            parameters:
+                params_mode: "Random"
+                params_names: ["strength", "range"]
+                params_limits:
+                    strength: [1.0, 5.0]
+                    range: [0.5, 2.0]
+
+    Example of implementing a custom interaction:
 
     .. code-block:: python
 
-        class HarmonicRepulsion(Interaction):
+        class CustomInteraction(Interaction):
             def get_interaction(self):
-                # Compute repulsion forces here
+                # Compute interaction forces here
+                
                 return forces
     """
 
@@ -50,6 +89,25 @@ class Interaction(ABC):
                  source_population: Population,
                  config_path: str,
                  name: str = None) -> None:
+        """
+        Initialize the Interaction with target and source populations.
+
+        Parameters
+        ----------
+        target_population : Population
+            The population that will be affected by the interaction forces.
+        source_population : Population
+            The population that will generate the interaction forces.
+        config_path : str
+            Path to the YAML configuration file containing interaction parameters.
+        name : str, optional
+            Name identifier for the interaction. If None, defaults to the class name.
+
+        Raises
+        ------
+        FileNotFoundError
+            If the configuration file cannot be found.
+        """
 
         super().__init__()
         self.target_population: Population = target_population  # The affected population
@@ -72,27 +130,40 @@ class Interaction(ABC):
         # self.reset()
 
     def reset(self) -> None:
+        """
+        Reset the interaction parameters to their initial values.
+
+        This method reinitializes interaction-specific parameters based on the
+        configuration. It should be called before starting a new simulation.
+        """
         if self.param_config is not None:
             self.params = get_parameters(self.param_config, self.params_shapes, self.target_population.N)
 
     @abstractmethod
     def get_interaction(self) -> np.ndarray:
         """
-        Computes the forces that `source_population` applies on `target_population`.
+        Compute the interaction forces between source and target populations.
 
-        This method must be implemented by subclasses to define the specific
-        interaction between the two populations.
+        This abstract method must be implemented by subclasses to define the specific
+        interaction. It calculates the forces that the source population exerts
+        on the target population based on their current states and interaction parameters.
 
         Returns
         -------
         np.ndarray
-            A `(N1, D)` array representing the forces exerted by `source_population` on `target_population`,
-            where `N1` is the number of agents in `target_population` and `D` is the state space dimension.
+            Array of shape (N_target, state_dim) representing the interaction forces
+            applied to each agent in the target population, where N_target is the number
+            of agents in the target population and state_dim is the spatial dimension.
+
+        Notes
+        -----
+        The returned forces will be added to the target population's force accumulator
+        and integrated by the numerical integrator.
 
         Raises
         ------
         NotImplementedError
-            If called directly from the base class.
+            If called directly from the base class without implementation.
         """
         pass
 

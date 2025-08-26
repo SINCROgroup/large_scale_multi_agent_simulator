@@ -8,7 +8,7 @@ from typing import Optional
 
 class PowerLawInteraction(Interaction):
     """
-    Implements a power-law repulsion interaction between two populations.
+    Power-law interaction with configurable attraction and repulsion components.
 
     This interaction models a repulsive force that decays according to a power-law function
     with respect to the distance between agents. The strength of the force is determined by
@@ -16,36 +16,53 @@ class PowerLawInteraction(Interaction):
 
     Parameters
     ----------
-    pop1 : Population
-        The first population that is influenced by the interaction.
-    pop2 : Population
-        The second population that applies the repulsion force.
-    config : str
+    target_population : Population
+        The population that receives interaction forces.
+    source_population : Population
+        The population that generates interaction forces.
+    config_path : str
         Path to the YAML configuration file containing interaction parameters.
-    repulsion_name : str
-        The section name in the YAML file specifying the repulsion parameters.
+    name : str, optional
+        Name identifier for the interaction. Defaults to class name if None.
 
     Attributes
     ----------
-    params : dict
-        Dictionary containing interaction parameters loaded from the configuration file.
-    strength : float
-        Maximum intensity of the repulsion force.
-    max_distance : float
-        Maximum distance at which the interaction takes place.
-    p : float
-        Power exponent controlling the decay rate of the repulsion force.
+    target_population : Population
+        Population affected by power-law forces.
+    source_population : Population
+        Population generating power-law forces.
+    strength_attr : np.ndarray or None
+        Attraction strength parameter(s).
+    strength_rep : np.ndarray or None
+        Repulsion strength parameter(s).
+    max_distance : np.ndarray or None
+        Maximum interaction distance parameter(s).
+    p_attr : int
+        Power exponent for attraction term.
+    p_rep : int
+        Power exponent for repulsion term.
+    is_attractive : bool
+        Whether to allow attractive forces (negative values).
+    params_shapes : dict
+        Defines expected shapes for interaction parameters.
 
-    Config requirements
+    Config Requirements
     -------------------
-    repulsion_name : str
-        The section name in the YAML file specifying the repulsion parameters.
-    strength : float
-        The maximum repulsion force intensity.
-    max_distance : float
-        The maximum interaction range.
-    p : float
-        The power exponent determining the force decay.
+    The YAML configuration file must contain the following parameters under the interaction's section:
+
+    parameters : dict
+        Parameter configuration for the power-law interaction:
+        
+        - ``mode`` : str - Parameter assignment mode
+        - ``names`` : list - Parameter names ["strength_attr", "strength_rep", "max_distance"]
+        - ``limits`` or ``values`` : dict - Parameter ranges or fixed values
+
+    p_attr : int
+        Power exponent for the attraction term (typically 6-8).
+    p_rep : int  
+        Power exponent for the repulsion term (typically 12-16).
+    is_attractive : bool
+        Whether to allow attractive forces. If False, forces are clipped to non-negative values.
 
     Raises
     ------
@@ -53,20 +70,101 @@ class PowerLawInteraction(Interaction):
         If the configuration file is not found.
     KeyError
         If required interaction parameters are missing in the configuration file.
+    ValueError
+        If parameter shapes are incompatible with population sizes.
 
     Examples
     --------
-    Example YAML configuration:
+    **Lennard-Jones-like Configuration:**
 
     .. code-block:: yaml
 
-        power_law_repulsion:
-            strength: 2.0
-            max_distance: 5.0
-            p: 3.0
+        PowerLawInteraction:
+            id: "lj_like_interaction"
+            p_attr: 6
+            p_rep: 12
+            is_attractive: true
+            parameters:
+                params_mode: "Fixed"
+                params_names: ["strength_attr", "strength_rep", "max_distance"]
+                params_values:
+                    strength_attr: 1.0
+                    strength_rep: 4.0
+                    max_distance: 5.0
 
-    This sets a repulsion force with `strength = 2.0`, active within `5.0` units,
-    and decaying with a power exponent `p = 3.0`.
+    **Pure Repulsion Configuration:**
+
+    .. code-block:: yaml
+
+        PowerLawInteraction:
+            id: "repulsion_only"
+            p_attr: 6
+            p_rep: 3
+            is_attractive: false
+            parameters:
+                params_mode: "Fixed"
+                params_names: ["strength_attr", "strength_rep", "max_distance"]
+                params_values:
+                    strength_attr: 0.0
+                    strength_rep: 2.0
+                    max_distance: 3.0
+
+    **Usage in Simulation:**
+
+    .. code-block:: python
+
+        from swarmsim.Interactions import PowerLawInteraction
+        from swarmsim.Populations import BrownianMotion
+
+        # Create populations
+        agents = BrownianMotion('agent_config.yaml')
+        
+        # Create power-law self-interaction
+        interaction = PowerLawInteraction(
+            target_population=agents,
+            source_population=agents,
+            config_path='powerlaw_config.yaml'
+        )
+        
+        # Initialize parameters
+        interaction.reset()
+        
+        # Compute forces
+        forces = interaction.get_interaction()
+
+    **Force Profile Analysis:**
+
+    .. code-block:: python
+
+        import numpy as np
+        import matplotlib.pyplot as plt
+        
+        # Plot force vs distance
+        r = np.linspace(0.5, 5.0, 100)
+        k_rep, k_attr = 4.0, 1.0
+        p_rep, p_attr = 12, 6
+        
+        force = k_rep / r**p_rep - k_attr / r**p_attr
+        
+        plt.plot(r, force)
+        plt.axhline(0, color='k', linestyle='--', alpha=0.5)
+        plt.xlabel('Distance')
+        plt.ylabel('Force')
+        plt.title('Power-Law Force Profile')
+
+    **Equilibrium Distance Calculation:**
+
+    The equilibrium distance where force is zero occurs when:
+
+    .. math::
+
+        \\frac{k_{rep}}{r_{eq}^{p_{rep}}} = \\frac{k_{attr}}{r_{eq}^{p_{attr}}}
+
+    Solving for :math:`r_{eq}`:
+
+    .. math::
+
+        r_{eq} = \\left(\\frac{k_{rep}}{k_{attr}}\\right)^{\\frac{1}{p_{rep} - p_{attr}}}
     """
 
 

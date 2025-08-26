@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Simulators.gym_simulator &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Simulators.gym_simulator &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -282,9 +282,7 @@
                 <article class="bd-article">
                   
   <h1>Source code for swarmsim.Simulators.gym_simulator</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">progressbar</span>
-
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Simulators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simulator</span>
 
 
@@ -343,7 +341,7 @@
 
         <span class="c1"># Reset interaction forces</span>
         <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">:</span>
-            <span class="n">population</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">population</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">population</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">population</span><span class="o">.</span><span class="n">input_dim</span><span class="p">])</span>
 
         <span class="c1"># Update the environment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>

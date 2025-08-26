@@ -1,29 +1,68 @@
 """
+Integrators Module
+==================
 
-The `Integrators` module provides numerical integration methods for simulating
-the movement of agents.
+This module provides numerical integration schemes for evolving agent dynamics in multi-agent simulations.
+Integrators handle both deterministic and stochastic differential equations, enabling realistic agent motion
+with noise and uncertainty.
 
-Classes
--------
-- `Integrator`:
-    - Abstract base class for numerical integration.
-    - Requires implementation of the `step` method.
-- `EulerMaruyamaIntegrator`:
-    - Stochastic integration method that updates agent positions based on drift and diffusion terms.
+Available Integrators
+---------------------
 
-Usage
------
-To use an integrator, import it and instantiate with a configuration file:
+Integrator
+    Abstract base class defining the interface for all numerical integration methods.
+
+EulerMaruyama
+    Stochastic integrator for SDEs using the Euler-Maruyama scheme. Suitable for
+    populations with both drift and diffusion components (e.g., Brownian motion).
+
+Key Features
+------------
+- **Stochastic Integration**: Support for stochastic differential equations (SDEs)
+- **Modular Design**: Easy to implement custom integration schemes
+- **Population Support**: Handles multiple populations with different dynamics
+- **Configurable Timestep**: Adjustable integration timestep for accuracy vs. speed
+
+Mathematical Background
+-----------------------
+The integrators solve equations of the form:
+
+    dx = f(x, t) dt + g(x, t) dW
+
+where:
+- f(x, t) is the drift term (deterministic component)
+- g(x, t) is the diffusion term (stochastic component)  
+- dW is a Wiener process (Brownian motion)
+
+Examples
+--------
+Basic integrator usage:
 
 .. code-block:: python
 
-    from swarmsim.integrators import EulerMaruyamaIntegrator
-    integrator = EulerMaruyamaIntegrator(config_path="config.yaml")
-    integrator.step(populations)
+    from swarmsim.Integrators import EulerMaruyama
+    from swarmsim.Populations import BrownianMotion
+    
+    # Create integrator
+    integrator = EulerMaruyama('config.yaml')
+    
+    # Create population
+    population = BrownianMotion('config.yaml')
+    population.reset()
+    
+    # Perform integration step
+    integrator.step([population])
 
+Configuration Example
+---------------------
 
-This will perform a **single integration step** using the Euler-Maruyama method.
+.. code-block:: yaml
 
+    integrator:
+        dt: 0.01  # Small timestep for accuracy
+
+For stochastic systems, smaller timesteps generally improve accuracy but increase
+computational cost.
 """
 
 # Import key integrator classes for easy access

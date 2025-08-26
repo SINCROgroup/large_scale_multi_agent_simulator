@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Integrators.base_integrator &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Integrators.base_integrator &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -290,10 +290,11 @@
 <a class="viewcode-back" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Integrator</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract base class for an Integrator, defining the structure for numerical integration.</span>
+<span class="sd">    Abstract base class for numerical integration schemes in stochastic multi-agent systems.</span>
 
-<span class="sd">    This class reads configuration parameters from a YAML file and requires derived classes</span>
-<span class="sd">    to implement the `step` method for numerical integration.</span>
+<span class="sd">    This class provides the interface for implementing various numerical integration methods</span>
+<span class="sd">    for stochastic differential equations (SDEs) that govern agent dynamics. It handles the</span>
+<span class="sd">    temporal evolution of agent states based on drift and diffusion components.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -303,12 +304,20 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    dt : float</span>
-<span class="sd">        The timestep value for integration, loaded from the configuration file.</span>
+<span class="sd">        The timestep value for numerical integration.</span>
 
-<span class="sd">    Config requirements</span>
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the integrator section:</span>
+
 <span class="sd">    dt : float, optional</span>
-<span class="sd">        The timestep value for integration. Default is ``0.01``.</span>
+<span class="sd">        The timestep value for numerical integration. Default is ``0.01``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Subclasses must implement the abstract method `step()` to define the integration scheme.</span>
+<span class="sd">    - Common integration schemes include Euler-Maruyama for SDEs.</span>
+<span class="sd">    - The timestep should be chosen carefully to ensure numerical stability and accuracy.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -319,7 +328,6 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-
 <span class="sd">    Example YAML configuration:</span>
 
 <span class="sd">    .. code-block:: yaml</span>
@@ -327,10 +335,26 @@
 <span class="sd">        integrator:</span>
 <span class="sd">            dt: 0.05</span>
 
-<span class="sd">    This will set ``dt = 0.05`` as the timestep value for numerical integration.</span>
+<span class="sd">    This sets the integration timestep to 0.05 time units.</span>
+
+<span class="sd">    For stochastic systems, smaller timesteps generally improve accuracy but increase</span>
+<span class="sd">    computational cost. The choice depends on the specific dynamics and required precision.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Integrator with configuration parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        config_path : str</span>
+<span class="sd">            Path to the YAML configuration file containing integration parameters.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If the configuration file cannot be found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 
@@ -342,15 +366,28 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Abstract method to perform a single integration step.</span>
+<span class="sd">        Perform a single numerical integration step.</span>
 
-<span class="sd">        This method must be implemented by any subclass to define how numerical</span>
-<span class="sd">        integration is performed for a given set of populations.</span>
+<span class="sd">        This abstract method must be implemented by subclasses to define the specific</span>
+<span class="sd">        numerical integration scheme. It advances the state of all agent populations</span>
+<span class="sd">        by one timestep according to their dynamics.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        populations : list or np.ndarray</span>
-<span class="sd">            A list or array representing the populations for which the integration step is being performed.</span>
+<span class="sd">        populations : list of Population</span>
+<span class="sd">            List of Population objects whose states will be updated by the integration step.</span>
+<span class="sd">            Each population provides drift and diffusion terms through their respective methods.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The implementation should:</span>
+<span class="sd">        </span>
+<span class="sd">        - Call `get_drift()` and `get_diffusion()` methods for each population</span>
+<span class="sd">        - Apply the numerical integration scheme (e.g., Euler-Maruyama, Runge-Kutta)</span>
+<span class="sd">        - Update the state `x` attribute of each population</span>
+<span class="sd">        - Handle stochastic terms appropriately for SDE integration</span>
+<span class="sd">        - Respect any state or input limits defined in the populations</span>
+
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -410,7 +447,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

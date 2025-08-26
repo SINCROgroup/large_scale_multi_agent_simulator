@@ -9,38 +9,80 @@ from swarmsim.Populations import Population
 
 class ShepherdingLamaController(Controller):
     """
-    Implementation of the herders control law from [Lama and di Bernardo, 2024]
+    Implementation of the shepherding controller implemented in Lama (2024).
 
+    This controller implements the herding control law from Lama (2024) for
+    shepherding applications. It coordinates herder agents to guide target agents toward
+    a goal region by positioning herders behind the most distant targets and applying
+    repulsive forces to drive the targets toward the goal.
 
-    Arguments
-    ---------
-        population : Population
-            The population where the control is exerted
-        targets : Population
-            The population of targets
-        environment : ShepherdingEnvironment
-            The environment where the agents live (must be a Sheperding Environment)
-        config_path: str
-            The path of the configuration file
+    The controller selects the farthest target from the goal within each herder's sensing
+    radius and positions the herder behind that target at a specified distance. This
+    creates a shepherding behavior where herders push targets toward the goal region.
 
-    Config requirements
+    Parameters
+    ----------
+    population : Population
+        The herder population that will be controlled by this controller.
+    targets : Population
+        The target population that needs to be shepherded to the goal.
+    environment : ShepherdingEnvironment, optional
+        The shepherding environment containing goal information. Default is None.
+    config_path : str, optional
+        Path to the YAML configuration file containing controller parameters. Default is None.
+
+    Attributes
+    ----------
+    herders : Population
+        Reference to the herder population (same as population).
+    targets : Population
+        The target population being shepherded.
+    environment : ShepherdingEnvironment
+        The shepherding environment with goal position information.
+    xi : float
+        Sensing radius of herder agents for target detection.
+    v_h : float
+        Speed of herders when no targets are detected within sensing radius.
+    alpha : float
+        Attraction force constant toward the selected target position.
+    lmbda : float
+        Lambda parameter (currently not used in implementation).
+    delta : float
+        Displacement distance to position herders behind targets.
+    rho_g : float
+        Radius of the goal region.
+
+    Config Requirements
     -------------------
-    The YAML configuration file must contain the following parameters under the population's section:
+    The YAML configuration file must contain the following parameters under the controller's section:
 
-    dt: float
-        Sampling time of the controller (time interval between two consecutive control actions)
-    xi: float 
-        Sensing radius of the herder agents
-    v_h: float
-        Speed of the herders when no targets are detected
-    alpha: float
-        Attraction force constant to the selected target
-    lmbda: float
-        Not USED 
-    delta: float
-        Displacement to go behind a target
-    rho_g: float
-        Radius of the goal region
+    dt : float
+        Sampling time of the controller (time interval between control actions).
+    xi : float, optional
+        Sensing radius of herder agents. Default is ``15``.
+    v_h : float, optional
+        Speed of herders when no targets are detected. Default is ``12``.
+    alpha : float, optional
+        Attraction force constant to the selected target. Default is ``3``.
+    lambda : float, optional
+        Lambda parameter (not currently used). Default is ``3``.
+    delta : float, optional
+        Displacement to go behind a target. Default is ``1.5``.
+    rho_g : float, optional
+        Radius of the goal region. Default is ``5``.
+
+    Notes
+    -----
+    The controller algorithm works as follows:
+
+    1. **Target Selection**: Each herder identifies targets within its sensing radius `xi`
+    2. **Distance Calculation**: Among detected targets, select the one farthest from the goal
+    3. **Position Calculation**: Position herder behind the selected target at distance `delta`
+    4. **Control Action**: Apply attractive force with strength `alpha` toward the desired position
+    5. **No Target Behavior**: If no targets detected, move away from goal with speed `v_h`
+
+    The controller assumes a shepherding environment with a defined goal position and
+    requires both herder and target populations to be properly initialized.
 
     Examples
     --------
@@ -49,6 +91,7 @@ class ShepherdingLamaController(Controller):
     .. code-block:: yaml
 
         ShepherdingLamaController:
+            dt: 0.1
             xi: 15
             v_h: 12
             alpha: 3
@@ -59,12 +102,35 @@ class ShepherdingLamaController(Controller):
     This defines a `ShepherdingLamaController` with xi=15, v_h=12, alpha=3, lambda=3, delta=1.5, rho_g=5.
     This controller is able to steer a population of targets to the goal region.
 
+    References
+    ----------
+    Lama, Andrea, and Mario di Bernardo. "Shepherding and herdability in complex multiagent systems." Physical Review Research 6.3 (2024): L032012
+
     """
 
     def __init__(self, population: Population,
                  targets: Population,
                  environment: ShepherdingEnvironment =None,
                  config_path: str =None) -> None:
+        """
+        Initialize the LAMA shepherding controller.
+
+        Parameters
+        ----------
+        population : Population
+            The herder population that will be controlled.
+        targets : Population
+            The target population to be shepherded.
+        environment : ShepherdingEnvironment, optional
+            The shepherding environment containing goal information. Default is None.
+        config_path : str, optional
+            Path to the configuration file. Default is None.
+
+        Raises
+        ------
+        TypeError
+            If environment is not a ShepherdingEnvironment instance.
+        """
 
         super().__init__(population, environment, config_path, [targets])
         self.herders: Population = self.population
@@ -79,10 +145,37 @@ class ShepherdingLamaController(Controller):
         self.rho_g: float = self.config.get('rho_g', 5)
 
     def get_action(self) -> np.ndarray:
-
         """
-        STEFANO O ITALO TODO
+        Compute the shepherding control action for herder agents.
 
+        This method implements the LAMA shepherding algorithm by:
+        1. Finding targets within each herder's sensing radius
+        2. Selecting the target farthest from the goal for each herder
+        3. Computing desired herder positions behind selected targets
+        4. Apply attractive force toward desired herder positions
+
+        Returns
+        -------
+        np.ndarray
+            Control actions of shape (N_herders, 2) representing force vectors
+            for each herder agent in the x and y directions.
+
+        Notes
+        -----
+        The algorithm follows these steps:
+
+        1. **Target Detection**: For each herder, find all targets within sensing radius `xi`
+        2. **Target Selection**: Each herder selects the target farthest from the goal
+        3. **Position Calculation**: Compute desired position behind selected target
+        4. **Force Calculation**: Computes attractive force toward desired position
+
+        If no targets are within sensing range:
+        - Herders inside goal region (distance < rho_g) remain stationary
+        - Herders outside goal region move away from origin with speed v_h
+
+        If a target is selected:
+        - Apply attractive force: alpha * (desired_position - current_position)
+        - Desired position is behind target: target_pos + delta * target_unit_vector
         """
 
 

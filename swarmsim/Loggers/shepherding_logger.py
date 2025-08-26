@@ -4,49 +4,105 @@ from swarmsim.Utils import add_entry, get_done_shepherding, xi_shepherding
 
 class ShepherdingLogger(BaseLogger):
     """
-        A class that implements a logger.
+    Specialized logger for shepherding simulations with task-specific metrics.
 
-        Parameters
-        -------
-            populations: list of instances of clas populations.
-            environment: Instance of class environment.
-            config_path: str (Path of the configuration file).
+    This logger extends the BaseLogger to capture and analyze shepherding-specific
+    metrics such as target capture rates, completion status, and task progression.
+    It monitors the effectiveness of shepherding algorithms by tracking how many
+    targets are successfully guided to goal regions.
 
-        Attributes
-        -------
-            - config: dict                                  Dictionary of parameters
-            - activate: bool                                Flag to activate and save logger
-            - date: date object                             Current date to log and name files
-            - log_freq: int                                 Print information frequency
-            - save_freq: int                                Save information frequency
-            - log_path: str                                 Path where logger is saved
-            - comment_enable: bool                          Flag to enable adding comment at the beginning and end of an experiment
-            - populations: list of population objects       List of populations in the experiment
-            - environment: environment object               Environment of the experiment
-            - name: str                                     Name of the logger, appended to the date to name output files
-            - log_name_csv: str                             Name of the .csv machine-readable file
-            - log_name_txt: str                             Name of the .txt human-readable file
-            - log_name_npz: str                             Name of the .npz file to store tensors
-            - start: time object                            Starting time of the simulation
-            - end: time object                              Final time of the simulation
-            - step_count: int                               Step counter to track time
-            - done: bool                                    Flag to truncate experiment early
-            - current_info: dict                            Information to log in a specific time step as a dict of {name_variable: value}
+    The logger computes the shepherding metric xi (ξ), which represents the fraction
+    of targets successfully captured, and monitors task completion to enable early
+    termination when all targets reach the goal region.
 
-        Configuration file requirements
-            - activate: bool            True to have logger, False otherwise
-            - log_freq: int             Print every log_freq steps information (0: never print)
-            - save_freq: int            Save every save_freq steps information (0: never save)
-            - comment_enable: bool      If true, add initial and final comments to the logger about the experiment
-            - log_path: str             Path where logger output should be saved
-            - log_name: str             String appended to date in the name of the file
+    Parameters
+    ----------
+    populations : list of Population
+        List of population objects in the shepherding simulation.
+        Typically includes target agents (index 0) and optionally shepherd agents.
+    environment : Environment
+        Shepherding environment object containing goal regions and spatial boundaries.
+        Must support shepherding-specific geometric calculations.
+    config_path : str
+        Path to the YAML configuration file containing logger parameters.
 
-        Notes
-        -------
-            If active, outputs two files: one .csv computer-readable and one .txt human-readable named DATEname.csv and DATEname.txt, respectively.
-            Moreover, save_data stores a .npz of the data given in input.
+    Attributes
+    ----------
+    populations : list of Population
+        Population objects being monitored, inherited from BaseLogger.
+        First population (index 0) is typically the target agents.
+    environment : Environment
+        Shepherding environment with goal regions, inherited from BaseLogger.
+    xi : float
+        Current shepherding metric (fraction of captured targets).
+        Range: [0.0, 1.0] where 1.0 indicates all targets captured.
+    done : bool
+        Task completion flag indicating whether all targets are captured.
+    current_info : dict
+        Current timestep information including shepherding metrics.
+    global_info : dict
+        Accumulated simulation data across all timesteps.
 
-        """
+    Config Requirements
+    -------------------
+    The YAML configuration file must contain logger parameters under the class section:
+
+    ShepherdingLogger : dict
+        Configuration section for the shepherding logger:
+        - ``activate`` : bool, optional
+            Enable/disable logging. Default: ``True``
+        - ``log_freq`` : int, optional
+            Print frequency (0 = never). Default: ``0``
+        - ``save_freq`` : int, optional
+            Save frequency (0 = never). Default: ``1``
+        - ``save_data_freq`` : int, optional
+            Data save frequency. Default: ``0``
+        - ``save_global_data_freq`` : int, optional
+            Global data save frequency. Default: ``0``
+        - ``log_path`` : str, optional
+            Output directory path. Default: ``"./logs"``
+        - ``log_name`` : str, optional
+            Log file name suffix. Default: ``""``
+        - ``comment_enable`` : bool, optional
+            Enable experiment comments. Default: ``False``
+
+    Notes
+    -----
+    **Shepherding Metrics:**
+
+    The logger computes several task-specific metrics:
+
+    - **Xi (ξ)**: Fraction of targets successfully captured in goal region
+    - **Task Completion**: Boolean flag indicating complete task success
+    - **Temporal Progression**: Evolution of capture rate over time
+
+    **Early Termination:**
+
+    The logger can trigger early simulation termination when all targets
+    are successfully shepherded to the goal region, improving computational
+    efficiency for successful trials.
+
+    **Integration with Shepherding Utils:**
+
+    Uses specialized utility functions:
+
+    - ``xi_shepherding()``: Computes capture fraction metric
+    - ``get_done_shepherding()``: Determines task completion status
+
+    Examples
+    --------
+    **Basic Configuration:**
+
+    .. code-block:: yaml
+
+        ShepherdingLogger:
+            activate: true
+            log_freq: 10
+            save_freq: 1
+            log_path: "./shepherding_logs"
+            log_name: "shepherding_experiment"
+
+    """
     def __init__(self, populations: list, environment: object, config_path: str) -> None:
         super().__init__(populations, environment, config_path)
         self.xi = 0

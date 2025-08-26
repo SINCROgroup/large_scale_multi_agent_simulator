@@ -41,6 +41,7 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Integrators';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -242,10 +243,10 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,33 +309,112 @@
                   
   <section id="integrators">
 <h1>Integrators<a class="headerlink" href="#integrators" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Integrators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading">#</a></h2>
+<section id="integrators-module">
+<h3>Integrators Module<a class="headerlink" href="#integrators-module" title="Link to this heading">#</a></h3>
+<p>This module provides numerical integration schemes for evolving agent dynamics in multi-agent simulations.
+Integrators handle both deterministic and stochastic differential equations, enabling realistic agent motion
+with noise and uncertainty.</p>
+<section id="available-integrators">
+<h4>Available Integrators<a class="headerlink" href="#available-integrators" title="Link to this heading">#</a></h4>
+<dl class="simple">
+<dt>Integrator</dt><dd><p>Abstract base class defining the interface for all numerical integration methods.</p>
+</dd>
+<dt>EulerMaruyama</dt><dd><p>Stochastic integrator for SDEs using the Euler-Maruyama scheme. Suitable for
+populations with both drift and diffusion components (e.g., Brownian motion).</p>
+</dd>
+</dl>
+</section>
+<section id="key-features">
+<h4>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Stochastic Integration</strong>: Support for stochastic differential equations (SDEs)</p></li>
+<li><p><strong>Modular Design</strong>: Easy to implement custom integration schemes</p></li>
+<li><p><strong>Population Support</strong>: Handles multiple populations with different dynamics</p></li>
+<li><p><strong>Configurable Timestep</strong>: Adjustable integration timestep for accuracy vs. speed</p></li>
+</ul>
+</section>
+<section id="mathematical-background">
+<h4>Mathematical Background<a class="headerlink" href="#mathematical-background" title="Link to this heading">#</a></h4>
+<p>The integrators solve equations of the form:</p>
+<blockquote>
+<div><p>dx = f(x, t) dt + g(x, t) dW</p>
+</div></blockquote>
+<p>where:
+- f(x, t) is the drift term (deterministic component)
+- g(x, t) is the diffusion term (stochastic component)
+- dW is a Wiener process (Brownian motion)</p>
+<p class="rubric">Examples</p>
+<p>Basic integrator usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyama</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
+
+<span class="c1"># Create integrator</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyama</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create population</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="n">population</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="c1"># Perform integration step</span>
+<span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">([</span><span class="n">population</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-example">
+<h4>Configuration Example<a class="headerlink" href="#configuration-example" title="Link to this heading">#</a></h4>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">integrator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">  </span><span class="c1"># Small timestep for accuracy</span>
+</pre></div>
+</div>
+<p>For stochastic systems, smaller timesteps generally improve accuracy but increase
+computational cost.</p>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Integrators.base_integrator">
-<span id="swarmsim-integrators-base-integrator-module"></span><h2>swarmsim.Integrators.base_integrator module<a class="headerlink" href="#module-swarmsim.Integrators.base_integrator" title="Link to this heading">#</a></h2>
+<span id="integrator-interface"></span><h2>Integrator Interface<a class="headerlink" href="#module-swarmsim.Integrators.base_integrator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.base_integrator.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.base_integrator.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class for an Integrator, defining the structure for numerical integration.</p>
-<p>This class reads configuration parameters from a YAML file and requires derived classes
-to implement the <cite>step</cite> method for numerical integration.</p>
+<p>Abstract base class for numerical integration schemes in stochastic multi-agent systems.</p>
+<p>This class provides the interface for implementing various numerical integration methods
+for stochastic differential equations (SDEs) that govern agent dynamics. It handles the
+temporal evolution of agent states based on drift and diffusion components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing integration parameters.</p>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – The timestep value for integration, loaded from the configuration file.</p>
+<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – The timestep value for numerical integration.</p>
 </dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dt</strong> (<em>float, optional</em>) – The timestep value for integration. Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the integrator section</strong></p></li>
+<li><p><strong>dt</strong> (<em>float, optional</em>) – The timestep value for numerical integration. Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Subclasses must implement the abstract method <cite>step()</cite> to define the integration scheme.</p></li>
+<li><p>Common integration schemes include Euler-Maruyama for SDEs.</p></li>
+<li><p>The timestep should be chosen carefully to ensure numerical stability and accuracy.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
 <li><p><strong>KeyError</strong> – If required integration parameters are missing in the configuration file.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>config_path</strong> (<em>str</em>)</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -343,19 +423,34 @@ to implement the <cite>step</cite> method for numerical integration.</p>
 <span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
 </pre></div>
 </div>
-<p>This will set <code class="docutils literal notranslate"><span class="pre">dt</span> <span class="pre">=</span> <span class="pre">0.05</span></code> as the timestep value for numerical integration.</p>
+<p>This sets the integration timestep to 0.05 time units.</p>
+<p>For stochastic systems, smaller timesteps generally improve accuracy but increase
+computational cost. The choice depends on the specific dynamics and required precision.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator.step">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.step" title="Link to this definition">#</a></dt>
-<dd><p>Abstract method to perform a single integration step.</p>
-<p>This method must be implemented by any subclass to define how numerical
-integration is performed for a given set of populations.</p>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.step" title="Link to this definition">#</a></dt>
+<dd><p>Perform a single numerical integration step.</p>
+<p>This abstract method must be implemented by subclasses to define the specific
+numerical integration scheme. It advances the state of all agent populations
+by one timestep according to their dynamics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>populations</strong> (<em>list</em><em> or </em><em>np.ndarray</em>) – A list or array representing the populations for which the integration step is being performed.</p>
+<dd class="field-odd"><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of Population objects whose states will be updated by the integration step.
+Each population provides drift and diffusion terms through their respective methods.</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>NotImplementedError</strong> – If called from the base class without being implemented in a subclass.</p>
+</dl>
+<p class="rubric">Notes</p>
+<p>The implementation should:</p>
+<ul class="simple">
+<li><p>Call <cite>get_drift()</cite> and <cite>get_diffusion()</cite> methods for each population</p></li>
+<li><p>Apply the numerical integration scheme (e.g., Euler-Maruyama, Runge-Kutta)</p></li>
+<li><p>Update the state <cite>x</cite> attribute of each population</p></li>
+<li><p>Handle stochastic terms appropriately for SDE integration</p></li>
+<li><p>Respect any state or input limits defined in the populations</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – If called from the base class without being implemented in a subclass.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -364,112 +459,119 @@ integration is performed for a given set of populations.</p>
 
 </section>
 <section id="module-swarmsim.Integrators.euler_maruyama">
-<span id="swarmsim-integrators-euler-maruyama-module"></span><h2>swarmsim.Integrators.euler_maruyama module<a class="headerlink" href="#module-swarmsim.Integrators.euler_maruyama" title="Link to this heading">#</a></h2>
+<span id="euler-maruyama"></span><h2>Euler Maruyama<a class="headerlink" href="#module-swarmsim.Integrators.euler_maruyama" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.euler_maruyama.</span></span><span class="sig-name descname"><span class="pre">EulerMaruyamaIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.euler_maruyama.</span></span><span class="sig-name descname"><span class="pre">EulerMaruyamaIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Integrator</span></code></a></p>
-<p>Euler-Maruyama Integrator for stochastic differential equations (SDEs).</p>
-<p>This class extends the <cite>Integrator</cite> base class and implements the <cite>step</cite> method
-to perform numerical integration using the Euler-Maruyama method.</p>
-<p>The method is used to integrate stochastic processes where the evolution of
-populations follows the general form:</p>
-<blockquote>
-<div><p>dx = drift * dt + diffusion * sqrt(dt) * dW</p>
-</div></blockquote>
-<dl class="simple">
-<dt>where:</dt><dd><ul class="simple">
-<li><p><cite>drift</cite> represents the deterministic part of the system.</p></li>
-<li><p><cite>diffusion</cite> represents the stochastic term.</p></li>
-<li><p><cite>dW</cite> is a Wiener process (Gaussian noise).</p></li>
-</ul>
-</dd>
-</dl>
+<p>Euler-Maruyama numerical integrator for stochastic differential equations.</p>
+<p>This integrator implements the Euler-Maruyama scheme for solving stochastic differential
+equations (SDEs) governing multi-agent dynamics. It handles both scalar and matrix-valued
+diffusion terms, making it suitable for complex stochastic systems with correlated noise.</p>
+<p>The integration scheme follows:</p>
+<div class="math notranslate nohighlight">
+\[x_{n+1} = x_n + f(x_n, t_n) \Delta t + g(x_n, t_n) \sqrt{\Delta t} \, \xi_n\]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(x_n\)</span> is the state at time step n
+- <span class="math notranslate nohighlight">\(f(x_n, t_n)\)</span> is the drift term (deterministic dynamics)
+- <span class="math notranslate nohighlight">\(g(x_n, t_n)\)</span> is the diffusion term (noise amplitude)
+- <span class="math notranslate nohighlight">\(\xi_n\)</span> is standard Gaussian white noise
+- <span class="math notranslate nohighlight">\(\Delta t\)</span> is the integration timestep</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing integration parameters.</p>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – The timestep value for integration, inherited from the <cite>Integrator</cite> base class.</p>
+<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – Integration timestep, inherited from the Integrator base class.</p>
 </dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dt</strong> (<em>float, optional</em>) – The timestep value for integration. Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the integrator section</strong></p></li>
+<li><p><strong>dt</strong> (<em>float, optional</em>) – Integration timestep for the Euler-Maruyama scheme. Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.
+Smaller timesteps improve accuracy but increase computational cost.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Diffusion Term Handling:</strong></p>
+<p>The integrator automatically detects the dimensionality of the diffusion term:</p>
+<ul class="simple">
+<li><p><strong>Scalar/Vector Diffusion</strong> (shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code>): Element-wise multiplication with noise</p></li>
+<li><p><strong>Matrix Diffusion</strong> (shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d,</span> <span class="pre">d)</span></code>): Matrix-vector multiplication for correlated noise</p></li>
+</ul>
+<p><strong>State Constraints:</strong></p>
+<p>Agent states are automatically clipped to respect population limits after each integration step.</p>
+<p><strong>Numerical Stability:</strong></p>
+<p>For strong convergence, the timestep should satisfy stability conditions specific to
+the drift and diffusion terms. Generally, smaller timesteps are required for systems
+with large diffusion coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
 <li><p><strong>KeyError</strong> – If required integration parameters are missing in the configuration file.</p></li>
+<li><p><strong>AttributeError</strong> – If population objects lack required methods or attributes.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Example YAML configuration:</p>
+<p><strong>Configuration Example:</strong></p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">integrator</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">  </span><span class="c1"># Small timestep for good accuracy</span>
 </pre></div>
 </div>
 <p>This will set <code class="docutils literal notranslate"><span class="pre">dt</span> <span class="pre">=</span> <span class="pre">0.05</span></code> as the timestep value for numerical integration.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step">
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step" title="Link to this definition">#</a></dt>
-<dd><p>Performs a single integration step using the Euler-Maruyama method.</p>
-<p>The method updates the state of each population using:</p>
-<blockquote>
-<div><p>x_new = x_old + drift * dt + diffusion * sqrt(dt) * noise</p>
-</div></blockquote>
-<p>where <cite>noise</cite> is a random variable sampled from a standard normal distribution.</p>
+<dd><p>Perform a single Euler-Maruyama integration step for all populations.</p>
+<p>This method updates the state of each population by applying the Euler-Maruyama
+scheme with automatic handling of scalar and matrix diffusion terms. The state
+update follows the discrete SDE formula with proper noise scaling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>populations</strong> (<em>list</em>) – List of population objects for which the integration step is performed.
-Each population object must have:
-- <cite>x</cite> (np.ndarray): The current state of the population.
-- <cite>get_drift()</cite> method returning the drift term.
-- <cite>get_diffusion()</cite> method returning the diffusion term.
-- <cite>lim</cite> (np.ndarray): limit of the state for saturation [Optional, Default inf]</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>AttributeError</strong> – If any population object does not have the required methods (<cite>get_drift</cite>, <cite>get_diffusion</cite>) or attributes (<cite>x</cite>).</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-swarmsim.Integrators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading">#</a></h2>
-<p>The <cite>Integrators</cite> module provides numerical integration methods for simulating
-the movement of agents.</p>
-<section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<dd class="field-odd"><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – <p>List of population objects to integrate. Each population must provide:</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt><cite>Integrator</cite>:</dt><dd><ul>
-<li><p>Abstract base class for numerical integration.</p></li>
-<li><p>Requires implementation of the <cite>step</cite> method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> (np.ndarray): Current state array of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_drift()</span></code> method: Returns drift term of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_diffusion()</span></code> method: Returns diffusion term of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code> or <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d,</span> <span class="pre">d)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lim_i</span></code> (np.ndarray): Lower state bounds for clipping</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lim_s</span></code> (np.ndarray): Upper state bounds for clipping</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Integration Algorithm:</strong></p>
+<p>For each population, the state update is:</p>
+<ol class="arabic simple">
+<li><p><strong>Drift Computation</strong>: Get deterministic dynamics <span class="math notranslate nohighlight">\(f(x,t)\)</span></p></li>
+<li><p><strong>Diffusion Computation</strong>: Get noise amplitude <span class="math notranslate nohighlight">\(g(x,t)\)</span></p></li>
+<li><p><strong>Noise Generation</strong>: Sample <span class="math notranslate nohighlight">\(\xi \sim \mathcal{N}(0,I)\)</span></p></li>
+<li><p><strong>State Update</strong>: Apply Euler-Maruyama formula</p></li>
+<li><p><strong>Constraint Enforcement</strong>: Clip states to population limits</p></li>
+</ol>
+<p><strong>Diffusion Term Handling:</strong></p>
+<ul class="simple">
+<li><p><strong>Vector Diffusion</strong> (shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code>): <code class="docutils literal notranslate"><span class="pre">noise_term</span> <span class="pre">=</span> <span class="pre">diffusion</span> <span class="pre">*</span> <span class="pre">noise</span></code></p></li>
+<li><p><strong>Matrix Diffusion</strong> (shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d,</span> <span class="pre">d)</span></code>): <code class="docutils literal notranslate"><span class="pre">noise_term</span> <span class="pre">=</span> <span class="pre">diffusion</span> <span class="pre">&#64;</span> <span class="pre">noise</span></code></p></li>
+</ul>
+<p><strong>State Constraints:</strong></p>
+<p>After integration, all agent states are clipped to respect the population’s
+spatial or behavioral limits defined by <code class="docutils literal notranslate"><span class="pre">lim_i</span></code> and <code class="docutils literal notranslate"><span class="pre">lim_s</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AttributeError</strong> – If any population object lacks required methods (<code class="docutils literal notranslate"><span class="pre">get_drift</span></code>, <code class="docutils literal notranslate"><span class="pre">get_diffusion</span></code>)
+    or attributes (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">lim_i</span></code>, <code class="docutils literal notranslate"><span class="pre">lim_s</span></code>).</p></li>
+<li><p><strong>ValueError</strong> – If diffusion term shape is incompatible with noise or state dimensions.</p></li>
 </ul>
 </dd>
 </dl>
-</li>
-<li><dl class="simple">
-<dt><cite>EulerMaruyamaIntegrator</cite>:</dt><dd><ul>
-<li><p>Stochastic integration method that updates agent positions based on drift and diffusion terms.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</section>
-<section id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h3>
-<p>To use an integrator, import it and instantiate with a configuration file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyamaIntegrator</span>
-<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyamaIntegrator</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
-<span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This will perform a <strong>single integration step</strong> using the Euler-Maruyama method.</p>
-</section>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -520,24 +622,29 @@ the movement of agents.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrators-module">Integrators Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#available-integrators">Available Integrators</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-background">Mathematical Background</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-example">Configuration Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">swarmsim.Integrators.base_integrator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">Integrator Interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.euler_maruyama">swarmsim.Integrators.euler_maruyama module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.euler_maruyama">Euler Maruyama</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator.step()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 </ul>
 </li>
 </ul>
@@ -586,7 +693,7 @@ the movement of agents.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

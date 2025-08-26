@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Simulators';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utils" href="swarmsim.Utils.html" />
+    <link rel="next" title="Utilities" href="swarmsim.Utils.html" />
     <link rel="prev" title="Renderers" href="swarmsim.Renderers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -242,10 +242,10 @@
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Population</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
 </ul>
 </div>
 </nav></div>
@@ -308,42 +308,133 @@
                   
   <section id="simulators">
 <h1>Simulators<a class="headerlink" href="#simulators" title="Link to this heading">#</a></h1>
+<section id="module-swarmsim.Simulators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Simulators" title="Link to this heading">#</a></h2>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-swarmsim.Simulators.base_simulator">
-<span id="swarmsim-simulators-base-simulator-module"></span><h2>swarmsim.Simulators.base_simulator module<a class="headerlink" href="#module-swarmsim.Simulators.base_simulator" title="Link to this heading">#</a></h2>
+<span id="base-simulator"></span><h2>Base Simulator<a class="headerlink" href="#module-swarmsim.Simulators.base_simulator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Simulators.base_simulator.Simulator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.base_simulator.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controllers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/base_simulator.html#Simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.base_simulator.Simulator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.base_simulator.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controllers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/base_simulator.html#Simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.base_simulator.Simulator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main simulation engine that orchestrates multi-agent system simulations.</p>
+<p>The Simulator class coordinates all components of a multi-agent system including populations,
+environment, interactions, controllers, integrators, loggers, and renderers. It manages the
+simulation loop and ensures proper execution order of all simulation steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>populations</strong> (<em>list</em><em>[</em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.populations.Populations" title="swarmsim.Population.populations.Population"><em>Population</em></a><em>]</em>)</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment" title="swarmsim.Environments.base_environment.Environment"><em>Environment</em></a>)</p></li>
-<li><p><strong>integrator</strong> (<a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><em>Integrator</em></a>)</p></li>
-<li><p><strong>interactions</strong> (<em>list</em><em>[</em><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><em>Interaction</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>controllers</strong> (<em>list</em><em>[</em><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><em>Controller</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>logger</strong> (<a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger" title="swarmsim.Loggers.logger.Logger"><em>Logger</em></a><em> | </em><em>None</em>)</p></li>
-<li><p><strong>renderer</strong> (<a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer" title="swarmsim.Renderers.renderer.Renderer"><em>Renderer</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing simulation parameters.</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of agent populations to simulate.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment in which agents operate.</p></li>
+<li><p><strong>integrator</strong> (<a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><em>Integrator</em></a>) – Numerical integration scheme for updating agent states.</p></li>
+<li><p><strong>interactions</strong> (<em>list</em><em> of </em><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction" title="swarmsim.Interactions.Interaction"><em>Interaction</em></a><em>, </em><em>optional</em>) – List of interaction models between agents. Default is None.</p></li>
+<li><p><strong>controllers</strong> (<em>list</em><em> of </em><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><em>Controller</em></a><em>, </em><em>optional</em>) – List of controllers that influence agent behavior. Default is None.</p></li>
+<li><p><strong>logger</strong> (<a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger" title="swarmsim.Loggers.logger.Logger"><em>Logger</em></a><em>, </em><em>optional</em>) – Logger instance for recording simulation data. Default is None.</p></li>
+<li><p><strong>renderer</strong> (<a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer" title="swarmsim.Renderers.renderer.Renderer"><em>Renderer</em></a><em>, </em><em>optional</em>) – Renderer instance for visualization. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dt</strong> (<em>float</em>) – Simulation timestep, inherited from the integrator.</p></li>
+<li><p><strong>T</strong> (<em>float</em>) – Total simulation time duration.</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of agent populations in the simulation.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The simulation environment.</p></li>
+<li><p><strong>interactions</strong> (<em>list</em><em> of </em><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction" title="swarmsim.Interactions.Interaction"><em>Interaction</em></a><em> or </em><em>None</em>) – List of interaction models.</p></li>
+<li><p><strong>controllers</strong> (<em>list</em><em> of </em><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><em>Controller</em></a><em> or </em><em>None</em>) – List of control strategies.</p></li>
+<li><p><strong>logger</strong> (<a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger" title="swarmsim.Loggers.logger.Logger"><em>Logger</em></a><em> or </em><em>None</em>) – Data logger instance.</p></li>
+<li><p><strong>renderer</strong> (<a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer" title="swarmsim.Renderers.renderer.Renderer"><em>Renderer</em></a><em> or </em><em>None</em>) – Visualization renderer.</p></li>
+<li><p><strong>integrator</strong> (<a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><em>Integrator</em></a>) – Numerical integration scheme.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the simulator section</strong></p></li>
+<li><p><strong>T</strong> (<em>float, optional</em>) – Total simulation time. Default is <code class="docutils literal notranslate"><span class="pre">10.0</span></code>.</p></li>
+<li><p><strong>dt</strong> (<em>float, optional</em>) – Simulation timestep. Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The simulation loop executes the following steps in order:</p>
+<ol class="arabic simple">
+<li><p><strong>Logging</strong>: Record current simulation state</p></li>
+<li><p><strong>Rendering</strong>: Visualize current state (if renderer is provided)</p></li>
+<li><p><strong>Control</strong>: Computes control actions (if controllers are provided)</p></li>
+<li><p><strong>Interactions</strong>: Computes inter-agent forces (if interactions are provided)</p></li>
+<li><p><strong>Integration</strong>: Update agent states using numerical integration</p></li>
+<li><p><strong>Reset Forces</strong>: Clear interaction forces for next timestep</p></li>
+<li><p><strong>Environment Update</strong>: Update environment state</p></li>
+</ol>
+<p class="rubric">Examples</p>
+<p>Basic simulation setup:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span><span class="p">,</span> <span class="n">Simulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmptyEnvironment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyama</span>
+
+<span class="c1"># Create components</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">EmptyEnvironment</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyama</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create and run simulator</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span>
+    <span class="n">config_path</span><span class="o">=</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span>
+    <span class="n">populations</span><span class="o">=</span><span class="p">[</span><span class="n">population</span><span class="p">],</span>
+    <span class="n">environment</span><span class="o">=</span><span class="n">environment</span><span class="p">,</span>
+    <span class="n">integrator</span><span class="o">=</span><span class="n">integrator</span>
+<span class="p">)</span>
+<span class="n">simulator</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">simulator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">T</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span><span class="w">  </span><span class="c1"># Run simulation for 50 time units</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Simulators.base_simulator.Simulator.simulate">
 <span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/base_simulator.html#Simulator.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.base_simulator.Simulator.simulate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Execute the main simulation loop.</p>
+<p>This method runs the complete simulation from t=0 to t=T, coordinating all
+simulation components in the proper sequence. It includes progress tracking
+and handles early termination if requested by the logger.</p>
+<p>The simulation loop performs the following steps at each timestep:</p>
+<ol class="arabic simple">
+<li><p><strong>Data Logging</strong>: Record current simulation state and check for termination</p></li>
+<li><p><strong>Visualization</strong>: Render current state if renderer is available</p></li>
+<li><p><strong>Control Actions</strong>: Apply control inputs from all controllers</p></li>
+<li><p><strong>Agent Interactions</strong>: Compute forces between agents</p></li>
+<li><p><strong>State Integration</strong>: Update agent positions using the integrator</p></li>
+<li><p><strong>Force Reset</strong>: Clear interaction forces for the next timestep</p></li>
+<li><p><strong>Environment Update</strong>: Update environmental conditions</p></li>
+</ol>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Progress is displayed using a progress bar</p></li>
+<li><p>Controllers operate at their specified sampling rates</p></li>
+<li><p>Interaction forces are reset at each timestep</p></li>
+<li><p>Early termination is possible if the logger returns a done flag</p></li>
+<li><p>All populations are reset to initial conditions before simulation starts</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – If any component fails during simulation execution.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-swarmsim.Simulators.gym_simulator">
-<span id="swarmsim-simulators-gym-simulator-module"></span><h2>swarmsim.Simulators.gym_simulator module<a class="headerlink" href="#module-swarmsim.Simulators.gym_simulator" title="Link to this heading">#</a></h2>
+<span id="gym-simulator"></span><h2>Gym Simulator<a class="headerlink" href="#module-swarmsim.Simulators.gym_simulator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Simulators.gym_simulator.GymSimulator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.gym_simulator.</span></span><span class="sig-name descname"><span class="pre">GymSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/gym_simulator.html#GymSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.gym_simulator.GymSimulator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Simulators.gym_simulator.</span></span><span class="sig-name descname"><span class="pre">GymSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Simulators/gym_simulator.html#GymSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Simulators.gym_simulator.GymSimulator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Simulators.base_simulator.Simulator" title="swarmsim.Simulators.base_simulator.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulator</span></code></a></p>
 <dl class="field-list simple">
 </dl>
@@ -369,9 +460,6 @@
 
 </dd></dl>
 
-</section>
-<section id="module-swarmsim.Simulators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Simulators" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -399,7 +487,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Utils</p>
+        <p class="prev-next-title">Utilities</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,15 +510,16 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators">Module contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.base_simulator">swarmsim.Simulators.base_simulator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.base_simulator">Base Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.base_simulator.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.base_simulator.Simulator.simulate"><code class="docutils literal notranslate"><span class="pre">Simulator.simulate()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.gym_simulator">swarmsim.Simulators.gym_simulator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators.gym_simulator">Gym Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator"><code class="docutils literal notranslate"><span class="pre">GymSimulator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator.reset"><code class="docutils literal notranslate"><span class="pre">GymSimulator.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Simulators.gym_simulator.GymSimulator.step"><code class="docutils literal notranslate"><span class="pre">GymSimulator.step()</span></code></a></li>
@@ -440,7 +529,6 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Simulators">Module contents</a></li>
 </ul>
   </nav></div>
 
@@ -487,7 +575,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

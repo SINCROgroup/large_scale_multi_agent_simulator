@@ -356,48 +356,82 @@
 <dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Renderers.renderer.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class that defines the interface for rendering environments and agents.</p>
-<p>This class provides an interface for visualizing multi-agent environments, requiring
-subclasses to implement <cite>render</cite> and <cite>close</cite> methods.</p>
+<p>Abstract base class for real-time visualization of multi-agent simulations.</p>
+<p>This class provides the interface for rendering environments and agent populations
+during simulation execution. Renderers can use different visualization backends
+(Matplotlib, Pygame, etc.) to provide real-time feedback on simulation state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to render.</p></li>
-<li><p><strong>environment</strong> (<em>object</em>) – The environment instance in which the populations exist.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing rendering settings.</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of agent populations to visualize.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment instance containing spatial and visual information.</p></li>
+<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing rendering parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em>) – A list of population objects to be rendered.</p></li>
-<li><p><strong>environment</strong> (<em>object</em>) – The environment in which the agents operate.</p></li>
-<li><p><strong>config</strong> (<em>dict</em>) – Dictionary containing rendering configuration parameters.</p></li>
+<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of populations being rendered.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The simulation environment.</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – Configuration parameters for rendering settings.</p></li>
+<li><p><strong>render_dt</strong> (<em>float</em>) – Time delay between rendering frames in seconds.</p></li>
+<li><p><strong>activate</strong> (<em>bool</em>) – Flag to enable/disable rendering.</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>renderer</strong> – The YAML configuration file must contain a <cite>renderer</cite> section specifying visualization settings.</p>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file should contain a renderer section with</strong></p></li>
+<li><p><strong>render_dt</strong> (<em>float, optional</em>) – Time delay between frames in seconds. Default is <code class="docutils literal notranslate"><span class="pre">0.05</span></code>.</p></li>
+<li><p><strong>activate</strong> (<em>bool, optional</em>) – Whether to enable rendering. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>Additional renderer-specific parameters depend on the implementation.</strong></p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>This is an abstract base class (ABC) and must be subclassed.</p></li>
-<li><p>The <cite>render</cite> method must be implemented to display the environment and agent states.</p></li>
-<li><p>The <cite>close</cite> method should release any resources allocated for rendering.</p></li>
+<li><p>Subclasses must implement the abstract methods <cite>render()</cite> and <cite>close()</cite>.</p></li>
+<li><p>The renderer is called at each simulation timestep if activated.</p></li>
+<li><p>Common visualization elements include:</p>
+<ul>
+<li><p>Agent positions and orientations</p></li>
+<li><p>Environment boundaries and obstacles</p></li>
+<li><p>Interaction forces or fields</p></li>
+<li><p>Trajectories and paths</p></li>
+<li><p>Performance metrics</p></li>
+</ul>
+</li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.render">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.render" title="Link to this definition">#</a></dt>
-<dd><p>Renders the environment and the agents in it.</p>
-<p>This method should be implemented by subclasses to define how the environment
-and agents are visually represented.</p>
+<dd><p>Render the current state of the simulation.</p>
+<p>This method should update the visual representation to show the current
+positions and states of all agents, environment features, and any additional
+visualization elements (forces, trajectories, metrics, etc.).</p>
+<p class="rubric">Notes</p>
+<p>Implementations should:</p>
+<ul class="simple">
+<li><p>Render environment features and boundaries</p></li>
+<li><p>Apply any visual transformations (scaling, rotation, translation)</p></li>
+</ul>
+<p>The method is called at each simulation timestep when rendering is active.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Renderers.renderer.Renderer.close">
 <em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Renderers/renderer.html#Renderer.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Renderers.renderer.Renderer.close" title="Link to this definition">#</a></dt>
-<dd><p>Closes the rendering interface and releases any allocated resources.</p>
-<p>This method should be implemented in subclasses to properly clean up
-rendering-related resources such as open windows, memory buffers, or GPU contexts.</p>
+<dd><p>Clean up rendering resources and close visualization windows.</p>
+<p>This method should properly shut down the visualization backend and release
+any allocated resources such as graphics contexts, windows, memory buffers,
+or GPU resources.</p>
+<p class="rubric">Notes</p>
+<p>Implementations should:</p>
+<ul class="simple">
+<li><p>Close any open windows or graphics contexts</p></li>
+<li><p>Clean up any temporary files created during rendering</p></li>
+<li><p>Save final frames or animations if configured</p></li>
+</ul>
+<p>This method is called when the simulation ends or when the renderer
+is explicitly shut down.</p>
 </dd></dl>
 
 </dd></dl>

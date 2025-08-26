@@ -4,10 +4,11 @@ from abc import ABC, abstractmethod
 
 class Integrator(ABC):
     """
-    Abstract base class for an Integrator, defining the structure for numerical integration.
+    Abstract base class for numerical integration schemes in stochastic multi-agent systems.
 
-    This class reads configuration parameters from a YAML file and requires derived classes
-    to implement the `step` method for numerical integration.
+    This class provides the interface for implementing various numerical integration methods
+    for stochastic differential equations (SDEs) that govern agent dynamics. It handles the
+    temporal evolution of agent states based on drift and diffusion components.
 
     Parameters
     ----------
@@ -17,12 +18,20 @@ class Integrator(ABC):
     Attributes
     ----------
     dt : float
-        The timestep value for integration, loaded from the configuration file.
+        The timestep value for numerical integration.
 
-    Config requirements
+    Config Requirements
     -------------------
+    The YAML configuration file must contain the following parameters under the integrator section:
+
     dt : float, optional
-        The timestep value for integration. Default is ``0.01``.
+        The timestep value for numerical integration. Default is ``0.01``.
+
+    Notes
+    -----
+    - Subclasses must implement the abstract method `step()` to define the integration scheme.
+    - Common integration schemes include Euler-Maruyama for SDEs.
+    - The timestep should be chosen carefully to ensure numerical stability and accuracy.
 
     Raises
     ------
@@ -33,7 +42,6 @@ class Integrator(ABC):
 
     Examples
     --------
-
     Example YAML configuration:
 
     .. code-block:: yaml
@@ -41,10 +49,26 @@ class Integrator(ABC):
         integrator:
             dt: 0.05
 
-    This will set ``dt = 0.05`` as the timestep value for numerical integration.
+    This sets the integration timestep to 0.05 time units.
+
+    For stochastic systems, smaller timesteps generally improve accuracy but increase
+    computational cost. The choice depends on the specific dynamics and required precision.
     """
 
     def __init__(self, config_path: str):
+        """
+        Initialize the Integrator with configuration parameters.
+
+        Parameters
+        ----------
+        config_path : str
+            Path to the YAML configuration file containing integration parameters.
+
+        Raises
+        ------
+        FileNotFoundError
+            If the configuration file cannot be found.
+        """
 
         config = load_config(config_path)
 
@@ -54,15 +78,28 @@ class Integrator(ABC):
     @abstractmethod
     def step(self, populations):
         """
-        Abstract method to perform a single integration step.
+        Perform a single numerical integration step.
 
-        This method must be implemented by any subclass to define how numerical
-        integration is performed for a given set of populations.
+        This abstract method must be implemented by subclasses to define the specific
+        numerical integration scheme. It advances the state of all agent populations
+        by one timestep according to their dynamics.
 
         Parameters
         ----------
-        populations : list or np.ndarray
-            A list or array representing the populations for which the integration step is being performed.
+        populations : list of Population
+            List of Population objects whose states will be updated by the integration step.
+            Each population provides drift and diffusion terms through their respective methods.
+
+        Notes
+        -----
+        The implementation should:
+        
+        - Call `get_drift()` and `get_diffusion()` methods for each population
+        - Apply the numerical integration scheme (e.g., Euler-Maruyama, Runge-Kutta)
+        - Update the state `x` attribute of each population
+        - Handle stochastic terms appropriately for SDE integration
+        - Respect any state or input limits defined in the populations
+
 
         Raises
         ------

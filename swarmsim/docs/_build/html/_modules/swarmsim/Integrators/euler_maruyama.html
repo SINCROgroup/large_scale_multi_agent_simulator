@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Integrators.euler_maruyama &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Integrators.euler_maruyama &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -290,20 +290,24 @@
 <a class="viewcode-back" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EulerMaruyamaIntegrator</span><span class="p">(</span><span class="n">Integrator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Euler-Maruyama Integrator for stochastic differential equations (SDEs).</span>
+<span class="sd">    Euler-Maruyama numerical integrator for stochastic differential equations.</span>
 
-<span class="sd">    This class extends the `Integrator` base class and implements the `step` method</span>
-<span class="sd">    to perform numerical integration using the Euler-Maruyama method.</span>
+<span class="sd">    This integrator implements the Euler-Maruyama scheme for solving stochastic differential</span>
+<span class="sd">    equations (SDEs) governing multi-agent dynamics. It handles both scalar and matrix-valued</span>
+<span class="sd">    diffusion terms, making it suitable for complex stochastic systems with correlated noise.</span>
 
-<span class="sd">    The method is used to integrate stochastic processes where the evolution of</span>
-<span class="sd">    populations follows the general form:</span>
+<span class="sd">    The integration scheme follows:</span>
 
-<span class="sd">        dx = drift * dt + diffusion * sqrt(dt) * dW</span>
+<span class="sd">    .. math::</span>
+
+<span class="sd">        x_{n+1} = x_n + f(x_n, t_n) \\Delta t + g(x_n, t_n) \\sqrt{\\Delta t} \\, \\xi_n</span>
 
 <span class="sd">    where:</span>
-<span class="sd">        - `drift` represents the deterministic part of the system.</span>
-<span class="sd">        - `diffusion` represents the stochastic term.</span>
-<span class="sd">        - `dW` is a Wiener process (Gaussian noise).</span>
+<span class="sd">    - :math:`x_n` is the state at time step n</span>
+<span class="sd">    - :math:`f(x_n, t_n)` is the drift term (deterministic dynamics)</span>
+<span class="sd">    - :math:`g(x_n, t_n)` is the diffusion term (noise amplitude)</span>
+<span class="sd">    - :math:`\\xi_n` is standard Gaussian white noise</span>
+<span class="sd">    - :math:`\\Delta t` is the integration timestep</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -313,12 +317,34 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    dt : float</span>
-<span class="sd">        The timestep value for integration, inherited from the `Integrator` base class.</span>
+<span class="sd">        Integration timestep, inherited from the Integrator base class.</span>
 
-<span class="sd">    Config requirements</span>
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the integrator section:</span>
+
 <span class="sd">    dt : float, optional</span>
-<span class="sd">        The timestep value for integration. Default is ``0.01``.</span>
+<span class="sd">        Integration timestep for the Euler-Maruyama scheme. Default is ``0.01``.</span>
+<span class="sd">        Smaller timesteps improve accuracy but increase computational cost.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Diffusion Term Handling:**</span>
+
+<span class="sd">    The integrator automatically detects the dimensionality of the diffusion term:</span>
+
+<span class="sd">    - **Scalar/Vector Diffusion** (shape ``(N, d)``): Element-wise multiplication with noise</span>
+<span class="sd">    - **Matrix Diffusion** (shape ``(N, d, d)``): Matrix-vector multiplication for correlated noise</span>
+
+<span class="sd">    **State Constraints:**</span>
+
+<span class="sd">    Agent states are automatically clipped to respect population limits after each integration step.</span>
+
+<span class="sd">    **Numerical Stability:**</span>
+
+<span class="sd">    For strong convergence, the timestep should satisfy stability conditions specific to</span>
+<span class="sd">    the drift and diffusion terms. Generally, smaller timesteps are required for systems</span>
+<span class="sd">    with large diffusion coefficients.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -326,15 +352,20 @@
 <span class="sd">        If the configuration file is not found.</span>
 <span class="sd">    KeyError</span>
 <span class="sd">        If required integration parameters are missing in the configuration file.</span>
+<span class="sd">    AttributeError</span>
+<span class="sd">        If population objects lack required methods or attributes.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Example YAML configuration:</span>
+<span class="sd">    </span>
+
+<span class="sd">    **Configuration Example:**</span>
 
 <span class="sd">    .. code-block:: yaml</span>
 
 <span class="sd">        integrator:</span>
-<span class="sd">            dt: 0.05</span>
+<span class="sd">            dt: 0.01  # Small timestep for good accuracy</span>
+
 
 <span class="sd">    This will set ``dt = 0.05`` as the timestep value for numerical integration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -355,28 +386,54 @@
 <a class="viewcode-back" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a single integration step using the Euler-Maruyama method.</span>
+<span class="sd">        Perform a single Euler-Maruyama integration step for all populations.</span>
 
-<span class="sd">        The method updates the state of each population using:</span>
-
-<span class="sd">            x_new = x_old + drift * dt + diffusion * sqrt(dt) * noise</span>
-
-<span class="sd">        where `noise` is a random variable sampled from a standard normal distribution.</span>
+<span class="sd">        This method updates the state of each population by applying the Euler-Maruyama</span>
+<span class="sd">        scheme with automatic handling of scalar and matrix diffusion terms. The state</span>
+<span class="sd">        update follows the discrete SDE formula with proper noise scaling.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        populations : list</span>
-<span class="sd">            List of population objects for which the integration step is performed.</span>
-<span class="sd">            Each population object must have:</span>
-<span class="sd">            - `x` (np.ndarray): The current state of the population.</span>
-<span class="sd">            - `get_drift()` method returning the drift term.</span>
-<span class="sd">            - `get_diffusion()` method returning the diffusion term.</span>
-<span class="sd">            - `lim` (np.ndarray): limit of the state for saturation [Optional, Default inf]</span>
+<span class="sd">        populations : list of Population</span>
+<span class="sd">            List of population objects to integrate. Each population must provide:</span>
+<span class="sd">            </span>
+<span class="sd">            - ``x`` (np.ndarray): Current state array of shape ``(N, d)``</span>
+<span class="sd">            - ``get_drift()`` method: Returns drift term of shape ``(N, d)``</span>
+<span class="sd">            - ``get_diffusion()`` method: Returns diffusion term of shape ``(N, d)`` or ``(N, d, d)``</span>
+<span class="sd">            - ``lim_i`` (np.ndarray): Lower state bounds for clipping</span>
+<span class="sd">            - ``lim_s`` (np.ndarray): Upper state bounds for clipping</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Integration Algorithm:**</span>
+
+<span class="sd">        For each population, the state update is:</span>
+
+<span class="sd">        1. **Drift Computation**: Get deterministic dynamics :math:`f(x,t)`</span>
+<span class="sd">        2. **Diffusion Computation**: Get noise amplitude :math:`g(x,t)`</span>
+<span class="sd">        3. **Noise Generation**: Sample :math:`\\xi \\sim \\mathcal{N}(0,I)`</span>
+<span class="sd">        4. **State Update**: Apply Euler-Maruyama formula</span>
+<span class="sd">        5. **Constraint Enforcement**: Clip states to population limits</span>
+
+<span class="sd">        **Diffusion Term Handling:**</span>
+
+<span class="sd">        - **Vector Diffusion** (shape ``(N, d)``): ``noise_term = diffusion * noise``</span>
+<span class="sd">        - **Matrix Diffusion** (shape ``(N, d, d)``): ``noise_term = diffusion @ noise``</span>
+
+<span class="sd">        **State Constraints:**</span>
+
+<span class="sd">        After integration, all agent states are clipped to respect the population&#39;s</span>
+<span class="sd">        spatial or behavioral limits defined by ``lim_i`` and ``lim_s``.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        AttributeError</span>
-<span class="sd">            If any population object does not have the required methods (`get_drift`, `get_diffusion`) or attributes (`x`).</span>
+<span class="sd">            If any population object lacks required methods (``get_drift``, ``get_diffusion``) </span>
+<span class="sd">            or attributes (``x``, ``lim_i``, ``lim_s``).</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If diffusion term shape is incompatible with noise or state dimensions.</span>
+
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="n">populations</span><span class="p">:</span>
             <span class="c1"># Compute the drift and diffusion terms</span>
@@ -392,7 +449,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">noise_term</span> <span class="o">=</span> <span class="n">diffusion</span> <span class="o">*</span> <span class="n">noise</span>
             <span class="n">population</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">drift</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">+</span> <span class="n">noise_term</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
-            <span class="n">population</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">population</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> <span class="n">population</span><span class="o">.</span><span class="n">lim</span><span class="p">)</span></div>
+            <span class="n">population</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">population</span><span class="o">.</span><span class="n">lim_i</span><span class="p">,</span> <span class="n">population</span><span class="o">.</span><span class="n">lim_s</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
@@ -445,7 +502,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

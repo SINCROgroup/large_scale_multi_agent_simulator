@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Interactions.power_law_interaction &#8212; SwarmSim 0.1.0 documentation</title>
+    <title>swarmsim.Interactions.power_law_interaction &#8212; SwarmS.py 0.1.0 documentation</title>
   
   
   
@@ -107,7 +107,7 @@
   
   
   
-    <p class="title logo__title">SwarmSim 0.1.0 documentation</p>
+    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
   
 </a></div>
     
@@ -122,8 +122,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -199,8 +199,8 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../modules.html">
-    swarmsim
+  <a class="nav-link nav-internal" href="../../../swarmsim.html">
+    swarms_py
   </a>
 </li>
 
@@ -285,8 +285,8 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interaction</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distances</span><span class="p">,</span> <span class="n">set_parameter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Population</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distances</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 
@@ -294,44 +294,96 @@
 <a class="viewcode-back" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PowerLawInteraction</span><span class="p">(</span><span class="n">Interaction</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements a power-law repulsion interaction between two populations.</span>
+<span class="sd">    Power-law interaction with configurable attraction and repulsion components.</span>
 
-<span class="sd">    This interaction models a repulsive force that decays according to a power-law function</span>
-<span class="sd">    with respect to the distance between agents. The strength of the force is determined by</span>
-<span class="sd">    the power exponent `p` and is active within a defined maximum interaction range.</span>
+<span class="sd">    This interaction implements a generalized power-law force that can exhibit both</span>
+<span class="sd">    attractive and repulsive behavior with different decay rates. The interaction</span>
+<span class="sd">    combines two power-law terms with different exponents and strengths, providing</span>
+<span class="sd">    flexible modeling of complex agent interactions.</span>
+
+<span class="sd">    The interaction force is given by:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        F(r) = \\left[ \\frac{k_{rep}}{r^{p_{rep}}} - \\frac{k_{attr}}{r^{p_{attr}}} \\right] - \\text{shift}</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - :math:`k_{rep}` is the repulsion strength</span>
+<span class="sd">    - :math:`k_{attr}` is the attraction strength  </span>
+<span class="sd">    - :math:`p_{rep}` is the repulsion decay exponent</span>
+<span class="sd">    - :math:`p_{attr}` is the attraction decay exponent</span>
+<span class="sd">    - :math:`r` is the inter-agent distance</span>
+<span class="sd">    - shift term ensures zero force at the cutoff distance</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pop1 : Population</span>
-<span class="sd">        The first population that is influenced by the interaction.</span>
-<span class="sd">    pop2 : Population</span>
-<span class="sd">        The second population that applies the repulsion force.</span>
-<span class="sd">    config : str</span>
+<span class="sd">    target_population : Population</span>
+<span class="sd">        The population that receives interaction forces.</span>
+<span class="sd">    source_population : Population</span>
+<span class="sd">        The population that generates interaction forces.</span>
+<span class="sd">    config_path : str</span>
 <span class="sd">        Path to the YAML configuration file containing interaction parameters.</span>
-<span class="sd">    repulsion_name : str</span>
-<span class="sd">        The section name in the YAML file specifying the repulsion parameters.</span>
+<span class="sd">    name : str, optional</span>
+<span class="sd">        Name identifier for the interaction. Defaults to class name if None.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    params : dict</span>
-<span class="sd">        Dictionary containing interaction parameters loaded from the configuration file.</span>
-<span class="sd">    strength : float</span>
-<span class="sd">        Maximum intensity of the repulsion force.</span>
-<span class="sd">    max_distance : float</span>
-<span class="sd">        Maximum distance at which the interaction takes place.</span>
-<span class="sd">    p : float</span>
-<span class="sd">        Power exponent controlling the decay rate of the repulsion force.</span>
+<span class="sd">    target_population : Population</span>
+<span class="sd">        Population affected by power-law forces.</span>
+<span class="sd">    source_population : Population</span>
+<span class="sd">        Population generating power-law forces.</span>
+<span class="sd">    strength_attr : np.ndarray or None</span>
+<span class="sd">        Attraction strength parameter(s).</span>
+<span class="sd">    strength_rep : np.ndarray or None</span>
+<span class="sd">        Repulsion strength parameter(s).</span>
+<span class="sd">    max_distance : np.ndarray or None</span>
+<span class="sd">        Maximum interaction distance parameter(s).</span>
+<span class="sd">    p_attr : int</span>
+<span class="sd">        Power exponent for attraction term.</span>
+<span class="sd">    p_rep : int</span>
+<span class="sd">        Power exponent for repulsion term.</span>
+<span class="sd">    is_attractive : bool</span>
+<span class="sd">        Whether to allow attractive forces (negative values).</span>
+<span class="sd">    params_shapes : dict</span>
+<span class="sd">        Defines expected shapes for interaction parameters.</span>
 
-<span class="sd">    Config requirements</span>
+<span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    repulsion_name : str</span>
-<span class="sd">        The section name in the YAML file specifying the repulsion parameters.</span>
-<span class="sd">    strength : float</span>
-<span class="sd">        The maximum repulsion force intensity.</span>
-<span class="sd">    max_distance : float</span>
-<span class="sd">        The maximum interaction range.</span>
-<span class="sd">    p : float</span>
-<span class="sd">        The power exponent determining the force decay.</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the interaction&#39;s section:</span>
+
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Parameter configuration for the power-law interaction:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``params_mode`` : str - Parameter assignment mode</span>
+<span class="sd">        - ``params_names`` : list - Parameter names [&quot;strength_attr&quot;, &quot;strength_rep&quot;, &quot;max_distance&quot;]</span>
+<span class="sd">        - ``params_limits`` or ``params_values`` : dict - Parameter ranges or fixed values</span>
+
+<span class="sd">    p_attr : int</span>
+<span class="sd">        Power exponent for the attraction term (typically 6-8).</span>
+<span class="sd">    p_rep : int  </span>
+<span class="sd">        Power exponent for the repulsion term (typically 12-16).</span>
+<span class="sd">    is_attractive : bool</span>
+<span class="sd">        Whether to allow attractive forces. If False, forces are clipped to non-negative values.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Force Characteristics:**</span>
+
+<span class="sd">    - **Dual Component**: Combines attraction and repulsion with different decay rates</span>
+<span class="sd">    - **Flexible Exponents**: Independent control of attraction and repulsion decay</span>
+<span class="sd">    - **Finite Range**: Optional cutoff distance with shift correction</span>
+<span class="sd">    - **Asymmetric Forces**: Different strengths for attraction vs repulsion</span>
+
+<span class="sd">    **Parameter Relationships:**</span>
+
+<span class="sd">    - **p_rep &gt; p_attr**: Typical configuration giving short-range repulsion, long-range attraction</span>
+<span class="sd">    - **strength_rep vs strength_attr**: Relative magnitudes determine equilibrium distance</span>
+<span class="sd">    - **max_distance**: Controls interaction range and computational efficiency</span>
+
+<span class="sd">    **Force Clamping:**</span>
+
+<span class="sd">    - Forces are clamped to maximum magnitude (1000) for numerical stability</span>
+<span class="sd">    - Optional non-negativity constraint when ``is_attractive = False``</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -339,20 +391,101 @@
 <span class="sd">        If the configuration file is not found.</span>
 <span class="sd">    KeyError</span>
 <span class="sd">        If required interaction parameters are missing in the configuration file.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If parameter shapes are incompatible with population sizes.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Example YAML configuration:</span>
+<span class="sd">    **Lennard-Jones-like Configuration:**</span>
 
 <span class="sd">    .. code-block:: yaml</span>
 
-<span class="sd">        power_law_repulsion:</span>
-<span class="sd">            strength: 2.0</span>
-<span class="sd">            max_distance: 5.0</span>
-<span class="sd">            p: 3.0</span>
+<span class="sd">        PowerLawInteraction:</span>
+<span class="sd">            id: &quot;lj_like_interaction&quot;</span>
+<span class="sd">            p_attr: 6</span>
+<span class="sd">            p_rep: 12</span>
+<span class="sd">            is_attractive: true</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                params_mode: &quot;Fixed&quot;</span>
+<span class="sd">                params_names: [&quot;strength_attr&quot;, &quot;strength_rep&quot;, &quot;max_distance&quot;]</span>
+<span class="sd">                params_values:</span>
+<span class="sd">                    strength_attr: 1.0</span>
+<span class="sd">                    strength_rep: 4.0</span>
+<span class="sd">                    max_distance: 5.0</span>
 
-<span class="sd">    This sets a repulsion force with `strength = 2.0`, active within `5.0` units,</span>
-<span class="sd">    and decaying with a power exponent `p = 3.0`.</span>
+<span class="sd">    **Pure Repulsion Configuration:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        PowerLawInteraction:</span>
+<span class="sd">            id: &quot;repulsion_only&quot;</span>
+<span class="sd">            p_attr: 6</span>
+<span class="sd">            p_rep: 3</span>
+<span class="sd">            is_attractive: false</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                params_mode: &quot;Fixed&quot;</span>
+<span class="sd">                params_names: [&quot;strength_attr&quot;, &quot;strength_rep&quot;, &quot;max_distance&quot;]</span>
+<span class="sd">                params_values:</span>
+<span class="sd">                    strength_attr: 0.0</span>
+<span class="sd">                    strength_rep: 2.0</span>
+<span class="sd">                    max_distance: 3.0</span>
+
+<span class="sd">    **Usage in Simulation:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim.Interactions import PowerLawInteraction</span>
+<span class="sd">        from swarmsim.Populations import BrownianMotion</span>
+
+<span class="sd">        # Create populations</span>
+<span class="sd">        agents = BrownianMotion(&#39;agent_config.yaml&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create power-law self-interaction</span>
+<span class="sd">        interaction = PowerLawInteraction(</span>
+<span class="sd">            target_population=agents,</span>
+<span class="sd">            source_population=agents,</span>
+<span class="sd">            config_path=&#39;powerlaw_config.yaml&#39;</span>
+<span class="sd">        )</span>
+<span class="sd">        </span>
+<span class="sd">        # Initialize parameters</span>
+<span class="sd">        interaction.reset()</span>
+<span class="sd">        </span>
+<span class="sd">        # Compute forces</span>
+<span class="sd">        forces = interaction.get_interaction()</span>
+
+<span class="sd">    **Force Profile Analysis:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import matplotlib.pyplot as plt</span>
+<span class="sd">        </span>
+<span class="sd">        # Plot force vs distance</span>
+<span class="sd">        r = np.linspace(0.5, 5.0, 100)</span>
+<span class="sd">        k_rep, k_attr = 4.0, 1.0</span>
+<span class="sd">        p_rep, p_attr = 12, 6</span>
+<span class="sd">        </span>
+<span class="sd">        force = k_rep / r**p_rep - k_attr / r**p_attr</span>
+<span class="sd">        </span>
+<span class="sd">        plt.plot(r, force)</span>
+<span class="sd">        plt.axhline(0, color=&#39;k&#39;, linestyle=&#39;--&#39;, alpha=0.5)</span>
+<span class="sd">        plt.xlabel(&#39;Distance&#39;)</span>
+<span class="sd">        plt.ylabel(&#39;Force&#39;)</span>
+<span class="sd">        plt.title(&#39;Power-Law Force Profile&#39;)</span>
+
+<span class="sd">    **Equilibrium Distance Calculation:**</span>
+
+<span class="sd">    The equilibrium distance where force is zero occurs when:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\frac{k_{rep}}{r_{eq}^{p_{rep}}} = \\frac{k_{attr}}{r_{eq}^{p_{attr}}}</span>
+
+<span class="sd">    Solving for :math:`r_{eq}`:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        r_{eq} = \\left(\\frac{k_{rep}}{k_{attr}}\\right)^{\\frac{1}{p_{rep} - p_{attr}}}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
@@ -362,11 +495,18 @@
                  <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_population</span><span class="p">,</span> <span class="n">source_population</span><span class="p">,</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_population</span><span class="p">,</span> <span class="n">source_population</span><span class="p">,</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_shapes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;strength_attr&quot;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s2">&quot;strength_rep&quot;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s2">&quot;max_distance&quot;</span><span class="p">:</span> <span class="p">()</span>
+        <span class="p">}</span>
+
 
         <span class="bp">self</span><span class="o">.</span><span class="n">p_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p_attr&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_rep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p_rep&quot;</span><span class="p">)</span>
@@ -377,9 +517,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength_attr&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength_rep&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">=</span> <span class="n">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_distance&#39;</span><span class="p">])</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength_attr&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;strength_rep&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;max_distance&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PowerLawInteraction.get_interaction">
@@ -417,17 +557,20 @@
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
 
         <span class="c1"># Attraction and repulsion kernel</span>
-        <span class="n">shift</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_rep</span><span class="p">)</span> <span class="o">-</span>
-                 <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_attr</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_rep</span><span class="p">)</span> <span class="o">-</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_attr</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="n">mask</span> <span class="o">=</span> <span class="n">distances</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_rep</span><span class="p">)</span> <span class="o">-</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_attr</span><span class="p">))</span> <span class="o">-</span> <span class="n">shift</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
 
-        <span class="n">kernel</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strength_rep</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_rep</span><span class="p">)</span> <span class="o">-</span>
-                  <span class="bp">self</span><span class="o">.</span><span class="n">strength_attr</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_attr</span><span class="p">))</span> <span class="o">-</span> <span class="n">shift</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">distances</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_distance</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">kernel</span>
 
-        <span class="n">kernel</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">kernel</span>
-
-        <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_attractive</span><span class="p">:</span>
             <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
@@ -487,7 +630,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
