@@ -674,20 +674,9 @@ configuration. It should be called before starting a new simulation.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Interactions.</span></span><span class="sig-name descname"><span class="pre">PowerLawInteraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Interactions/power_law_interaction.html#PowerLawInteraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Interactions.PowerLawInteraction" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Interactions.interaction.Interaction" title="swarmsim.Interactions.interaction.Interaction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code></a></p>
 <p>Power-law interaction with configurable attraction and repulsion components.</p>
-<p>This interaction implements a generalized power-law force that can exhibit both
-attractive and repulsive behavior with different decay rates. The interaction
-combines two power-law terms with different exponents and strengths, providing
-flexible modeling of complex agent interactions.</p>
-<p>The interaction force is given by:</p>
-<div class="math notranslate nohighlight">
-\[F(r) = \left[ \frac{k_{rep}}{r^{p_{rep}}} - \frac{k_{attr}}{r^{p_{attr}}} \right] - \text{shift}\]</div>
-<p>where:
-- <span class="math notranslate nohighlight">\(k_{rep}\)</span> is the repulsion strength
-- <span class="math notranslate nohighlight">\(k_{attr}\)</span> is the attraction strength
-- <span class="math notranslate nohighlight">\(p_{rep}\)</span> is the repulsion decay exponent
-- <span class="math notranslate nohighlight">\(p_{attr}\)</span> is the attraction decay exponent
-- <span class="math notranslate nohighlight">\(r\)</span> is the inter-agent distance
-- shift term ensures zero force at the cutoff distance</p>
+<p>This interaction models a repulsive force that decays according to a power-law function
+with respect to the distance between agents. The strength of the force is determined by
+the power exponent <cite>p</cite> and is active within a defined maximum interaction range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -715,9 +704,9 @@ flexible modeling of complex agent interactions.</p>
 <li><p><strong>The YAML configuration file must contain the following parameters under the interaction’s section</strong></p></li>
 <li><p><strong>parameters</strong> (<em>dict</em>) – Parameter configuration for the power-law interaction:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">params_mode</span></code> : str - Parameter assignment mode</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">params_names</span></code> : list - Parameter names [“strength_attr”, “strength_rep”, “max_distance”]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">params_limits</span></code> or <code class="docutils literal notranslate"><span class="pre">params_values</span></code> : dict - Parameter ranges or fixed values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code> : str - Parameter assignment mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">names</span></code> : list - Parameter names [“strength_attr”, “strength_rep”, “max_distance”]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">limits</span></code> or <code class="docutils literal notranslate"><span class="pre">values</span></code> : dict - Parameter ranges or fixed values</p></li>
 </ul>
 </li>
 <li><p><strong>p_attr</strong> (<em>int</em>) – Power exponent for the attraction term (typically 6-8).</p></li>
@@ -725,40 +714,11 @@ flexible modeling of complex agent interactions.</p>
 <li><p><strong>is_attractive</strong> (<em>bool</em>) – Whether to allow attractive forces. If False, forces are clipped to non-negative values.</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">Notes</p>
-<p><strong>Force Characteristics:</strong></p>
-<ul class="simple">
-<li><p><strong>Dual Component</strong>: Combines attraction and repulsion with different decay rates</p></li>
-<li><p><strong>Flexible Exponents</strong>: Independent control of attraction and repulsion decay</p></li>
-<li><p><strong>Finite Range</strong>: Optional cutoff distance with shift correction</p></li>
-<li><p><strong>Asymmetric Forces</strong>: Different strengths for attraction vs repulsion</p></li>
-</ul>
-<p><strong>Parameter Relationships:</strong></p>
-<ul class="simple">
-<li><p><strong>p_rep &gt; p_attr</strong>: Typical configuration giving short-range repulsion, long-range attraction</p></li>
-<li><p><strong>strength_rep vs strength_attr</strong>: Relative magnitudes determine equilibrium distance</p></li>
-<li><p><strong>max_distance</strong>: Controls interaction range and computational efficiency</p></li>
-</ul>
-<p><strong>Force Clamping:</strong></p>
-<ul class="simple">
-<li><p>Forces are clamped to maximum magnitude (1000) for numerical stability</p></li>
-<li><p>Optional non-negativity constraint when <code class="docutils literal notranslate"><span class="pre">is_attractive</span> <span class="pre">=</span> <span class="pre">False</span></code></p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
 <li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
 <li><p><strong>KeyError</strong> – If required interaction parameters are missing in the configuration file.</p></li>
 <li><p><strong>ValueError</strong> – If parameter shapes are incompatible with population sizes.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>target_population</strong> (<em>Population</em>)</p></li>
-<li><p><strong>source_population</strong> (<em>Population</em>)</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>name</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>

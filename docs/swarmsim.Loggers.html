@@ -369,19 +369,47 @@ Set to 0 to disable file saving.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>The YAML configuration file must contain the following parameters under the logger’s class section</strong></p></li>
-<li><p><strong>BaseLogger</strong> (<em>dict</em>) – Configuration section for the base logger:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">activate</span></code> : bool, optional - Enable/disable logging. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">log_freq</span></code> : int, optional - Console output frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">save_freq</span></code> : int, optional - File save frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">save_data_freq</span></code> : int, optional - Raw data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">save_global_data_freq</span></code> : int, optional - Global data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code> : str, optional - Output directory path. Default: <code class="docutils literal notranslate"><span class="pre">&quot;./logs&quot;</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">log_name</span></code> : str, optional - Log file name suffix. Default: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">comment_enable</span></code> : bool, optional - Enable user comments. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ul>
+<dd class="field-odd"><p><strong>The YAML configuration file must contain the following parameters under the BaseLogger’s class section</strong> –</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">activate</span></code><span class="classifier">bool, optional</span></dt><dd><p>Enable/disable logging. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Console output frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>File save frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_data_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Raw data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">save_global_data_freq</span></code><span class="classifier">int, optional</span></dt><dd><p>Global data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_path</span></code><span class="classifier">str, optional</span></dt><dd><p>Output directory path. Default: <code class="docutils literal notranslate"><span class="pre">&quot;./logs&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">log_name</span></code><span class="classifier">str, optional</span></dt><dd><p>Log file name suffix. Default: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">comment_enable</span></code><span class="classifier">bool, optional</span></dt><dd><p>Enable user comments. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
 </li>
 </ul>
 </dd>
@@ -428,157 +456,6 @@ log_path/
 <span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./simulation_logs&quot;</span>
 <span class="w">    </span><span class="nt">log_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;base_experiment&quot;</span>
 <span class="w">    </span><span class="nt">comment_enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</pre></div>
-</div>
-<p><strong>High-Frequency Logging:</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">BaseLogger</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">activate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">log_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span><span class="c1"># Print every step</span>
-<span class="w">    </span><span class="nt">save_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">     </span><span class="c1"># Save every step</span>
-<span class="w">    </span><span class="nt">save_data_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-<span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./detailed_logs&quot;</span>
-</pre></div>
-</div>
-<p><strong>Usage in Simulation:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLogger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmptyEnvironment</span>
-
-<span class="c1"># Create simulation components</span>
-<span class="n">agents</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;agent_config.yaml&#39;</span><span class="p">)</span>
-<span class="n">env</span> <span class="o">=</span> <span class="n">EmptyEnvironment</span><span class="p">(</span><span class="s1">&#39;env_config.yaml&#39;</span><span class="p">)</span>
-
-<span class="c1"># Create logger</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">([</span><span class="n">agents</span><span class="p">],</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;logger_config.yaml&#39;</span><span class="p">)</span>
-
-<span class="c1"># Start logging session</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">()</span>
-
-<span class="c1"># Simulation loop</span>
-<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-    <span class="c1"># ... simulation dynamics ...</span>
-
-    <span class="c1"># Log current step</span>
-    <span class="n">done</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
-        <span class="s1">&#39;custom_metric&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">agents</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
-        <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step</span>
-    <span class="p">})</span>
-
-    <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
-        <span class="k">break</span>
-
-<span class="c1"># End logging session</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><strong>Custom Logger Extension:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomLogger</span><span class="p">(</span><span class="n">BaseLogger</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to add custom logging behavior&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
-            <span class="c1"># Add custom metrics</span>
-            <span class="n">custom_data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;center_of_mass&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-                <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
-                <span class="s1">&#39;population_spread&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-            <span class="p">}</span>
-
-            <span class="c1"># Merge with provided data</span>
-            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">custom_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-            <span class="c1"># Call parent logging</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">custom_data</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="kc">False</span>
-</pre></div>
-</div>
-<p><strong>Multi-Population Logging:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Log multiple populations with different behaviors</span>
-<span class="n">predators</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;predator_config.yaml&#39;</span><span class="p">)</span>
-<span class="n">prey</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;prey_config.yaml&#39;</span><span class="p">)</span>
-<span class="n">obstacles</span> <span class="o">=</span> <span class="n">FixedPopulation</span><span class="p">(</span><span class="s1">&#39;obstacle_config.yaml&#39;</span><span class="p">)</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">([</span><span class="n">predators</span><span class="p">,</span> <span class="n">prey</span><span class="p">,</span> <span class="n">obstacles</span><span class="p">],</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
-
-<span class="c1"># All populations will be tracked automatically</span>
-</pre></div>
-</div>
-<p><strong>Performance Monitoring:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">()</span>
-
-<span class="n">simulation_times</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
-    <span class="n">step_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-    <span class="c1"># ... run simulation step ...</span>
-
-    <span class="n">step_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">step_start</span>
-    <span class="n">simulation_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step_time</span><span class="p">)</span>
-
-    <span class="c1"># Log with timing data</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
-        <span class="s1">&#39;step_duration&#39;</span><span class="p">:</span> <span class="n">step_time</span><span class="p">,</span>
-        <span class="s1">&#39;cumulative_time&#39;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">simulation_times</span><span class="p">)</span>
-    <span class="p">})</span>
-
-<span class="n">logger</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average step time: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">simulation_times</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Data Analysis Integration:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># After simulation, analyze logged data</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="c1"># Load CSV data for analysis</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">log_name_csv</span><span class="p">)</span>
-
-<span class="c1"># Load NumPy arrays for detailed analysis</span>
-<span class="n">arrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">log_name_npz</span><span class="p">)</span>
-
-<span class="c1"># Extract specific metrics</span>
-<span class="n">steps</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span>
-<span class="n">metrics</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;custom_metric&#39;</span><span class="p">]</span>
-
-<span class="c1"># Perform analysis</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulation ran for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final metric value: </span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Debugging and Monitoring:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure for debugging</span>
-<span class="n">debug_config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;BaseLogger&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;activate&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s1">&#39;log_freq&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Print every step</span>
-        <span class="s1">&#39;save_freq&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>    <span class="c1"># Save less frequently</span>
-        <span class="s1">&#39;log_path&#39;</span><span class="p">:</span> <span class="s1">&#39;./debug_logs&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;comment_enable&#39;</span><span class="p">:</span> <span class="kc">True</span>  <span class="c1"># Allow comments for debugging</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1"># Monitor specific conditions</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">BaseLogger</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;debug_config.yaml&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
-    <span class="c1"># ... simulation step ...</span>
-
-    <span class="c1"># Check for anomalies</span>
-    <span class="n">max_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-
-    <span class="k">if</span> <span class="n">max_speed</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>  <span class="c1"># Anomaly threshold</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
-            <span class="s1">&#39;anomaly_detected&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="n">max_speed</span><span class="p">,</span>
-            <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step</span>
-        <span class="p">})</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Anomaly detected at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: max_speed = </span><span class="si">{</span><span class="n">max_speed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py method">
