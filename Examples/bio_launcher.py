@@ -23,7 +23,7 @@ from swarmsim.Populations.parsistent_turning_walker import LightSensitive_PTW
 from swarmsim.Interactions import HarmonicRepulsion
 from swarmsim.Integrators import EulerMaruyamaIntegrator
 
-from swarmsim.Controllers.spatial_inputs import LightPattern, Temporal_pulses, RectangularFeedback, AngularFeedback
+from swarmsim.Controllers.spatial_inputs import LightPattern, Temporal_pulses, AngularFeedback
 
 from swarmsim.Renderers.bio_renderer import BioRenderer
 

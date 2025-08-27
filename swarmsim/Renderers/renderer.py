@@ -90,41 +90,56 @@ class Renderer(ABC):
     @abstractmethod
     def render(self):
         """
-        Render the current state of the simulation.
+        Render the current state of the simulation with suitable visualization.
 
         This method should update the visual representation to show the current
         positions and states of all agents, environment features, and any additional
         visualization elements (forces, trajectories, metrics, etc.).
 
+        Implementation Requirements
+        ---------------------------
+        Subclasses may implement the following rendering pipeline:
+
+        1. **Environment Rendering**: Draw boundaries, obstacles, and spatial features
+        2. **Agent Visualization**: Render all populations with appropriate styling
+        3. **Interaction Visualization**: Show forces, connections, or influences (optional)
+        4. **Overlay Elements**: Add goal regions, trajectories, or analysis data (optional)
+        5. **Frame Management**: Handle timing and display updates
+
+        
+
         Notes
         -----
-        Implementations should:
-        
-        - Render environment features and boundaries
-        - Apply any visual transformations (scaling, rotation, translation)
-
-        The method is called at each simulation timestep when rendering is active.
+        - Called at each simulation timestep when rendering is active
+        - Should respect the ``self.activate`` flag to enable/disable rendering
+        - Performance critical method - optimize for real-time execution
         """
         pass
 
     @abstractmethod
     def close(self):
         """
-        Clean up rendering resources and close visualization windows.
+        Clean up rendering resources and shut down visualization.
 
         This method should properly shut down the visualization backend and release
         any allocated resources such as graphics contexts, windows, memory buffers,
-        or GPU resources.
+        GPU resources, or file handles. It ensures clean termination of the rendering
+        system and prevents resource leaks.
+
+        Cleanup Tasks
+        -------------
+        **Graphics Resources**:
+        
+        - Close rendering windows and graphics contexts
+        - Release GPU memory and buffers
+        - Shut down graphics libraries (pygame, OpenGL, etc.)
+        - Clear cached surfaces and textures
+
+        
 
         Notes
         -----
-        Implementations should:
-        
-        - Close any open windows or graphics contexts
-        - Clean up any temporary files created during rendering
-        - Save final frames or animations if configured
-
-        This method is called when the simulation ends or when the renderer
-        is explicitly shut down.
+        - Called when simulation ends or renderer is explicitly shut down
+        - Critical for preventing resource leaks in long-running simulations
         """
         pass

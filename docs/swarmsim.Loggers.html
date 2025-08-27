@@ -1,324 +1,260 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Loggers &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Loggers &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Loggers';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Populations" href="swarmsim.Populations.html" />
-    <link rel="prev" title="Interactions" href="swarmsim.Interactions.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="next" title="Populations Package" href="swarmsim.Populations.html" />
+    <link rel="prev" title="Interactions Package" href="swarmsim.Interactions.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="swarmsim.html">IntelliSwarm Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="swarmsim.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Data Loggers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#capabilities">Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specialized-features">Specialized Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Loggers</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="swarmsim.html">IntelliSwarm Package</a></li>
+      <li class="breadcrumb-item active">Data Loggers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.Loggers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-loggers">
+<h1>Data Loggers<a class="headerlink" href="#data-loggers" title="Link to this heading"></a></h1>
+<p>The loggers package provides comprehensive data collection, recording, and analysis capabilities for multi-agent simulations. These loggers capture simulation dynamics, performance metrics, and behavioral patterns with configurable formats and frequencies.</p>
+<nav class="contents local" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id7">Overview</a></p></li>
+<li><p><a class="reference internal" href="#key-features" id="id8">Key Features</a></p></li>
+<li><p><a class="reference internal" href="#module-swarmsim.Loggers" id="id9">Module Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#base-logger-interface" id="id10">Base Logger Interface</a></p></li>
+<li><p><a class="reference internal" href="#standard-logger-implementation" id="id11">Standard Logger Implementation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#features" id="id12">Features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#position-logger" id="id13">Position Logger</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#capabilities" id="id14">Capabilities</a></p>
+<ul>
+<li><p><a class="reference internal" href="#shepherding-logger" id="id15">Shepherding Logger</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#specialized-features" id="id16">Specialized Features</a></p></li>
+<li><p><a class="reference internal" href="#see-also" id="id17">See Also</a></p></li>
+</ul>
 </nav>
-</div>
-      
-    </div>
-  
-  
-</div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="loggers">
-<h1>Loggers<a class="headerlink" href="#loggers" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>SwarmSim’s logging framework enables systematic data collection from complex multi-agent simulations, supporting real-time monitoring, post-simulation analysis, and reproducible research workflows. The modular design allows for specialized logging behaviors while maintaining consistent data formats.</p>
+</section>
+<section id="key-features">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Key Features</a><a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Multi-Format Output</strong>: Support for CSV, NumPy, MATLAB, and custom formats</p></li>
+<li><p><strong>Configurable Frequency</strong>: Adaptive logging intervals and selective data capture</p></li>
+<li><p><strong>Real-Time Monitoring</strong>: Live performance tracking and system diagnostics</p></li>
+<li><p><strong>Memory Efficient</strong>: Streaming writes and chunked processing for large datasets</p></li>
+<li><p><strong>Extensible Architecture</strong>: Custom logger development for specialized applications</p></li>
+<li><p><strong>Automated Organization</strong>: Timestamped directories and structured file naming</p></li>
+</ul>
+</section>
 <section id="module-swarmsim.Loggers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Loggers" title="Link to this heading">#</a></h2>
-</section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-swarmsim.Loggers.base_logger">
-<span id="logger-interface"></span><h2>Logger Interface<a class="headerlink" href="#module-swarmsim.Loggers.base_logger" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<span id="module-reference"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Module Reference</a><a class="headerlink" href="#module-swarmsim.Loggers" title="Link to this heading"></a></h2>
+<section id="base-logger-interface">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Base Logger Interface</a><a class="headerlink" href="#base-logger-interface" title="Link to this heading"></a></h3>
+<p>The abstract foundation for all logging implementations, defining the core interface and common functionality.</p>
+<dl class="py class" id="module-swarmsim.Loggers.base_logger">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.base_logger.</span></span><span class="sig-name descname"><span class="pre">BaseLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.base_logger.</span></span><span class="sig-name descname"><span class="pre">BaseLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Loggers.logger.Logger" title="swarmsim.Loggers.logger.Logger"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a></p>
 <p>Comprehensive base logger for multi-agent simulation data collection and analysis.</p>
 <p>This logger provides the foundational logging infrastructure for recording simulation
@@ -331,41 +267,41 @@ It automatically manages file creation, data serialization, and experiment metad
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of population objects whose data will be logged throughout the simulation.
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – List of population objects whose data will be logged throughout the simulation.
 Each population provides state information and dynamics data.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment object containing spatial and contextual information for the simulation.
 Provides environmental state and parameters for logging.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing logger parameters and settings.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing logger parameters and settings.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>config</strong> (<em>dict</em>) – Complete configuration dictionary loaded from the YAML file.</p></li>
-<li><p><strong>logger_config</strong> (<em>dict</em>) – Logger-specific configuration subset extracted from the main config.</p></li>
-<li><p><strong>activate</strong> (<em>bool</em>) – Flag controlling whether logging is active. If False, logging operations are skipped.</p></li>
-<li><p><strong>date</strong> (<em>str</em>) – Human-readable timestamp of logger initialization for metadata.</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – Unique identifier for the logging session, combining timestamp and config name.</p></li>
-<li><p><strong>log_freq</strong> (<em>int</em>) – Frequency (in simulation steps) for printing progress information to console.
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Complete configuration dictionary loaded from the YAML file.</p></li>
+<li><p><strong>logger_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logger-specific configuration subset extracted from the main config.</p></li>
+<li><p><strong>activate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Flag controlling whether logging is active. If False, logging operations are skipped.</p></li>
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Human-readable timestamp of logger initialization for metadata.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Unique identifier for the logging session, combining timestamp and config name.</p></li>
+<li><p><strong>log_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Frequency (in simulation steps) for printing progress information to console.
 Set to 0 to disable console output.</p></li>
-<li><p><strong>save_freq</strong> (<em>int</em>) – Frequency (in simulation steps) for saving data to files.
+<li><p><strong>save_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Frequency (in simulation steps) for saving data to files.
 Set to 0 to disable file saving.</p></li>
-<li><p><strong>save_data_freq</strong> (<em>int</em>) – Frequency for saving raw data arrays (positions, states, etc.).</p></li>
-<li><p><strong>save_global_data_freq</strong> (<em>int</em>) – Frequency for saving accumulated global simulation data.</p></li>
-<li><p><strong>log_path</strong> (<em>str</em>) – Base directory path where all log files will be stored.</p></li>
-<li><p><strong>comment_enable</strong> (<em>bool</em>) – Whether to prompt for and include user comments in the log files.</p></li>
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – Reference to the populations being logged.</p></li>
+<li><p><strong>save_data_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Frequency for saving raw data arrays (positions, states, etc.).</p></li>
+<li><p><strong>save_global_data_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Frequency for saving accumulated global simulation data.</p></li>
+<li><p><strong>log_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base directory path where all log files will be stored.</p></li>
+<li><p><strong>comment_enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to prompt for and include user comments in the log files.</p></li>
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Reference to the populations being logged.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Reference to the simulation environment.</p></li>
-<li><p><strong>log_name_csv</strong> (<em>str</em>) – Full path to the CSV output file for tabular data.</p></li>
-<li><p><strong>log_name_txt</strong> (<em>str</em>) – Full path to the human-readable text output file.</p></li>
-<li><p><strong>log_name_npz</strong> (<em>str</em>) – Full path to the compressed NumPy data file.</p></li>
-<li><p><strong>log_name_mat</strong> (<em>str</em>) – Full path to the MATLAB-compatible data file.</p></li>
-<li><p><strong>start</strong> (<em>float</em><em> or </em><em>None</em>) – Timestamp when logging session started.</p></li>
-<li><p><strong>end</strong> (<em>float</em><em> or </em><em>None</em>) – Timestamp when logging session ended.</p></li>
-<li><p><strong>step_count</strong> (<em>int</em><em> or </em><em>None</em>) – Current simulation step counter.</p></li>
-<li><p><strong>experiment_count</strong> (<em>int</em><em> or </em><em>None</em>) – Counter for multiple experiment runs.</p></li>
-<li><p><strong>done</strong> (<em>bool</em><em> or </em><em>None</em>) – Flag indicating if the simulation should terminate early.</p></li>
-<li><p><strong>current_info</strong> (<em>dict</em><em> or </em><em>None</em>) – Dictionary containing data for the current simulation timestep.</p></li>
-<li><p><strong>global_info</strong> (<em>dict</em><em> or </em><em>None</em>) – Dictionary containing accumulated data across all timesteps.</p></li>
+<li><p><strong>log_name_csv</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Full path to the CSV output file for tabular data.</p></li>
+<li><p><strong>log_name_txt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Full path to the human-readable text output file.</p></li>
+<li><p><strong>log_name_npz</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Full path to the compressed NumPy data file.</p></li>
+<li><p><strong>log_name_mat</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Full path to the MATLAB-compatible data file.</p></li>
+<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><em>None</em>) – Timestamp when logging session started.</p></li>
+<li><p><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><em>None</em>) – Timestamp when logging session ended.</p></li>
+<li><p><strong>step_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><em>None</em>) – Current simulation step counter.</p></li>
+<li><p><strong>experiment_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><em>None</em>) – Counter for multiple experiment runs.</p></li>
+<li><p><strong>done</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><em>None</em>) – Flag indicating if the simulation should terminate early.</p></li>
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> or </em><em>None</em>) – Dictionary containing data for the current simulation timestep.</p></li>
+<li><p><strong>global_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> or </em><em>None</em>) – Dictionary containing accumulated data across all timesteps.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -459,22 +395,29 @@ log_path/
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Logger base class.</p>
+<p>Subclasses should call this constructor and then initialize their specific
+logging infrastructure (files, databases, network connections, etc.).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.reset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.reset" title="Link to this definition"></a></dt>
 <dd><p>Reset logger at the beginning of the simulation. Verifies if active, reset step counter and start time counter</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>activate</strong> (<em>bool  flag to check whether the logger is active</em>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log">
-<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log" title="Link to this definition"></a></dt>
 <dd><p>A function that defines the information to log.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -492,7 +435,7 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.close" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.close" title="Link to this definition"></a></dt>
 <dd><p>Function to store final step information, end-of-the-experiment information and close logger</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -501,36 +444,34 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>activate</strong> (<em>bool flag to check whether the logger is active</em>)</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_external_data">
-<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['npz',</span> <span class="pre">'mat']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_external_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['npz',</span> <span class="pre">'mat']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_external_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.log_internal_data">
-<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['txt',</span> <span class="pre">'print']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['txt',</span> <span class="pre">'print']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.base_logger.BaseLogger.output_data">
-<span class="sig-name descname"><span class="pre">output_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.output_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.output_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">output_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/base_logger.html#BaseLogger.output_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.base_logger.BaseLogger.output_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Loggers.logger">
-<span id="base-logger"></span><h2>Base Logger<a class="headerlink" href="#module-swarmsim.Loggers.logger" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="standard-logger-implementation">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Standard Logger Implementation</a><a class="headerlink" href="#standard-logger-implementation" title="Link to this heading"></a></h3>
+<p>The primary logger implementation providing comprehensive data collection capabilities.</p>
+<dl class="py class" id="module-swarmsim.Loggers.logger">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
 <p>Abstract base class for data logging in multi-agent simulations.</p>
 <p>This class defines the interface for recording simulation data, including agent states,
 environment information, and custom metrics. Loggers can write data to various formats
@@ -547,8 +488,18 @@ by returning a termination flag from the <cite>log()</cite> method.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Logger base class.</p>
+<p>Subclasses should call this constructor and then initialize their specific
+logging infrastructure (files, databases, network connections, etc.).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.reset">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.reset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.reset" title="Link to this definition"></a></dt>
 <dd><p>Initialize or reset the logger for a new simulation run.</p>
 <p>This method should prepare the logger for a new simulation by clearing previous
 data, creating new files, or resetting internal state. It is called before
@@ -565,22 +516,19 @@ the simulation loop begins.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.log">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.log" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.log" title="Link to this definition"></a></dt>
 <dd><p>Record simulation data at the current timestep.</p>
 <p>This method is called at each simulation timestep to record relevant data.
 It can log agent positions, velocities, environment state, performance metrics,
 or any other simulation data. The method can also signal early termination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Dictionary containing custom data to log, with format {variable_name: value}.
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Dictionary containing custom data to log, with format {variable_name: value}.
 If None, the logger should record default simulation data. Default is None.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>bool</em> – Flag indicating whether the simulation should terminate early. If True,
 the simulation loop will exit before reaching the specified end time.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -598,7 +546,7 @@ from populations, environment, controllers, and interactions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.logger.Logger.close">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.close" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/logger.html#Logger.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.logger.Logger.close" title="Link to this definition"></a></dt>
 <dd><p>Finalize logging and clean up resources.</p>
 <p>This method is called at the end of a simulation to properly close files,
 save final data, and clean up any resources used by the logger. It should
@@ -620,11 +568,177 @@ the logger returning True from the <cite>log()</cite> method.</p>
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Loggers.shepherding_logger">
-<span id="shepherding-logger"></span><h2>Shepherding Logger<a class="headerlink" href="#module-swarmsim.Loggers.shepherding_logger" title="Link to this heading">#</a></h2>
-<dl class="py class">
+</section>
+<section id="features">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Features</a><a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Multi-Population Support</strong>: Handle multiple agent populations simultaneously</p></li>
+<li><p><strong>Flexible Output Formats</strong>: CSV, NumPy, MATLAB, and HDF5 support</p></li>
+<li><p><strong>Real-Time Analytics</strong>: Live computation of statistical measures</p></li>
+<li><p><strong>Memory Optimization</strong>: Efficient handling of large-scale simulations</p></li>
+</ul>
+<section id="position-logger">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Position Logger</a><a class="headerlink" href="#position-logger" title="Link to this heading"></a></h3>
+<p>Specialized logger focused on trajectory tracking and spatial analysis.</p>
+<dl class="py class" id="module-swarmsim.Loggers.position_logger">
+<dt class="sig sig-object py" id="swarmsim.Loggers.position_logger.PositionLogger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.position_logger.</span></span><span class="sig-name descname"><span class="pre">PositionLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/position_logger.html#PositionLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.position_logger.PositionLogger" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Loggers.base_logger.BaseLogger" title="swarmsim.Loggers.base_logger.BaseLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></p>
+<p>Position-based data logger for tracking agent spatial dynamics.</p>
+<p>This logger extends the BaseLogger to capture and record detailed positional
+information about agent populations throughout the simulation. It automatically
+logs agent positions, computes position-based statistics, and tracks control
+inputs when available.</p>
+<p>The logger captures position data at regular intervals and saves it in multiple
+formats (CSV, NPZ, MAT) for analysis and visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – List of population objects whose positions will be logged.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment object containing spatial context and boundaries.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing logger parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Population objects being monitored for position data.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment context for spatial logging, inherited from BaseLogger.</p></li>
+<li><p><strong>global_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Accumulated data structure for position information across timesteps.</p></li>
+<li><p><strong>step_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Current simulation step counter, inherited from BaseLogger.</p></li>
+<li><p><strong>save_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Frequency (in steps) for saving position data, inherited from BaseLogger.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain logger parameters under the class section</strong></p></li>
+<li><p><strong>PositionLogger</strong> (<em>dict</em>) – Configuration section for the position logger:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">activate</span></code> : bool, optional
+Enable/disable logging. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_freq</span></code> : int, optional
+Print frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_freq</span></code> : int, optional
+Save frequency (0 = never). Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_data_freq</span></code> : int, optional
+Data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_global_data_freq</span></code> : int, optional
+Global data save frequency. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code> : str, optional
+Output directory path. Default: <code class="docutils literal notranslate"><span class="pre">&quot;./logs&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_name</span></code> : str, optional
+Log file name suffix. Default: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comment_enable</span></code> : bool, optional
+Enable experiment comments. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Data Capture:</strong></p>
+<p>The logger automatically captures:</p>
+<ul class="simple">
+<li><p><strong>Agent Positions</strong>: Full position arrays for all agents in all populations</p></li>
+<li><p><strong>Control Inputs</strong>: Mean control input values when available (e.g., <code class="docutils literal notranslate"><span class="pre">u</span></code> for first population)</p></li>
+<li><p><strong>Temporal Information</strong>: Timestep and timing data for synchronization</p></li>
+</ul>
+<p><strong>File Formats:</strong></p>
+<p>Position data is saved in multiple formats for flexibility:</p>
+<ul class="simple">
+<li><p><strong>CSV</strong>: Human-readable comma-separated values for spreadsheet analysis</p></li>
+<li><p><strong>NPZ</strong>: Compressed NumPy format for efficient Python data loading</p></li>
+<li><p><strong>MAT</strong>: MATLAB format for analysis in MATLAB/Octave</p></li>
+</ul>
+<p><strong>Performance Considerations:</strong></p>
+<ul class="simple">
+<li><p>Data is accumulated in memory and saved at specified intervals</p></li>
+<li><p>Memory usage scales with number of agents and save frequency</p></li>
+<li><p>For large populations, consider increasing <code class="docutils literal notranslate"><span class="pre">save_freq</span></code> to reduce I/O overhead</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p><strong>Basic Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">PositionLogger</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">activate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">save_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">log_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./simulation_logs&quot;</span>
+<span class="w">    </span><span class="nt">log_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;position_data&quot;</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Loggers.position_logger.PositionLogger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/position_logger.html#PositionLogger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.position_logger.PositionLogger.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Logger base class.</p>
+<p>Subclasses should call this constructor and then initialize their specific
+logging infrastructure (files, databases, network connections, etc.).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Loggers.position_logger.PositionLogger.log_internal_data">
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['csv',</span> <span class="pre">'npz',</span> <span class="pre">'mat']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/position_logger.html#PositionLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.position_logger.PositionLogger.log_internal_data" title="Link to this definition"></a></dt>
+<dd><p>Log position data and control for all populations.</p>
+<p>This method captures detailed position information for all agents in all populations
+and information about control inputs. Data is saved according to
+the specified save frequency and formats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>save_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – <p>List of output formats for data saving. Default: <code class="docutils literal notranslate"><span class="pre">['csv','npz','mat']</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'csv'</span></code> : Comma-separated values for spreadsheet analysis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'npz'</span></code> : Compressed NumPy format for Python analysis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'mat'</span></code> : MATLAB format for MATLAB/Octave analysis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'print'</span></code> : Console output for debugging</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'txt'</span></code> : Human-readable text format</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Position Data Capture:</strong></p>
+<p>The method uses <code class="docutils literal notranslate"><span class="pre">get_positions()</span></code> utility to extract:</p>
+<ul class="simple">
+<li><p>Full position arrays for all agents in all populations</p></li>
+<li><p>Timestep information</p></li>
+<li><p>Population identifiers for multi-population simulations</p></li>
+</ul>
+<p><strong>Control Input:</strong></p>
+<p>For the first population (index 0), computes and logs:</p>
+<ul class="simple">
+<li><p>Mean control input value: <code class="docutils literal notranslate"><span class="pre">np.mean(populations[0].u)</span></code></p></li>
+<li><p>Useful for monitoring control effort and system behavior</p></li>
+</ul>
+<p><strong>Save Frequency:</strong></p>
+<p>Data logging occurs only when <code class="docutils literal notranslate"><span class="pre">step_count</span> <span class="pre">%</span> <span class="pre">save_freq</span> <span class="pre">==</span> <span class="pre">0</span></code>, ensuring
+efficient memory usage and I/O performance for long simulations.</p>
+<p><strong>Data Format:</strong></p>
+<p>The logged data structure includes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">positions_Population_N</span></code> : Position arrays for population N</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code> : Mean control input for first population</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step</span></code> : Current simulation step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code> : Simulation time or timestamp</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="capabilities">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Capabilities</a><a class="headerlink" href="#capabilities" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>High-Resolution Tracking</strong>: Detailed trajectory recording</p></li>
+<li><p><strong>Spatial Statistics</strong>: Automatic computation of spatial measures</p></li>
+<li><p><strong>Trajectory Analysis</strong>: Built-in diffusion and mobility metrics</p></li>
+<li><p><strong>Compression</strong>: Efficient storage of position time series</p></li>
+</ul>
+<section id="shepherding-logger">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Shepherding Logger</a><a class="headerlink" href="#shepherding-logger" title="Link to this heading"></a></h3>
+<p>Domain-specific logger for shepherding simulations with predator-prey dynamics.</p>
+<dl class="py class" id="module-swarmsim.Loggers.shepherding_logger">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.shepherding_logger.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Loggers.shepherding_logger.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Loggers.base_logger.BaseLogger" title="swarmsim.Loggers.base_logger.BaseLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></p>
 <p>Specialized logger for shepherding simulations with task-specific metrics.</p>
 <p>This logger extends the BaseLogger to capture and analyze shepherding-specific
@@ -637,23 +751,23 @@ termination when all targets reach the goal region.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of population objects in the shepherding simulation.
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – List of population objects in the shepherding simulation.
 Typically includes target agents (index 0) and optionally shepherd agents.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Shepherding environment object containing goal regions and spatial boundaries.
 Must support shepherding-specific geometric calculations.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing logger parameters.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing logger parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – Population objects being monitored, inherited from BaseLogger.
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Population objects being monitored, inherited from BaseLogger.
 First population (index 0) is typically the target agents.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Shepherding environment with goal regions, inherited from BaseLogger.</p></li>
-<li><p><strong>xi</strong> (<em>float</em>) – Current shepherding metric (fraction of captured targets).
+<li><p><strong>xi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Current shepherding metric (fraction of captured targets).
 Range: [0.0, 1.0] where 1.0 indicates all targets captured.</p></li>
-<li><p><strong>done</strong> (<em>bool</em>) – Task completion flag indicating whether all targets are captured.</p></li>
-<li><p><strong>current_info</strong> (<em>dict</em>) – Current timestep information including shepherding metrics.</p></li>
-<li><p><strong>global_info</strong> (<em>dict</em>) – Accumulated simulation data across all timesteps.</p></li>
+<li><p><strong>done</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Task completion flag indicating whether all targets are captured.</p></li>
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Current timestep information including shepherding metrics.</p></li>
+<li><p><strong>global_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Accumulated simulation data across all timesteps.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -734,8 +848,18 @@ efficiency for successful trials.</p>
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Logger base class.</p>
+<p>Subclasses should call this constructor and then initialize their specific
+logging infrastructure (files, databases, network connections, etc.).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log">
-<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log" title="Link to this definition"></a></dt>
 <dd><p>A function that defines the information to log.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -743,9 +867,6 @@ efficiency for successful trials.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>done</strong> (<em>bool flag to truncate a simulation early. Default value=False.</em>)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -756,189 +877,82 @@ See add_data from Utils/logger_utils.py to quickly add variables to log.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data">
-<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['print',</span> <span class="pre">'txt']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_internal_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['print',</span> <span class="pre">'txt']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.log_internal_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi">
-<span class="sig-name descname"><span class="pre">get_xi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.get_xi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_xi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.get_xi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi" title="Link to this definition"></a></dt>
 <dd><p>Get metric for shepherding xi, i.e., fraction of captured targets.
-:returns: <strong>float</strong> (<em>fraction of captured targets</em>)</p>
+:Returns: <strong>float</strong> (<em>fraction of captured targets</em>)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event">
-<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Loggers/shepherding_logger.html#ShepherdingLogger.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event" title="Link to this definition"></a></dt>
 <dd><p>Verify if every target is inside the goal region
-:returns: <strong>bool</strong> (<em>true is every target is inside the goal region, false otherwise</em>)</p>
+:Returns: <strong>bool</strong> (<em>true is every target is inside the goal region, false otherwise</em>)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="shepherding-gym-logger">
-<h2>Shepherding Gym Logger<a class="headerlink" href="#shepherding-gym-logger" title="Link to this heading">#</a></h2>
+</section>
+<section id="specialized-features">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Specialized Features</a><a class="headerlink" href="#specialized-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Herding Metrics</strong>: Success rates, containment measures, escape events</p></li>
+<li><p><strong>Predator-Prey Analysis</strong>: Pursuit dynamics, capture statistics</p></li>
+<li><p><strong>Formation Tracking</strong>: Herd cohesion, shape evolution, splitting events</p></li>
+<li><p><strong>Strategic Analysis</strong>: Decision points, behavioral transitions</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="swarmsim.Populations.html"><span class="doc">Populations Package</span></a> - Population data structures</p></li>
+<li><p><a class="reference internal" href="swarmsim.Simulators.html"><span class="doc">Simulators Package</span></a> - Simulation control and management</p></li>
+<li><p><a class="reference internal" href="swarmsim.Utils.html"><span class="doc">Utilities Package</span></a> - Utility functions for data processing</p></li>
+<li><p><span class="xref std std-doc">examples.data_analysis</span> - Data analysis examples and workflows</p></li>
+</ul>
 </section>
 </section>
 
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="swarmsim.Interactions.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Interactions</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="swarmsim.Populations.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Populations</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers">Module contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.base_logger">Logger Interface</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.reset"><code class="docutils literal notranslate"><span class="pre">BaseLogger.reset()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.log"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.close"><code class="docutils literal notranslate"><span class="pre">BaseLogger.close()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.log_external_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log_external_data()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log_internal_data()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.base_logger.BaseLogger.output_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.output_data()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.logger">Base Logger</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger.reset"><code class="docutils literal notranslate"><span class="pre">Logger.reset()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger.log"><code class="docutils literal notranslate"><span class="pre">Logger.log()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.logger.Logger.close"><code class="docutils literal notranslate"><span class="pre">Logger.close()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Loggers.shepherding_logger">Shepherding Logger</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log_internal_data()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.get_xi()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.get_event()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shepherding-gym-logger">Shepherding Gym Logger</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.Loggers.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swarmsim.Interactions.html" class="btn btn-neutral float-left" title="Interactions Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="swarmsim.Populations.html" class="btn btn-neutral float-right" title="Populations Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

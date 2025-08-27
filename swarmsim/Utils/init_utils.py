@@ -1,3 +1,11 @@
+"""
+Agent initialization utilities for multi-agent simulations.
+
+This module provides flexible and robust utilities for initializing agent states
+in multi-agent simulations. It supports both random initialization with various
+spatial distributions and deterministic initialization from data files.
+"""
+
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -5,8 +13,133 @@ from pathlib import Path
 
 def get_states(init_config: dict, num_samples: int, dim_samples: tuple or list) -> np.ndarray:
     """
-    Loads or generates states for agents, obstacles or other simulation elements.
-    Depending on the mode setting, the states are either loaded from file or generated randomly.
+    Generate or load initial states for agents in multi-agent simulations.
+
+    This function provides flexible initialization of agent states, supporting both
+    random generation with configurable spatial distributions and deterministic
+    loading from data files. It's designed to handle various initialization
+    scenarios for different types of multi-agent systems.
+
+    Parameters
+    ----------
+    init_config : dict
+        Configuration dictionary specifying initialization mode and parameters.
+    num_samples : int
+        Number of agents to initialize.
+    dim_samples : tuple or list
+        Dimensions of the state vector for each agent.
+
+    Returns
+    -------
+    np.ndarray
+        Initial states array with shape (num_samples, dim_samples).
+
+    Configuration Structure
+    -----------------------
+    The init_config dictionary supports two main modes:
+
+    **Random Mode**:
+    
+    .. code-block:: yaml
+
+        mode: "random"
+        random:
+            shape: "box"  # or "circle"
+            box:
+                lower_bounds: [-10, -10, 0, 0]
+                upper_bounds: [10, 10, 0, 0]
+            # OR
+            circle:
+                min_radius: 0
+                max_radius: 5
+                lower_bounds_other_states: [0, 0]
+                upper_bounds_other_states: [0, 0]
+
+    **File Mode**:
+    
+    .. code-block:: yaml
+
+        mode: "file"
+        file:
+            file_path: "initial_conditions.csv"  # or .npz
+
+    Initialization Modes
+    --------------------
+    **Box Distribution**: Uniform random initialization within hyperrectangular bounds
+    **Circle Distribution**: Uniform distribution within circular region (first 2D), uniform for other dimensions
+    **File Loading**: Direct loading from CSV or NPZ files with validation
+
+    Examples
+    --------
+    Box initialization for 2D agents with velocities:
+
+    .. code-block:: python
+
+        from swarmsim.Utils import get_states
+
+        box_config = {
+            'mode': 'random',
+            'random': {
+                'shape': 'box',
+                'box': {
+                    'lower_bounds': [-50, -50, -2, -2],  # [x_min, y_min, vx_min, vy_min]
+                    'upper_bounds': [50, 50, 2, 2]       # [x_max, y_max, vx_max, vy_max]
+                }
+            }
+        }
+        
+        states = get_states(box_config, num_samples=100, dim_samples=4)
+        print(f"Initialized {states.shape[0]} agents with {states.shape[1]}D states")
+
+    Circular initialization for spatial clustering:
+
+    .. code-block:: python
+
+        circle_config = {
+            'mode': 'random',
+            'random': {
+                'shape': 'circle',
+                'circle': {
+                    'min_radius': 2.0,
+                    'max_radius': 10.0,
+                    'lower_bounds_other_states': [-1, -1],  # For velocity components
+                    'upper_bounds_other_states': [1, 1]
+                }
+            }
+        }
+        
+        states = get_states(circle_config, num_samples=50, dim_samples=4)
+
+    File-based initialization from CSV:
+
+    .. code-block:: python
+
+        file_config = {
+            'mode': 'file',
+            'file': {
+                'file_path': 'predefined_formation.csv'
+            }
+        }
+        
+        states = get_states(file_config, num_samples=20, dim_samples=6)
+
+    
+    Error Handling
+    --------------
+    The function provides comprehensive error checking:
+    
+    - **File Validation**: Checks file existence and format compatibility
+    - **Dimension Validation**: Ensures state dimensions match expectations
+    - **Agent Count Validation**: Verifies number of agents in file data
+    - **Configuration Validation**: Validates all required parameters
+
+    Notes
+    -----
+    - Box initialization supports arbitrary dimensionality
+    - Circle initialization applies to first 2 dimensions only
+    - File formats must match expected agent count and state dimensions
+    - Random number generation uses numpy's global random state
+    - All bounds are inclusive for uniform distributions
     """
     # Read the initialization mode
     mode = init_config.get('mode', "random").lower()

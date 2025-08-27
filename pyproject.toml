@@ -42,6 +42,7 @@ dependencies = [
     "scipy>=1.15.1",
     "pandas",
     "pydata-sphinx-theme>=0.16.1",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [project.optional-dependencies]

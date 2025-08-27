@@ -1,590 +1,1387 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilities Package &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Utilities &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Utils';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true, "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore", "processHtmlClass": "tex2jax_process"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Simulators" href="swarmsim.Simulators.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="prev" title="Simulators Package" href="swarmsim.Simulators.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="swarmsim.html">IntelliSwarm Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="swarmsim.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Utilities</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="swarmsim.html">IntelliSwarm Package</a></li>
+      <li class="breadcrumb-item active">Utilities Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.Utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
-</nav>
+  <hr/>
 </div>
-      
-    </div>
-  
-  
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilities-package">
+<h1>Utilities Package<a class="headerlink" href="#utilities-package" title="Link to this heading"></a></h1>
+<p>The Utils package provides essential utility functions and helper modules for SwarmSim operations.
+These utilities cover common tasks such as parameter management, data logging, control algorithms,
+visualization, and simulation setup.</p>
+<section id="swarmsim-utils">
+<span id="module-swarmsim.Utils"></span><h2>swarmsim.Utils<a class="headerlink" href="#swarmsim-utils" title="Link to this heading"></a></h2>
+<p>This module provides essential utility functions for multi-agent simulation setup, execution, and analysis.</p>
+<p>The Utils module contains a comprehensive collection of utility functions that support
+all aspects of multi-agent simulation development, from initialization and parameter
+management to data logging and visualization. These utilities streamline simulation
+setup and provide robust tools for analysis and debugging.</p>
+<section id="module-contents">
+<h3>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h3>
+<p><strong>Core Utilities</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>load_config</cite> : YAML configuration file loading and validation</p></li>
+<li><p><cite>set_global_seed</cite> : Reproducible random number generation across frameworks</p></li>
+<li><p><cite>get_states</cite> : Agent initialization from files or random distributions</p></li>
+<li><p><cite>get_parameters</cite> : Parameter loading and generation for populations</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Control and Interaction Utilities</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>compute_distances</cite> : Efficient pairwise distance computation</p></li>
+<li><p><cite>gaussian_input</cite> : 2D Gaussian function evaluation for spatial fields</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Logging and Data Management</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>add_entry</cite>, <cite>append_entry</cite> : Structured data logging utilities</p></li>
+<li><p><cite>get_positions</cite> : Population state extraction for logging</p></li>
+<li><p><cite>print_log</cite> : Console output formatting</p></li>
+<li><p><cite>append_txt</cite>, <cite>append_csv</cite> : File output utilities</p></li>
+<li><p><cite>save_npz</cite>, <cite>save_mat</cite> : Binary data serialization</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Shepherding Analysis</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>get_target_distance</cite> : Distance computation to goal regions</p></li>
+<li><p><cite>xi_shepherding</cite> : Shepherding success metric calculation</p></li>
+<li><p><cite>get_done_shepherding</cite> : Termination condition evaluation</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Visualization Utilities</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>get_snapshot</cite> : Pygame surface screenshot capture</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
+<p><strong>Configuration Management</strong>:</p>
+<ul class="simple">
+<li><p>YAML-based configuration loading with validation</p></li>
+<li><p>Nested configuration structure support</p></li>
+<li><p>Error handling for missing files and malformed configs</p></li>
+</ul>
+<p><strong>Initialization Flexibility</strong>:</p>
+<ul class="simple">
+<li><p>Multiple initialization modes (random, file-based)</p></li>
+<li><p>Support for box and circular spatial distributions</p></li>
+<li><p>Parameter generation with various statistical distributions</p></li>
+<li><p>File format support (CSV, NPZ) with validation</p></li>
+</ul>
+<p><strong>Performance Optimization</strong>:</p>
+<ul class="simple">
+<li><p>Vectorized distance computations for large populations</p></li>
+<li><p>Efficient memory management for parameter generation</p></li>
+<li><p>Optimized data structures for logging operations</p></li>
+</ul>
+<p><strong>Data Analysis Tools</strong>:</p>
+<ul class="simple">
+<li><p>Shepherding metrics and success criteria</p></li>
+<li><p>Statistical analysis utilities</p></li>
+<li><p>Flexible data export formats</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>All utilities support numpy arrays and standard Python data types</p></li>
+<li><p>Configuration validation prevents common setup errors</p></li>
+<li><p>Reproducible random number generation across multiple frameworks</p></li>
+<li><p>Flexible data serialization supports various analysis workflows</p></li>
+</ul>
+</section>
+</section>
+<section id="package-overview">
+<h2>Package Overview<a class="headerlink" href="#package-overview" title="Link to this heading"></a></h2>
+<p>The Utils package is organized into specialized modules:</p>
+<ul class="simple">
+<li><p><strong>Parameter Management</strong>: Loading and generating agent parameters from files or distributions</p></li>
+<li><p><strong>Data Logging</strong>: Comprehensive data collection and export in multiple formats</p></li>
+<li><p><strong>Control Utilities</strong>: Mathematical functions for control system implementation</p></li>
+<li><p><strong>Initialization</strong>: Helper functions for setting up simulations and populations</p></li>
+<li><p><strong>Visualization</strong>: Plotting utilities for data analysis and visualization</p></li>
+<li><p><strong>Shepherding</strong>: Specialized utilities for shepherding behavior analysis</p></li>
+<li><p><strong>Simulation</strong>: General simulation management and utility functions</p></li>
+</ul>
+</section>
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading"></a></h2>
+<section id="parameter-utilities">
+<h3>Parameter Utilities<a class="headerlink" href="#parameter-utilities" title="Link to this heading"></a></h3>
+<p>The parameter utilities module provides flexible parameter loading and generation capabilities.</p>
+<dl class="py function" id="module-swarmsim.Utils.params_utils">
+<dt class="sig sig-object py" id="swarmsim.Utils.params_utils.get_parameters">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.params_utils.</span></span><span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/params_utils.html#get_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.params_utils.get_parameters" title="Link to this definition"></a></dt>
+<dd><p>Load or generate parameters for population initialization with flexible configuration.</p>
+<p>This function serves as the main entry point for parameter generation in the swarmsim
+framework. It supports both file-based parameter loading and procedural parameter
+generation using statistical distributions, enabling flexible population initialization
+for multi-agent simulations.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Configuration dictionary specifying parameter loading/generation method.
+Must contain ‘mode’ key with value ‘file’ or ‘generate’, plus corresponding
+configuration section.</p></li>
+<li><p><strong>params_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>]</em>) – Dictionary mapping parameter names to their expected shapes per agent.
+Used for validation and reshaping operations.</p></li>
+<li><p><strong>num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents/samples to generate parameters for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul>
+<li><p><em>dict[str, np.ndarray]</em> – Dictionary mapping parameter names to NumPy arrays of shape (num_samples, <a href="#id1"><span class="problematic" id="id2">*</span></a>shape)
+where shape corresponds to the parameter’s expected dimensions.</p></li>
+<li><p><em>Configuration Structure</em></p></li>
+<li><p><em>———————-</em></p></li>
+<li><p><em>File Mode</em> –</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file&quot;</span>
+<span class="nt">file</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/to/parameters.csv&quot;</span><span class="w">  </span><span class="c1"># or .npz</span>
+</pre></div>
 </div>
+</li>
+<li><p><em>Generate Mode</em> –</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;generate&quot;</span>
+<span class="nt">generate</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameter_name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;normal&quot;</span><span class="w">  </span><span class="c1"># Distribution type</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">loc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w">         </span><span class="c1"># Distribution parameters</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">shape</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3</span><span class="p p-Indicator">]</span><span class="w">         </span><span class="c1"># Parameter shape per agent</span>
+<span class="w">    </span><span class="nt">homogeneous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Same value for all agents</span>
+</pre></div>
 </div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="utilities">
-<h1>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">#</a></h1>
-<section id="module-swarmsim.Utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Utils" title="Link to this heading">#</a></h2>
+</li>
+</ul>
+</dd>
+</dl>
+<section id="error-handling">
+<h4>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>FileNotFoundError</strong>: Raised when specified parameter file doesn’t exist</p></li>
+<li><p><strong>KeyError</strong>: Raised when expected parameters are missing from loaded data</p></li>
+<li><p><strong>ValueError</strong>: Raised for invalid parameter shapes or configurations</p></li>
+<li><p><strong>RuntimeError</strong>: Raised for invalid mode specifications</p></li>
+</ul>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Population Initialization</strong>: Set agent properties for simulation start</p></li>
+<li><p><strong>Parameter Studies</strong>: Generate parameter sets for sensitivity analysis</p></li>
+<li><p><strong>Multi-species Systems</strong>: Handle heterogeneous agent populations</p></li>
+<li><p><strong>Reproducible Research</strong>: Load exact parameter sets from files</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">_load_parameters</span></code></dt><dd><p>File-based parameter loading implementation</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">_generate_parameters</span></code></dt><dd><p>Statistical parameter generation implementation</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">_reshape_parameter</span></code></dt><dd><p>Parameter reshaping utilities</p>
+</dd>
+</dl>
+</div>
 </section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-</section>
-<section id="actorcritic">
-<h2>ActorCritic<a class="headerlink" href="#actorcritic" title="Link to this heading">#</a></h2>
-</section>
-<section id="dqn-agent">
-<h2>DQN Agent<a class="headerlink" href="#dqn-agent" title="Link to this heading">#</a></h2>
-</section>
-<section id="actor-critic-base">
-<h2>Actor Critic Base<a class="headerlink" href="#actor-critic-base" title="Link to this heading">#</a></h2>
-</section>
-<section id="actor-critic-continuous">
-<h2>Actor Critic Continuous<a class="headerlink" href="#actor-critic-continuous" title="Link to this heading">#</a></h2>
-</section>
-<section id="actor-critic-mappo">
-<h2>Actor Critic Mappo<a class="headerlink" href="#actor-critic-mappo" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-swarmsim.Utils.control_utils">
-<span id="control-utilities"></span><h2>Control Utilities<a class="headerlink" href="#module-swarmsim.Utils.control_utils" title="Link to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="swarmsim.Utils.control_utils.compute_distances">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.control_utils.</span></span><span class="sig-name descname"><span class="pre">compute_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions_2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/control_utils.html#compute_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.control_utils.compute_distances" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="swarmsim.Utils.control_utils.gaussian_input">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.control_utils.</span></span><span class="sig-name descname"><span class="pre">gaussian_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/control_utils.html#gaussian_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.control_utils.gaussian_input" title="Link to this definition">#</a></dt>
-<dd><p>This method, given the parametes of a Gaussin and some points where to evaluate the function,
-computes a 2D Gaussian distribution. Assumption: the covariance matrix is diagonal
-:param A (float):
-:type A (float): Maximum amplitude of the signal
-:param mu_x(float):
-:type mu_x(float): Average on the first dimension
-:param mu_y(float):
-:type mu_y(float): Average on the second dimension
-:param sigma_x(float):
-:type sigma_x(float): Standard deviation in the first dimension
-:param sigma_y(float):
-:type sigma_y(float): Standard deviation in the second dimension</p>
 </dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>File-based Loading</strong>: Load parameters from CSV or NPZ files</p></li>
+<li><p><strong>Statistical Generation</strong>: Generate parameters using 30+ probability distributions</p></li>
+<li><p><strong>Population Matching</strong>: Automatically adjust parameter count to match population size</p></li>
+<li><p><strong>Shape Broadcasting</strong>: Intelligent parameter reshaping for multi-dimensional properties</p></li>
+<li><p><strong>Validation</strong>: Parameter validation and statistical analysis</p></li>
+</ul>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_parameters</span>
+
+<span class="c1"># Load from file</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;file_path&#39;</span><span class="p">:</span> <span class="s1">&#39;agent_params.csv&#39;</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Or generate with distributions</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;generate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;generate&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;sampler&#39;</span><span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}},</span>
+        <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;sampler&#39;</span><span class="p">:</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span> <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">]}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="p">(),</span> <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)},</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="module-swarmsim.Utils.logger_utils">
-<span id="logger-utilities"></span><h2>Logger Utilities<a class="headerlink" href="#module-swarmsim.Utils.logger_utils" title="Link to this heading">#</a></h2>
+<section id="logger-utilities">
+<h3>Logger Utilities<a class="headerlink" href="#logger-utilities" title="Link to this heading"></a></h3>
+<p>The logger utilities module handles comprehensive data collection and export functionality.</p>
+<p id="module-swarmsim.Utils.logger_utils">Logging utility functions for structured data collection and export.</p>
+<p>This module provides a comprehensive suite of utilities for logging simulation data
+in multiple formats, supporting real-time monitoring, data persistence, and
+post-simulation analysis. The utilities support flexible data collection with
+configurable output formats.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.add_entry">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">add_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#add_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.add_entry" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">add_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#add_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.add_entry" title="Link to this definition"></a></dt>
+<dd><p>Add single-value entries to the logging data structure.</p>
+<p>This function adds individual data entries to a structured logging dictionary,
+associating each entry with specific save modes that determine how the data
+will be output (print, file, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – The logging data structure to modify.</p></li>
+<li><p><strong>save_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of output modes for the entries. Options: [‘print’, ‘txt’, ‘csv’, ‘npz’, ‘mat’].</p></li>
+<li><p><strong>**kwargs</strong> (<em>key-value pairs</em>) – Data entries to add, where keys become field names and values are the data.</p></li>
+<li><p><strong>Structure</strong> (<em>Data</em>)</p></li>
+<li><p><strong>--------------</strong></p></li>
+<li><p><strong>format</strong> (<em>Each entry in current_info follows the</em>)</p></li>
+<li><p><strong>code-block:</strong> (<em>..</em>) – <p>python:
+{</p>
+<blockquote>
+<div><dl class="simple">
+<dt>’field_name’: {</dt><dd><p>‘value’: data_value,
+‘save_mode’: [‘print’, ‘npz’, …]</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Overwrites existing entries with the same key</p></li>
+<li><p>For time series data, use <cite>append_entry</cite> instead</p></li>
+<li><p>Save modes determine which output functions will process the data</p></li>
+<li><p>Values can be scalars, arrays, or complex data structures</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.append_entry">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_entry" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_entry" title="Link to this definition"></a></dt>
+<dd><p>Append time-series data to existing logging entries.</p>
+<p>This function appends new data to existing entries in the logging structure,
+automatically handling the creation of new entries or stacking data for
+existing ones. It’s ideal for collecting time series data during simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – The logging data structure to modify.</p></li>
+<li><p><strong>save_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of output modes for the entries. Options: [‘print’, ‘txt’, ‘csv’, ‘npz’, ‘mat’].</p></li>
+<li><p><strong>**kwargs</strong> (<em>key-value pairs</em>) – Data to append, where keys are field names and values are the new data.</p></li>
+<li><p><strong>Handling</strong> (<em>Data</em>)</p></li>
+<li><p><strong>-------------</strong></p></li>
+<li><p><strong>Entries</strong> (<em>- Existing</em>)</p></li>
+<li><p><strong>Entries</strong></p></li>
+<li><p><strong>Consistency</strong> (<em>- Shape</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Trajectory Logging</strong>: Recording agent paths over time</p></li>
+<li><p><strong>Performance Monitoring</strong>: Collecting metrics throughout simulation</p></li>
+<li><p><strong>Real-time Analysis</strong>: Building datasets for online analysis</p></li>
+</ul>
+<p class="rubric">Performance Notes</p>
+<ul class="simple">
+<li><p>Uses <cite>np.vstack</cite> for efficient array concatenation</p></li>
+<li><p>Memory usage grows linearly with simulation length</p></li>
+<li><p>Consider periodic saving for very long simulations</p></li>
+<li><p>Shape consistency is automatically maintained</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Automatically handles first entry creation vs. subsequent appends</p></li>
+<li><p>Maintains data type consistency within each field</p></li>
+<li><p>Compatible with all numpy array types and scalars</p></li>
+<li><p>Ideal for building time series datasets</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.get_positions">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">get_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#get_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.get_positions" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">get_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#get_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.get_positions" title="Link to this definition"></a></dt>
+<dd><p>Extract and log population positions with systematic naming.</p>
+<p>This function extracts position data from multiple populations and appends
+them to the logging structure with automatically generated field names
+that include population ID and spatial dimension information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – The logging data structure to modify.</p></li>
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – List of population objects with ‘x’ position arrays and ‘id’ attributes.</p></li>
+<li><p><strong>save_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Output modes for the position data.</p></li>
+<li><p><strong>Convention</strong> (<em>Naming</em>)</p></li>
+<li><p><strong>-----------------</strong></p></li>
+<li><p><strong>pattern</strong> (<em>Field names follow the</em>)</p></li>
+<li><p><strong>Examples</strong> (<em>'sheep_state0'</em><em>, </em><em>'sheep_state1'</em><em>, </em><em>'herders_state0'</em><em>, </em><em>'herders_state1'</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Trajectory Analysis</strong>: Building complete movement histories</p></li>
+<li><p><strong>Visualization</strong>: Creating animated trajectory plots</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Requires populations to have ‘x’ attribute (position array)</p></li>
+<li><p>Requires populations to have ‘id’ attribute (string identifier)</p></li>
+<li><p>Position data shape: (num_agents, state_dim)</p></li>
+<li><p>Creates separate field for each spatial dimension</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.print_log">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">print_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#print_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.print_log" title="Link to this definition">#</a></dt>
-<dd><p>Function to print information</p>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">print_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#print_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.print_log" title="Link to this definition"></a></dt>
+<dd><p>Display logging information to console with filtered output.</p>
+<p>This function prints selected logging entries to the console, filtering
+by save mode to show only data marked for console output. It provides
+real-time monitoring capabilities during simulation execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logging data structure containing entries with save modes.</p></li>
+<li><p><strong>Format</strong> (<em>Output</em>)</p></li>
+<li><p><strong>-------------</strong></p></li>
+<li><p><strong>format</strong> (<em>Entries are printed in the</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Real-time Monitoring</strong>: Live simulation progress tracking</p></li>
+<li><p><strong>Debug Output</strong>: Immediate feedback during development</p></li>
+<li><p><strong>Event Notification</strong>: Alerts for significant simulation events</p></li>
+<li><p><strong>Performance Tracking</strong>: Regular metric updates during training</p></li>
+<li><p><strong>Status Updates</strong>: Periodic progress reports</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Automatically adds newline after all entries</p></li>
+<li><p>Handles all data types that can be converted to string</p></li>
+<li><p>Non-blocking operation suitable for real-time monitoring</p></li>
+<li><p>Filters entries based on save_mode to avoid console spam</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.append_txt">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_txt" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.append_csv">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_csv" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.save_npz">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">save_npz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#save_npz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.save_npz" title="Link to this definition">#</a></dt>
-<dd><p>A function to save multiple tensors in a single .npz file to store relevant data.</p>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_txt" title="Link to this definition"></a></dt>
+<dd><p>Append logging entries to a text file with structured formatting.</p>
+<p>This function writes selected logging entries to a text file, filtering
+by save mode and providing human-readable output suitable for logs,
+reports, and debugging traces.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>log_name</strong> (<em>string</em><em> of </em><em>the .npz output name</em>)</p></li>
-<li><p><strong>data</strong> (<em>dict</em><em> of </em><em>{name_tensor: value} where name_tensor is a string and value is np.array</em>)</p></li>
+<li><p><strong>log_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the output text file.</p></li>
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logging data structure containing entries with save modes.</p></li>
+<li><p><strong>Format</strong> (<em>File</em>)</p></li>
+<li><p><strong>-----------</strong></p></li>
+<li><p><strong>as</strong> (<em>Each call creates a new section in the file with entries formatted</em>)</p></li>
+<li><p><strong>`key</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>None</em></p>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Debugging Logs</strong>: Detailed execution traces for troubleshooting</p></li>
+<li><p><strong>Experiment Records</strong>: Human-readable experiment documentation</p></li>
+<li><p><strong>Event Logs</strong>: Chronological record of simulation events</p></li>
+<li><p><strong>Status Reports</strong>: Periodic progress summaries</p></li>
+<li><p><strong>Configuration Logs</strong>: Parameter and setting documentation</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Only processes entries with ‘txt’ in their save_mode</p></li>
+<li><p>Creates parent directories if they don’t exist</p></li>
+<li><p>Adds blank line separator between logging calls</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.append_csv">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">append_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#append_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.append_csv" title="Link to this definition"></a></dt>
+<dd><p>Append logging entries to a CSV file with automatic header management.</p>
+<p>This function writes selected logging entries to a CSV file, filtering by
+save mode and handling automatic header creation for new files. It provides
+structured tabular output suitable for data analysis and spreadsheet import.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the output CSV file.</p></li>
+<li><p><strong>current_info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logging data structure containing entries with save modes.</p></li>
+<li><p><strong>Format</strong> (<em>CSV</em>)</p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Headers</strong> (<em>-</em>)</p></li>
+<li><p><strong>Types</strong> (<em>- Data</em>)</p></li>
+<li><p><strong>Structure</strong> (<em>-</em>)</p></li>
+</ul>
 </dd>
 </dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Performance Monitoring</strong>: Real-time metric collection</p></li>
+<li><p><strong>Statistical Analysis</strong>: Data suitable for statistical software</p></li>
+<li><p><strong>Report Generation</strong>: Tabular data for presentations and papers</p></li>
+</ul>
 <p class="rubric">Notes</p>
-<p>Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.</p>
+<ul class="simple">
+<li><p>Only processes entries with ‘csv’ in their save_mode</p></li>
+<li><p>Automatically handles header creation and management</p></li>
+<li><p>Creates parent directories if needed</p></li>
+<li><p>Compatible with pandas for post-processing analysis</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.save_npz">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">save_npz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#save_npz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.save_npz" title="Link to this definition"></a></dt>
+<dd><p>Save logging data to compressed NumPy archive (.npz) format.</p>
+<p>This function exports selected logging entries to a compressed NumPy archive,
+providing efficient binary storage for large datasets with fast loading
+capabilities. It’s ideal for numerical data that will be processed with
+NumPy-based analysis tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Output filename with .npz extension.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logging data structure containing entries with save modes.</p></li>
+</ul>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<p>settling_times = np.array([1,2,3,4,5])
-control_efforts = np.array([6,7,8,9,10])
-data = {‘settling_time’:settling_times, ‘control_efforts’:control_efforts}
-logger.save_data(‘my_data.npz’, data)</p>
-<p>data_loaded = np.load(‘pathmy_data.npz’)
-<a href="#id1"><span class="problematic" id="id2">settling_times_</span></a> = data_loaded[‘settling_times’]
-<a href="#id3"><span class="problematic" id="id4">control_efforts_</span></a>  = data_loaded[‘control_efforts’]</p>
+<p>Basic NPZ logging:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_entry</span><span class="p">,</span> <span class="n">save_npz</span>
+
+<span class="n">log_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Log time series data</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">append_entry</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;npz&#39;</span><span class="p">],</span>
+                <span class="n">positions</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">velocities</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">v</span><span class="p">,</span>
+                <span class="n">timestep</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+
+<span class="c1"># Save to NPZ file</span>
+<span class="n">save_npz</span><span class="p">(</span><span class="s2">&quot;simulation_data.npz&quot;</span><span class="p">,</span> <span class="n">log_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Large Datasets</strong>: Efficient storage of simulation trajectories</p></li>
+<li><p><strong>Scientific Analysis</strong>: Compatible with NumPy/SciPy ecosystem</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Only saves entries with ‘npz’ in their save_mode</p></li>
+<li><p>Automatically compresses data for smaller file sizes</p></li>
+<li><p>Preserves exact numerical precision</p></li>
+<li><p>Files can be opened with np.load() for analysis</p></li>
+<li><p>Remember to close loaded files to free memory</p></li>
+<li><p>Ideal for numerical simulation data storage and analysis</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.logger_utils.save_mat">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">save_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#save_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.save_mat" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.logger_utils.</span></span><span class="sig-name descname"><span class="pre">save_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/logger_utils.html#save_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.logger_utils.save_mat" title="Link to this definition"></a></dt>
+<dd><p>Save logging data to MATLAB .mat format for cross-platform analysis.</p>
+<p>This function exports selected logging entries to MATLAB-compatible format,
+enabling seamless integration with MATLAB analysis workflows and providing
+interoperability between Python simulations and MATLAB post-processing tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Output filename with .mat extension.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Logging data structure containing entries with save modes.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Basic MAT file logging:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_entry</span><span class="p">,</span> <span class="n">save_mat</span>
 
+<span class="n">log_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Log simulation parameters</span>
+<span class="n">add_entry</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mat&#39;</span><span class="p">],</span>
+          <span class="n">n_agents</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+          <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+          <span class="n">max_speed</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+
+<span class="c1"># Log time series data</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">append_entry</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mat&#39;</span><span class="p">],</span>
+                <span class="n">positions</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">velocities</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">v</span><span class="p">,</span>
+                <span class="n">energies</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+
+<span class="c1"># Save for MATLAB analysis</span>
+<span class="n">save_mat</span><span class="p">(</span><span class="s2">&quot;simulation_results.mat&quot;</span><span class="p">,</span> <span class="n">log_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>MATLAB Integration</strong>: Seamless data exchange with MATLAB analysis tools</p></li>
+<li><p><strong>Signal Processing</strong>: Compatible with MATLAB Signal Processing Toolbox</p></li>
+<li><p><strong>Visualization</strong>: Use MATLAB’s advanced plotting capabilities</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Only saves entries with ‘mat’ in their save_mode</p></li>
+<li><p>Requires scipy.io.savemat for the actual file writing</p></li>
+<li><p>Variable names must be valid MATLAB identifiers</p></li>
+<li><p>Large arrays are stored efficiently in MAT format</p></li>
+<li><p>Ideal for teams using both Python and MATLAB workflows</p></li>
+</ul>
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Multi-format Export</strong>: Support for CSV, NPZ, MAT, and text formats</p></li>
+<li><p><strong>Time Series Logging</strong>: Efficient time series data collection</p></li>
+<li><p><strong>Real-time Monitoring</strong>: Live data streaming and console output</p></li>
+<li><p><strong>Memory Management</strong>: Optimized for large-scale simulations</p></li>
+<li><p><strong>Flexible Save Modes</strong>: Configure output formats per logging entry</p></li>
+</ul>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">append_entry</span><span class="p">,</span> <span class="n">save_npz</span>
+
+<span class="n">log_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Log single values</span>
+<span class="n">add_entry</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;npz&#39;</span><span class="p">],</span>
+          <span class="n">simulation_time</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">total_agents</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Log time series</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">append_entry</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;npz&#39;</span><span class="p">],</span>
+                <span class="n">positions</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">velocities</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+
+<span class="c1"># Export data</span>
+<span class="n">save_npz</span><span class="p">(</span><span class="s2">&quot;simulation_results.npz&quot;</span><span class="p">,</span> <span class="n">log_data</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="module-swarmsim.Utils.plot_utils">
-<span id="plot-utilities"></span><h2>Plot Utilities<a class="headerlink" href="#module-swarmsim.Utils.plot_utils" title="Link to this heading">#</a></h2>
+<section id="control-utilities">
+<h3>Control Utilities<a class="headerlink" href="#control-utilities" title="Link to this heading"></a></h3>
+<p>Mathematical functions and utilities for implementing control algorithms.</p>
+<p id="module-swarmsim.Utils.control_utils">Control and interaction utility functions for multi-agent systems.</p>
+<p>This module provides efficient computational utilities for control systems and
+agent interactions, including distance calculations and spatial field generation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.control_utils.compute_distances">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.control_utils.</span></span><span class="sig-name descname"><span class="pre">compute_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions_2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/control_utils.html#compute_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.control_utils.compute_distances" title="Link to this definition"></a></dt>
+<dd><p>Compute pairwise Euclidean distances between two sets of agent positions.</p>
+<p>This function efficiently calculates all pairwise distances between agents
+in two different populations using vectorized operations. It’s optimized
+for large-scale multi-agent systems where distance-based interactions are common.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions_1</strong> (<em>np.ndarray</em>) – Positions of first agent population. Shape: (N, spatial_dim) or (spatial_dim,) for single agent.</p></li>
+<li><p><strong>positions_2</strong> (<em>np.ndarray</em>) – Positions of second agent population. Shape: (M, spatial_dim) or (spatial_dim,) for single agent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>distances</strong> (<em>np.ndarray</em>) – Pairwise Euclidean distances. Shape: (N, M).</p></li>
+<li><p><strong>relative_positions</strong> (<em>np.ndarray</em>) – Relative position vectors from positions_2 to positions_1. Shape: (N, M, spatial_dim).</p></li>
+<li><p><em>Algorithm Details</em></p></li>
+<li><p><em>—————–</em></p></li>
+<li><p><em>The function uses numpy broadcasting to efficiently compute all pairwise distances</em></p></li>
+<li><p><strong>1. **Shape Expansion**</strong> (<em>Input arrays are expanded to enable broadcasting</em>)</p></li>
+<li><p><strong>2. **Relative Positions**</strong> (<em>Computed as positions_1 - positions_2</em>)</p></li>
+<li><p><strong>3. **Distance Calculation**</strong> (<em>Euclidean norm along spatial dimension</em>)</p></li>
+<li><p><em>Mathematical formulation</em></p></li>
+<li><p><em>.. math::</em> – d_{ij} = |mathbf{p}_i^{(1)} - mathbf{p}_j^{(2)}|_2</p></li>
+<li><p>Where <span class="math notranslate nohighlight">\(\mathbf{p}_i^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{p}_j^{(2)}\)</span> are position vectors.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Interaction Forces</strong>: Repulsion, attraction, alignment calculations</p></li>
+<li><p><strong>Neighbor Detection</strong>: Finding agents within sensing or communication range</p></li>
+<li><p><strong>Collision Avoidance</strong>: Distance-based safety constraints</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Input arrays are automatically expanded to support broadcasting</p></li>
+<li><p>Handles both single agents and populations seamlessly</p></li>
+<li><p>Relative positions point from positions_2 to positions_1</p></li>
+<li><p>Optimized for repeated calls in simulation loops</p></li>
+<li><p>Compatible with 2D, 3D, or higher-dimensional spaces</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.control_utils.gaussian_input">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.control_utils.</span></span><span class="sig-name descname"><span class="pre">gaussian_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/control_utils.html#gaussian_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.control_utils.gaussian_input" title="Link to this definition"></a></dt>
+<dd><p>Evaluate a 2D Gaussian distribution at specified points with diagonal covariance.</p>
+<p>This function computes the value of a 2D Gaussian distribution at given coordinates,
+assuming a diagonal covariance matrix. It’s commonly used for generating spatial
+fields, attraction/repulsion landscapes, and bio-inspired navigation signals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><em>np.ndarray</em>) – X-coordinates where to evaluate the Gaussian.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><em>np.ndarray</em>) – Y-coordinates where to evaluate the Gaussian.</p></li>
+<li><p><strong>A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum amplitude (peak value) of the Gaussian. Default is 5.0.</p></li>
+<li><p><strong>mu_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Mean (center) of the Gaussian in the x-direction. Default is 0.0.</p></li>
+<li><p><strong>mu_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Mean (center) of the Gaussian in the y-direction. Default is 0.0.</p></li>
+<li><p><strong>sigma_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Standard deviation in the x-direction. Default is 1.0.</p></li>
+<li><p><strong>sigma_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Standard deviation in the y-direction. Default is 1.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>np.ndarray or float</em> – Gaussian function values at the specified coordinates. Same shape as input arrays.</p></li>
+<li><p><em>Mathematical Formulation</em></p></li>
+<li><p><em>————————</em></p></li>
+<li><p><em>The 2D Gaussian with diagonal covariance is defined as</em></p></li>
+<li><p><em>.. math::</em> – f(x, y) = A expleft(-frac{(x - mu_x)^2}{2sigma_x^2} - frac{(y - mu_y)^2}{2sigma_y^2}right)</p></li>
+<li><p><em>Where</em></p></li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is the amplitude (maximum value)</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\((\mu_x, \mu_y)\)</span> is the center point</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\((\sigma_x, \sigma_y)\)</span> are the standard deviations</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Spatial Control Fields</strong>: Creating attraction/repulsion landscapes</p></li>
+<li><p><strong>Potential Field Methods</strong>: Path planning and obstacle avoidance</p></li>
+</ul>
+<p class="rubric">Performance Notes</p>
+<ul class="simple">
+<li><p>Vectorized operations support efficient grid evaluations</p></li>
+<li><p>Computational complexity: O(N) where N is number of evaluation points</p></li>
+<li><p>Memory efficient for large spatial grids</p></li>
+<li><p>Compatible with numpy broadcasting</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Assumes diagonal covariance matrix (no correlation between x and y)</p></li>
+<li><p>Peak value occurs at (mu_x, mu_y) with value A</p></li>
+</ul>
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Geometric Calculations</strong>: Distance, angle, and spatial relationship functions</p></li>
+<li><p><strong>Control Algorithms</strong>: PID controllers, feedback systems, and stability analysis</p></li>
+<li><p><strong>Coordinate Transformations</strong>: Conversion between coordinate systems</p></li>
+<li><p><strong>Signal Processing</strong>: Filtering and noise reduction utilities</p></li>
+</ul>
+</section>
+<section id="initialization-utilities">
+<h3>Initialization Utilities<a class="headerlink" href="#initialization-utilities" title="Link to this heading"></a></h3>
+<p>Helper functions for setting up simulations, populations, and environments.</p>
+<p id="module-swarmsim.Utils.init_utils">Agent initialization utilities for multi-agent simulations.</p>
+<p>This module provides flexible and robust utilities for initializing agent states
+in multi-agent simulations. It supports both random initialization with various
+spatial distributions and deterministic initialization from data files.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.init_utils.get_states">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.init_utils.</span></span><span class="sig-name descname"><span class="pre">get_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/init_utils.html#get_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.init_utils.get_states" title="Link to this definition"></a></dt>
+<dd><p>Generate or load initial states for agents in multi-agent simulations.</p>
+<p>This function provides flexible initialization of agent states, supporting both
+random generation with configurable spatial distributions and deterministic
+loading from data files. It’s designed to handle various initialization
+scenarios for different types of multi-agent systems.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Configuration dictionary specifying initialization mode and parameters.</p></li>
+<li><p><strong>num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents to initialize.</p></li>
+<li><p><strong>dim_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Dimensions of the state vector for each agent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul>
+<li><p><em>np.ndarray</em> – Initial states array with shape (num_samples, dim_samples).</p></li>
+<li><p><em>Configuration Structure</em></p></li>
+<li><p><em>———————–</em></p></li>
+<li><p><em>The init_config dictionary supports two main modes</em></p></li>
+<li><p><em>**Random Mode**</em></p></li>
+<li><p><em>.. code-block:: yaml</em> – mode: “random”
+random:</p>
+<blockquote>
+<div><p>shape: “box”  # or “circle”
+box:</p>
+<blockquote>
+<div><p>lower_bounds: [-10, -10, 0, 0]
+upper_bounds: [10, 10, 0, 0]</p>
+</div></blockquote>
+<p># OR
+circle:</p>
+<blockquote>
+<div><p>min_radius: 0
+max_radius: 5
+lower_bounds_other_states: [0, 0]
+upper_bounds_other_states: [0, 0]</p>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p><em>**File Mode**</em></p></li>
+<li><p><em>.. code-block:: yaml</em> – mode: “file”
+file:</p>
+<blockquote>
+<div><p>file_path: “initial_conditions.csv”  # or .npz</p>
+</div></blockquote>
+</li>
+<li><p><em>Initialization Modes</em></p></li>
+<li><p><em>——————–</em></p></li>
+<li><p><strong>**Box Distribution**</strong> (<em>Uniform random initialization within hyperrectangular bounds</em>)</p></li>
+<li><p><strong>**Circle Distribution**</strong> (<em>Uniform distribution within circular region (first 2D), uniform for other dimensions</em>)</p></li>
+<li><p><strong>**File Loading**</strong> (<em>Direct loading from CSV or NPZ files with validation</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Box initialization for 2D agents with velocities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_states</span>
+
+<span class="n">box_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;random&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;box&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;lower_bounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>  <span class="c1"># [x_min, y_min, vx_min, vy_min]</span>
+            <span class="s1">&#39;upper_bounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>       <span class="c1"># [x_max, y_max, vx_max, vy_max]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">states</span> <span class="o">=</span> <span class="n">get_states</span><span class="p">(</span><span class="n">box_config</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">dim_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialized </span><span class="si">{</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> agents with </span><span class="si">{</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">D states&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Circular initialization for spatial clustering:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circle_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;random&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;random&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;circle&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;min_radius&#39;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="s1">&#39;max_radius&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="s1">&#39;lower_bounds_other_states&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># For velocity components</span>
+            <span class="s1">&#39;upper_bounds_other_states&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">states</span> <span class="o">=</span> <span class="n">get_states</span><span class="p">(</span><span class="n">circle_config</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dim_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>File-based initialization from CSV:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;file_path&#39;</span><span class="p">:</span> <span class="s1">&#39;predefined_formation.csv&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">states</span> <span class="o">=</span> <span class="n">get_states</span><span class="p">(</span><span class="n">file_config</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">dim_samples</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="id9">
+<h4>Error Handling<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<p>The function provides comprehensive error checking:</p>
+<ul class="simple">
+<li><p><strong>File Validation</strong>: Checks file existence and format compatibility</p></li>
+<li><p><strong>Dimension Validation</strong>: Ensures state dimensions match expectations</p></li>
+<li><p><strong>Agent Count Validation</strong>: Verifies number of agents in file data</p></li>
+<li><p><strong>Configuration Validation</strong>: Validates all required parameters</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Box initialization supports arbitrary dimensionality</p></li>
+<li><p>Circle initialization applies to first 2 dimensions only</p></li>
+<li><p>File formats must match expected agent count and state dimensions</p></li>
+<li><p>Random number generation uses numpy’s global random state</p></li>
+<li><p>All bounds are inclusive for uniform distributions</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Population Setup</strong>: Initialize agent populations with diverse properties</p></li>
+<li><p><strong>Environment Configuration</strong>: Set up simulation environments and boundaries</p></li>
+<li><p><strong>Parameter Loading</strong>: Load configuration files and simulation parameters</p></li>
+<li><p><strong>Validation</strong>: Check configuration consistency and parameter validity</p></li>
+</ul>
+</section>
+</section>
+<section id="supporting-modules">
+<h2>Supporting Modules<a class="headerlink" href="#supporting-modules" title="Link to this heading"></a></h2>
+<section id="plot-utilities">
+<h3>Plot Utilities<a class="headerlink" href="#plot-utilities" title="Link to this heading"></a></h3>
+<p>Visualization and plotting utilities for data analysis and presentation.</p>
+<p id="module-swarmsim.Utils.plot_utils">Visualization utility functions for multi-agent simulation analysis.</p>
+<p>This module provides utilities for capturing and saving visual output from
+simulation renderers, supporting post-simulation analysis and documentation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.plot_utils.get_snapshot">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.plot_utils.</span></span><span class="sig-name descname"><span class="pre">get_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/plot_utils.html#get_snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.plot_utils.get_snapshot" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.plot_utils.</span></span><span class="sig-name descname"><span class="pre">get_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/plot_utils.html#get_snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.plot_utils.get_snapshot" title="Link to this definition"></a></dt>
+<dd><p>Save a pygame surface as an image file for documentation or analysis.</p>
+<p>This utility function captures a pygame surface (typically from a renderer)
+and saves it as an image file. It’s useful for creating documentation,
+generating datasets, or performing post-simulation visual analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>snapshot</strong> (<em>pygame.Surface</em>) – Pygame surface containing the image to save.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Output filename with extension. If empty, uses default naming.</p></li>
+<li><p><strong>Formats</strong> (<em>Supported</em>)</p></li>
+<li><p><strong>-----------------</strong></p></li>
+<li><p><strong>extension</strong> (<em>The function supports various image formats based on file</em>)</p></li>
+<li><p><strong>.png</strong> (<em>-</em>)</p></li>
+<li><p><strong>.jpg/.jpeg</strong> (<em>-</em>)</p></li>
+<li><p><strong>.bmp</strong> (<em>-</em>)</p></li>
+<li><p><strong>.tga</strong> (<em>-</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Creating figures for papers and reports</p></li>
+<li><p><strong>Dataset Generation</strong>: Building visual datasets for machine learning</p></li>
+<li><p><strong>Progress Tracking</strong>: Capturing simulation progress over time</p></li>
+<li><p><strong>Comparative Analysis</strong>: Visualizing results from different algorithms</p></li>
+<li><p><strong>Debugging</strong>: Saving problematic states for later analysis</p></li>
+<li><p><strong>Video Creation</strong>: Individual frames for animation generation</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Requires pygame to be initialized before use</p></li>
+<li><p>File extension determines output format</p></li>
+<li><p>Creates parent directories if they don’t exist (depending on pygame version)</p></li>
+<li><p>Compatible with all pygame surface objects</p></li>
+<li><p>Thread-safe for single-threaded pygame applications</p></li>
+</ul>
+</dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Trajectory Visualization</strong>: Plot agent paths and movement patterns</p></li>
+<li><p><strong>Statistical Plots</strong>: Distribution analysis and statistical summaries</p></li>
+<li><p><strong>Animation Support</strong>: Create animated visualizations of simulation data</p></li>
+<li><p><strong>Export Options</strong>: Save plots in various formats (PNG, PDF, SVG)</p></li>
+</ul>
 </section>
-<section id="module-swarmsim.Utils.shepherding_utils">
-<span id="shepherding-utilities"></span><h2>Shepherding Utilities<a class="headerlink" href="#module-swarmsim.Utils.shepherding_utils" title="Link to this heading">#</a></h2>
+<section id="shepherding-utilities">
+<h3>Shepherding Utilities<a class="headerlink" href="#shepherding-utilities" title="Link to this heading"></a></h3>
+<p>Specialized utilities for analyzing shepherding behaviors and multi-agent coordination.</p>
+<p id="module-swarmsim.Utils.shepherding_utils">Specialized utility functions for shepherding task analysis and evaluation.</p>
+<p>This module provides analysis tools specifically designed for shepherding simulations,
+including success metrics, termination conditions, and performance evaluation utilities.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.shepherding_utils.get_target_distance">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">get_target_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#get_target_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.get_target_distance" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">get_target_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#get_target_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.get_target_distance" title="Link to this definition"></a></dt>
+<dd><p>Compute distances from target agents to the goal region center.</p>
+<p>This function calculates the Euclidean distance from each target agent
+to the center of the goal region, providing essential information for
+shepherding analysis and termination conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Target population (typically sheep) with position attribute ‘x’.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment instance containing goal position (‘goal_pos’) and dimensions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>np.ndarray</em> – Array of distances from each target to goal center. Shape: (n_targets,).</p></li>
+<li><p><em>Mathematical Details</em></p></li>
+<li><p><em>——————–</em></p></li>
+<li><p><em>Distance calculation</em></p></li>
+<li><p><em>.. math::</em> – d_i = |mathbf{p}_i - mathbf{g}|_2</p></li>
+<li><p>Where <span class="math notranslate nohighlight">\(\mathbf{p}_i\)</span> is the position of target i and <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> is the goal center.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Uses only spatial dimensions from target positions</p></li>
+<li><p>Compatible with arbitrary environment dimensions</p></li>
+<li><p>Optimized for repeated calls during simulation</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.shepherding_utils.xi_shepherding">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">xi_shepherding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#xi_shepherding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.xi_shepherding" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">xi_shepherding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#xi_shepherding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.xi_shepherding" title="Link to this definition"></a></dt>
+<dd><p>Compute the shepherding success metric (fraction of targets in goal region).</p>
+<p>This function calculates the key performance metric for shepherding tasks:
+the fraction of target agents that are currently within the goal region.
+This metric is commonly denoted as ξ (xi) in shepherding literature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Target population with position attribute ‘x’.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment with ‘goal_pos’ and ‘goal_radius’ attributes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>float</em> – Fraction of targets within goal region, range [0, 1].</p></li>
+<li><p><em>Mathematical Definition</em></p></li>
+<li><p><em>———————–</em></p></li>
+<li><p><em>The shepherding metric is defined as</em></p></li>
+<li><p><em>.. math::</em> – xi = frac{1}{N} sum_{i=1}^{N} mathbf{1}[d_i &lt; r_{goal}]</p></li>
+<li><p><em>Where</em></p></li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> is the total number of targets</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\(d_i\)</span> is the distance from target i to goal center</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\(r_{goal}\)</span> is the goal region radius</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{1}[\cdot]\)</span> is the indicator function</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Performance Evaluation</strong>: Primary metric for shepherding success</p></li>
+<li><p><strong>Termination Conditions</strong>: End episodes when ξ reaches threshold</p></li>
+<li><p><strong>Real-time Monitoring</strong>: Track progress during simulation</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Returns value in range [0, 1] where 1 indicates perfect shepherding</p></li>
+<li><p>Commonly used threshold values: 0.8-0.95 for task completion</p></li>
+<li><p>Efficient computation suitable for real-time evaluation</p></li>
+<li><p>Compatible with arbitrary goal region shapes (uses distance to center)</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="swarmsim.Utils.shepherding_utils.get_done_shepherding">
-<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">get_done_shepherding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#get_done_shepherding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.get_done_shepherding" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.shepherding_utils.</span></span><span class="sig-name descname"><span class="pre">get_done_shepherding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/shepherding_utils.html#get_done_shepherding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.shepherding_utils.get_done_shepherding" title="Link to this definition"></a></dt>
+<dd><p>Determine if shepherding task has reached completion criteria.</p>
+<p>This function evaluates whether a shepherding task should be considered complete
+based on the fraction of targets within the goal region. It provides flexible
+termination logic for both simulation and reinforcement learning applications.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Target population(s) to evaluate. If list, uses first element.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Environment containing goal region specifications.</p></li>
+<li><p><strong>xi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Pre-computed shepherding success metric. If None, computes from populations.</p></li>
+<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Success threshold for task completion. Default is 1.0 (100% success).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>bool</em> – True if shepherding task is complete, False otherwise.</p></li>
+<li><p><em>Threshold Guidelines</em></p></li>
+<li><p><em>——————–</em></p></li>
+<li><p><em>Common threshold values and their applications</em></p></li>
+<li><p><strong>- **threshold = 1.0**</strong> (<em>Perfect shepherding (all targets in goal)</em>)</p></li>
+<li><p><strong>- **threshold = 0.95**</strong> (<em>Near-perfect (95% success, practical for noisy environments)</em>)</p></li>
+<li><p><strong>- **threshold = 0.9**</strong> (<em>High success (90% success, commonly used benchmark)</em>)</p></li>
+<li><p><strong>- **threshold = 0.8**</strong> (<em>Moderate success (80% success, for challenging scenarios)</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Episode Termination</strong>: End RL episodes when task is complete</p></li>
+<li><p><strong>Simulation Control</strong>: Stop simulations at successful completion</p></li>
+<li><p><strong>Performance Benchmarking</strong>: Define success criteria for algorithm comparison</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Returns immediately if xi is provided, avoiding recomputation</p></li>
+<li><p>Threshold of 1.0 requires perfect shepherding (may be too strict for noisy systems)</p></li>
+<li><p>Compatible with both single populations and population lists</p></li>
+<li><p>Commonly used in conjunction with xi_shepherding function</p></li>
+</ul>
+</dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Herding Metrics</strong>: Calculate shepherding effectiveness and performance</p></li>
+<li><p><strong>Group Analysis</strong>: Analyze group cohesion and formation patterns</p></li>
+<li><p><strong>Control Strategies</strong>: Implement shepherding control algorithms</p></li>
+<li><p><strong>Behavioral Assessment</strong>: Evaluate shepherding behavior quality</p></li>
+</ul>
+</section>
+<section id="simulation-utilities">
+<h3>Simulation Utilities<a class="headerlink" href="#simulation-utilities" title="Link to this heading"></a></h3>
+<p>General simulation management and utility functions.</p>
+<p id="module-swarmsim.Utils.sim_utils">Core simulation utilities for configuration management and reproducibility.</p>
+<p>This module provides fundamental utilities for simulation setup, including
+configuration file loading, random seed management, and reproducible
+simulation execution across different frameworks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.sim_utils.set_global_seed">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.sim_utils.</span></span><span class="sig-name descname"><span class="pre">set_global_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/sim_utils.html#set_global_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.sim_utils.set_global_seed" title="Link to this definition"></a></dt>
+<dd><p>Set reproducible random seeds across all major frameworks and libraries.</p>
+<p>This function ensures reproducible results by setting seeds for Python’s
+built-in random module, NumPy, and PyTorch (both CPU and GPU). This is
+essential for scientific reproducibility and debugging simulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Random seed value to use across all frameworks.</p>
+</dd>
+</dl>
+<p class="rubric">Applications</p>
+<ul class="simple">
+<li><p><strong>Scientific Reproducibility</strong>: Ensure consistent results across runs</p></li>
+<li><p><strong>Debugging</strong>: Reproduce exact problematic scenarios</p></li>
+<li><p><strong>Benchmarking</strong>: Fair comparison between algorithms</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Should be called before any random operations</p></li>
+<li><p>PyTorch CUDA seeding affects all available GPU devices</p></li>
+<li><p>Does not affect system-level randomness (e.g., thread scheduling)</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="swarmsim.Utils.sim_utils.load_config">
+<span class="sig-prename descclassname"><span class="pre">swarmsim.Utils.sim_utils.</span></span><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Utils/sim_utils.html#load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Utils.sim_utils.load_config" title="Link to this definition"></a></dt>
+<dd><p>Load and validate YAML configuration files for simulation setup.</p>
+<p>This function provides robust loading of YAML configuration files with
+proper error handling and validation. It’s the standard method for loading
+simulation parameters, component configurations, and experimental settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file to load.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>dict</em> – Parsed configuration dictionary with nested structure preserved.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the specified configuration file does not exist.</p></li>
+<li><p><strong>yaml.YAMLError</strong> – If the file contains invalid YAML syntax.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Uses PyYAML’s safe_load for security</p></li>
+<li><p>Preserves nested dictionary structure</p></li>
+<li><p>Supports all standard YAML data types</p></li>
+<li><p>Path can be absolute or relative to working directory</p></li>
+<li><p>Configuration files should use .yaml or .yml extension</p></li>
+</ul>
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Simulation Management</strong>: Start, stop, and monitor simulation execution</p></li>
+<li><p><strong>Performance Monitoring</strong>: Track simulation performance and resource usage</p></li>
+<li><p><strong>Configuration Handling</strong>: Load and validate simulation configurations</p></li>
+<li><p><strong>Error Handling</strong>: Robust error management and recovery</p></li>
+</ul>
 </section>
 </section>
+</section>
 
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="swarmsim.Simulators.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Simulators</p>
-      </div>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Utils">Module contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actorcritic">ActorCritic</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dqn-agent">DQN Agent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actor-critic-base">Actor Critic Base</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actor-critic-continuous">Actor Critic Continuous</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actor-critic-mappo">Actor Critic Mappo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Utils.control_utils">Control Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.control_utils.compute_distances"><code class="docutils literal notranslate"><span class="pre">compute_distances()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.control_utils.gaussian_input"><code class="docutils literal notranslate"><span class="pre">gaussian_input()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Utils.logger_utils">Logger Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.add_entry"><code class="docutils literal notranslate"><span class="pre">add_entry()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.append_entry"><code class="docutils literal notranslate"><span class="pre">append_entry()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.get_positions"><code class="docutils literal notranslate"><span class="pre">get_positions()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.print_log"><code class="docutils literal notranslate"><span class="pre">print_log()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.append_txt"><code class="docutils literal notranslate"><span class="pre">append_txt()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.append_csv"><code class="docutils literal notranslate"><span class="pre">append_csv()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.save_npz"><code class="docutils literal notranslate"><span class="pre">save_npz()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.logger_utils.save_mat"><code class="docutils literal notranslate"><span class="pre">save_mat()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Utils.plot_utils">Plot Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.plot_utils.get_snapshot"><code class="docutils literal notranslate"><span class="pre">get_snapshot()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Utils.shepherding_utils">Shepherding Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.shepherding_utils.get_target_distance"><code class="docutils literal notranslate"><span class="pre">get_target_distance()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.shepherding_utils.xi_shepherding"><code class="docutils literal notranslate"><span class="pre">xi_shepherding()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Utils.shepherding_utils.get_done_shepherding"><code class="docutils literal notranslate"><span class="pre">get_done_shepherding()</span></code></a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.Utils.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swarmsim.Simulators.html" class="btn btn-neutral float-left" title="Simulators Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

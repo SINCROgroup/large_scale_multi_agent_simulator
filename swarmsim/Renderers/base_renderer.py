@@ -182,7 +182,32 @@ class BaseRenderer(Renderer):
 
     def render_matplotlib(self):
         """
-        Efficient rendering using pre-created scatter plots.
+        Render the simulation using Matplotlib with efficient scatter plot updates.
+
+        This method provides high-performance rendering by updating existing scatter plot
+        data rather than recreating plots at each frame. It supports real-time visualization
+        of agent positions with customizable colors, shapes, and sizes.
+
+        Implementation Details
+        ----------------------
+        1. **Dynamic Axis Updates**: Adjusts plot limits based on environment dimensions
+        2. **Pre-render Hook**: Calls custom pre-rendering logic for environment features
+        3. **Efficient Updates**: Updates scatter plot offsets without recreation
+        4. **Post-render Hook**: Adds custom visualization elements after agent rendering
+        5. **Frame Control**: Uses ``plt.pause()`` for animation timing
+
+        Performance Notes
+        -----------------
+        - Only updates position data, preserving color/shape/size settings
+        - Suitable for real-time visualization with hundreds of agents
+        - Memory efficient for long simulation runs
+
+        
+        Notes
+        -----
+        - Background color and axis limits are updated each frame for dynamic environments
+        - Legend is created once during initialization to avoid redrawing overhead
+        - Grid and labels remain static for better visual stability
         """
         # Update axis limits only if they change
         self.ax.set_xlim(-self.environment.dimensions[0] / 2, self.environment.dimensions[0] / 2)
@@ -290,37 +315,113 @@ class BaseRenderer(Renderer):
 
     def pre_render_hook_matplotlib(self):
         """
-        Hook for adding custom pre-render logic in Matplotlib.
+        Customizable pre-rendering hook for Matplotlib visualization extensions.
 
-        This method is called before rendering agents, allowing subclasses
-        to modify the figure (e.g., drawing additional elements).
+        This method is called before agent rendering, providing a hook for subclasses
+        to add custom visualization elements such as environment features, force fields,
+        trajectories, or background images.
+
+
+        Common Use Cases
+        ----------------
+        - Environment boundary visualization
+        - Obstacle and barrier rendering
+        - Force field or potential visualization
+        - Background image overlay
+        - Dynamic environment feature updates
+
+        Performance Considerations
+        --------------------------
+        - Cache expensive computations outside this method when possible
+        - Use matplotlib's artist system for efficient updates
+
+        Notes
+        -----
+        - Called after axis setup but before agent scatter plot updates
+        - Has access to ``self.ax`` matplotlib axes object
+        - Should not modify agent scatter plots directly
         """
         pass
 
     def post_render_hook_matplotlib(self):
         """
-        Hook for adding custom post-render logic in Matplotlib.
+        Customizable post-rendering hook for Matplotlib visualization.
 
-        This method is called after rendering agents, allowing subclasses
-        to modify the figure (e.g., adding annotations).
+        This method is called after agent rendering, providing a hook for subclasses
+        to add overlay elements such as annotations, measurements, goal regions,
+        or real-time analysis visualizations.
+
+        Common Use Cases
+        ----------------
+        - Goal region visualization
+        - Performance metric overlays
+        - Agent trajectory trails
+        - Inter-agent connection lines
+        - Real-time analysis annotations
+        - Success/failure indicators
+        - Measurement and scaling references
+
+
+        Notes
+        -----
+        - Called after agent positions are updated but before frame display
+        - Has full access to population states and environment information
+        - Should preserve existing plot elements unless intentionally modifying them
         """
         pass
 
     def pre_render_hook_pygame(self):
         """
-        Hook for adding custom pre-render logic in Pygame.
+        Customizable pre-rendering hook for Pygame visualization extensions.
 
-        This method is called before rendering agents, allowing subclasses
-        to modify the display (e.g., drawing additional elements).
+        This method is called after screen clearing but before agent rendering,
+        providing a hook for subclasses to add background elements, environment
+        features, or spatial information visualization.
+
+
+        Common Use Cases
+        ----------------
+        - Environment boundary visualization
+        - Obstacle and terrain rendering  
+        - Spatial field visualization (heat maps, gradients)
+        - Background texture or pattern overlay
+        - Grid system or coordinate references
+        - Dynamic environment state visualization
+
+
+        Notes
+        -----
+        - Called after ``self.window.fill()`` but before agent rendering
+        - Has access to ``self.window`` pygame surface
+        - Coordinate system uses pygame screen coordinates (origin top-left)
+        - Can access ``self.scale_factor`` for simulation-to-screen conversion
         """
         pass
 
     def post_render_hook_pygame(self):
         """
-        Hook for adding custom post-render logic in Pygame.
+        Customizable post-rendering hook for Pygame visualization extensions.
 
-        This method is called after rendering agents, allowing subclasses
-        to modify the display (e.g., adding annotations).
+        This method is called after agent rendering but before display update,
+        providing a hook for subclasses to add overlay elements, UI components,
+        or analysis visualizations on top of the agent layer.
+
+
+        Common Use Cases
+        ----------------
+        - Goal region and target visualization
+        - Agent connection networks
+        - Performance metric displays
+        - UI elements and controls
+        - Trajectory trails and paths
+        - Analysis overlay graphics
+        - Semi-transparent information layers
+
+        Notes
+        -----
+        - Overlays appear on top of agent visualization
+        - Can access real-time simulation state for dynamic visualizations
+        - Should handle coordinate system conversion from simulation to screen space
         """
         pass
 

@@ -6,48 +6,81 @@ from swarmsim.Environments import Environment
 
 class ShepherdingRenderer(BaseRenderer):
     """
-    A renderer that extends `BaseRenderer` to include visualization of a goal region
-    for shepherding tasks.
+    Specialized renderer for shepherding tasks with goal region and sensing area visualization.
 
-    This renderer adds a **goal region** where the target agents should be herded.
-    The goal is represented:
-    - In **Matplotlib**: As a semi-transparent green circle.
-    - In **Pygame**: As a semi-transparent shaded circle.
+    This renderer extends the ``BaseRenderer`` to provide visualization features specifically
+    designed for shepherding simulations where autonomous agents (herders) guide target 
+    agents (sheep) toward specific goal regions. It adds visual elements that are crucial
+    for understanding shepherding dynamics and performance.
+
+    Key Features
+    ------------
+    1. **Goal Region Visualization**: Semi-transparent circular regions showing target areas
+    2. **Sensing Area Display**: Optional visualization of herder sensing radii
+    3. **Multi-modal Support**: Consistent visualization across Matplotlib and Pygame
+    4. **Dynamic Updates**: Real-time updates of goal position and radius
+    5. **Transparency Control**: Configurable opacity for visual clarity
+
+    Visual Elements
+    ---------------
+    **Goal Region**:
+    
+    - **Matplotlib**: Semi-transparent green circle with configurable alpha
+    - **Pygame**: Layered semi-transparent surface with color blending
+    - **Dynamic**: Position and radius update automatically each frame
+
+    **Sensing Areas** (Optional):
+    
+    - **Pygame Only**: Blue semi-transparent circles around herder agents
+    - **Configurable**: Controlled by ``sensing_radius`` parameter
+    - **Multi-agent**: Individual sensing area for each herder
 
     Parameters
     ----------
-    populations : list
-        A list of population objects to render.
-    environment : object, optional
-        The environment instance in which the populations exist (default is None).
-    config_path : str, optional
-        Path to the YAML configuration file containing rendering settings (default is None).
+    populations : list of Population
+        List of agent populations (typically [sheep, herders]).
+    environment : Environment
+        Shepherding environment with goal_pos and goal_radius attributes.
+    config_path : str
+        Path to YAML configuration file containing rendering parameters.
 
     Attributes
     ----------
-    populations : list
-        List of population objects to be rendered.
-    environment : object
-        The environment in which agents operate.
-    config : dict
-        Dictionary containing rendering configuration parameters.
+    sensing_radius : float
+        Radius of herder sensing areas. Set to ``float('inf')`` to disable.
+    goal_circle : matplotlib.patches.Circle or None
+        Cached matplotlib circle object for efficient goal region updates.
 
-    Notes
-    -----
-    - This renderer **modifies the post-render hooks** to include a goal region.
-    - The **goal region is dynamically updated** at each frame based on `goal_pos` and `goal_radius`.
-    - This class is designed specifically for **shepherding tasks** where agents must be guided to a target.
 
     Examples
     --------
-    Example usage:
+    Basic shepherding renderer setup:
 
     .. code-block:: python
 
         from swarmsim.Renderers import ShepherdingRenderer
+        from swarmsim.Environments import ShepherdingEnvironment
 
-        renderer = ShepherdingRenderer(populations, environment, config_path="config.yaml")
+        # Create shepherding environment with goal
+        env = ShepherdingEnvironment(config_path="shepherding_config.yaml")
+        env.goal_pos = np.array([10.0, 5.0])
+        env.goal_radius = 3.0
+
+        # Initialize populations
+        sheep = BrownianMotion(config_path="sheep_config.yaml")
+        herders = SimpleIntegrators(config_path="herder_config.yaml") 
+
+        # Create specialized renderer
+        renderer = ShepherdingRenderer([sheep, herders], env, "render_config.yaml")
         renderer.render()
+
+    Notes
+    -----
+    - Requires environment with ``goal_pos`` and ``goal_radius`` attributes
+    - Assumes populations[1] contains herder agents for sensing visualization
+    - Goal region automatically updates if environment goal changes
+    - Sensing areas only rendered in pygame mode
+    - Semi-transparent overlays preserve agent visibility
     """
 
     def __init__(self, populations: list, environment: Environment, config_path: str):

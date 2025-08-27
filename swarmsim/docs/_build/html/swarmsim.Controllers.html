@@ -1,321 +1,220 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controllers Package &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Controllers &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Controllers';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Environments" href="swarmsim.Environments.html" />
-    <link rel="prev" title="swarms_py" href="swarmsim.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="next" title="Environments Package" href="swarmsim.Environments.html" />
+    <link rel="prev" title="IntelliSwarm Package" href="swarmsim.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="swarmsim.html">IntelliSwarm Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="swarmsim.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Controllers</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="swarmsim.html">IntelliSwarm Package</a></li>
+      <li class="breadcrumb-item active">Controllers Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.Controllers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
-</nav>
+  <hr/>
 </div>
-      
-    </div>
-  
-  
-</div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="controllers">
-<h1>Controllers<a class="headerlink" href="#controllers" title="Link to this heading">#</a></h1>
-<section id="module-swarmsim.Controllers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Controllers" title="Link to this heading">#</a></h2>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="controllers-package">
+<h1>Controllers Package<a class="headerlink" href="#controllers-package" title="Link to this heading"></a></h1>
+<p>The Controllers package provides control algorithms and strategies for guiding agent behavior
+in multi-agent simulations. Controllers implement various coordination, shepherding, and
+guidance strategies that can be applied to populations of agents.</p>
 <section id="controllers-module">
-<h3>Controllers Module<a class="headerlink" href="#controllers-module" title="Link to this heading">#</a></h3>
+<span id="module-swarmsim.Controllers"></span><h2>Controllers Module<a class="headerlink" href="#controllers-module" title="Link to this heading"></a></h2>
 <p>This module provides interfaces and implementations for controlling agent behavior in multi-agent simulations.
 Controllers compute control actions that influence agent dynamics based on current states and objectives.</p>
 <section id="available-controllers">
-<h4>Available Controllers<a class="headerlink" href="#available-controllers" title="Link to this heading">#</a></h4>
+<h3>Available Controllers<a class="headerlink" href="#available-controllers" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>Controller</dt><dd><p>Abstract base class defining the interface for all controller types.</p>
 </dd>
@@ -335,7 +234,7 @@ Implements the LAMA (Large Area Multi-agent) shepherding algorithm.</p>
 </dl>
 </section>
 <section id="key-features">
-<h4>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h4>
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Modular Design</strong>: Easy to implement custom control strategies</p></li>
 <li><p><strong>Multi-Population Support</strong>: Controllers can coordinate multiple populations</p></li>
@@ -367,7 +266,7 @@ Implements the LAMA (Large Area Multi-agent) shepherding algorithm.</p>
 </div>
 </section>
 <section id="configuration-examples">
-<h4>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading">#</a></h4>
+<h3>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading"></a></h3>
 <p>Shepherding controller:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ShepherdingLamaController</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
@@ -385,7 +284,7 @@ Implements the LAMA (Large Area Multi-agent) shepherding algorithm.</p>
 and updates the control applied to agents every 0.1 simulation time units.</p>
 </section>
 <section id="modules">
-<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h4>
+<h3>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><cite>base_controller</cite>: Defines the abstract Controller class interface</p></li>
 <li><p><cite>shepherding_lama_controller</cite>: Implements shepherding strategies</p></li>
@@ -393,13 +292,28 @@ and updates the control applied to agents every 0.1 simulation time units.</p>
 </ul>
 </section>
 </section>
+<section id="package-overview">
+<h2>Package Overview<a class="headerlink" href="#package-overview" title="Link to this heading"></a></h2>
+<p>Controllers in SwarmSim enable sophisticated multi-agent coordination through:</p>
+<ul class="simple">
+<li><p><strong>Shepherding Algorithms</strong>: Guide groups of agents toward specific goals</p></li>
+<li><p><strong>Formation Control</strong>: Maintain desired spatial arrangements</p></li>
+<li><p><strong>Coordination Strategies</strong>: Implement collective decision-making</p></li>
+<li><p><strong>Adaptive Control</strong>: Respond dynamically to changing conditions</p></li>
+<li><p><strong>Hierarchical Control</strong>: Multi-level control architectures</p></li>
+</ul>
+<p>All controllers inherit from the base controller interface, ensuring consistent integration
+with the simulation framework.</p>
 </section>
-<section id="module-swarmsim.Controllers.base_controller">
-<span id="controller-interface"></span><h2>Controller Interface<a class="headerlink" href="#module-swarmsim.Controllers.base_controller" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading"></a></h2>
+<section id="base-controller-interface">
+<h3>Base Controller Interface<a class="headerlink" href="#base-controller-interface" title="Link to this heading"></a></h3>
+<p>The base controller defines the standard interface that all controllers must implement.</p>
+<dl class="py class" id="module-swarmsim.Controllers.base_controller">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.base_controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_populations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.base_controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_populations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
 <p>Abstract base class for implementing control strategies.</p>
 <p>This class provides the interface for controllers that compute control actions to influence
 agent behaviors. Controllers can access population states, environment information, and other
@@ -407,20 +321,20 @@ populations to make informed control decisions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The target population that this controller will influence.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The target population that this controller will influence.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a><em>, </em><em>optional</em>) – The environment where the agents operate. Can be None if environmental information
 is not needed for control.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters.</p></li>
-<li><p><strong>other_populations</strong> (<em>list</em><em> of </em><em>Population</em><em>, </em><em>optional</em>) – List of other populations that may influence the control strategy.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters.</p></li>
+<li><p><strong>other_populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a><em>, </em><em>optional</em>) – List of other populations that may influence the control strategy.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The target population being controlled.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The target population being controlled.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a><em> or </em><em>None</em>) – The environment instance (None if environmental information are not relevant).</p></li>
-<li><p><strong>other_populations</strong> (<em>list</em><em> of </em><em>Population</em><em> or </em><em>None</em>) – List of other populations required to compute the control action.</p></li>
-<li><p><strong>config</strong> (<em>dict</em>) – Configuration parameters specific to this controller class.</p></li>
-<li><p><strong>dt</strong> (<em>float</em>) – Sampling time interval between two consecutive control actions.</p></li>
+<li><p><strong>other_populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a><em> or </em><em>None</em>) – List of other populations required to compute the control action.</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Configuration parameters specific to this controller class.</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Sampling time interval between two consecutive control actions.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -444,8 +358,24 @@ is not needed for control.</p></li>
 </div>
 <p>This configuration sets the controller sampling time to 0.1 seconds.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_populations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Controller with the target population and optional components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population that this controller will influence.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a><em>, </em><em>optional</em>) – The environment where agents operate. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file. Default is None.</p></li>
+<li><p><strong>other_populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a><em>, </em><em>optional</em>) – Other populations that may influence control decisions. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.get_action">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action" title="Link to this definition"></a></dt>
 <dd><p>Compute the control action for the target population.</p>
 <p>This abstract method must be implemented by subclasses to define the specific
 control strategy. The method should use the current state of the population,
@@ -455,9 +385,6 @@ environment, and other available information to compute appropriate control inpu
 <dd class="field-odd"><p><em>np.ndarray</em> – Control action array of shape (N, input_dim) where N is the number of agents
 in the target population and input_dim is the dimensionality of the control input.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>ndarray</em></p>
-</dd>
 </dl>
 <p class="rubric">Notes</p>
 <p>This is the core method that defines the controller behavior and must be overridden in subclasses.</p>
@@ -465,7 +392,7 @@ in the target population and input_dim is the dimensionality of the control inpu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.base_controller.Controller.get_action_in_space">
-<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action_in_space" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/base_controller.html#Controller.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.base_controller.Controller.get_action_in_space" title="Link to this definition"></a></dt>
 <dd><p>Computes spatially varying control actions at specified positions.</p>
 <p>This method provides control actions at arbitrary spatial locations. It can be overridden by subclasses that
 implement spatially varying control strategies.</p>
@@ -478,9 +405,6 @@ control actions should be evaluated.</p>
 <dd class="field-even"><p><em>np.ndarray</em> – Control action array of shape (num_positions, input_dim) representing the
 control field values at the specified positions.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>ndarray</em></p>
-</dd>
 </dl>
 <p class="rubric">Notes</p>
 <p>The default implementation returns None. Subclasses should override this method
@@ -489,12 +413,20 @@ if they implement spatially varying control fields.</p>
 
 </dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Standardized Interface</strong>: Consistent API for all controller implementations</p></li>
+<li><p><strong>Flexible Integration</strong>: Easy integration with different agent populations</p></li>
+<li><p><strong>State Management</strong>: Handle controller state and memory</p></li>
+<li><p><strong>Performance Monitoring</strong>: Built-in performance tracking capabilities</p></li>
+</ul>
 </section>
-<section id="module-swarmsim.Controllers.shepherding_lama_controller">
-<span id="sheperding-controller-by-andrea-lama"></span><h2>Sheperding Controller (by Andrea Lama)<a class="headerlink" href="#module-swarmsim.Controllers.shepherding_lama_controller" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="shepherding-controller">
+<h3>Shepherding Controller<a class="headerlink" href="#shepherding-controller" title="Link to this heading"></a></h3>
+<p>Advanced shepherding algorithms for guiding agent groups toward target locations.</p>
+<dl class="py class" id="module-swarmsim.Controllers.shepherding_lama_controller">
 <dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.shepherding_lama_controller.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLamaController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.shepherding_lama_controller.</span></span><span class="sig-name descname"><span class="pre">ShepherdingLamaController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Implementation of the shepherding controller implemented in Lama (2024).</p>
 <p>This controller implements the herding control law from Lama (2024) for
@@ -507,23 +439,23 @@ creates a shepherding behavior where herders push targets toward the goal region
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The herder population that will be controlled by this controller.</p></li>
-<li><p><strong>targets</strong> (<em>Population</em>) – The target population that needs to be shepherded to the goal.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The herder population that will be controlled by this controller.</p></li>
+<li><p><strong>targets</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The target population that needs to be shepherded to the goal.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a><em>, </em><em>optional</em>) – The shepherding environment containing goal information. Default is None.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>herders</strong> (<em>Population</em>) – Reference to the herder population (same as population).</p></li>
-<li><p><strong>targets</strong> (<em>Population</em>) – The target population being shepherded.</p></li>
+<li><p><strong>herders</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – Reference to the herder population (same as population).</p></li>
+<li><p><strong>targets</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The target population being shepherded.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a>) – The shepherding environment with goal position information.</p></li>
-<li><p><strong>xi</strong> (<em>float</em>) – Sensing radius of herder agents for target detection.</p></li>
-<li><p><strong>v_h</strong> (<em>float</em>) – Speed of herders when no targets are detected within sensing radius.</p></li>
-<li><p><strong>alpha</strong> (<em>float</em>) – Attraction force constant toward the selected target position.</p></li>
-<li><p><strong>lmbda</strong> (<em>float</em>) – Lambda parameter (currently not used in implementation).</p></li>
-<li><p><strong>delta</strong> (<em>float</em>) – Displacement distance to position herders behind targets.</p></li>
-<li><p><strong>rho_g</strong> (<em>float</em>) – Radius of the goal region.</p></li>
+<li><p><strong>xi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Sensing radius of herder agents for target detection.</p></li>
+<li><p><strong>v_h</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Speed of herders when no targets are detected within sensing radius.</p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Attraction force constant toward the selected target position.</p></li>
+<li><p><strong>lmbda</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Lambda parameter (currently not used in implementation).</p></li>
+<li><p><strong>delta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Displacement distance to position herders behind targets.</p></li>
+<li><p><strong>rho_g</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Radius of the goal region.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -567,8 +499,27 @@ This controller is able to steer a population of targets to the goal region.</p>
 <p class="rubric">References</p>
 <p>Lama, Andrea, and Mario di Bernardo. “Shepherding and herdability in complex multiagent systems.” Physical Review Research 6.3 (2024): L032012</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the LAMA shepherding controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The herder population that will be controlled.</p></li>
+<li><p><strong>targets</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The target population to be shepherded.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment" title="swarmsim.Environments.ShepherdingEnvironment"><em>ShepherdingEnvironment</em></a><em>, </em><em>optional</em>) – The shepherding environment containing goal information. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the configuration file. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If environment is not a ShepherdingEnvironment instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action">
-<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/shepherding_lama_controller.html#ShepherdingLamaController.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action" title="Link to this definition"></a></dt>
 <dd><p>Compute the shepherding control action for herder agents.</p>
 <p>This method implements the LAMA shepherding algorithm by:
 1. Finding targets within each herder’s sensing radius
@@ -579,9 +530,6 @@ This controller is able to steer a population of targets to the goal region.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>np.ndarray</em> – Control actions of shape (N_herders, 2) representing force vectors
 for each herder agent in the x and y directions.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>ndarray</em></p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -602,12 +550,20 @@ for each herder agent in the x and y directions.</p>
 
 </dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Multi-agent Shepherding</strong>: Coordinate multiple shepherd agents</p></li>
+<li><p><strong>Adaptive Strategies</strong>: Dynamic adjustment based on group behavior</p></li>
+<li><p><strong>Obstacle Avoidance</strong>: Navigate around environmental obstacles</p></li>
+<li><p><strong>Performance Optimization</strong>: Efficient algorithms for large-scale groups</p></li>
+</ul>
 </section>
-<section id="module-swarmsim.Controllers.spatial_inputs">
-<span id="spatial-inputs"></span><h2>Spatial Inputs<a class="headerlink" href="#module-swarmsim.Controllers.spatial_inputs" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="spatial-input-processing">
+<h3>Spatial Input Processing<a class="headerlink" href="#spatial-input-processing" title="Link to this heading"></a></h3>
+<p>Utilities for processing spatial information and environmental inputs.</p>
+<dl class="py class" id="module-swarmsim.Controllers.spatial_inputs">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">GaussianRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">GaussianRepulsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Implements a spatially-varying radial repulsion force with Gaussian intensity profile.</p>
 <p>This controller creates a repulsion field centered at the origin with intensity that
@@ -619,15 +575,15 @@ agent positions from a discretized Gaussian field defined on a regular grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population of agents to be controlled by this repulsion field.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population of agents to be controlled by this repulsion field.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and dimensions.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>disc_pts</strong> (<em>int</em>) – Number of discretization points along each axis for the Gaussian field grid.</p></li>
-<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator object for efficient evaluation of the Gaussian field at arbitrary positions.</p></li>
+<li><p><strong>disc_pts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of discretization points along each axis for the Gaussian field grid.</p></li>
+<li><p><strong>interpolator</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RegularGridInterpolator.html#scipy.interpolate.RegularGridInterpolator" title="(in SciPy v1.16.1)"><em>scipy.interpolate.RegularGridInterpolator</em></a>) – Interpolator object for efficient evaluation of the Gaussian field at arbitrary positions.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -658,8 +614,23 @@ The grid spans the environment dimensions with the specified number of discretiz
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Gaussian repulsion controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population to be controlled by the repulsion field.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial dimensions.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the configuration file. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action">
-<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#GaussianRepulsion.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action" title="Link to this definition"></a></dt>
 <dd><p>Compute the Gaussian repulsion forces for all agents.</p>
 <p>This method evaluates the Gaussian intensity field at each agent’s position
 and computes radial repulsion forces pointing away from the origin. The force
@@ -686,7 +657,7 @@ division by zero in the direction calculation.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">LightPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">LightPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Projects a spatial light pattern loaded from an image file onto the environment.</p>
 <p>This controller reads an image file and uses it to create a spatial control field
@@ -698,14 +669,14 @@ intensity can influence agent behavior, such as phototaxis or photophobic respon
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population of agents that will sense the light pattern.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population of agents that will sense the light pattern.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and coordinate mapping.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator object for evaluating light intensity at arbitrary positions.</p></li>
+<li><p><strong>interpolator</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RegularGridInterpolator.html#scipy.interpolate.RegularGridInterpolator" title="(in SciPy v1.16.1)"><em>scipy.interpolate.RegularGridInterpolator</em></a>) – Interpolator object for evaluating light intensity at arbitrary positions.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – Reference to the environment for boundary checking.</p></li>
 </ul>
 </dd>
@@ -737,8 +708,29 @@ to ensure consistent behavior at the edges.</p>
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the light pattern controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population that will sense the light pattern.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial coordinate mapping.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the configuration file. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the specified pattern image file cannot be found.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – If the required pattern_path parameter is missing from configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern.get_action">
-<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action" title="Link to this definition"></a></dt>
 <dd><p>Get the light intensity values at the current agent positions.</p>
 <p>This method evaluates the light pattern at each agent’s current position,
 applying boundary clamping to ensure agents outside the environment
@@ -761,7 +753,7 @@ Values are normalized to the range [0, 1] based on the image data.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space">
-<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#LightPattern.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space" title="Link to this definition"></a></dt>
 <dd><p>Evaluate the light pattern at specified spatial positions.</p>
 <p>This method allows querying the light intensity at arbitrary positions
 in the environment, useful for analysis and visualization.</p>
@@ -787,7 +779,7 @@ Values are normalized to the range [0, 1] based on the image data.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">Temporal_pulses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">Temporal_pulses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Implements a temporally-varying control signal with periodic on/off pulses.</p>
 <p>This controller generates a uniform control signal that alternates between
@@ -799,16 +791,15 @@ effects, or synchronized behavioral responses in agent populations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population of agents to receive the temporal pulse signal.</p></li>
-<li><p><strong>Period</strong> (<em>float</em><em>, </em><em>optional</em>) – The period of the temporal pulses (time for one complete on/off cycle).</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
-<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment" title="swarmsim.Environments.base_environment.Environment"><em>Environment</em></a>)</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population of agents to receive the temporal pulse signal.</p></li>
+<li><p><strong>Period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – The period of the temporal pulses (time for one complete on/off cycle).</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>T</strong> (<em>float</em>) – Period of the temporal pulses (time for one complete on/off cycle).</p></li>
-<li><p><strong>current_time</strong> (<em>float</em>) – Current simulation time, updated at each control action.</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Period of the temporal pulses (time for one complete on/off cycle).</p></li>
+<li><p><strong>current_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Current simulation time, updated at each control action.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -834,8 +825,23 @@ by <cite>dt</cite> at each call to <cite>get_action()</cite>.</p>
 </div>
 <p>This creates pulses with 2-second period (1 second ON, 1 second OFF).</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the temporal pulse controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population to receive temporal pulse signals.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment (required for interface compatibility).</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the configuration file. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action">
-<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action" title="Link to this definition"></a></dt>
 <dd><p>Generate the current temporal pulse state for all agents.</p>
 <p>This method updates the internal time counter and returns the current
 pulse state (1 for ON, 0 for OFF) based on the temporal position
@@ -859,7 +865,7 @@ making it suitable for studying collective temporal responses.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space">
-<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#Temporal_pulses.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space" title="Link to this definition"></a></dt>
 <dd><p>Returns the light intensity at the position specified in the positions vector</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -872,7 +878,7 @@ making it suitable for studying collective temporal responses.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">AngularFeedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Controllers.spatial_inputs.</span></span><span class="sig-name descname"><span class="pre">AngularFeedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Controllers.base_controller.Controller" title="swarmsim.Controllers.base_controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a></p>
 <p>Implements dynamic visual feedback using angular light patterns behind agents.</p>
 <p>This controller creates dynamic light patterns by drawing lines behind each agent
@@ -884,23 +890,23 @@ agent behavior through phototaxis or photophobic responses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>population</strong> (<em>Population</em>) – The population of agents for which light patterns will be generated.</p></li>
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population of agents for which light patterns will be generated.</p></li>
 <li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries and coordinate mapping.</p></li>
-<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the YAML configuration file containing controller parameters. Default is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>line_width</strong> (<em>int</em>) – Width of the lines drawn in the light pattern (in pixels).</p></li>
-<li><p><strong>angle_width</strong> (<em>float</em>) – Angular width of the wedge pattern behind each agent (in radians).</p></li>
-<li><p><strong>agent_distance</strong> (<em>float</em>) – Distance behind each agent where the wedge pattern starts.</p></li>
-<li><p><strong>update_time</strong> (<em>float</em>) – Time interval between pattern updates (in simulation time units).</p></li>
-<li><p><strong>last_update</strong> (<em>float</em>) – Timestamp of the last pattern update.</p></li>
-<li><p><strong>current_time</strong> (<em>float</em>) – Current simulation time.</p></li>
+<li><p><strong>line_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Width of the lines drawn in the light pattern (in pixels).</p></li>
+<li><p><strong>angle_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Angular width of the wedge pattern behind each agent (in radians).</p></li>
+<li><p><strong>agent_distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Distance behind each agent where the wedge pattern starts.</p></li>
+<li><p><strong>update_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Time interval between pattern updates (in simulation time units).</p></li>
+<li><p><strong>last_update</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Timestamp of the last pattern update.</p></li>
+<li><p><strong>current_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Current simulation time.</p></li>
 <li><p><strong>x</strong> (<em>np.ndarray</em>) – Grid x-coordinates for spatial discretization.</p></li>
 <li><p><strong>y</strong> (<em>np.ndarray</em>) – Grid y-coordinates for spatial discretization.</p></li>
-<li><p><strong>interpolator</strong> (<em>scipy.interpolate.RegularGridInterpolator</em>) – Interpolator for evaluating light intensity at arbitrary positions.</p></li>
-<li><p><strong>img_count</strong> (<em>int</em>) – Counter for saved debug images.</p></li>
+<li><p><strong>interpolator</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RegularGridInterpolator.html#scipy.interpolate.RegularGridInterpolator" title="(in SciPy v1.16.1)"><em>scipy.interpolate.RegularGridInterpolator</em></a>) – Interpolator for evaluating light intensity at arbitrary positions.</p></li>
+<li><p><strong>img_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Counter for saved debug images.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
@@ -941,8 +947,23 @@ loop where agent behavior influences the light field they experience.</p>
 - Collective behavior with environmental coupling
 - Adaptive spatial guidance systems</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the angular feedback controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>population</strong> (<a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – The population for which angular light patterns will be generated.</p></li>
+<li><p><strong>environment</strong> (<a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment" title="swarmsim.Environments.Environment"><em>Environment</em></a>) – The environment providing spatial boundaries.</p></li>
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the configuration file. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action">
-<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action" title="Link to this definition"></a></dt>
 <dd><p>Generate and evaluate the current angular light pattern.</p>
 <p>This method updates the dynamic light pattern based on current agent positions
 and returns the light intensity values experienced by each agent.</p>
@@ -970,7 +991,7 @@ each agent to positions that create the specified angular width.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space">
-<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_action_in_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Controllers/spatial_inputs.html#AngularFeedback.get_action_in_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space" title="Link to this definition"></a></dt>
 <dd><p>Evaluate the angular light pattern at specified spatial positions.</p>
 <p>This method allows querying the current light pattern at arbitrary positions
 in the environment, useful for analysis and visualization of the dynamic
@@ -997,170 +1018,184 @@ of the last update (controlled by update_time parameter).</p>
 
 </dd></dl>
 
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Spatial Awareness</strong>: Process environmental and agent spatial information</p></li>
+<li><p><strong>Sensor Integration</strong>: Handle various sensor inputs and data fusion</p></li>
+<li><p><strong>Coordinate Transformations</strong>: Convert between different spatial representations</p></li>
+<li><p><strong>Real-time Processing</strong>: Efficient real-time spatial data processing</p></li>
+</ul>
 </section>
 </section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="basic-controller-setup">
+<h3>Basic Controller Setup<a class="headerlink" href="#basic-controller-setup" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
 
+<span class="c1"># Create population and controller</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">BaseController</span><span class="p">()</span>
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="swarmsim.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">swarms_py</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="swarmsim.Environments.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Environments</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
+<span class="c1"># Apply control in simulation loop</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">control_input</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">compute_control</span><span class="p">(</span><span class="n">population</span><span class="p">)</span>
+    <span class="n">population</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">control_input</span><span class="p">)</span>
+    <span class="n">population</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+</section>
+<section id="shepherding-control">
+<h3>Shepherding Control<a class="headerlink" href="#shepherding-control" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShepherdingLamaController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Setup target and populations</span>
+<span class="n">target_location</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="n">sheep_population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">shepherd_population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Initialize shepherding controller</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">ShepherdingLamaController</span><span class="p">(</span>
+    <span class="n">target_position</span><span class="o">=</span><span class="n">target_location</span><span class="p">,</span>
+    <span class="n">shepherding_gain</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">formation_gain</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="p">)</span>
+
+<span class="c1"># Simulation with shepherding</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">):</span>
+    <span class="c1"># Compute shepherding actions</span>
+    <span class="n">shepherd_actions</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">compute_shepherding_action</span><span class="p">(</span>
+        <span class="n">sheep_population</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">shepherd_population</span><span class="o">.</span><span class="n">x</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Apply control</span>
+    <span class="n">shepherd_population</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">shepherd_actions</span><span class="p">)</span>
+
+    <span class="c1"># Update populations</span>
+    <span class="n">sheep_population</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">shepherd_population</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-control-strategies">
+<h3>Advanced Control Strategies<a class="headerlink" href="#advanced-control-strategies" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers.spatial_inputs</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpatialInputProcessor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomFormationController</span><span class="p">(</span><span class="n">BaseController</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formation_shape</span><span class="o">=</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="n">formation_radius</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formation_shape</span> <span class="o">=</span> <span class="n">formation_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formation_radius</span> <span class="o">=</span> <span class="n">formation_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_processor</span> <span class="o">=</span> <span class="n">SpatialInputProcessor</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
+        <span class="c1"># Get current positions</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">n_agents</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+
+        <span class="c1"># Define target formation</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formation_shape</span> <span class="o">==</span> <span class="s1">&#39;circle&#39;</span><span class="p">:</span>
+            <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_agents</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">target_positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formation_radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+            <span class="p">])</span>
+
+        <span class="c1"># Compute formation control forces</span>
+        <span class="n">position_errors</span> <span class="o">=</span> <span class="n">target_positions</span> <span class="o">-</span> <span class="n">positions</span>
+        <span class="n">control_forces</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">position_errors</span>  <span class="c1"># Proportional control</span>
+
+        <span class="k">return</span> <span class="n">control_forces</span>
+
+<span class="c1"># Use custom controller</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">CustomFormationController</span><span class="p">(</span><span class="n">formation_shape</span><span class="o">=</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="n">formation_radius</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="control-architecture">
+<h2>Control Architecture<a class="headerlink" href="#control-architecture" title="Link to this heading"></a></h2>
+<p>The Controllers package supports hierarchical control architectures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">HierarchicalController</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">high_level_controller</span> <span class="o">=</span> <span class="n">StrategicPlanner</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">low_level_controllers</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">LocalController</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_groups</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">):</span>
+        <span class="c1"># High-level strategic decisions</span>
+        <span class="n">strategies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">high_level_controller</span><span class="o">.</span><span class="n">plan</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span>
+
+        <span class="c1"># Low-level tactical execution</span>
+        <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">strategy</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">strategies</span><span class="p">)):</span>
+            <span class="n">local_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_level_controllers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="n">population</span><span class="p">,</span> <span class="n">strategy</span>
+            <span class="p">)</span>
+            <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">local_control</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">controls</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-considerations">
+<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Computational Efficiency</strong>: Controllers are optimized for real-time performance</p></li>
+<li><p><strong>Scalability</strong>: Algorithms designed to handle large populations efficiently</p></li>
+<li><p><strong>Memory Usage</strong>: Minimal memory footprint for embedded applications</p></li>
+<li><p><strong>Parallel Processing</strong>: Support for parallel control computation</p></li>
+</ul>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Controller Selection</strong>: Choose controllers appropriate for your application</p></li>
+<li><p><strong>Parameter Tuning</strong>: Adjust control gains for stable, responsive behavior</p></li>
+<li><p><strong>Performance Monitoring</strong>: Monitor controller performance and stability</p></li>
+<li><p><strong>Modular Design</strong>: Combine multiple controllers for complex behaviors</p></li>
+<li><p><strong>Testing</strong>: Validate controller behavior across different scenarios</p></li>
+</ol>
+</section>
+</section>
 
 
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Controllers">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controllers-module">Controllers Module</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#available-controllers">Available Controllers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-examples">Configuration Examples</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modules">Modules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Controllers.base_controller">Controller Interface</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.base_controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.base_controller.Controller.get_action"><code class="docutils literal notranslate"><span class="pre">Controller.get_action()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.base_controller.Controller.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">Controller.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Controllers.shepherding_lama_controller">Sheperding Controller (by Andrea Lama)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController"><code class="docutils literal notranslate"><span class="pre">ShepherdingLamaController</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action"><code class="docutils literal notranslate"><span class="pre">ShepherdingLamaController.get_action()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Controllers.spatial_inputs">Spatial Inputs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion"><code class="docutils literal notranslate"><span class="pre">GaussianRepulsion</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action"><code class="docutils literal notranslate"><span class="pre">GaussianRepulsion.get_action()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern"><code class="docutils literal notranslate"><span class="pre">LightPattern</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback"><code class="docutils literal notranslate"><span class="pre">AngularFeedback</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.Controllers.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swarmsim.html" class="btn btn-neutral float-left" title="IntelliSwarm Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="swarmsim.Environments.html" class="btn btn-neutral float-right" title="Environments Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

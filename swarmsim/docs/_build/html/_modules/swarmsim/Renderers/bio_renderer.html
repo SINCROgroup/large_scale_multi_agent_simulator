@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swarmsim.Renderers.bio_renderer &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../swarmsim.html">IntelliSwarm Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">swarmsim.Renderers.bio_renderer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for swarmsim.Renderers.bio_renderer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Controller</span>
+
+
+
+<div class="viewcode-block" id="BioRenderer">
+<a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BioRenderer</span><span class="p">(</span><span class="n">BaseRenderer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Specialized renderer for bio-inspired simulations with spatial field visualization.</span>
+
+<span class="sd">    This renderer extends the base renderer to visualize spatial control fields and</span>
+<span class="sd">    environmental gradients that influence bio-inspired agent behavior. It creates</span>
+<span class="sd">    real-time spatial intensity maps showing how controllers respond to different</span>
+<span class="sd">    spatial locations, providing insight into bio-inspired navigation and decision-making.</span>
+
+<span class="sd">    The renderer generates a continuous spatial field visualization by:</span>
+<span class="sd">    </span>
+<span class="sd">    1. **Grid Sampling**: Creates a dense grid across the environment</span>
+<span class="sd">    2. **Controller Evaluation**: Queries the controller at each grid point</span>
+<span class="sd">    3. **Color Mapping**: Maps controller responses to visual intensity</span>
+<span class="sd">    4. **Real-time Update**: Updates the spatial field each frame</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of agent populations to visualize.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        The simulation environment instance.</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to YAML configuration file with rendering parameters.</span>
+<span class="sd">    controller : Controller</span>
+<span class="sd">        Controller instance used to generate spatial field visualization.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    controller : Controller</span>
+<span class="sd">        The controller providing spatial field information.</span>
+<span class="sd">    screen_size : tuple</span>
+<span class="sd">        Pygame window dimensions (width, height). Default: (1366, 768).</span>
+<span class="sd">    arena_size : tuple  </span>
+<span class="sd">        Arena rendering dimensions. Default: (1366, 768).</span>
+<span class="sd">    spatial_input : pygame.Surface</span>
+<span class="sd">        Cached surface containing the spatial field visualization.</span>
+
+<span class="sd">    Implementation Details</span>
+<span class="sd">    ----------------------</span>
+<span class="sd">    The spatial field is computed by:</span>
+<span class="sd">    </span>
+<span class="sd">    1. Creating a uniform grid spanning the environment dimensions</span>
+<span class="sd">    2. Evaluating ``controller.get_action_in_space()`` at each grid point</span>
+<span class="sd">    3. Mapping controller responses to RGB color values</span>
+<span class="sd">    4. Generating a pygame surface for efficient blitting</span>
+
+<span class="sd">    Color Mapping</span>
+<span class="sd">    -------------</span>
+<span class="sd">    - **High Response**: Red color (255, 0, 0) for maximum controller activation</span>
+<span class="sd">    - **Low Response**: White color (255, 255, 255) for minimum activation  </span>
+<span class="sd">    - **Interpolation**: Linear blending between red and white based on response magnitude</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic bio-renderer setup:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim.Renderers import BioRenderer</span>
+<span class="sd">        from swarmsim.Controllers import LightSensitiveController</span>
+
+<span class="sd">        controller = LightSensitiveController(config_path=&quot;bio_config.yaml&quot;)</span>
+<span class="sd">        renderer = BioRenderer(populations, environment, &quot;render_config.yaml&quot;, controller)</span>
+<span class="sd">        </span>
+<span class="sd">        # Render with spatial field background</span>
+<span class="sd">        renderer.render()</span>
+
+<span class="sd">    Configuration example:</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        BioRenderer:</span>
+<span class="sd">            render_mode: &quot;pygame&quot;</span>
+<span class="sd">            render_dt: 0.05</span>
+<span class="sd">            agent_colors: [&quot;blue&quot;, &quot;green&quot;]</span>
+<span class="sd">            agent_sizes: [2, 3]</span>
+<span class="sd">            background_color: &quot;black&quot;</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Requires pygame rendering mode for spatial field visualization</span>
+<span class="sd">    - Controller must implement ``get_action_in_space(positions)`` method</span>
+<span class="sd">    - Spatial field is recomputed each frame if controller state changes</span>
+<span class="sd">    - Best suited for visualizing spatially-varying control policies</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BioRenderer.__init__">
+<a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">controller</span><span class="p">:</span> <span class="n">Controller</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the bio-renderer with spatial field visualization capabilities.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        populations : list of Population</span>
+<span class="sd">            List of agent populations to visualize.</span>
+<span class="sd">        environment : Environment</span>
+<span class="sd">            The simulation environment instance.</span>
+<span class="sd">        config_path : str</span>
+<span class="sd">            Path to YAML configuration file containing rendering parameters.</span>
+<span class="sd">        controller : Controller</span>
+<span class="sd">            Controller instance for generating spatial field visualization.</span>
+<span class="sd">            Must implement ``get_action_in_space(positions)`` method.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Initializes spatial field surface during construction</span>
+<span class="sd">        - Controller is used immediately to generate initial spatial visualization</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1366</span><span class="p">,</span><span class="mi">768</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arena_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1366</span><span class="p">,</span><span class="mi">768</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_input</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_spatial_input</span><span class="p">()</span></div>
+
+
+
+    
+
+<div class="viewcode-block" id="BioRenderer.pre_render_hook_pygame">
+<a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer.pre_render_hook_pygame">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_render_hook_pygame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Render the spatial field background before drawing agents.</span>
+
+<span class="sd">        This method applies the cached spatial field surface as a background,</span>
+<span class="sd">        providing visual context for bio-inspired agent behavior. The spatial</span>
+<span class="sd">        field shows the controller&#39;s response across the entire environment.</span>
+
+<span class="sd">        Implementation</span>
+<span class="sd">        --------------</span>
+<span class="sd">        - Blits the pre-computed spatial field surface to the pygame display</span>
+<span class="sd">        - Called automatically before agent rendering in each frame</span>
+<span class="sd">        - Uses cached surface for optimal performance</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Spatial field surface is generated by ``create_spatial_input()``</span>
+<span class="sd">        - Background visualization updates when controller state changes</span>
+<span class="sd">        - Provides continuous spatial context for discrete agent positions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Draw surface</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spatial_input</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BioRenderer.create_spatial_input">
+<a class="viewcode-back" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer.create_spatial_input">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_spatial_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate spatial field visualization surface from controller responses.</span>
+
+<span class="sd">        This method creates a high-resolution spatial field by evaluating the</span>
+<span class="sd">        controller at every pixel location and mapping the responses to colors.</span>
+<span class="sd">        The resulting surface provides a continuous visualization of how the</span>
+<span class="sd">        controller responds across the entire environment space.</span>
+
+<span class="sd">        Algorithm</span>
+<span class="sd">        ---------</span>
+<span class="sd">        1. **Grid Generation**: Create uniform grid spanning environment dimensions</span>
+<span class="sd">        2. **Coordinate Mapping**: Map screen pixels to simulation coordinates  </span>
+<span class="sd">        3. **Controller Evaluation**: Query controller response at each position</span>
+<span class="sd">        4. **Color Interpolation**: Blend red (high) and white (low) based on response</span>
+<span class="sd">        5. **Surface Creation**: Generate pygame surface for efficient rendering</span>
+
+<span class="sd">        Mathematical Details</span>
+<span class="sd">        --------------------</span>
+<span class="sd">        Coordinate transformation:</span>
+<span class="sd">        </span>
+<span class="sd">        .. math::</span>
+<span class="sd">            x_{sim} = x_{inf} + \\frac{i}{w} (x_{sup} - x_{inf})</span>
+<span class="sd">            </span>
+<span class="sd">            y_{sim} = y_{inf} + \\frac{j}{h} (y_{sup} - y_{inf})</span>
+
+<span class="sd">        Where :math:`(i,j)` are pixel coordinates and :math:`(w,h)` are screen dimensions.</span>
+
+<span class="sd">        Color blending:</span>
+<span class="sd">        </span>
+<span class="sd">        .. math::</span>
+<span class="sd">            RGB(i,j) = \\text{intensity}(i,j) \\cdot [255,0,0] + (1-\\text{intensity}(i,j)) \\cdot [255,255,255]</span>
+
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Called during initialization and when controller state changes</span>
+<span class="sd">        - Handles controllers returning None by creating default visualization</span>
+<span class="sd">        - Uses pygame&#39;s surface array interface for efficient pixel manipulation</span>
+<span class="sd">        - Assumes controller output is normalized to [0,1] range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x_inf</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">x_sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y_inf</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y_sup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+
+        <span class="c1"># Create a grid of points</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_inf</span><span class="p">,</span> <span class="n">x_sup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_inf</span><span class="p">,</span> <span class="n">y_sup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  
+
+        <span class="c1"># Create the 2D grid of values</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># Create a grid from x and y</span>
+
+        <span class="n">Pixels_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">ravel</span><span class="p">()))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If no controller is provided, create a default spatial input</span>
+            <span class="n">Pixel_ity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Pixel_ity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">get_action_in_space</span><span class="p">(</span><span class="n">Pixels_positions</span><span class="p">)</span>
+        <span class="n">Pixel_ity</span> <span class="o">=</span> <span class="n">Pixel_ity</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+
+        <span class="c1"># Create a new 3D matrix to store the blended colors (RGB channels)</span>
+        <span class="n">RGB_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+
+        <span class="n">color1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">color2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">])</span>
+
+        <span class="c1"># Blend each pixel</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">RGB_image</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pixel_ity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">color1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Pixel_ity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">color2</span><span class="p">)</span>
+
+
+
+        <span class="c1"># Create a Pygame surface</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_input</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surfarray</span><span class="o">.</span><span class="n">make_surface</span><span class="p">(</span><span class="n">RGB_image</span><span class="p">)</span></div>
+</div>
+
+
+
+
+
+
+
+
+
+    
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

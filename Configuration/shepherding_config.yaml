@@ -1,73 +1,66 @@
-# Configuration file
-# In all scripts numpy is imported as np
-
 BrownianMotion:
-  id: 'Targets'
   N: 100
-  state_dim: 2
-
+  id: Targets
   initial_conditions:
     mode: random
     random:
-      shape: circle
       circle:
         max_radius: 25
-
+      shape: circle
   parameters:
-    mode: generate    # Options: import, generate
     generate:
-      mu: 0
       D: 1
-
-
-
-SimpleIntegrators:
-  id: 'Herders'
-  N: 10
+      mu: 0
+    mode: generate
   state_dim: 2
-
-  initial_conditions:
-    mode: random
-    random:
-      shape: circle
-      circle:
-        max_radius: 25
-
 HarmonicRepulsion:
   id: Herders repulsion
   parameters:
-    mode: generate
     generate:
-      strength: 3
       distance: 2.5
-
+      strength: 3
+    mode: generate
+SimpleIntegrators:
+  N: 10
+  id: Herders
+  initial_conditions:
+    mode: random
+    random:
+      circle:
+        max_radius: 25
+      shape: circle
+  state_dim: 2
+environment:
+  dimensions:
+  - 50
+  - 50
+  goal_pos:
+  - 0
+  - 0
+  goal_radius: 5
 integrator:
   dt: 0.05
-
-simulator:
-  dt: 0.05
-  T: 100
-
-environment:
-  dimensions: [50, 50]
-  goal_pos: [0, 0]
-  goal_radius: 5
-
-renderer:
-  background_color: 'white'
-  agent_colors: ['blue', 'red']
-  agent_shapes: ['circle', 'diamond']
-  agent_sizes: [1, 1]
-  render_mode: 'matplotlib'
-  render_dt: 0.05
-#  sensing_radius: 10
-
 logger:
-  activate: True         # True to save logger, False otherwise
-  log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 1            # Save every save_freq steps information (0: never save)
+  activate: 1
+  comment_enable: 0
+  log_freq: 0
+  log_name: ''
+  log_path: ./logs
   save_data_freq: 0
-  comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: ./logs    # Path where logger should be saved
-  log_name: ''            # String appended to date in the name of the file
-
+  save_freq: 1
+renderer:
+  agent_colors:
+  - blue
+  - red
+  agent_shapes:
+  - circle
+  - diamond
+  agent_sizes:
+  - 1
+  - 1
+  background_color: white
+  render_dt: 0.05
+  render_mode: matplotlib
+simulator:
+  T: 100
+  dt: 0.05

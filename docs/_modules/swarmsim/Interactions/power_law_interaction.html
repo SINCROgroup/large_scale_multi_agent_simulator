@@ -296,24 +296,9 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Power-law interaction with configurable attraction and repulsion components.</span>
 
-<span class="sd">    This interaction implements a generalized power-law force that can exhibit both</span>
-<span class="sd">    attractive and repulsive behavior with different decay rates. The interaction</span>
-<span class="sd">    combines two power-law terms with different exponents and strengths, providing</span>
-<span class="sd">    flexible modeling of complex agent interactions.</span>
-
-<span class="sd">    The interaction force is given by:</span>
-
-<span class="sd">    .. math::</span>
-
-<span class="sd">        F(r) = \\left[ \\frac{k_{rep}}{r^{p_{rep}}} - \\frac{k_{attr}}{r^{p_{attr}}} \\right] - \\text{shift}</span>
-
-<span class="sd">    where:</span>
-<span class="sd">    - :math:`k_{rep}` is the repulsion strength</span>
-<span class="sd">    - :math:`k_{attr}` is the attraction strength  </span>
-<span class="sd">    - :math:`p_{rep}` is the repulsion decay exponent</span>
-<span class="sd">    - :math:`p_{attr}` is the attraction decay exponent</span>
-<span class="sd">    - :math:`r` is the inter-agent distance</span>
-<span class="sd">    - shift term ensures zero force at the cutoff distance</span>
+<span class="sd">    This interaction models a repulsive force that decays according to a power-law function</span>
+<span class="sd">    with respect to the distance between agents. The strength of the force is determined by</span>
+<span class="sd">    the power exponent `p` and is active within a defined maximum interaction range.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -354,9 +339,9 @@
 <span class="sd">    parameters : dict</span>
 <span class="sd">        Parameter configuration for the power-law interaction:</span>
 <span class="sd">        </span>
-<span class="sd">        - ``params_mode`` : str - Parameter assignment mode</span>
-<span class="sd">        - ``params_names`` : list - Parameter names [&quot;strength_attr&quot;, &quot;strength_rep&quot;, &quot;max_distance&quot;]</span>
-<span class="sd">        - ``params_limits`` or ``params_values`` : dict - Parameter ranges or fixed values</span>
+<span class="sd">        - ``mode`` : str - Parameter assignment mode</span>
+<span class="sd">        - ``names`` : list - Parameter names [&quot;strength_attr&quot;, &quot;strength_rep&quot;, &quot;max_distance&quot;]</span>
+<span class="sd">        - ``limits`` or ``values`` : dict - Parameter ranges or fixed values</span>
 
 <span class="sd">    p_attr : int</span>
 <span class="sd">        Power exponent for the attraction term (typically 6-8).</span>
@@ -364,26 +349,6 @@
 <span class="sd">        Power exponent for the repulsion term (typically 12-16).</span>
 <span class="sd">    is_attractive : bool</span>
 <span class="sd">        Whether to allow attractive forces. If False, forces are clipped to non-negative values.</span>
-
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    **Force Characteristics:**</span>
-
-<span class="sd">    - **Dual Component**: Combines attraction and repulsion with different decay rates</span>
-<span class="sd">    - **Flexible Exponents**: Independent control of attraction and repulsion decay</span>
-<span class="sd">    - **Finite Range**: Optional cutoff distance with shift correction</span>
-<span class="sd">    - **Asymmetric Forces**: Different strengths for attraction vs repulsion</span>
-
-<span class="sd">    **Parameter Relationships:**</span>
-
-<span class="sd">    - **p_rep &gt; p_attr**: Typical configuration giving short-range repulsion, long-range attraction</span>
-<span class="sd">    - **strength_rep vs strength_attr**: Relative magnitudes determine equilibrium distance</span>
-<span class="sd">    - **max_distance**: Controls interaction range and computational efficiency</span>
-
-<span class="sd">    **Force Clamping:**</span>
-
-<span class="sd">    - Forces are clamped to maximum magnitude (1000) for numerical stability</span>
-<span class="sd">    - Optional non-negativity constraint when ``is_attractive = False``</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>

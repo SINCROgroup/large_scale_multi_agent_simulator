@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swarmsim.Loggers.position_logger &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../swarmsim.html">IntelliSwarm Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">swarmsim.Loggers.position_logger</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for swarmsim.Loggers.position_logger</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLogger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">get_positions</span><span class="p">,</span><span class="n">append_entry</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="PositionLogger">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PositionLogger</span><span class="p">(</span><span class="n">BaseLogger</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Position-based data logger for tracking agent spatial dynamics.</span>
+
+<span class="sd">    This logger extends the BaseLogger to capture and record detailed positional</span>
+<span class="sd">    information about agent populations throughout the simulation. It automatically</span>
+<span class="sd">    logs agent positions, computes position-based statistics, and tracks control</span>
+<span class="sd">    inputs when available.</span>
+
+<span class="sd">    The logger captures position data at regular intervals and saves it in multiple</span>
+<span class="sd">    formats (CSV, NPZ, MAT) for analysis and visualization.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of population objects whose positions will be logged.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Environment object containing spatial context and boundaries.</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing logger parameters.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        Population objects being monitored for position data.</span>
+<span class="sd">    environment : Environment</span>
+<span class="sd">        Environment context for spatial logging, inherited from BaseLogger.</span>
+<span class="sd">    global_info : dict</span>
+<span class="sd">        Accumulated data structure for position information across timesteps.</span>
+<span class="sd">    step_count : int</span>
+<span class="sd">        Current simulation step counter, inherited from BaseLogger.</span>
+<span class="sd">    save_freq : int</span>
+<span class="sd">        Frequency (in steps) for saving position data, inherited from BaseLogger.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain logger parameters under the class section:</span>
+
+<span class="sd">    PositionLogger : dict</span>
+<span class="sd">        Configuration section for the position logger:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``activate`` : bool, optional </span>
+<span class="sd">          Enable/disable logging. Default: ``True``</span>
+<span class="sd">        - ``log_freq`` : int, optional </span>
+<span class="sd">          Print frequency (0 = never). Default: ``0``</span>
+<span class="sd">        - ``save_freq`` : int, optional </span>
+<span class="sd">          Save frequency (0 = never). Default: ``1``</span>
+<span class="sd">        - ``save_data_freq`` : int, optional </span>
+<span class="sd">          Data save frequency. Default: ``0``</span>
+<span class="sd">        - ``save_global_data_freq`` : int, optional </span>
+<span class="sd">          Global data save frequency. Default: ``0``</span>
+<span class="sd">        - ``log_path`` : str, optional </span>
+<span class="sd">          Output directory path. Default: ``&quot;./logs&quot;``</span>
+<span class="sd">        - ``log_name`` : str, optional </span>
+<span class="sd">          Log file name suffix. Default: ``&quot;&quot;``</span>
+<span class="sd">        - ``comment_enable`` : bool, optional </span>
+<span class="sd">          Enable experiment comments. Default: ``False``</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Data Capture:**</span>
+
+<span class="sd">    The logger automatically captures:</span>
+
+<span class="sd">    - **Agent Positions**: Full position arrays for all agents in all populations</span>
+<span class="sd">    - **Control Inputs**: Mean control input values when available (e.g., ``u`` for first population)</span>
+<span class="sd">    - **Temporal Information**: Timestep and timing data for synchronization</span>
+
+<span class="sd">    **File Formats:**</span>
+
+<span class="sd">    Position data is saved in multiple formats for flexibility:</span>
+
+<span class="sd">    - **CSV**: Human-readable comma-separated values for spreadsheet analysis</span>
+<span class="sd">    - **NPZ**: Compressed NumPy format for efficient Python data loading</span>
+<span class="sd">    - **MAT**: MATLAB format for analysis in MATLAB/Octave</span>
+
+<span class="sd">    **Performance Considerations:**</span>
+
+<span class="sd">    - Data is accumulated in memory and saved at specified intervals</span>
+<span class="sd">    - Memory usage scales with number of agents and save frequency</span>
+<span class="sd">    - For large populations, consider increasing ``save_freq`` to reduce I/O overhead</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    **Basic Configuration:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        PositionLogger:</span>
+<span class="sd">            activate: true</span>
+<span class="sd">            save_freq: 10</span>
+<span class="sd">            log_path: &quot;./simulation_logs&quot;</span>
+<span class="sd">            log_name: &quot;position_data&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="PositionLogger.__init__">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">environment</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">populations</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PositionLogger.log_internal_data">
+<a class="viewcode-back" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger.log_internal_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_internal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span><span class="s1">&#39;npz&#39;</span><span class="p">,</span><span class="s1">&#39;mat&#39;</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Log position data and control for all populations.</span>
+
+<span class="sd">        This method captures detailed position information for all agents in all populations</span>
+<span class="sd">        and information about control inputs. Data is saved according to</span>
+<span class="sd">        the specified save frequency and formats.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        save_mode : list of str, optional</span>
+<span class="sd">            List of output formats for data saving. Default: ``[&#39;csv&#39;,&#39;npz&#39;,&#39;mat&#39;]``</span>
+<span class="sd">            </span>
+<span class="sd">            - ``&#39;csv&#39;`` : Comma-separated values for spreadsheet analysis</span>
+<span class="sd">            - ``&#39;npz&#39;`` : Compressed NumPy format for Python analysis</span>
+<span class="sd">            - ``&#39;mat&#39;`` : MATLAB format for MATLAB/Octave analysis</span>
+<span class="sd">            - ``&#39;print&#39;`` : Console output for debugging</span>
+<span class="sd">            - ``&#39;txt&#39;`` : Human-readable text format</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Position Data Capture:**</span>
+
+<span class="sd">        The method uses ``get_positions()`` utility to extract:</span>
+
+<span class="sd">        - Full position arrays for all agents in all populations</span>
+<span class="sd">        - Timestep information</span>
+<span class="sd">        - Population identifiers for multi-population simulations</span>
+
+<span class="sd">        **Control Input:**</span>
+
+<span class="sd">        For the first population (index 0), computes and logs:</span>
+
+<span class="sd">        - Mean control input value: ``np.mean(populations[0].u)``</span>
+<span class="sd">        - Useful for monitoring control effort and system behavior</span>
+
+<span class="sd">        **Save Frequency:**</span>
+
+<span class="sd">        Data logging occurs only when ``step_count % save_freq == 0``, ensuring</span>
+<span class="sd">        efficient memory usage and I/O performance for long simulations.</span>
+
+<span class="sd">        **Data Format:**</span>
+
+<span class="sd">        The logged data structure includes:</span>
+
+<span class="sd">        - ``positions_Population_N`` : Position arrays for population N</span>
+<span class="sd">        - ``u`` : Mean control input for first population</span>
+<span class="sd">        - ``step`` : Current simulation step</span>
+<span class="sd">        - ``time`` : Simulation time or timestamp</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">get_positions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">)</span>
+            <span class="n">append_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&quot;u&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">u</span><span class="p">)})</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">log_internal_data</span><span class="p">(</span><span class="n">save_mode</span><span class="p">)</span></div>
+</div>
+
+        
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,649 +1,660 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntelliSwarm Package &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>swarms_py &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Controllers" href="swarmsim.Controllers.html" />
-    <link rel="prev" title="SwarmS.py documentation" href="index.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="next" title="Controllers Package" href="swarmsim.Controllers.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IntelliSwarm Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarms_py</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">IntelliSwarm Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
-</nav>
+  <hr/>
 </div>
-      
-    </div>
-  
-  
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intelliswarm-package">
+<h1>IntelliSwarm Package<a class="headerlink" href="#intelliswarm-package" title="Link to this heading"></a></h1>
+<p>The IntelliSwarm package provides a comprehensive framework for multi-agent simulation and analysis.
+The package is organized into several key modules, each serving specific functions in the simulation pipeline.</p>
+<section id="swarmsim-a-large-scale-multi-agent-simulator">
+<span id="module-swarmsim"></span><h2>SwarmSim: A Large-Scale Multi-Agent Simulator<a class="headerlink" href="#swarmsim-a-large-scale-multi-agent-simulator" title="Link to this heading"></a></h2>
+<p>SwarmSim is a comprehensive Python framework for simulating large-scale multi-agent systems
+with stochastic dynamics. It provides a modular architecture for defining agent populations,
+environments, interactions, controllers, and integrators.</p>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Modular Design</strong>: Easily extensible components for populations, environments, interactions, etc.</p></li>
+<li><p><strong>Stochastic Dynamics</strong>: Support for stochastic differential equations with drift and diffusion</p></li>
+<li><p><strong>Flexible Configuration</strong>: YAML-based configuration system for all simulation parameters</p></li>
+<li><p><strong>Scalable</strong>: Designed to handle large numbers of agents efficiently</p></li>
+<li><p><strong>Visualization</strong>: Built-in rendering capabilities for real-time visualization</p></li>
+<li><p><strong>Logging</strong>: Comprehensive data logging for analysis and visualization</p></li>
+</ul>
+</section>
+<section id="main-components">
+<h3>Main Components<a class="headerlink" href="#main-components" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Populations</strong>: Define agent behavior and dynamics (e.g., Brownian motion, double integrators)</p></li>
+<li><p><strong>Environments</strong>: Specify the physical or virtual space where agents operate</p></li>
+<li><p><strong>Interactions</strong>: Model agent-to-agent and agent-to-environment interactions</p></li>
+<li><p><strong>Controllers</strong>: Implement control strategies for guiding agent behavior</p></li>
+<li><p><strong>Integrators</strong>: Numerical integration schemes for stochastic differential equations</p></li>
+<li><p><strong>Simulators</strong>: Orchestrate the simulation loop and coordinate all components</p></li>
+<li><p><strong>Loggers</strong>: Record simulation data for analysis</p></li>
+<li><p><strong>Renderers</strong>: Provide real-time visualization of simulations</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Basic usage example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span><span class="p">,</span> <span class="n">Simulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Environments</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmptyEnvironment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Integrators</span><span class="w"> </span><span class="kn">import</span> <span class="n">EulerMaruyama</span>
+
+<span class="c1"># Create population</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create environment</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">EmptyEnvironment</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create integrator</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">EulerMaruyama</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create and run simulator</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">population</span><span class="p">],</span> <span class="n">environment</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span>
+<span class="n">simulator</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+</pre></div>
 </div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">For</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">visit</span></code></p>
 </div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="swarms-py">
-<h1>swarms_py<a class="headerlink" href="#swarms-py" title="Link to this heading">#</a></h1>
+</section>
+</section>
+<section id="package-overview">
+<h2>Package Overview<a class="headerlink" href="#package-overview" title="Link to this heading"></a></h2>
+<p>The SwarmSim framework consists of the following main components:</p>
+<ul class="simple">
+<li><p><strong>Controllers</strong>: Implement control algorithms for agent guidance and coordination</p></li>
+<li><p><strong>Environments</strong>: Define simulation environments and boundary conditions</p></li>
+<li><p><strong>Integrators</strong>: Provide numerical integration methods for agent dynamics</p></li>
+<li><p><strong>Interactions</strong>: Model inter-agent forces and communication</p></li>
+<li><p><strong>Loggers</strong>: Handle data collection and export functionality</p></li>
+<li><p><strong>Populations</strong>: Define agent populations and their behavioral models</p></li>
+<li><p><strong>Renderers</strong>: Provide visualization and rendering capabilities</p></li>
+<li><p><strong>Simulators</strong>: Coordinate simulation execution and component integration</p></li>
+<li><p><strong>Utils</strong>: Supply utility functions for common simulation tasks</p></li>
+</ul>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>SwarmSim follows a modular architecture that allows for flexible composition of simulation components:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic simulation setup</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span>
+    <span class="n">populations</span><span class="o">=</span><span class="p">[</span><span class="n">population1</span><span class="p">,</span> <span class="n">population2</span><span class="p">],</span>  <span class="c1"># Multiple agent types</span>
+    <span class="n">environment</span><span class="o">=</span><span class="n">environment</span><span class="p">,</span>                 <span class="c1"># Simulation environment</span>
+    <span class="n">integrator</span><span class="o">=</span><span class="n">integrator</span><span class="p">,</span>                  <span class="c1"># Numerical integration</span>
+    <span class="n">interactions</span><span class="o">=</span><span class="p">[</span><span class="n">interaction1</span><span class="p">,</span> <span class="n">interaction2</span><span class="p">],</span> <span class="c1"># Inter-agent forces</span>
+    <span class="n">controllers</span><span class="o">=</span><span class="p">[</span><span class="n">controller</span><span class="p">],</span>               <span class="c1"># Control algorithms</span>
+    <span class="n">loggers</span><span class="o">=</span><span class="p">[</span><span class="n">logger</span><span class="p">],</span>                      <span class="c1"># Data collection</span>
+    <span class="n">renderer</span><span class="o">=</span><span class="n">renderer</span>                      <span class="c1"># Visualization</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#module-swarmsim.Controllers">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#available-controllers">Available Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#key-features">Key Features</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#configuration-examples">Configuration Examples</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#modules">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#available-controllers">Available Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#configuration-examples">Configuration Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#base-controller-interface">Base Controller Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#shepherding-controller">Shepherding Controller</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController"><code class="docutils literal notranslate"><span class="pre">ShepherdingLamaController</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#spatial-input-processing">Spatial Input Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion"><code class="docutils literal notranslate"><span class="pre">GaussianRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern"><code class="docutils literal notranslate"><span class="pre">LightPattern</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback"><code class="docutils literal notranslate"><span class="pre">AngularFeedback</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#module-swarmsim.Controllers.base_controller">Controller Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller.get_action"><code class="docutils literal notranslate"><span class="pre">Controller.get_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.base_controller.Controller.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">Controller.get_action_in_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#basic-controller-setup">Basic Controller Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#shepherding-control">Shepherding Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#advanced-control-strategies">Advanced Control Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#available-environments">Available Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.__init__"><code class="docutils literal notranslate"><span class="pre">Environment.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_forces"><code class="docutils literal notranslate"><span class="pre">Environment.get_forces()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_info"><code class="docutils literal notranslate"><span class="pre">Environment.get_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.update"><code class="docutils literal notranslate"><span class="pre">Environment.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.__init__"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_forces"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_forces()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.update"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.__init__"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.get_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.update"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#base-environment-interface">Base Environment Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#empty-environment">Empty Environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#shepherding-environment">Shepherding Environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#module-swarmsim.Controllers.shepherding_lama_controller">Sheperding Controller (by Andrea Lama)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController"><code class="docutils literal notranslate"><span class="pre">ShepherdingLamaController</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.shepherding_lama_controller.ShepherdingLamaController.get_action"><code class="docutils literal notranslate"><span class="pre">ShepherdingLamaController.get_action()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Controllers.html#module-swarmsim.Controllers.spatial_inputs">Spatial Inputs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion"><code class="docutils literal notranslate"><span class="pre">GaussianRepulsion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.GaussianRepulsion.get_action"><code class="docutils literal notranslate"><span class="pre">GaussianRepulsion.get_action()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern"><code class="docutils literal notranslate"><span class="pre">LightPattern</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.LightPattern.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">LightPattern.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.Temporal_pulses.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">Temporal_pulses.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback"><code class="docutils literal notranslate"><span class="pre">AngularFeedback</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#swarmsim.Controllers.spatial_inputs.AngularFeedback.get_action_in_space"><code class="docutils literal notranslate"><span class="pre">AngularFeedback.get_action_in_space()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#module-swarmsim.Environments">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#available-environments">Available Environments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage">Usage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#modules">Modules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_forces"><code class="docutils literal notranslate"><span class="pre">Environment.get_forces()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.get_info"><code class="docutils literal notranslate"><span class="pre">Environment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment.update"><code class="docutils literal notranslate"><span class="pre">Environment.update()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_forces"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_forces()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment.update"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.update()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment.update"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.update()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#module-swarmsim.Environments.base_environment">Environment Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.get_forces"><code class="docutils literal notranslate"><span class="pre">Environment.get_forces()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.get_info"><code class="docutils literal notranslate"><span class="pre">Environment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.base_environment.Environment.update"><code class="docutils literal notranslate"><span class="pre">Environment.update()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#module-swarmsim.Environments.empty_environment">Empty Environment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.get_forces"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_forces()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.empty_environment.EmptyEnvironment.update"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment.update()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#module-swarmsim.Environments.shepherding_environment">Shepherding Environment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.get_info"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.get_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.shepherding_environment.ShepherdingEnvironment.update"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html#id0"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id2"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id3"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id4"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment.update()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module contents</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#integrators-module">Integrators Module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#available-integrators">Available Integrators</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#id1">Key Features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#mathematical-background">Mathematical Background</a></li>
 <li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#configuration-example">Configuration Example</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators.base_integrator">Integrator Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators.euler_maruyama">Euler Maruyama</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator.step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#module-swarmsim.Interactions">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#available-interactions">Available Interactions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#available-interactions">Available Interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.__init__"><code class="docutils literal notranslate"><span class="pre">Interaction.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.get_interaction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.__init__"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.reset()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.__init__"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.reset()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.get_interaction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.__init__"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction.reset()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones.get_interaction"><code class="docutils literal notranslate"><span class="pre">LennardJones.get_interaction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones.reset"><code class="docutils literal notranslate"><span class="pre">LennardJones.reset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones.__init__"><code class="docutils literal notranslate"><span class="pre">LennardJones.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones.get_interaction"><code class="docutils literal notranslate"><span class="pre">LennardJones.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones.reset"><code class="docutils literal notranslate"><span class="pre">LennardJones.reset()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#base-interaction-interface">Base Interaction Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#module-swarmsim.Interactions.interaction">Interaction Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.reset"><code class="docutils literal notranslate"><span class="pre">Interaction.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.interaction.Interaction.get_interaction"><code class="docutils literal notranslate"><span class="pre">Interaction.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#lennard-jones-interaction">Lennard-Jones Interaction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.lennard_jones.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#power-law-repulsion">Power Law Repulsion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#module-swarmsim.Interactions.harmonic_repulsion">Harmonic Repulsion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion.get_interaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#power-law-interaction">Power Law Interaction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_interaction.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#module-swarmsim.Interactions.power_law_repulsion">Power Law Repulsion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.reset"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.power_law_repulsion.PowerLawRepulsion.get_interaction"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion.get_interaction()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers.base_logger">Logger Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.reset"><code class="docutils literal notranslate"><span class="pre">BaseLogger.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.close"><code class="docutils literal notranslate"><span class="pre">BaseLogger.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_external_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log_external_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.log_internal_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.log_internal_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger.output_data"><code class="docutils literal notranslate"><span class="pre">BaseLogger.output_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html#harmonic-repulsion">Harmonic Repulsion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.harmonic_repulsion.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers.logger">Base Logger</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.reset"><code class="docutils literal notranslate"><span class="pre">Logger.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.log"><code class="docutils literal notranslate"><span class="pre">Logger.log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger.close"><code class="docutils literal notranslate"><span class="pre">Logger.close()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers.shepherding_logger">Shepherding Logger</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.log_internal_data"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.log_internal_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_xi"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.get_xi()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger.get_event"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger.get_event()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#shepherding-gym-logger">Shepherding Gym Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#module-contents">Module contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#populations-interface">Populations Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#brownian-motion">Brownian Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#simple-integrator">Simple Integrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#double-integrator">Double Integrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#fixed-population">Fixed Population</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module contents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#available-population-types">Available Population Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#base-population-interface">Base Population Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#brownian-motion-population">Brownian Motion Population</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.brownian_motion.BrownianMotion"><code class="docutils literal notranslate"><span class="pre">BrownianMotion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#simple-integrator-population">Simple Integrator Population</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.simple_integrators.SimpleIntegrators"><code class="docutils literal notranslate"><span class="pre">SimpleIntegrators</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#double-integrator-population">Double Integrator Population</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.double_integrators.DampedDoubleIntegrators"><code class="docutils literal notranslate"><span class="pre">DampedDoubleIntegrators</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#fixed-population">Fixed Population</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.fixed_population.FixedPopulation"><code class="docutils literal notranslate"><span class="pre">FixedPopulation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#persistent-turning-walker">Persistent Turning Walker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW"><code class="docutils literal notranslate"><span class="pre">LightSensitive_PTW</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#basic-population-setup">Basic Population Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#multi-population-simulation">Multi-Population Simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#population-parameter-configuration">Population Parameter Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#advanced-population-dynamics">Advanced Population Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html#population-interactions">Population Interactions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#id1">Module Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers.renderer">Renderer Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer.render"><code class="docutils literal notranslate"><span class="pre">Renderer.render()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer.close"><code class="docutils literal notranslate"><span class="pre">Renderer.close()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#module-contents">Module Contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#base-simulator">Base Simulator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#gym-simulator">Gym Simulator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator"><code class="docutils literal notranslate"><span class="pre">GymSimulator</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers.base_renderer">Base Renderer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.render()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render_matplotlib"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.render_matplotlib()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.render_pygame"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.render_pygame()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.pre_render_hook_matplotlib"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.pre_render_hook_matplotlib()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.post_render_hook_matplotlib"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.post_render_hook_matplotlib()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.pre_render_hook_pygame"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.pre_render_hook_pygame()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.post_render_hook_pygame"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.post_render_hook_pygame()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer.close"><code class="docutils literal notranslate"><span class="pre">BaseRenderer.close()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#basic-simulation-setup">Basic Simulation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#multi-population-simulation">Multi-Population Simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#controlled-simulation">Controlled Simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#reinforcement-learning-environment">Reinforcement Learning Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#module-contents">Module Contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#parameter-utilities">Parameter Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.params_utils.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#logger-utilities">Logger Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.add_entry"><code class="docutils literal notranslate"><span class="pre">add_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_entry"><code class="docutils literal notranslate"><span class="pre">append_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.get_positions"><code class="docutils literal notranslate"><span class="pre">get_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.print_log"><code class="docutils literal notranslate"><span class="pre">print_log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_txt"><code class="docutils literal notranslate"><span class="pre">append_txt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_csv"><code class="docutils literal notranslate"><span class="pre">append_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_npz"><code class="docutils literal notranslate"><span class="pre">save_npz()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_mat"><code class="docutils literal notranslate"><span class="pre">save_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#control-utilities">Control Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.control_utils.compute_distances"><code class="docutils literal notranslate"><span class="pre">compute_distances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.control_utils.gaussian_input"><code class="docutils literal notranslate"><span class="pre">gaussian_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#initialization-utilities">Initialization Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.init_utils.get_states"><code class="docutils literal notranslate"><span class="pre">get_states()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers.shepherding_renderer">Shepherding Renderer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_matplotlib"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer.post_render_hook_matplotlib()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer.post_render_hook_pygame"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer.post_render_hook_pygame()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#plot-utilities">Plot Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.plot_utils.get_snapshot"><code class="docutils literal notranslate"><span class="pre">get_snapshot()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#shepherding-utilities">Shepherding Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_target_distance"><code class="docutils literal notranslate"><span class="pre">get_target_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.xi_shepherding"><code class="docutils literal notranslate"><span class="pre">xi_shepherding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_done_shepherding"><code class="docutils literal notranslate"><span class="pre">get_done_shepherding()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#simulation-utilities">Simulation Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.sim_utils.set_global_seed"><code class="docutils literal notranslate"><span class="pre">set_global_seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.sim_utils.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#module-swarmsim.Simulators">Module contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#module-swarmsim.Simulators.base_simulator">Base Simulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.base_simulator.Simulator.simulate"><code class="docutils literal notranslate"><span class="pre">Simulator.simulate()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Simulators.html#module-swarmsim.Simulators.gym_simulator">Gym Simulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator"><code class="docutils literal notranslate"><span class="pre">GymSimulator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.reset"><code class="docutils literal notranslate"><span class="pre">GymSimulator.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.step"><code class="docutils literal notranslate"><span class="pre">GymSimulator.step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.render"><code class="docutils literal notranslate"><span class="pre">GymSimulator.render()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim.Simulators.gym_simulator.GymSimulator.close"><code class="docutils literal notranslate"><span class="pre">GymSimulator.close()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#module-swarmsim.Utils">Module contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#actorcritic">ActorCritic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#dqn-agent">DQN Agent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#actor-critic-base">Actor Critic Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#actor-critic-continuous">Actor Critic Continuous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#actor-critic-mappo">Actor Critic Mappo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#module-swarmsim.Utils.control_utils">Control Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.control_utils.compute_distances"><code class="docutils literal notranslate"><span class="pre">compute_distances()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.control_utils.gaussian_input"><code class="docutils literal notranslate"><span class="pre">gaussian_input()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#module-swarmsim.Utils.logger_utils">Logger Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.add_entry"><code class="docutils literal notranslate"><span class="pre">add_entry()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_entry"><code class="docutils literal notranslate"><span class="pre">append_entry()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.get_positions"><code class="docutils literal notranslate"><span class="pre">get_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.print_log"><code class="docutils literal notranslate"><span class="pre">print_log()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_txt"><code class="docutils literal notranslate"><span class="pre">append_txt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_csv"><code class="docutils literal notranslate"><span class="pre">append_csv()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_npz"><code class="docutils literal notranslate"><span class="pre">save_npz()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_mat"><code class="docutils literal notranslate"><span class="pre">save_mat()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#module-swarmsim.Utils.plot_utils">Plot Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.plot_utils.get_snapshot"><code class="docutils literal notranslate"><span class="pre">get_snapshot()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="swarmsim.Utils.html#module-swarmsim.Utils.shepherding_utils">Shepherding Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_target_distance"><code class="docutils literal notranslate"><span class="pre">get_target_distance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.xi_shepherding"><code class="docutils literal notranslate"><span class="pre">xi_shepherding()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html#swarmsim.Utils.shepherding_utils.get_done_shepherding"><code class="docutils literal notranslate"><span class="pre">get_done_shepherding()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -651,110 +662,39 @@
 </ul>
 </div>
 </section>
+</section>
 
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="index.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SwarmS.py documentation</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="swarmsim.Controllers.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Controllers</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="swarmsim.Controllers.html" class="btn btn-neutral float-right" title="Controllers Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

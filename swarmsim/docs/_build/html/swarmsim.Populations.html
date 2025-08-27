@@ -1,457 +1,1519 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Populations Package &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Populations &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Populations';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true, "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore", "processHtmlClass": "tex2jax_process"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Renderers" href="swarmsim.Renderers.html" />
-    <link rel="prev" title="Loggers" href="swarmsim.Loggers.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="next" title="Visualization &amp; Rendering" href="swarmsim.Renderers.html" />
+    <link rel="prev" title="Data Loggers" href="swarmsim.Loggers.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Integrators.html">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="swarmsim.html">IntelliSwarm Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="swarmsim.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Populations</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="swarmsim.html">IntelliSwarm Package</a></li>
+      <li class="breadcrumb-item active">Populations Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.Populations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
-</nav>
+  <hr/>
 </div>
-      
-    </div>
-  
-  
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="populations-package">
+<h1>Populations Package<a class="headerlink" href="#populations-package" title="Link to this heading"></a></h1>
+<p>The Populations package defines various agent population models with different behavioral patterns
+and dynamics. Each population type implements specific movement patterns, interaction rules,
+and physical properties suitable for different simulation scenarios.</p>
+<section id="population-module">
+<span id="module-swarmsim.Populations"></span><h2>Population Module<a class="headerlink" href="#population-module" title="Link to this heading"></a></h2>
+<p>This module contains implementations of various agent population types for multi-agent simulations.
+Each population type defines different dynamics and behaviors for groups of agents.</p>
+<section id="available-population-types">
+<h3>Available Population Types<a class="headerlink" href="#available-population-types" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>Population</dt><dd><p>Abstract base class defining the interface for all population types.</p>
+</dd>
+<dt>BrownianMotion</dt><dd><p>Implements biased Brownian motion with drift and diffusion components.</p>
+</dd>
+<dt>FixedPopulation</dt><dd><p>Represents stationary agents with fixed positions.</p>
+</dd>
+<dt>SimpleIntegrators</dt><dd><p>Single integrator dynamics (velocity-controlled agents).</p>
+</dd>
+<dt>DampedDoubleIntegrators</dt><dd><p>Double integrator dynamics (position and velocity states, controlled in acceleration).</p>
+</dd>
+<dt>LightSensitive_PTW</dt><dd><p>Persistent turning walker model with light sensitivity for biological agents.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Basic usage of a Brownian motion population:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span>
+
+<span class="c1"># Create population from configuration</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Reset to initial conditions</span>
+<span class="n">population</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="c1"># Access current state</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">x</span>
+
+<span class="c1"># Get dynamics components</span>
+<span class="n">drift</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">get_drift</span><span class="p">()</span>
+<span class="n">diffusion</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">get_diffusion</span><span class="p">()</span>
+</pre></div>
 </div>
+</section>
+</section>
+<section id="package-overview">
+<h2>Package Overview<a class="headerlink" href="#package-overview" title="Link to this heading"></a></h2>
+<p>Population models in SwarmSim provide:</p>
+<ul class="simple">
+<li><p><strong>Diverse Behavioral Models</strong>: From simple random motion to complex multi-physics dynamics</p></li>
+<li><p><strong>Scalable Implementations</strong>: Efficient algorithms for large populations</p></li>
+<li><p><strong>Configurable Properties</strong>: Flexible parameter settings for different scenarios</p></li>
+<li><p><strong>Integration Support</strong>: Seamless integration with integrators and interactions</p></li>
+<li><p><strong>Physical Realism</strong>: Scientifically grounded models for various domains</p></li>
+</ul>
+<p>All population classes inherit from the base population interface, ensuring consistent
+integration with other simulation components.</p>
+</section>
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading"></a></h2>
+<section id="base-population-interface">
+<h3>Base Population Interface<a class="headerlink" href="#base-population-interface" title="Link to this heading"></a></h3>
+<p>The foundation class that defines the standard interface for all population implementations.</p>
+<dl class="py class" id="module-swarmsim.Populations.population">
+<dt class="sig sig-object py" id="swarmsim.Populations.population.Population">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.population.</span></span><span class="sig-name descname"><span class="pre">Population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/population.html#Population"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.population.Population" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Abstract base class that defines the structure for agent populations in a multi-agent system.</p>
+<p>This class provides the foundational framework for implementing different types of agent populations
+with configurable initial conditions and parameters. It handles the loading of configuration files,
+initialization of agent states, and provides abstract methods for defining population dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to a YAML configuration file.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. If None, defaults to the class name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Identifier for the population instance.</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Either a path to a YAML configuration file containing population parameters,
+or a dictionary with configuration parameters.</p></li>
+<li><p><strong>init_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Configuration parameters specifically for initial conditions.</p></li>
+<li><p><strong>param_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> or </em><em>None</em>) – Configuration parameters for population-specific parameters.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents in the population.</p></li>
+<li><p><strong>state_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Dimensionality of the state space for each agent.</p></li>
+<li><p><strong>input_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Dimensionality of the input space for each agent. Defaults to <cite>state_dim</cite> if not specified.</p></li>
+<li><p><strong>lim_i</strong> (<em>np.ndarray</em>) – Lower limits for the state of each agent. Defaults to <code class="docutils literal notranslate"><span class="pre">['-inf']</span></code>.</p></li>
+<li><p><strong>lim_s</strong> (<em>np.ndarray</em>) – Upper limits for the state of each agent. Defaults to <code class="docutils literal notranslate"><span class="pre">['inf']</span></code>.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> of </em><em>np.ndarray</em><em> or </em><em>None</em>) – Dictionary containing population-specific parameters for each agent.</p></li>
+<li><p><strong>params_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> or </em><em>None</em>) – Dictionary defining the expected shapes for each parameter.</p></li>
+<li><p><strong>x</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – Current state of all agents, shape (N, state_dim).</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – Current control input for all agents, shape (N, input_dim).</p></li>
+<li><p><strong>f</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – Current environmental forces acting on all agents, shape (N, input_dim).</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The configuration must contain the following required parameters</strong></p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of agents in the population.</p></li>
+<li><p><strong>state_dim</strong> (<em>int</em>) – Dimensionality of the state space.</p></li>
+<li><p><strong>input_dim</strong> (<em>int, optional</em>) – Dimensionality of the input space. Defaults to <cite>state_dim</cite>.</p></li>
+<li><p><strong>lim_i</strong> (<em>list of float, optional</em>) – Lower limits for the state of each agent. Defaults to <code class="docutils literal notranslate"><span class="pre">['-inf']</span></code>.</p></li>
+<li><p><strong>lim_s</strong> (<em>list of float, optional</em>) – Upper limits for the state of each agent. Defaults to <code class="docutils literal notranslate"><span class="pre">['inf']</span></code>.</p></li>
+<li><p><strong>initial_conditions</strong> (<em>dict, optional</em>) – Configuration for initial agent states. See <cite>get_states</cite> utility function for details.</p></li>
+<li><p><strong>parameters</strong> (<em>dict, optional</em>) – Configuration for population-specific parameters. See <cite>get_parameters</cite> utility function for details.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Subclasses must implement the abstract methods <cite>get_drift()</cite> and <cite>get_diffusion()</cite>.</p></li>
+<li><p>The initial_conditions dictionary handles specifying initial conditions using various modes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code>: Generate random initial positions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>: Load initial positions from a CSV file</p></li>
+</ul>
+</li>
+<li><p>Initial condition shapes can be:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code>: Uniform distribution within specified limits</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;circle&quot;</span></code>: Uniform distribution within a circular region</p></li>
+</ul>
+</li>
+<li><p>The parameters dictionary handles specifying population-specific parameters using various modes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code>: Generate random parameter values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>: Load parameter values from a CSV file</p></li>
+</ul>
+</li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration for a population:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">MyPopulation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">state_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">input_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">initial_conditions</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;random&quot;</span>
+<span class="w">        </span><span class="nt">random</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">shape</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;box&quot;</span>
+<span class="w">            </span><span class="nt">box</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">lower_bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">                </span><span class="nt">upper_bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file&quot;</span>
+<span class="w">        </span><span class="nt">file</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/to/parameter/file.csv&quot;</span>
+</pre></div>
 </div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="populations">
-<h1>Populations<a class="headerlink" href="#populations" title="Link to this heading">#</a></h1>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<p>This configuration creates a population of 100 agents in a 2D space with random initial
+positions in a 10x10 box and parameters defined in the path/to/parameter/file.csv file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.population.Population.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/population.html#Population.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.population.Population.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the population using the parameters specified in the configuration dictionary or file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Either a path to a YAML configuration file containing population parameters,
+or a dictionary with configuration parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. If None, defaults to the class name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If config is neither a string filepath nor a dictionary.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If required parameters ‘N’ or ‘state_dim’ are missing from the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.population.Population.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/population.html#Population.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.population.Population.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset agent parameters, states, and control inputs.</p>
+<p>This method reinitializes all population parameters, agent states, control inputs,
+and external forces based on the configuration. It should be called before starting
+a new simulation or when resetting the simulation state.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Regenerates parameters</p></li>
+<li><p>Resets agent states to initial conditions</p></li>
+<li><p>Resets to 0 control inputs and external forces</p></li>
+</ul>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.population.Population.get_drift">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/population.html#Population.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.population.Population.get_drift" title="Link to this definition"></a></dt>
+<dd><p>Compute the deterministic drift component of the population dynamics.</p>
+<p>This abstract method must be implemented by subclasses to define the deterministic
+part of the agent dynamics. The drift typically includes intrinsic motion patterns,
+external forces, and control inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape (N, state_dim) representing the drift for each agent.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Subclasses should implement this method to return the drift term in the stochastic
+differential equation: dx = drift * dt + diffusion * dW, where dW is a Wiener process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.population.Population.get_diffusion">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/population.html#Population.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.population.Population.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Compute the stochastic diffusion component of the population dynamics.</p>
+<p>This abstract method must be implemented by subclasses to define the stochastic
+part of the agent dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape (N, state_dim) representing the diffusion component for each agent.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Subclasses should implement this method to return the diffusion term in the stochastic
+differential equation: dx = drift * dt + diffusion * dW, where dW is a Wiener process.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Standardized Interface</strong>: Consistent API across all population types</p></li>
+<li><p><strong>State Management</strong>: Handle agent positions, velocities, and properties</p></li>
+<li><p><strong>Integration Support</strong>: Compatible with various numerical integrators</p></li>
+<li><p><strong>Scalable Architecture</strong>: Efficient for populations from tens to millions of agents</p></li>
+</ul>
 </section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<section id="brownian-motion-population">
+<h3>Brownian Motion Population<a class="headerlink" href="#brownian-motion-population" title="Link to this heading"></a></h3>
+<p>Implementation of Brownian motion dynamics for stochastic agent behavior.</p>
+<dl class="py class" id="module-swarmsim.Populations.brownian_motion">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.brownian_motion.</span></span><span class="sig-name descname"><span class="pre">BrownianMotion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
+<p>Implements a biased Brownian motion model with average velocity <cite>mu</cite> and diffusion coefficient <cite>D</cite>.</p>
+<p>This model simulates agent movement with a constant drift (<cite>mu</cite>) and stochastic diffusion (<cite>D</cite>),
+influenced by external forces (<cite>f</cite>) and control inputs (<cite>u</cite>).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing population parameters.</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Current state of the agents, where <cite>N</cite> is the number of agents and <cite>state_dim</cite> is
+the dimensionality of the state space.</p></li>
+<li><p><strong>mu</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Average velocity of each agent along the axes.</p></li>
+<li><p><strong>D</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Diffusion coefficient determining the magnitude of stochastic motion.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents in the population.</p></li>
+<li><p><strong>f</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – External forces affecting each agent, such as environmental influences.</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Control input applied to the agents.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Identifier for the population.</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dictionary containing the parsed configuration parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
+<li><p><strong>x0_mode</strong> (<em>str</em>) – Mode for generating initial conditions. Options:
+- <code class="docutils literal notranslate"><span class="pre">&quot;From_File&quot;</span></code> : Load from a CSV file.
+- <code class="docutils literal notranslate"><span class="pre">&quot;Random&quot;</span></code> : Generate randomly.</p></li>
+<li><p><strong>If ``x0_mode=”From_File”``</strong> –</p>
+<dl class="simple">
+<dt>x0_file_path<span class="classifier">str</span></dt><dd><p>Path to the CSV file containing initial conditions.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>If ``x0_mode=”Random”``</strong> –</p>
+<dl class="simple">
+<dt>N<span class="classifier">int</span></dt><dd><p>Number of agents in the population.</p>
+</dd>
+<dt>state_dim<span class="classifier">int</span></dt><dd><p>Dimensions of the state space.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>D</strong> (<em>list of list or callable</em>) – Command to generate the diffusion coefficient, either as a list of predefined values or
+as a function that initializes <cite>D</cite>.</p></li>
+<li><p><strong>mu</strong> (<em>list of list or callable</em>) – Command to generate the average velocity (<cite>mu</cite>), either as a list of values or
+as a function that initializes <cite>mu</cite>.</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Identifier for the population.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>For more details on how initial conditions are generated, see the <cite>get_initial_conditions</cite>
+method in the <cite>Population</cite> class.</p></li>
+<li><p>The drift component (<cite>mu</cite>) and diffusion component (<cite>D</cite>) can be either predefined lists
+or dynamically generated using callable expressions from the YAML configuration.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Example YAML configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">BrownianMotion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x0_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Random&quot;</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">state_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">mu</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[[</span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">]]</span>
+<span class="w">    </span><span class="nt">D</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[[</span><span class="nv">0.01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.02</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.02</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.03</span><span class="p p-Indicator">]]</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BM_population&quot;</span>
+</pre></div>
+</div>
+<p>This defines a <cite>BrownianMotion</cite> population with 100 agents in a 2D space,
+assigned predefined drift velocities (<cite>mu</cite>) and diffusion coefficients (<cite>D</cite>).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the <cite>BrownianMotion</cite> population by loading parameters from a configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing initialization parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.reset" title="Link to this definition"></a></dt>
+<dd><p>Resets the state of the population to its initial conditions.</p>
+<p>This method reinitializes the agent states, external forces, and control inputs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.get_drift">
+<span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_drift" title="Link to this definition"></a></dt>
+<dd><p>Computes the deterministic drift component of agent motion.</p>
+<p>The drift is given by:</p>
+<blockquote>
+<div><p>drift = mu + f + u</p>
+</div></blockquote>
+<p>where:
+- <cite>mu</cite> is the average velocity,
+- <cite>f</cite> represents external forces (e.g., interactions, environment),
+- <cite>u</cite> is the control input applied to the agents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape <cite>(N, state_dim)</cite> representing the drift velocity of each agent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion">
+<span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/brownian_motion.html#BrownianMotion.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.brownian_motion.BrownianMotion.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Computes the stochastic diffusion component of agent motion.</p>
+<p>The diffusion follows a standard Wiener process with coefficient <cite>D</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape <cite>(N, state_dim, state_dim)</cite> representing the diffusion coefficients for each agent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Stochastic Dynamics</strong>: Random motion with configurable noise intensity</p></li>
+<li><p><strong>Temperature Control</strong>: Thermal energy effects on agent motion</p></li>
+<li><p><strong>Drift Capabilities</strong>: Directional bias in random motion</p></li>
+<li><p><strong>Multi-dimensional Support</strong>: 1D, 2D, and 3D motion simulation</p></li>
+</ul>
+<p>Applications:
+- Molecular dynamics simulation
+- Animal foraging behavior
+- Financial market modeling
+- Diffusion processes</p>
 </section>
-<section id="populations-interface">
-<h2>Populations Interface<a class="headerlink" href="#populations-interface" title="Link to this heading">#</a></h2>
+<section id="simple-integrator-population">
+<h3>Simple Integrator Population<a class="headerlink" href="#simple-integrator-population" title="Link to this heading"></a></h3>
+<p>Agent populations with first-order (velocity-based) dynamics.</p>
+<dl class="py class" id="module-swarmsim.Populations.simple_integrators">
+<dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.simple_integrators.</span></span><span class="sig-name descname"><span class="pre">SimpleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
+<p>First-order integrator dynamics with velocity constraints.</p>
+<p>This population model implements simple first-order integrator dynamics where
+the rate of change of agent positions is directly controlled by the sum of
+control inputs and external forces, subject to velocity magnitude constraints.
+This model is suitable for kinematic systems or overdamped dynamics.</p>
+<p>The system dynamics are governed by:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\mathbf{x}}{dt} = \text{clip}(\mathbf{u} + \mathbf{f}, -v_{max}, v_{max})\]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is the agent position/state vector
+- <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is the control input (desired velocity)
+- <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is the external force/influence
+- <span class="math notranslate nohighlight">\(v_{max}\)</span> is the maximum allowed velocity magnitude per component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing population parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. Defaults to class name if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Current state/position of agents.</p></li>
+<li><p><strong>v_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Maximum allowed velocity magnitude per state component.
+Default: <code class="docutils literal notranslate"><span class="pre">float('inf')</span></code> (no velocity limit).</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents in the population, inherited from Population.</p></li>
+<li><p><strong>f</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – External forces/influences applied to agents, inherited from Population.</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Control inputs (desired velocities), inherited from Population.</p></li>
+<li><p><strong>state_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Dimension of the state space, inherited from Population.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
+<li><p><strong>initial_conditions</strong> (<em>dict</em>) – Initial conditions for the population, including positions and velocities.</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – Parameter configuration for damping and diffusion:</p></li>
+<li><p><strong>id</strong> (<em>str, optional</em>) – Population identifier. Defaults to class name.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of agents in the population.</p></li>
+<li><p><strong>state_dim</strong> (<em>int</em>) – Dimension of the state space, inherited from Population.</p></li>
+<li><p><strong>v_max</strong> (<em>float, optional</em>) – Maximum velocity magnitude per component. Default: <code class="docutils literal notranslate"><span class="pre">inf</span></code> (no limit).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>System Characteristics:</strong></p>
+<ul class="simple">
+<li><p><strong>No Inertia</strong>: Agents respond instantaneously to control inputs</p></li>
+<li><p><strong>Velocity Saturation</strong>: Motion is bounded by velocity constraints</p></li>
+<li><p><strong>Deterministic</strong>: No stochastic diffusion (overdamped regime)</p></li>
+<li><p><strong>Direct Control</strong>: Control input directly sets velocity (subject to limits)</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p><strong>Basic Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SimpleIntegrators</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x0_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Random&quot;</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">state_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">v_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mobile_robots&quot;</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the population using the parameters specified in the configuration dictionary or file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Either a path to a YAML configuration file containing population parameters,
+or a dictionary with configuration parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. If None, defaults to the class name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If config is neither a string filepath nor a dictionary.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If required parameters ‘N’ or ‘state_dim’ are missing from the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators.get_drift">
+<span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_drift" title="Link to this definition"></a></dt>
+<dd><p>Compute the deterministic drift component of the population dynamics.</p>
+<p>This abstract method must be implemented by subclasses to define the deterministic
+part of the agent dynamics. The drift typically includes intrinsic motion patterns,
+external forces, and control inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape (N, state_dim) representing the drift for each agent.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Subclasses should implement this method to return the drift term in the stochastic
+differential equation: dx = drift * dt + diffusion * dW, where dW is a Wiener process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion">
+<span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/simple_integrators.html#SimpleIntegrators.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.simple_integrators.SimpleIntegrators.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Compute the stochastic diffusion component of the population dynamics.</p>
+<p>This abstract method must be implemented by subclasses to define the stochastic
+part of the agent dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray</em> – Array of shape (N, state_dim) representing the diffusion component for each agent.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Subclasses should implement this method to return the diffusion term in the stochastic
+differential equation: dx = drift * dt + diffusion * dW, where dW is a Wiener process.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>First-order Dynamics</strong>: Position directly controlled by velocity</p></li>
+<li><p><strong>Lightweight Implementation</strong>: Minimal computational overhead</p></li>
+<li><p><strong>Direct Control</strong>: Immediate response to control inputs</p></li>
+<li><p><strong>Ideal for Basic Simulations</strong>: Perfect for proof-of-concept studies</p></li>
+</ul>
+<p>Applications:
+- Basic flocking simulations
+- Simple robot coordination
+- Traffic flow modeling
+- Social dynamics studies</p>
 </section>
-<section id="brownian-motion">
-<h2>Brownian Motion<a class="headerlink" href="#brownian-motion" title="Link to this heading">#</a></h2>
-</section>
-<section id="simple-integrator">
-<h2>Simple Integrator<a class="headerlink" href="#simple-integrator" title="Link to this heading">#</a></h2>
-</section>
-<section id="double-integrator">
-<h2>Double Integrator<a class="headerlink" href="#double-integrator" title="Link to this heading">#</a></h2>
+<section id="double-integrator-population">
+<h3>Double Integrator Population<a class="headerlink" href="#double-integrator-population" title="Link to this heading"></a></h3>
+<p>Agent populations with second-order (acceleration-based) dynamics.</p>
+<dl class="py class" id="module-swarmsim.Populations.double_integrators">
+<dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.double_integrators.</span></span><span class="sig-name descname"><span class="pre">DampedDoubleIntegrators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
+<p>Damped second-order integrator dynamics for agent populations.</p>
+<p>This population model implements damped double integrator dynamics, where each agent
+has both position and velocity states. The dynamics include damping, external forces,
+control inputs, and stochastic noise. This model is commonly used for modeling
+vehicles, robots, or particles with inertial behavior.</p>
+<p>The system dynamics are governed by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{d}{dt} \begin{bmatrix} \mathbf{p} \\ \mathbf{v} \end{bmatrix} =
+\begin{bmatrix} \mathbf{v} \\ -\gamma \mathbf{v} + \mathbf{u} + \mathbf{f} \end{bmatrix} +
+\mathbf{D} \, d\mathbf{W}\end{split}\]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> is the position vector
+- <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is the velocity vector
+- <span class="math notranslate nohighlight">\(\gamma\)</span> is the damping coefficient
+- <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is the control input
+- <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is the external force
+- <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> is the diffusion matrix
+- <span class="math notranslate nohighlight">\(d\mathbf{W}\)</span> is white noise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing population parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. Defaults to class name if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Current state of agents with positions and velocities concatenated.
+Format: <code class="docutils literal notranslate"><span class="pre">[pos_x,</span> <span class="pre">pos_y,</span> <span class="pre">vel_x,</span> <span class="pre">vel_y]</span></code> for 2D systems.</p></li>
+<li><p><strong>damping</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>,</em><em>) or </em><em>None</em>) – Damping coefficient for each agent affecting velocity decay.</p></li>
+<li><p><strong>D</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>) or </em><em>None</em>) – Diffusion coefficients for position and velocity noise.
+Typically zero for positions, non-zero for velocities.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of agents in the population, inherited from Population.</p></li>
+<li><p><strong>f</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – External forces applied to agents, inherited from Population.</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Control inputs applied to agents, inherited from Population.</p></li>
+<li><p><strong>input_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Dimension of the spatial coordinates (typically 2 for 2D systems).</p></li>
+<li><p><strong>params_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Defines expected shapes for population parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
+<li><p><strong>initial_conditions</strong> (<em>dict</em>) – Initial conditions for the population, including positions and velocities.</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – Parameter configuration for damping and diffusion:</p></li>
+<li><p><strong>id</strong> (<em>str, optional</em>) – Population identifier. Defaults to class name.</p></li>
+<li><p><strong>state_dim</strong> (<em>int</em>) – Dimension of the state space, inherited from Population.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of agents in the population.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the configuration file is not found.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – If required parameters are missing from the configuration.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If parameter shapes are incompatible with the population size.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p><strong>Basic Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">DampedDoubleIntegrators</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x0_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Random&quot;</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">    </span><span class="nt">state_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vehicles&quot;</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">params_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fixed&quot;</span>
+<span class="w">        </span><span class="nt">params_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;damping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;D&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">params_values</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">damping</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">            </span><span class="nt">D</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the population using the parameters specified in the configuration dictionary or file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Either a path to a YAML configuration file containing population parameters,
+or a dictionary with configuration parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. If None, defaults to the class name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If config is neither a string filepath nor a dictionary.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If required parameters ‘N’ or ‘state_dim’ are missing from the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.reset" title="Link to this definition"></a></dt>
+<dd><p>Resets the state of the population to its initial conditions.</p>
+<p>This method reinitializes the agent states, external forces, and control inputs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_drift">
+<span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_drift" title="Link to this definition"></a></dt>
+<dd><p>Compute the deterministic drift term for damped double integrator dynamics.</p>
+<p>This method implements the drift component of the stochastic differential equation
+governing damped double integrator motion. The drift includes velocity propagation
+to position and damped acceleration dynamics with control and external forces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray, shape (N, state_dim)</em> – Drift vector for all agents, containing velocity and acceleration terms.
+Format: <code class="docutils literal notranslate"><span class="pre">[velocity_x,</span> <span class="pre">velocity_y,</span> <span class="pre">acceleration_x,</span> <span class="pre">acceleration_y]</span></code> for 2D.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Drift Structure:</strong></p>
+<p>The drift term consists of two components:</p>
+<ol class="arabic simple">
+<li><p><strong>Position Drift</strong>: Current velocity becomes position rate of change</p></li>
+<li><p><strong>Velocity Drift</strong>: Damped acceleration with control and external forces</p></li>
+</ol>
+<p><strong>Mathematical Form:</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\frac{d\mathbf{p}}{dt} = \mathbf{v}\\\frac{d\mathbf{v}}{dt} = -\gamma \mathbf{v} + \mathbf{u} + \mathbf{f}\end{aligned}\end{align} \]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> is position
+- <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is velocity
+- <span class="math notranslate nohighlight">\(\gamma\)</span> is damping coefficient
+- <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is control input
+- <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is external force</p>
+<p><strong>Damping Effects:</strong></p>
+<p>The damping term <span class="math notranslate nohighlight">\(-\gamma \mathbf{v}\)</span> provides:
+- Velocity-dependent resistance (like air resistance)
+- Exponential decay toward equilibrium
+- Stabilization of the system dynamics</p>
+<p><strong>Force Integration:</strong></p>
+<p>The method combines control and external forces:
+- <strong>Control Forces</strong>: Deliberate actuator inputs
+- <strong>External Forces</strong>: Environmental influences and inter-agent interactions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion">
+<span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/double_integrators.html#DampedDoubleIntegrators.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.double_integrators.DampedDoubleIntegrators.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Compute the diffusion term for stochastic double integrator dynamics.</p>
+<p>This method returns the diffusion matrix that scales the white noise in the
+stochastic differential equation. For double integrators, noise typically
+affects velocities rather than positions directly, modeling random accelerations
+from unmodeled forces or actuator noise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray, shape (N, 2*state_dim)</em> – Diffusion coefficients for all agents and state components.
+Typically structured as <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">D_vel,</span> <span class="pre">D_vel]</span></code> for 2D systems.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Second-order Dynamics</strong>: Realistic inertial behavior</p></li>
+<li><p><strong>Force-based Control</strong>: Control through acceleration/force inputs</p></li>
+<li><p><strong>Momentum Conservation</strong>: Physically realistic motion patterns</p></li>
+<li><p><strong>Advanced Dynamics</strong>: Support for complex mechanical behaviors</p></li>
+</ul>
+<p>Applications:
+- Robotic system simulation
+- Vehicle dynamics modeling
+- Spacecraft coordination
+- Physical system simulation</p>
 </section>
 <section id="fixed-population">
-<h2>Fixed Population<a class="headerlink" href="#fixed-population" title="Link to this heading">#</a></h2>
-</section>
-</section>
-
-
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="swarmsim.Loggers.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Loggers</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="swarmsim.Renderers.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Renderers</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#populations-interface">Populations Interface</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brownian-motion">Brownian Motion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-integrator">Simple Integrator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#double-integrator">Double Integrator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed-population">Fixed Population</a></li>
+<h3>Fixed Population<a class="headerlink" href="#fixed-population" title="Link to this heading"></a></h3>
+<p>Static agent populations for environment elements and obstacles.</p>
+<dl class="py class" id="module-swarmsim.Populations.fixed_population">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.fixed_population.</span></span><span class="sig-name descname"><span class="pre">FixedPopulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
+<p>Stationary population with agents at fixed spatial locations.</p>
+<p>This population model implements immobile agents that remain at their initial
+positions throughout the simulation. The population is useful for modeling
+static obstacles, landmarks, reference points, or stationary infrastructure
+elements that other populations can interact with.</p>
+<p>The system dynamics are trivial:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\mathbf{x}}{dt} = \mathbf{u}\]</div>
+<div class="math notranslate nohighlight">
+\[\text{diffusion} = \mathbf{0}\]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> remains constant (typically <span class="math notranslate nohighlight">\(\mathbf{u} = \mathbf{0}\)</span>)
+- No stochastic component affects the population</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing population parameters.</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Fixed positions of agents, set during initialization and typically unchanged.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of stationary agents in the population.</p></li>
+<li><p><strong>f</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – External forces (typically ignored for fixed populations).</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>state_dim</em><em>)</em>) – Control input (typically zero for truly fixed populations).</p></li>
+<li><p><strong>state_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Spatial dimension of the agent positions.</p></li>
 </ul>
-  </nav></div>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
+<li><p><strong>x0_mode</strong> (<em>str</em>) – Initial condition mode. Options: <code class="docutils literal notranslate"><span class="pre">&quot;From_File&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Random&quot;</span></code></p></li>
+<li><p><strong>If ``x0_mode=”From_File”``</strong> –</p>
+<dl class="simple">
+<dt>x0_file_path<span class="classifier">str</span></dt><dd><p>Path to CSV file containing exact positions for stationary agents.
+This is the preferred method for precisely placed obstacles or landmarks.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>If ``x0_mode=”Random”``</strong> –</p>
+<dl class="simple">
+<dt>N<span class="classifier">int</span></dt><dd><p>Number of stationary agents to place randomly.</p>
+</dd>
+<dt>state_dim<span class="classifier">int</span></dt><dd><p>Spatial dimension (2 for 2D, 3 for 3D).</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>id</strong> (<em>str, optional</em>) – Population identifier. Defaults to class name.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Use Cases:</strong></p>
+<p>Fixed populations are commonly used for:</p>
+<ul class="simple">
+<li><p><strong>Static Obstacles</strong>: Walls, barriers, immobile hazards</p></li>
+<li><p><strong>Landmarks</strong>: Navigation reference points, beacons</p></li>
+<li><p><strong>Infrastructure</strong>: Buildings, stations, charging points</p></li>
+<li><p><strong>Environmental Features</strong>: Trees, rocks, geographic features</p></li>
+<li><p><strong>Sensors</strong>: Fixed monitoring stations, cameras</p></li>
+<li><p><strong>Reference Points</strong>: Target locations, waypoints</p></li>
+</ul>
+<p><strong>Interaction Considerations:</strong></p>
+<p>While fixed populations don’t move, they can:</p>
+<ul class="simple">
+<li><p>Exert forces on other populations (through interactions)</p></li>
+<li><p>Serve as sources of attraction or repulsion</p></li>
+<li><p>Act as collision/avoidance targets</p></li>
+<li><p>Provide spatial references for navigation</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.get_drift">
+<span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_drift" title="Link to this definition"></a></dt>
+<dd><p>No movement on average.</p>
+<section id="returns">
+<h4>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p>drift: numpy array (num_agents x dim_state)         Dirft of the population</p>
+</div></blockquote>
+</section>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
 
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.Populations.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion">
+<span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/fixed_population.html#FixedPopulation.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.fixed_population.FixedPopulation.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>No stochasticity.</p>
+<section id="id1">
+<h4>Returns:<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p>diffusion: numpy array (num_agents x dim_state)     Diffusion of the population</p>
+</div></blockquote>
+</section>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
 
-</div></div>
-              
-            
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Static Positions</strong>: Agents remain at fixed locations</p></li>
+<li><p><strong>Environmental Elements</strong>: Represent obstacles, landmarks, or resources</p></li>
+<li><p><strong>Interaction Sources</strong>: Provide forces/interactions without moving</p></li>
+<li><p><strong>Computational Efficiency</strong>: No integration required</p></li>
+</ul>
+<p>Applications:
+- Environmental obstacles
+- Resource locations
+- Sensor networks
+- Infrastructure elements</p>
+</section>
+<section id="persistent-turning-walker">
+<h3>Persistent Turning Walker<a class="headerlink" href="#persistent-turning-walker" title="Link to this heading"></a></h3>
+<p>Specialized population model for correlated random walks with turning behavior.</p>
+<dl class="py class" id="module-swarmsim.Populations.parsistent_turning_walker">
+<dt class="sig sig-object py" id="swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Populations.parsistent_turning_walker.</span></span><span class="sig-name descname"><span class="pre">LightSensitive_PTW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/parsistent_turning_walker.html#LightSensitive_PTW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><code class="xref py py-class docutils literal notranslate"><span class="pre">Population</span></code></a></p>
+<p>Light-sensitive Persistent Turning Walker population model.</p>
+<p>This population implements a sophisticated bio-inspired locomotion model based on
+persistent turning walkers that respond to external light stimuli. The model captures
+the complex dynamics of motile organisms (like Euglena) that exhibit persistent
+motion with turning behavior modulated by environmental light conditions.</p>
+<p>The system state consists of position, velocity magnitude, orientation, and angular
+velocity, governed by the following dynamics:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\frac{dx}{dt} = v \cos(\theta)\\\frac{dy}{dt} = v \sin(\theta)\\\frac{dv}{dt} = \theta_s(\mu_s - v) + \alpha_s u + \beta_s \dot{u}^+ + \gamma_s \dot{u}^- + \sigma_s \, dW_v\\\frac{d\theta}{dt} = \omega\\\frac{d\omega}{dt} = \theta_w(\mu_w - \omega) + \text{sign}(\omega)(\alpha_w u + \beta_w \dot{u}^+ + \gamma_w \dot{u}^-) + \sigma_w \, dW_\omega\end{aligned}\end{align} \]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\((x, y)\)</span> is the agent position
+- <span class="math notranslate nohighlight">\(v\)</span> is the speed magnitude
+- <span class="math notranslate nohighlight">\(\theta\)</span> is the orientation angle
+- <span class="math notranslate nohighlight">\(\omega\)</span> is the angular velocity
+- <span class="math notranslate nohighlight">\(u\)</span> is the light stimulus intensity
+- <span class="math notranslate nohighlight">\(\dot{u}^+, \dot{u}^-\)</span> are positive and negative stimulus derivatives
+- <span class="math notranslate nohighlight">\(\theta_s, \mu_s, \alpha_s, \beta_s, \gamma_s, \sigma_s\)</span> are speed parameters
+- <span class="math notranslate nohighlight">\(\theta_w, \mu_w, \alpha_w, \beta_w, \gamma_w, \sigma_w\)</span> are turning parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing population parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. Defaults to class name if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>5</em><em>)</em>) – State of agents: <code class="docutils literal notranslate"><span class="pre">[x_pos,</span> <span class="pre">y_pos,</span> <span class="pre">velocity,</span> <span class="pre">theta,</span> <span class="pre">omega]</span></code>.</p></li>
+<li><p><strong>u_old</strong> (<em>np.ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>input_dim</em><em>) or </em><em>None</em>) – Previous timestep control input for computing derivatives.</p></li>
+<li><p><strong>sigma_s</strong> (<em>theta_s</em><em>, </em><em>mu_s</em><em>, </em><em>alpha_s</em><em>, </em><em>beta_s</em><em>, </em><em>gamma_s</em><em>,</em>) – Speed dynamics parameters for each agent.</p></li>
+<li><p><strong>sigma_w</strong> (<em>theta_w</em><em>, </em><em>mu_w</em><em>, </em><em>alpha_w</em><em>, </em><em>beta_w</em><em>, </em><em>gamma_w</em><em>,</em>) – Turning dynamics parameters for each agent.</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Integration timestep for computing input derivatives.</p></li>
+<li><p><strong>params_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Defines expected shapes for all model parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>The YAML configuration file must contain the following parameters under the population’s section</strong></p></li>
+<li><p><strong>initial_conditions</strong> (<em>dict</em>) – Initial conditions for the population, including positions and velocities.</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – Parameter configuration for damping and diffusion:</p></li>
+<li><p><strong>id</strong> (<em>str, optional</em>) – Population identifier. Defaults to class name.</p></li>
+<li><p><strong>state_dim</strong> (<em>int</em>) – Dimension of the state space, inherited from Population.</p></li>
+<li><p><strong>N</strong> (<em>int</em>) – Number of agents in the population.</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Integration timestep for derivative calculations.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Biological Inspiration:</strong></p>
+<p>This model is inspired by the locomotion of <em>Euglena gracilis</em> and similar
+photo-responsive microorganisms that exhibit:</p>
+<ul class="simple">
+<li><p><strong>Persistent Motion</strong>: Sustained movement with characteristic speeds</p></li>
+<li><p><strong>Phototaxis</strong>: Movement in response to light gradients</p></li>
+<li><p><strong>Turning Behavior</strong>: Modulation of orientation based on stimuli</p></li>
+<li><p><strong>Adaptive Responses</strong>: Different reactions to increasing vs decreasing light</p></li>
+</ul>
+<p><strong>Parameter Interpretation:</strong></p>
+<p><strong>Speed Parameters:</strong>
+- <code class="docutils literal notranslate"><span class="pre">theta_s</span></code>: Speed relaxation rate (return to preferred speed)
+- <code class="docutils literal notranslate"><span class="pre">mu_s</span></code>: Preferred/natural swimming speed
+- <code class="docutils literal notranslate"><span class="pre">alpha_s</span></code>: Direct light response on speed
+- <code class="docutils literal notranslate"><span class="pre">beta_s</span></code>: Response to increasing light intensity
+- <code class="docutils literal notranslate"><span class="pre">gamma_s</span></code>: Response to decreasing light intensity
+- <code class="docutils literal notranslate"><span class="pre">sigma_s</span></code>: Speed noise amplitude</p>
+<p><strong>Turning Parameters:</strong>
+- <code class="docutils literal notranslate"><span class="pre">theta_w</span></code>: Angular velocity relaxation rate
+- <code class="docutils literal notranslate"><span class="pre">mu_w</span></code>: Preferred angular velocity (bias for turning)
+- <code class="docutils literal notranslate"><span class="pre">alpha_w</span></code>: Direct light response on turning
+- <code class="docutils literal notranslate"><span class="pre">beta_w</span></code>: Turning response to increasing light
+- <code class="docutils literal notranslate"><span class="pre">gamma_w</span></code>: Turning response to decreasing light
+- <code class="docutils literal notranslate"><span class="pre">sigma_w</span></code>: Angular noise amplitude</p>
+<p><strong>State Variables:</strong></p>
+<p>The 5D state vector represents:
+1. <strong>x, y</strong>: Spatial position coordinates
+2. <strong>v</strong>: Instantaneous speed magnitude (always ≥ 0)
+3. <strong>θ</strong>: Orientation angle (wrapped to [0, 2π])
+4. <strong>ω</strong>: Angular velocity (rate of orientation change)</p>
+<p><strong>Light Response Mechanism:</strong></p>
+<p>The model distinguishes between:
+- <strong>Current stimulus</strong>: Direct response to light intensity
+- <strong>Positive changes</strong>: Response to increasing light (photo-attraction)
+- <strong>Negative changes</strong>: Response to decreasing light (photo-avoidance)</p>
+<p class="rubric">Examples</p>
+<p><strong>Basic Euglena-like Configuration:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">LightSensitive_PTW</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x0_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Random&quot;</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">state_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;euglena&quot;</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">params_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fixed&quot;</span>
+<span class="w">        </span><span class="nt">params_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;theta_s&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mu_s&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;alpha_s&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;beta_s&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gamma_s&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;sigma_s&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">                      </span><span class="s">&quot;theta_w&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mu_w&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;alpha_w&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;beta_w&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gamma_w&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;sigma_w&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">params_values</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">theta_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">            </span><span class="nt">mu_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">            </span><span class="nt">alpha_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">            </span><span class="nt">beta_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">            </span><span class="nt">gamma_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.5</span>
+<span class="w">            </span><span class="nt">sigma_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">            </span><span class="nt">theta_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">            </span><span class="nt">mu_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">            </span><span class="nt">alpha_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">            </span><span class="nt">beta_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">            </span><span class="nt">gamma_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.3</span>
+<span class="w">            </span><span class="nt">sigma_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/parsistent_turning_walker.html#LightSensitive_PTW.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the population using the parameters specified in the configuration dictionary or file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Either a path to a YAML configuration file containing population parameters,
+or a dictionary with configuration parameters.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name identifier for the population. If None, defaults to the class name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If config is neither a string filepath nor a dictionary.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If required parameters ‘N’ or ‘state_dim’ are missing from the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/parsistent_turning_walker.html#LightSensitive_PTW.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.reset" title="Link to this definition"></a></dt>
+<dd><p>Resets the state of the population to its initial conditions.</p>
+<p>This method reinitializes the agent states, external forces, and control inputs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_drift">
+<span class="sig-name descname"><span class="pre">get_drift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/parsistent_turning_walker.html#LightSensitive_PTW.get_drift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_drift" title="Link to this definition"></a></dt>
+<dd><p>Compute the deterministic drift for persistent turning walker dynamics.</p>
+<p>This method implements the complete drift dynamics for light-sensitive persistent
+turning walkers, including position propagation, speed regulation, orientation
+change, and angular velocity dynamics with light stimulus responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray, shape (N, 5)</em> – Drift vector for all agents containing:
+<code class="docutils literal notranslate"><span class="pre">[dx/dt,</span> <span class="pre">dy/dt,</span> <span class="pre">dv/dt,</span> <span class="pre">dθ/dt,</span> <span class="pre">dω/dt]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>State Variable Processing:</strong></p>
+<p>The method extracts and processes state variables:</p>
+<ul class="simple">
+<li><p><strong>Speed Constraint</strong>: Ensures velocity magnitude is non-negative</p></li>
+<li><p><strong>Angle Wrapping</strong>: Keeps orientation in [0, 2π] range</p></li>
+<li><p><strong>Derivative Computation</strong>: Calculates input rate of change</p></li>
+</ul>
+<p><strong>Dynamics Components:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Position Dynamics</strong>:
+<span class="math notranslate nohighlight">\(\frac{dx}{dt} = v \cos(\theta)\)</span>, <span class="math notranslate nohighlight">\(\frac{dy}{dt} = v \sin(\theta)\)</span></p></li>
+<li><p><strong>Speed Dynamics</strong>:
+<span class="math notranslate nohighlight">\(\frac{dv}{dt} = \theta_s(\mu_s - v) + \alpha_s u + \beta_s \dot{u}^+ + \gamma_s \dot{u}^-\)</span></p></li>
+<li><p><strong>Orientation Dynamics</strong>:
+<span class="math notranslate nohighlight">\(\frac{d\theta}{dt} = \omega\)</span></p></li>
+<li><p><strong>Angular Velocity Dynamics</strong>:
+<span class="math notranslate nohighlight">\(\frac{d\omega}{dt} = \theta_w(\mu_w - \omega) + \text{sign}(\omega)[\alpha_w u + \beta_w \dot{u}^+ + \gamma_w \dot{u}^-]\)</span></p></li>
+</ol>
+<p><strong>Light Response Processing:</strong></p>
+<p>The method computes stimulus derivatives and separates positive/negative changes:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\dot{u} = \frac{u(t) - u(t-\Delta t)}{\Delta t}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\dot{u}^+ = \max(\dot{u}, 0)\)</span> (increasing light)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dot{u}^- = \min(\dot{u}, 0)\)</span> (decreasing light)</p></li>
+</ul>
+<p><strong>Sign-Dependent Turning:</strong></p>
+<p>Angular velocity dynamics include sign-dependent responses to maintain
+biological realism in turning behavior asymmetries.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_diffusion">
+<span class="sig-name descname"><span class="pre">get_diffusion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Populations/parsistent_turning_walker.html#LightSensitive_PTW.get_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Compute the diffusion matrix for stochastic persistent turning walker dynamics.</p>
+<p>This method returns the diffusion coefficients that scale white noise in the
+stochastic differential equation. For persistent turning walkers, noise affects
+the speed and angular velocity dynamics while position and orientation change
+deterministically through their respective rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>np.ndarray, shape (N, 5)</em> – Diffusion coefficients for all state variables:
+<code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">σ_s,</span> <span class="pre">0,</span> <span class="pre">σ_w]</span></code> where only speed and angular velocity have noise.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Noise Structure:</strong></p>
+<p>The diffusion reflects the biological noise sources:</p>
+<ul class="simple">
+<li><p><strong>Position (x, y)</strong>: Zero noise - positions change deterministically via velocity</p></li>
+<li><p><strong>Speed (v)</strong>: <code class="docutils literal notranslate"><span class="pre">σ_s</span></code> noise - models metabolic fluctuations, swimming variability</p></li>
+<li><p><strong>Orientation (θ)</strong>: Zero noise - angle changes deterministically via angular velocity</p></li>
+<li><p><strong>Angular Velocity (ω)</strong>: <code class="docutils literal notranslate"><span class="pre">σ_w</span></code> noise - models turning decision variability</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<p>Key Features:</p>
+<ul class="simple">
+<li><p><strong>Correlated Motion</strong>: Non-Markovian random walks</p></li>
+<li><p><strong>Turning Dynamics</strong>: Realistic directional changes</p></li>
+<li><p><strong>Persistence Control</strong>: Adjustable correlation in movement direction</p></li>
+<li><p><strong>Biological Realism</strong>: Models animal movement patterns</p></li>
+</ul>
+<p>Applications:
+- Animal tracking and behavior
+- Biological cell movement
+- Search and exploration strategies
+- Navigation algorithm testing</p>
+</section>
+</section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="basic-population-setup">
+<h3>Basic Population Setup<a class="headerlink" href="#basic-population-setup" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrownianMotion</span><span class="p">,</span> <span class="n">DoubleIntegrators</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Create Brownian motion population</span>
+<span class="n">brownian_pop</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                    <span class="c1"># Number of agents</span>
+    <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>                  <span class="c1"># 2D simulation</span>
+    <span class="n">diffusion_coefficient</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="c1"># Noise strength</span>
+    <span class="n">drift_velocity</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>  <span class="c1"># Slight rightward drift</span>
+<span class="p">)</span>
+
+<span class="c1"># Create double integrator population</span>
+<span class="n">double_int_pop</span> <span class="o">=</span> <span class="n">DoubleIntegrators</span><span class="p">(</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">x_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                  <span class="c1"># 3D simulation</span>
+    <span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>                 <span class="c1"># Agent mass</span>
+    <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span>               <span class="c1"># Velocity damping</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-population-simulation">
+<h3>Multi-Population Simulation<a class="headerlink" href="#multi-population-simulation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">BrownianMotion</span><span class="p">,</span> <span class="n">SimpleIntegrators</span><span class="p">,</span>
+                                 <span class="n">FixedPopulation</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Create diverse population mix</span>
+<span class="n">prey</span> <span class="o">=</span> <span class="n">BrownianMotion</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">diffusion_coefficient</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">predators</span> <span class="o">=</span> <span class="n">SimpleIntegrators</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_speed</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">obstacles</span> <span class="o">=</span> <span class="n">FixedPopulation</span><span class="p">(</span>
+    <span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]),</span>  <span class="c1"># Fixed obstacle locations</span>
+    <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="n">populations</span> <span class="o">=</span> <span class="p">[</span><span class="n">prey</span><span class="p">,</span> <span class="n">predators</span><span class="p">,</span> <span class="n">obstacles</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="population-parameter-configuration">
+<h3>Population Parameter Configuration<a class="headerlink" href="#population-parameter-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">DoubleIntegrators</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_parameters</span>
+
+<span class="c1"># Define parameter configuration</span>
+<span class="n">param_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;generate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;generate&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;sampler&#39;</span><span class="p">:</span> <span class="s1">&#39;lognormal&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">}</span>  <span class="c1"># Mass variation</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;max_force&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;sampler&#39;</span><span class="p">:</span> <span class="s1">&#39;uniform&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">}</span>  <span class="c1"># Force limits</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Generate diverse parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span>
+    <span class="n">param_config</span><span class="p">,</span>
+    <span class="p">{</span><span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="p">(),</span> <span class="s1">&#39;max_force&#39;</span><span class="p">:</span> <span class="p">()},</span>
+    <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">)</span>
+
+<span class="c1"># Create population with diverse properties</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">DoubleIntegrators</span><span class="p">(</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">mass</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span>
+    <span class="n">max_force</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_force&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-population-dynamics">
+<h3>Advanced Population Dynamics<a class="headerlink" href="#advanced-population-dynamics" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">PersistentTurningWalker</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Create realistic animal movement model</span>
+<span class="n">animal_population</span> <span class="o">=</span> <span class="n">PersistentTurningWalker</span><span class="p">(</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">step_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>           <span class="c1"># Average step size</span>
+    <span class="n">turning_angle_std</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>     <span class="c1"># Turning variability</span>
+    <span class="n">persistence_time</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>     <span class="c1"># Correlation time</span>
+    <span class="n">boundary_behavior</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span> <span class="c1"># Boundary handling</span>
+<span class="p">)</span>
+
+<span class="c1"># Simulate foraging behavior</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="c1"># Animals move with correlated random walks</span>
+    <span class="n">animal_population</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="c1"># Add environmental responses</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Occasional strong turning (predator response)</span>
+        <span class="n">animal_population</span><span class="o">.</span><span class="n">add_turning_bias</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="population-interactions">
+<h3>Population Interactions<a class="headerlink" href="#population-interactions" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleIntegrators</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Interactions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LennardJones</span>
+
+<span class="c1"># Create interacting populations</span>
+<span class="n">fish_school</span> <span class="o">=</span> <span class="n">SimpleIntegrators</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Add inter-agent interactions</span>
+<span class="n">interaction</span> <span class="o">=</span> <span class="n">LennardJones</span><span class="p">(</span>
+    <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>    <span class="c1"># Interaction strength</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>      <span class="c1"># Interaction range</span>
+    <span class="n">cutoff</span><span class="o">=</span><span class="mf">3.0</span>      <span class="c1"># Computational cutoff</span>
+<span class="p">)</span>
+
+<span class="c1"># Simulation with interactions</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="c1"># Compute interaction forces</span>
+    <span class="n">forces</span> <span class="o">=</span> <span class="n">interaction</span><span class="o">.</span><span class="n">compute_forces</span><span class="p">(</span><span class="n">fish_school</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Apply forces and integrate</span>
+    <span class="n">fish_school</span><span class="o">.</span><span class="n">apply_forces</span><span class="p">(</span><span class="n">forces</span><span class="p">)</span>
+    <span class="n">fish_school</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<p>Population implementations are optimized for performance:</p>
+<ul class="simple">
+<li><p><strong>Vectorized Operations</strong>: Extensive use of NumPy for computational efficiency</p></li>
+<li><p><strong>Memory Management</strong>: Efficient memory layouts for large populations</p></li>
+<li><p><strong>Adaptive Algorithms</strong>: Computational complexity scales appropriately</p></li>
+<li><p><strong>Parallel Support</strong>: Compatible with parallel processing frameworks</p></li>
+</ul>
+</section>
+<section id="model-selection-guide">
+<h2>Model Selection Guide<a class="headerlink" href="#model-selection-guide" title="Link to this heading"></a></h2>
+<p>Choose population models based on your simulation requirements:</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Population Model Selection</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Model Type</p></th>
+<th class="head"><p>Computational Cost</p></th>
+<th class="head"><p>Physical Realism</p></th>
+<th class="head"><p>Best Applications</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Brownian Motion</p></td>
+<td><p>Very Low</p></td>
+<td><p>Moderate</p></td>
+<td><p>Diffusion, stochastic processes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Simple Integrators</p></td>
+<td><p>Low</p></td>
+<td><p>Low-Moderate</p></td>
+<td><p>Basic flocking, rapid prototyping</p></td>
+</tr>
+<tr class="row-even"><td><p>Double Integrators</p></td>
+<td><p>Moderate</p></td>
+<td><p>High</p></td>
+<td><p>Robotics, vehicle dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fixed Population</p></td>
+<td><p>Minimal</p></td>
+<td><p>N/A</p></td>
+<td><p>Environmental elements</p></td>
+</tr>
+<tr class="row-even"><td><p>Turning Walker</p></td>
+<td><p>Low-Moderate</p></td>
+<td><p>High (biological)</p></td>
+<td><p>Animal behavior, search patterns</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Model Selection</strong>: Choose the simplest model that captures essential behaviors</p></li>
+<li><p><strong>Parameter Tuning</strong>: Use biologically or physically realistic parameter ranges</p></li>
+<li><p><strong>Population Size</strong>: Balance realism with computational requirements</p></li>
+<li><p><strong>Integration</strong>: Ensure compatibility with chosen integrator and time step</p></li>
+<li><p><strong>Validation</strong>: Compare simulation results with theoretical or experimental data</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swarmsim.Loggers.html" class="btn btn-neutral float-left" title="Data Loggers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="swarmsim.Renderers.html" class="btn btn-neutral float-right" title="Visualization &amp; Rendering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

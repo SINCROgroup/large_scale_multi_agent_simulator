@@ -1,20 +1,40 @@
-Renderers
-=========
+Visualization & Rendering
+=========================
 
-Module contents
----------------
+The renderers package provides sophisticated visualization capabilities for multi-agent simulations, supporting both real-time interactive displays and high-quality static outputs. These renderers enable comprehensive visual analysis of swarm dynamics, behavioral patterns, and emergent phenomena.
+
+.. contents:: Table of Contents
+   :local:
+   :depth: 2
+
+Overview
+--------
+
+SwarmSim's rendering framework offers flexible visualization solutions that scale from simple trajectory plotting to complex multi-population animations with environmental interactions. The modular design supports multiple rendering backends while maintaining consistent interfaces for different visualization needs.
+
+Key Features
+------------
+
+* **Multiple Backends**: Matplotlib for publication-quality plots, Pygame for interactive real-time visualization
+* **Multi-Population Support**: Simultaneous rendering of multiple agent populations with distinct visual properties
+* **Environmental Integration**: Visualization of obstacles, boundaries, force fields, and environmental gradients
+* **Animation Capabilities**: Smooth real-time animations with configurable frame rates and export options
+* **Interactive Controls**: Zoom, pan, pause, and parameter adjustment during simulation
+* **Publication Ready**: High-resolution outputs with customizable styling for research publications
+
+
+Module Reference
+----------------
 
 .. automodule:: swarmsim.Renderers
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodules
-----------
+Base Renderer Interface
+~~~~~~~~~~~~~~~~~~~~~~~
 
-
-Renderer Interface
-------------------
+The abstract foundation for all rendering implementations, defining the core visualization interface.
 
 .. automodule:: swarmsim.Renderers.renderer
    :members:
@@ -22,8 +42,11 @@ Renderer Interface
    :show-inheritance:
 
 
-Base Renderer
--------------
+
+Standard Base Renderer
+~~~~~~~~~~~~~~~~~~~~~~
+
+The primary renderer implementation providing comprehensive visualization capabilities for general simulations.
 
 .. automodule:: swarmsim.Renderers.base_renderer
    :members:
@@ -32,10 +55,33 @@ Base Renderer
 
 
 
+Biological Systems Renderer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Specialized renderer for biological and ecological simulations with organism-specific visualization features.
+
+.. automodule:: swarmsim.Renderers.bio_renderer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 Shepherding Renderer
---------------------
+~~~~~~~~~~~~~~~~~~~~
+
+Domain-specific renderer for shepherding simulations with predator-prey visualization capabilities.
 
 .. automodule:: swarmsim.Renderers.shepherding_renderer
    :members:
    :undoc-members:
    :show-inheritance:
+
+
+
+See Also
+--------
+
+* :doc:`swarmsim.Populations` - Agent population data structures
+* :doc:`swarmsim.Environments` - Environmental visualization
+* :doc:`swarmsim.Simulators` - Simulation control for rendering
+* :doc:`examples.visualization` - Comprehensive visualization examples

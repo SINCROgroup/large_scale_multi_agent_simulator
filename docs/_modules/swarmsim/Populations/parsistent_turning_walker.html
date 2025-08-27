@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swarmsim.Populations.parsistent_turning_walker &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../swarmsim.html">IntelliSwarm Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">swarmsim.Populations.parsistent_turning_walker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for swarmsim.Populations.parsistent_turning_walker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">swarmsim.Populations</span><span class="w"> </span><span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+
+<div class="viewcode-block" id="LightSensitive_PTW">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LightSensitive_PTW</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Light-sensitive Persistent Turning Walker population model.</span>
+
+<span class="sd">    This population implements a sophisticated bio-inspired locomotion model based on </span>
+<span class="sd">    persistent turning walkers that respond to external light stimuli. The model captures</span>
+<span class="sd">    the complex dynamics of motile organisms (like Euglena) that exhibit persistent</span>
+<span class="sd">    motion with turning behavior modulated by environmental light conditions.</span>
+
+<span class="sd">    The system state consists of position, velocity magnitude, orientation, and angular</span>
+<span class="sd">    velocity, governed by the following dynamics:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\frac{dx}{dt} = v \\cos(\\theta)</span>
+
+<span class="sd">        \\frac{dy}{dt} = v \\sin(\\theta)</span>
+
+<span class="sd">        \\frac{dv}{dt} = \\theta_s(\\mu_s - v) + \\alpha_s u + \\beta_s \\dot{u}^+ + \\gamma_s \\dot{u}^- + \\sigma_s \\, dW_v</span>
+
+<span class="sd">        \\frac{d\\theta}{dt} = \\omega</span>
+
+<span class="sd">        \\frac{d\\omega}{dt} = \\theta_w(\\mu_w - \\omega) + \\text{sign}(\\omega)(\\alpha_w u + \\beta_w \\dot{u}^+ + \\gamma_w \\dot{u}^-) + \\sigma_w \\, dW_\\omega</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - :math:`(x, y)` is the agent position</span>
+<span class="sd">    - :math:`v` is the speed magnitude  </span>
+<span class="sd">    - :math:`\\theta` is the orientation angle</span>
+<span class="sd">    - :math:`\\omega` is the angular velocity</span>
+<span class="sd">    - :math:`u` is the light stimulus intensity</span>
+<span class="sd">    - :math:`\\dot{u}^+, \\dot{u}^-` are positive and negative stimulus derivatives</span>
+<span class="sd">    - :math:`\\theta_s, \\mu_s, \\alpha_s, \\beta_s, \\gamma_s, \\sigma_s` are speed parameters</span>
+<span class="sd">    - :math:`\\theta_w, \\mu_w, \\alpha_w, \\beta_w, \\gamma_w, \\sigma_w` are turning parameters</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_path : str</span>
+<span class="sd">        Path to the YAML configuration file containing population parameters.</span>
+<span class="sd">    name : str, optional</span>
+<span class="sd">        Name identifier for the population. Defaults to class name if None.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : np.ndarray, shape (N, 5)</span>
+<span class="sd">        State of agents: ``[x_pos, y_pos, velocity, theta, omega]``.</span>
+<span class="sd">    u_old : np.ndarray, shape (N, input_dim) or None</span>
+<span class="sd">        Previous timestep control input for computing derivatives.</span>
+<span class="sd">    theta_s, mu_s, alpha_s, beta_s, gamma_s, sigma_s : np.ndarray or None</span>
+<span class="sd">        Speed dynamics parameters for each agent.</span>
+<span class="sd">    theta_w, mu_w, alpha_w, beta_w, gamma_w, sigma_w : np.ndarray or None</span>
+<span class="sd">        Turning dynamics parameters for each agent.</span>
+<span class="sd">    dt : float</span>
+<span class="sd">        Integration timestep for computing input derivatives.</span>
+<span class="sd">    params_shapes : dict</span>
+<span class="sd">        Defines expected shapes for all model parameters.</span>
+
+<span class="sd">    Config Requirements</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the population&#39;s section:</span>
+
+<span class="sd">    initial_conditions : dict</span>
+<span class="sd">        Initial conditions for the population, including positions and velocities.</span>
+
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Parameter configuration for damping and diffusion:</span>
+
+<span class="sd">    id : str, optional</span>
+<span class="sd">        Population identifier. Defaults to class name.</span>
+
+<span class="sd">    state_dim : int</span>
+<span class="sd">        Dimension of the state space, inherited from Population.</span>
+
+<span class="sd">    N : int</span>
+<span class="sd">        Number of agents in the population.</span>
+<span class="sd">    </span>
+<span class="sd">    dt : float</span>
+<span class="sd">        Integration timestep for derivative calculations.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Biological Inspiration:**</span>
+
+<span class="sd">    This model is inspired by the locomotion of *Euglena gracilis* and similar</span>
+<span class="sd">    photo-responsive microorganisms that exhibit:</span>
+
+<span class="sd">    - **Persistent Motion**: Sustained movement with characteristic speeds</span>
+<span class="sd">    - **Phototaxis**: Movement in response to light gradients</span>
+<span class="sd">    - **Turning Behavior**: Modulation of orientation based on stimuli</span>
+<span class="sd">    - **Adaptive Responses**: Different reactions to increasing vs decreasing light</span>
+
+<span class="sd">    **Parameter Interpretation:**</span>
+
+<span class="sd">    **Speed Parameters:**</span>
+<span class="sd">    - ``theta_s``: Speed relaxation rate (return to preferred speed)</span>
+<span class="sd">    - ``mu_s``: Preferred/natural swimming speed</span>
+<span class="sd">    - ``alpha_s``: Direct light response on speed</span>
+<span class="sd">    - ``beta_s``: Response to increasing light intensity</span>
+<span class="sd">    - ``gamma_s``: Response to decreasing light intensity</span>
+<span class="sd">    - ``sigma_s``: Speed noise amplitude</span>
+
+<span class="sd">    **Turning Parameters:**</span>
+<span class="sd">    - ``theta_w``: Angular velocity relaxation rate</span>
+<span class="sd">    - ``mu_w``: Preferred angular velocity (bias for turning)</span>
+<span class="sd">    - ``alpha_w``: Direct light response on turning</span>
+<span class="sd">    - ``beta_w``: Turning response to increasing light</span>
+<span class="sd">    - ``gamma_w``: Turning response to decreasing light</span>
+<span class="sd">    - ``sigma_w``: Angular noise amplitude</span>
+
+<span class="sd">    **State Variables:**</span>
+
+<span class="sd">    The 5D state vector represents:</span>
+<span class="sd">    1. **x, y**: Spatial position coordinates</span>
+<span class="sd">    2. **v**: Instantaneous speed magnitude (always ≥ 0)</span>
+<span class="sd">    3. **θ**: Orientation angle (wrapped to [0, 2π])</span>
+<span class="sd">    4. **ω**: Angular velocity (rate of orientation change)</span>
+
+<span class="sd">    **Light Response Mechanism:**</span>
+
+<span class="sd">    The model distinguishes between:</span>
+<span class="sd">    - **Current stimulus**: Direct response to light intensity</span>
+<span class="sd">    - **Positive changes**: Response to increasing light (photo-attraction)</span>
+<span class="sd">    - **Negative changes**: Response to decreasing light (photo-avoidance)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    **Basic Euglena-like Configuration:**</span>
+
+<span class="sd">    .. code-block:: yaml</span>
+
+<span class="sd">        LightSensitive_PTW:</span>
+<span class="sd">            x0_mode: &quot;Random&quot;</span>
+<span class="sd">            N: 100</span>
+<span class="sd">            state_dim: 5</span>
+<span class="sd">            dt: 0.01</span>
+<span class="sd">            id: &quot;euglena&quot;</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                params_mode: &quot;Fixed&quot;</span>
+<span class="sd">                params_names: [&quot;theta_s&quot;, &quot;mu_s&quot;, &quot;alpha_s&quot;, &quot;beta_s&quot;, &quot;gamma_s&quot;, &quot;sigma_s&quot;,</span>
+<span class="sd">                              &quot;theta_w&quot;, &quot;mu_w&quot;, &quot;alpha_w&quot;, &quot;beta_w&quot;, &quot;gamma_w&quot;, &quot;sigma_w&quot;]</span>
+<span class="sd">                params_values:</span>
+<span class="sd">                    theta_s: 1.0</span>
+<span class="sd">                    mu_s: 2.0</span>
+<span class="sd">                    alpha_s: 0.5</span>
+<span class="sd">                    beta_s: 1.0</span>
+<span class="sd">                    gamma_s: -0.5</span>
+<span class="sd">                    sigma_s: 0.1</span>
+<span class="sd">                    theta_w: 2.0</span>
+<span class="sd">                    mu_w: 0.0</span>
+<span class="sd">                    alpha_w: 0.2</span>
+<span class="sd">                    beta_w: 0.8</span>
+<span class="sd">                    gamma_w: -0.3</span>
+<span class="sd">                    sigma_w: 0.2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LightSensitive_PTW.__init__">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_old</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_w</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_shapes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;theta_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;mu_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;alpha_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;beta_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;gamma_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;sigma_s&#39;</span><span class="p">:</span> <span class="p">(),</span>
+
+            <span class="s1">&#39;theta_w&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;mu_w&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;alpha_w&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;beta_w&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;gamma_w&#39;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s1">&#39;sigma_w&#39;</span><span class="p">:</span> <span class="p">()</span>
+        <span class="p">}</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;dt&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="LightSensitive_PTW.reset">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the state of the population to its initial conditions.</span>
+
+<span class="sd">        This method reinitializes the agent states, external forces, and control inputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;theta_s&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu_s&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;alpha_s&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;beta_s&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;gamma_s&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;sigma_s&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;theta_w&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;mu_w&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;alpha_w&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;beta_w&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;gamma_w&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;sigma_w&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_old</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span><span class="p">])</span>  <span class="c1"># Initialization of the last control input applied</span></div>
+
+
+<div class="viewcode-block" id="LightSensitive_PTW.get_drift">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_drift">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_drift</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the deterministic drift for persistent turning walker dynamics.</span>
+
+<span class="sd">        This method implements the complete drift dynamics for light-sensitive persistent</span>
+<span class="sd">        turning walkers, including position propagation, speed regulation, orientation</span>
+<span class="sd">        change, and angular velocity dynamics with light stimulus responses.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray, shape (N, 5)</span>
+<span class="sd">            Drift vector for all agents containing:</span>
+<span class="sd">            ``[dx/dt, dy/dt, dv/dt, dθ/dt, dω/dt]``</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **State Variable Processing:**</span>
+
+<span class="sd">        The method extracts and processes state variables:</span>
+
+<span class="sd">        - **Speed Constraint**: Ensures velocity magnitude is non-negative</span>
+<span class="sd">        - **Angle Wrapping**: Keeps orientation in [0, 2π] range</span>
+<span class="sd">        - **Derivative Computation**: Calculates input rate of change</span>
+
+<span class="sd">        **Dynamics Components:**</span>
+
+<span class="sd">        1. **Position Dynamics**: </span>
+<span class="sd">           :math:`\\frac{dx}{dt} = v \\cos(\\theta)`, :math:`\\frac{dy}{dt} = v \\sin(\\theta)`</span>
+
+<span class="sd">        2. **Speed Dynamics**:</span>
+<span class="sd">           :math:`\\frac{dv}{dt} = \\theta_s(\\mu_s - v) + \\alpha_s u + \\beta_s \\dot{u}^+ + \\gamma_s \\dot{u}^-`</span>
+
+<span class="sd">        3. **Orientation Dynamics**:</span>
+<span class="sd">           :math:`\\frac{d\\theta}{dt} = \\omega`</span>
+
+<span class="sd">        4. **Angular Velocity Dynamics**:</span>
+<span class="sd">           :math:`\\frac{d\\omega}{dt} = \\theta_w(\\mu_w - \\omega) + \\text{sign}(\\omega)[\\alpha_w u + \\beta_w \\dot{u}^+ + \\gamma_w \\dot{u}^-]`</span>
+
+<span class="sd">        **Light Response Processing:**</span>
+
+<span class="sd">        The method computes stimulus derivatives and separates positive/negative changes:</span>
+
+<span class="sd">        - :math:`\\dot{u} = \\frac{u(t) - u(t-\\Delta t)}{\\Delta t}`</span>
+<span class="sd">        - :math:`\\dot{u}^+ = \\max(\\dot{u}, 0)` (increasing light)</span>
+<span class="sd">        - :math:`\\dot{u}^- = \\min(\\dot{u}, 0)` (decreasing light)</span>
+
+<span class="sd">        **Sign-Dependent Turning:**</span>
+
+<span class="sd">        Angular velocity dynamics include sign-dependent responses to maintain</span>
+<span class="sd">        biological realism in turning behavior asymmetries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># State Variables: x, y, v, theta, omega(w)</span>
+
+        
+        <span class="c1">#self.x[:,2] = np.clip(self.x[:,2], 0,None)  # Ensure speed is non-negative</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>  <span class="c1"># Ensure theta is in [0, 2*pi]</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="n">du</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_old</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+        <span class="n">du_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">du</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">du</span><span class="o">.</span><span class="n">shape</span><span class="p">))),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">du_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">du</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">du</span><span class="o">.</span><span class="n">shape</span><span class="p">))),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_s</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_s</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_s</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_s</span> <span class="o">*</span> <span class="n">du_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_s</span> <span class="o">*</span> <span class="n">du_neg</span>
+        <span class="n">dth</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="n">dw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_w</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_w</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_w</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_w</span> <span class="o">*</span> <span class="n">du_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_w</span> <span class="o">*</span> <span class="n">du_neg</span><span class="p">)</span>
+
+
+        <span class="n">drift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">dx</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">dy</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">dv</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">dth</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">dw</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">drift</span></div>
+
+
+<div class="viewcode-block" id="LightSensitive_PTW.get_diffusion">
+<a class="viewcode-back" href="../../../swarmsim.Populations.html#swarmsim.Populations.parsistent_turning_walker.LightSensitive_PTW.get_diffusion">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the diffusion matrix for stochastic persistent turning walker dynamics.</span>
+
+<span class="sd">        This method returns the diffusion coefficients that scale white noise in the</span>
+<span class="sd">        stochastic differential equation. For persistent turning walkers, noise affects</span>
+<span class="sd">        the speed and angular velocity dynamics while position and orientation change</span>
+<span class="sd">        deterministically through their respective rates.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray, shape (N, 5)</span>
+<span class="sd">            Diffusion coefficients for all state variables:</span>
+<span class="sd">            ``[0, 0, σ_s, 0, σ_w]`` where only speed and angular velocity have noise.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Noise Structure:**</span>
+
+<span class="sd">        The diffusion reflects the biological noise sources:</span>
+
+<span class="sd">        - **Position (x, y)**: Zero noise - positions change deterministically via velocity</span>
+<span class="sd">        - **Speed (v)**: ``σ_s`` noise - models metabolic fluctuations, swimming variability</span>
+<span class="sd">        - **Orientation (θ)**: Zero noise - angle changes deterministically via angular velocity  </span>
+<span class="sd">        - **Angular Velocity (ω)**: ``σ_w`` noise - models turning decision variability</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_s</span>
+        <span class="n">dth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">dw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_w</span>
+
+        <span class="n">diffusion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">,</span><span class="n">dv</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">dth</span><span class="p">,</span><span class="n">dw</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="n">diffusion</span></div>
+</div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

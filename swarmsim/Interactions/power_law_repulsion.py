@@ -7,44 +7,74 @@ from typing import Optional
 
 class PowerLawRepulsion(Interaction):
     """
-    Implements a power-law repulsion interaction between two populations.
+    Pure power-law repulsion interaction with finite range cutoff.
 
-    This interaction models a repulsive force that decays according to a power-law function
-    with respect to the distance between agents. The strength of the force is determined by
-    the power exponent `p` and is active within a defined maximum interaction range.
+    This interaction implements a repulsive force that decays according to an inverse
+    power law with respect to inter-agent distance. Unlike the more general PowerLawInteraction,
+    this class focuses specifically on repulsion with a clean cutoff mechanism that ensures
+    zero force at the maximum interaction distance.
+
+    The repulsion force follows:
+
+    .. math::
+
+        F(r) = k \\left( \\frac{1}{r^p} - \\frac{1}{r_{max}^p} \\right)
+
+    for :math:`r < r_{max}`, and :math:`F(r) = 0` for :math:`r \\geq r_{max}`, where:
+    - :math:`k` is the repulsion strength parameter
+    - :math:`r` is the inter-agent distance
+    - :math:`p` is the power law exponent
+    - :math:`r_{max}` is the maximum interaction distance
+
+    The subtraction term ensures the force smoothly approaches zero at the cutoff distance,
+    preventing discontinuous force jumps that can cause numerical instabilities.
 
     Parameters
     ----------
-    pop1 : Population
-        The first population that is influenced by the interaction.
-    pop2 : Population
-        The second population that applies the repulsion force.
-    config : str
+    target_population : Population
+        The population that receives repulsion forces.
+    source_population : Population
+        The population that generates repulsion forces.
+    config_path : str
         Path to the YAML configuration file containing interaction parameters.
-    repulsion_name : str
-        The section name in the YAML file specifying the repulsion parameters.
+    name : str, optional
+        Name identifier for the interaction. Defaults to class name if None.
 
     Attributes
     ----------
-    params : dict
-        Dictionary containing interaction parameters loaded from the configuration file.
-    strength : float
-        Maximum intensity of the repulsion force.
-    max_distance : float
-        Maximum distance at which the interaction takes place.
-    p : float
-        Power exponent controlling the decay rate of the repulsion force.
+    target_population : Population
+        Population affected by power-law repulsion forces.
+    source_population : Population
+        Population generating power-law repulsion forces.
+    strength : np.ndarray or None
+        Repulsion strength parameter for each agent in the target population.
+    max_distance : np.ndarray or None
+        Maximum interaction distance for each agent in the target population.
+    p : int
+        Power law exponent controlling the decay rate of repulsion.
+        Higher values create steeper decay (stronger short-range repulsion).
+    params_shapes : dict
+        Defines expected shapes for interaction parameters.
 
-    Config requirements
+    Config Requirements
     -------------------
-    repulsion_name : str
-        The section name in the YAML file specifying the repulsion parameters.
-    strength : float
-        The maximum repulsion force intensity.
-    max_distance : float
-        The maximum interaction range.
-    p : float
-        The power exponent determining the force decay.
+    The YAML configuration file must contain the following parameters under the interaction's section:
+
+    parameters : dict
+        Parameter configuration for the power-law repulsion:
+
+    p : int
+        Power law exponent for the repulsion force. Common values:
+
+
+    Notes
+    -----
+    **Force Characteristics:**
+
+    - **Monotonic Decay**: Force decreases monotonically with distance
+    - **Finite Range**: Zero force beyond ``max_distance``
+    - **Customizable Steepness**: Power exponent controls interaction range vs strength
+
 
     Raises
     ------
@@ -52,20 +82,26 @@ class PowerLawRepulsion(Interaction):
         If the configuration file is not found.
     KeyError
         If required interaction parameters are missing in the configuration file.
+    ValueError
+        If power exponent p is not positive or if parameter shapes are incompatible.
 
     Examples
     --------
-    Example YAML configuration:
+    **Soft Repulsion Configuration:**
 
     .. code-block:: yaml
 
-        power_law_repulsion:
-            strength: 2.0
-            max_distance: 5.0
-            p: 3.0
+        PowerLawRepulsion:
+            id: "soft_repulsion"
+            p: 2
+            parameters:
+                mode: "Fixed"
+                names: ["strength", "max_distance"]
+                values:
+                    strength: 1.0
+                    max_distance: 3.0
 
-    This sets a repulsion force with `strength = 2.0`, active within `5.0` units,
-    and decaying with a power exponent `p = 3.0`.
+    
     """
 
     def __init__(self,
@@ -94,28 +130,46 @@ class PowerLawRepulsion(Interaction):
 
     def get_interaction(self):
         """
-        Computes the repulsion force exerted by `source_population` on `target_population` using a power-law function.
+        Compute power-law repulsion forces between source and target populations.
 
-        The repulsion force is computed as:
-
-            F_repulsion = strength * (1/distance^p - 1/max_distance^p)
-
-        where:
-            - `distance` is the Euclidean distance between agents in `target_population` and `source_population`.
-            - `max_distance` defines the interaction cutoff beyond which no force is applied.
-            - `p` controls how rapidly the force decays with distance.
+        This method calculates repulsive forces using the power-law formula with a smooth
+        cutoff mechanism. The computation handles distance calculations, applies the power-law
+        kernel, and includes numerical stability measures to prevent instabilities.
 
         Returns
         -------
         np.ndarray
-            A `(N1, D)` array representing the repulsion force applied to each
-            agent in `target_population`, where `N1` is the number of agents in `target_population` and
-            `D` is the dimensionality of the state space.
+            Repulsion forces array of shape ``(N_target, 2)`` where:
+            - ``N_target`` is the number of agents in the target population
+            - Each row represents the total repulsion force on one target agent in 2D space
+            Force vectors point away from source agents (repulsive direction).
 
         Notes
         -----
-        - The function prevents division by zero by setting a minimum distance (`1e-6`).
-        - The force is capped at `10` to avoid numerical instabilities.
+        **Algorithm Steps:**
+
+        1. **Distance Computation**: Calculate pairwise distances between all source-target pairs
+        2. **Cutoff Application**: Apply smooth cutoff using reference force at max_distance
+        3. **Kernel Evaluation**: Compute power-law repulsion kernel with bounds
+        4. **Force Assembly**: Convert scalar forces to vector forces using relative positions
+        5. **Force Summation**: Sum contributions from all source agents
+
+        **Mathematical Implementation:**
+
+        The force kernel is computed as:
+
+        .. math::
+
+            K(r) = k \\cdot \\text{clip}\\left( \\frac{1}{r^p} - \\frac{1}{r_{max}^p}, 0, F_{max} \\right)
+
+        where:
+        - :math:`k` is the strength parameter
+        - :math:`r` is the inter-agent distance (with minimum threshold)
+        - :math:`p` is the power law exponent
+        - :math:`r_{max}` is the maximum interaction distance
+        - :math:`F_{max} = 1000` is the force magnitude cap
+
+        
         """
 
         # Compute pairwise distances and relative positions between agents

@@ -1,323 +1,247 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numerical Integrators &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Integrators &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'swarmsim.Integrators';</script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true, "processEnvironments": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore", "processHtmlClass": "tex2jax_process"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Interactions" href="swarmsim.Interactions.html" />
-    <link rel="prev" title="Environments" href="swarmsim.Environments.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="next" title="Interactions Package" href="swarmsim.Interactions.html" />
+    <link rel="prev" title="Environments Package" href="swarmsim.Environments.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+          
+          
+          <a href="index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-        </div>
-      
-      
-        <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Environments.html">Environments</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Interactions.html">Interactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Loggers.html">Loggers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Populations.html">Populations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Simulators.html">Simulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swarmsim.Utils.html">Utilities</a></li>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
 </ul>
-</div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="swarmsim.html">IntelliSwarm Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="swarmsim.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Numerical Integrators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-swarmsim.Integrators">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-integration-issues">Common Integration Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Loggers.html">Data Loggers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Loggers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Renderers.html">Visualization &amp; Rendering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Renderers.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
+        </div>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
+    </nav>
 
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="swarmsim.html" class="nav-link">swarms_py</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Integrators</span></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntelliSwarm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="swarmsim.html">IntelliSwarm Package</a></li>
+      <li class="breadcrumb-item active">Numerical Integrators</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swarmsim.Integrators.rst.txt" rel="nofollow"> View page source</a>
+      </li>
   </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="numerical-integrators">
+<h1>Numerical Integrators<a class="headerlink" href="#numerical-integrators" title="Link to this heading"></a></h1>
+<p>The integrators package provides sophisticated numerical integration schemes for stochastic differential equations (SDEs) that govern agent dynamics in multi-agent systems. These integrators handle the temporal evolution of agent states, incorporating both deterministic drift and stochastic diffusion components.</p>
+<nav class="contents local" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
+<li><p><a class="reference internal" href="#key-features" id="id3">Key Features</a></p></li>
+<li><p><a class="reference internal" href="#module-swarmsim.Integrators" id="id4">Module Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#integrators-module" id="id5">Integrators Module</a></p></li>
+<li><p><a class="reference internal" href="#base-integrator-interface" id="id6">Base Integrator Interface</a></p></li>
+<li><p><a class="reference internal" href="#euler-maruyama-integrator" id="id7">Euler-Maruyama Integrator</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#troubleshooting" id="id8">Troubleshooting</a></p></li>
+<li><p><a class="reference internal" href="#common-integration-issues" id="id9">Common Integration Issues</a></p></li>
+<li><p><a class="reference internal" href="#see-also" id="id10">See Also</a></p></li>
+</ul>
 </nav>
-</div>
-      
-    </div>
-  
-  
-</div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="integrators">
-<h1>Integrators<a class="headerlink" href="#integrators" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>SwarmSim’s integration framework implements state-of-the-art numerical methods for solving SDEs of the form:</p>
+<div class="math notranslate nohighlight">
+\[d\mathbf{X}_t = \mathbf{f}(\mathbf{X}_t, t) dt + \mathbf{g}(\mathbf{X}_t, t) d\mathbf{W}_t\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{X}_t\)</span> represents the agent state vector, <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is the drift term capturing deterministic dynamics, <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> is the diffusion term modeling stochastic fluctuations, and <span class="math notranslate nohighlight">\(d\mathbf{W}_t\)</span> is a Wiener process increment.</p>
+</section>
+<section id="key-features">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Key Features</a><a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>High-Order Integration</strong>: Support for multiple integration schemes with varying accuracy and stability</p></li>
+<li><p><strong>Stochastic Support</strong>: Native handling of noise processes and random fluctuations</p></li>
+<li><p><strong>Adaptive Stepping</strong>: Configurable time stepping with stability considerations</p></li>
+<li><p><strong>Multi-Agent Scalability</strong>: Efficient vectorized operations for large population sizes</p></li>
+<li><p><strong>Modular Design</strong>: Extensible architecture for custom integration methods</p></li>
+</ul>
+</section>
 <section id="module-swarmsim.Integrators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading">#</a></h2>
+<span id="module-reference"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Module Reference</a><a class="headerlink" href="#module-swarmsim.Integrators" title="Link to this heading"></a></h2>
 <section id="integrators-module">
-<h3>Integrators Module<a class="headerlink" href="#integrators-module" title="Link to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Integrators Module</a><a class="headerlink" href="#integrators-module" title="Link to this heading"></a></h3>
 <p>This module provides numerical integration schemes for evolving agent dynamics in multi-agent simulations.
 Integrators handle both deterministic and stochastic differential equations, enabling realistic agent motion
 with noise and uncertainty.</p>
 <section id="available-integrators">
-<h4>Available Integrators<a class="headerlink" href="#available-integrators" title="Link to this heading">#</a></h4>
+<h4>Available Integrators<a class="headerlink" href="#available-integrators" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>Integrator</dt><dd><p>Abstract base class defining the interface for all numerical integration methods.</p>
 </dd>
@@ -326,8 +250,8 @@ populations with both drift and diffusion components (e.g., Brownian motion).</p
 </dd>
 </dl>
 </section>
-<section id="key-features">
-<h4>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h4>
+<section id="id1">
+<h4>Key Features<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Stochastic Integration</strong>: Support for stochastic differential equations (SDEs)</p></li>
 <li><p><strong>Modular Design</strong>: Easy to implement custom integration schemes</p></li>
@@ -336,7 +260,7 @@ populations with both drift and diffusion components (e.g., Brownian motion).</p
 </ul>
 </section>
 <section id="mathematical-background">
-<h4>Mathematical Background<a class="headerlink" href="#mathematical-background" title="Link to this heading">#</a></h4>
+<h4>Mathematical Background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h4>
 <p>The integrators solve equations of the form:</p>
 <blockquote>
 <div><p>dx = f(x, t) dt + g(x, t) dW</p>
@@ -363,7 +287,7 @@ populations with both drift and diffusion components (e.g., Brownian motion).</p
 </div>
 </section>
 <section id="configuration-example">
-<h4>Configuration Example<a class="headerlink" href="#configuration-example" title="Link to this heading">#</a></h4>
+<h4>Configuration Example<a class="headerlink" href="#configuration-example" title="Link to this heading"></a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">integrator</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">  </span><span class="c1"># Small timestep for accuracy</span>
 </pre></div>
@@ -372,26 +296,23 @@ populations with both drift and diffusion components (e.g., Brownian motion).</p
 computational cost.</p>
 </section>
 </section>
-</section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-swarmsim.Integrators.base_integrator">
-<span id="integrator-interface"></span><h2>Integrator Interface<a class="headerlink" href="#module-swarmsim.Integrators.base_integrator" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="base-integrator-interface">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Base Integrator Interface</a><a class="headerlink" href="#base-integrator-interface" title="Link to this heading"></a></h3>
+<p>The foundation for all numerical integration schemes, providing the abstract interface and common functionality.</p>
+<dl class="py class" id="module-swarmsim.Integrators.base_integrator">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.base_integrator.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.base_integrator.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
 <p>Abstract base class for numerical integration schemes in stochastic multi-agent systems.</p>
 <p>This class provides the interface for implementing various numerical integration methods
 for stochastic differential equations (SDEs) that govern agent dynamics. It handles the
 temporal evolution of agent states based on drift and diffusion components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing integration parameters.</p>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing integration parameters.</p>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – The timestep value for numerical integration.</p>
+<dd class="field-even"><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The timestep value for numerical integration.</p>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -409,12 +330,9 @@ temporal evolution of agent states based on drift and diffusion components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
-<li><p><strong>KeyError</strong> – If required integration parameters are missing in the configuration file.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the configuration file is not found.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – If required integration parameters are missing in the configuration file.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>config_path</strong> (<em>str</em>)</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -427,15 +345,29 @@ temporal evolution of agent states based on drift and diffusion components.</p>
 <p>For stochastic systems, smaller timesteps generally improve accuracy but increase
 computational cost. The choice depends on the specific dynamics and required precision.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Integrator with configuration parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing integration parameters.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the configuration file cannot be found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Integrators.base_integrator.Integrator.step">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.step" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/base_integrator.html#Integrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.base_integrator.Integrator.step" title="Link to this definition"></a></dt>
 <dd><p>Perform a single numerical integration step.</p>
 <p>This abstract method must be implemented by subclasses to define the specific
 numerical integration scheme. It advances the state of all agent populations
 by one timestep according to their dynamics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – List of Population objects whose states will be updated by the integration step.
+<dd class="field-odd"><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – List of Population objects whose states will be updated by the integration step.
 Each population provides drift and diffusion terms through their respective methods.</p>
 </dd>
 </dl>
@@ -450,7 +382,7 @@ Each population provides drift and diffusion terms through their respective meth
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – If called from the base class without being implemented in a subclass.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.13)"><strong>NotImplementedError</strong></a> – If called from the base class without being implemented in a subclass.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -458,11 +390,12 @@ Each population provides drift and diffusion terms through their respective meth
 </dd></dl>
 
 </section>
-<section id="module-swarmsim.Integrators.euler_maruyama">
-<span id="euler-maruyama"></span><h2>Euler Maruyama<a class="headerlink" href="#module-swarmsim.Integrators.euler_maruyama" title="Link to this heading">#</a></h2>
-<dl class="py class">
+<section id="euler-maruyama-integrator">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Euler-Maruyama Integrator</a><a class="headerlink" href="#euler-maruyama-integrator" title="Link to this heading"></a></h3>
+<p>The most commonly used stochastic integrator, implementing the Euler-Maruyama scheme for SDEs.</p>
+<dl class="py class" id="module-swarmsim.Integrators.euler_maruyama">
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.euler_maruyama.</span></span><span class="sig-name descname"><span class="pre">EulerMaruyamaIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">swarmsim.Integrators.euler_maruyama.</span></span><span class="sig-name descname"><span class="pre">EulerMaruyamaIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#swarmsim.Integrators.base_integrator.Integrator" title="swarmsim.Integrators.base_integrator.Integrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Integrator</span></code></a></p>
 <p>Euler-Maruyama numerical integrator for stochastic differential equations.</p>
 <p>This integrator implements the Euler-Maruyama scheme for solving stochastic differential
@@ -479,10 +412,10 @@ diffusion terms, making it suitable for complex stochastic systems with correlat
 - <span class="math notranslate nohighlight">\(\Delta t\)</span> is the integration timestep</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config_path</strong> (<em>str</em>) – Path to the YAML configuration file containing integration parameters.</p>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file containing integration parameters.</p>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dt</strong> (<em>float</em>) – Integration timestep, inherited from the Integrator base class.</p>
+<dd class="field-even"><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Integration timestep, inherited from the Integrator base class.</p>
 </dd>
 <dt class="field-odd">Config Requirements<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -508,9 +441,9 @@ with large diffusion coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If the configuration file is not found.</p></li>
-<li><p><strong>KeyError</strong> – If required integration parameters are missing in the configuration file.</p></li>
-<li><p><strong>AttributeError</strong> – If population objects lack required methods or attributes.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the configuration file is not found.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – If required integration parameters are missing in the configuration file.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AttributeError" title="(in Python v3.13)"><strong>AttributeError</strong></a> – If population objects lack required methods or attributes.</p></li>
 </ul>
 </dd>
 </dl>
@@ -522,15 +455,26 @@ with large diffusion coefficients.</p>
 </div>
 <p>This will set <code class="docutils literal notranslate"><span class="pre">dt</span> <span class="pre">=</span> <span class="pre">0.05</span></code> as the timestep value for numerical integration.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the Euler-Maruyama Integrator with configuration parameters from a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the YAML configuration file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/swarmsim/Integrators/euler_maruyama.html#EulerMaruyamaIntegrator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step" title="Link to this definition"></a></dt>
 <dd><p>Perform a single Euler-Maruyama integration step for all populations.</p>
 <p>This method updates the state of each population by applying the Euler-Maruyama
 scheme with automatic handling of scalar and matrix diffusion terms. The state
 update follows the discrete SDE formula with proper noise scaling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>populations</strong> (<em>list</em><em> of </em><em>Population</em>) – <p>List of population objects to integrate. Each population must provide:</p>
+<dd class="field-odd"><p><strong>populations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference internal" href="swarmsim.Populations.html#swarmsim.Populations.population.Population" title="swarmsim.Populations.population.Population"><em>Population</em></a>) – <p>List of population objects to integrate. Each population must provide:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> (np.ndarray): Current state array of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">get_drift()</span></code> method: Returns drift term of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">d)</span></code></p></li>
@@ -562,9 +506,9 @@ spatial or behavioral limits defined by <code class="docutils literal notranslat
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>AttributeError</strong> – If any population object lacks required methods (<code class="docutils literal notranslate"><span class="pre">get_drift</span></code>, <code class="docutils literal notranslate"><span class="pre">get_diffusion</span></code>)
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AttributeError" title="(in Python v3.13)"><strong>AttributeError</strong></a> – If any population object lacks required methods (<code class="docutils literal notranslate"><span class="pre">get_drift</span></code>, <code class="docutils literal notranslate"><span class="pre">get_diffusion</span></code>)
     or attributes (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">lim_i</span></code>, <code class="docutils literal notranslate"><span class="pre">lim_s</span></code>).</p></li>
-<li><p><strong>ValueError</strong> – If diffusion term shape is incompatible with noise or state dimensions.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If diffusion term shape is incompatible with noise or state dimensions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -574,146 +518,61 @@ spatial or behavioral limits defined by <code class="docutils literal notranslat
 
 </section>
 </section>
+<section id="troubleshooting">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+</section>
+<section id="common-integration-issues">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Common Integration Issues</a><a class="headerlink" href="#common-integration-issues" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Numerical Instability</strong></dt><dd><ul class="simple">
+<li><p>Reduce time step size</p></li>
+<li><p>Verify boundary conditions</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="swarmsim.Populations.html"><span class="doc">Populations Package</span></a> - Agent population management</p></li>
+<li><p><a class="reference internal" href="swarmsim.Interactions.html"><span class="doc">Interactions Package</span></a> - Force computation methods</p></li>
+<li><p><a class="reference internal" href="swarmsim.Simulators.html"><span class="doc">Simulators Package</span></a> - High-level simulation control</p></li>
+<li><p><span class="xref std std-doc">examples.basic_simulation</span> - Integration usage examples</p></li>
+</ul>
+</section>
+</section>
 
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="swarmsim.Environments.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Environments</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="swarmsim.Interactions.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Interactions</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrators-module">Integrators Module</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#available-integrators">Available Integrators</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-background">Mathematical Background</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-example">Configuration Example</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.base_integrator">Integrator Interface</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.base_integrator.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-swarmsim.Integrators.euler_maruyama">Euler Maruyama</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator.step"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/swarmsim.Integrators.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swarmsim.Environments.html" class="btn btn-neutral float-left" title="Environments Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="swarmsim.Interactions.html" class="btn btn-neutral float-right" title="Interactions Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>

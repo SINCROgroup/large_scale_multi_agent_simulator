@@ -374,19 +374,24 @@
 
 <span class="sd">    Config Requirements</span>
 <span class="sd">    -------------------</span>
-<span class="sd">    The YAML configuration file must contain the following parameters under the logger&#39;s class section:</span>
+<span class="sd">    The YAML configuration file must contain the following parameters under the BaseLogger&#39;s class section:</span>
 
-<span class="sd">    BaseLogger : dict</span>
-<span class="sd">        Configuration section for the base logger:</span>
-<span class="sd">        </span>
-<span class="sd">        - ``activate`` : bool, optional - Enable/disable logging. Default: ``True``</span>
-<span class="sd">        - ``log_freq`` : int, optional - Console output frequency (0 = never). Default: ``0``</span>
-<span class="sd">        - ``save_freq`` : int, optional - File save frequency (0 = never). Default: ``1``</span>
-<span class="sd">        - ``save_data_freq`` : int, optional - Raw data save frequency. Default: ``0``</span>
-<span class="sd">        - ``save_global_data_freq`` : int, optional - Global data save frequency. Default: ``0``</span>
-<span class="sd">        - ``log_path`` : str, optional - Output directory path. Default: ``&quot;./logs&quot;``</span>
-<span class="sd">        - ``log_name`` : str, optional - Log file name suffix. Default: ``&quot;&quot;``</span>
-<span class="sd">        - ``comment_enable`` : bool, optional - Enable user comments. Default: ``False``</span>
+<span class="sd">        - ``activate`` : bool, optional</span>
+<span class="sd">            Enable/disable logging. Default: ``True``</span>
+<span class="sd">        - ``log_freq`` : int, optional </span>
+<span class="sd">            Console output frequency (0 = never). Default: ``0``</span>
+<span class="sd">        - ``save_freq`` : int, optional</span>
+<span class="sd">            File save frequency (0 = never). Default: ``1``</span>
+<span class="sd">        - ``save_data_freq`` : int, optional</span>
+<span class="sd">            Raw data save frequency. Default: ``0``</span>
+<span class="sd">        - ``save_global_data_freq`` : int, optional</span>
+<span class="sd">            Global data save frequency. Default: ``0``</span>
+<span class="sd">        - ``log_path`` : str, optional</span>
+<span class="sd">            Output directory path. Default: ``&quot;./logs&quot;``</span>
+<span class="sd">        - ``log_name`` : str, optional</span>
+<span class="sd">            Log file name suffix. Default: ``&quot;&quot;``</span>
+<span class="sd">        - ``comment_enable`` : bool, optional</span>
+<span class="sd">            Enable user comments. Default: ``False``</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -437,171 +442,6 @@
 <span class="sd">            log_path: &quot;./simulation_logs&quot;</span>
 <span class="sd">            log_name: &quot;base_experiment&quot;</span>
 <span class="sd">            comment_enable: false</span>
-
-<span class="sd">    **High-Frequency Logging:**</span>
-
-<span class="sd">    .. code-block:: yaml</span>
-
-<span class="sd">        BaseLogger:</span>
-<span class="sd">            activate: true</span>
-<span class="sd">            log_freq: 1      # Print every step</span>
-<span class="sd">            save_freq: 1     # Save every step</span>
-<span class="sd">            save_data_freq: 10</span>
-<span class="sd">            log_path: &quot;./detailed_logs&quot;</span>
-
-<span class="sd">    **Usage in Simulation:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        from swarmsim.Loggers import BaseLogger</span>
-<span class="sd">        from swarmsim.Populations import BrownianMotion</span>
-<span class="sd">        from swarmsim.Environments import EmptyEnvironment</span>
-
-<span class="sd">        # Create simulation components</span>
-<span class="sd">        agents = BrownianMotion(&#39;agent_config.yaml&#39;)</span>
-<span class="sd">        env = EmptyEnvironment(&#39;env_config.yaml&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        # Create logger</span>
-<span class="sd">        logger = BaseLogger([agents], env, &#39;logger_config.yaml&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        # Start logging session</span>
-<span class="sd">        logger.start_experiment()</span>
-<span class="sd">        </span>
-<span class="sd">        # Simulation loop</span>
-<span class="sd">        for step in range(1000):</span>
-<span class="sd">            # ... simulation dynamics ...</span>
-<span class="sd">            </span>
-<span class="sd">            # Log current step</span>
-<span class="sd">            done = logger.log({</span>
-<span class="sd">                &#39;custom_metric&#39;: np.mean(agents.x),</span>
-<span class="sd">                &#39;step&#39;: step</span>
-<span class="sd">            })</span>
-<span class="sd">            </span>
-<span class="sd">            if done:</span>
-<span class="sd">                break</span>
-<span class="sd">        </span>
-<span class="sd">        # End logging session</span>
-<span class="sd">        logger.end_experiment()</span>
-
-<span class="sd">    **Custom Logger Extension:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        class CustomLogger(BaseLogger):</span>
-<span class="sd">            def log(self, data: dict = None) -&gt; bool:</span>
-<span class="sd">                \&quot;\&quot;\&quot;Override to add custom logging behavior\&quot;\&quot;\&quot;</span>
-<span class="sd">                if self.activate:</span>
-<span class="sd">                    # Add custom metrics</span>
-<span class="sd">                    custom_data = {</span>
-<span class="sd">                        &#39;center_of_mass&#39;: np.mean(self.populations[0].x, axis=0),</span>
-<span class="sd">                        &#39;max_speed&#39;: np.max(np.linalg.norm(self.populations[0].x, axis=1)),</span>
-<span class="sd">                        &#39;population_spread&#39;: np.std(self.populations[0].x)</span>
-<span class="sd">                    }</span>
-<span class="sd">                    </span>
-<span class="sd">                    # Merge with provided data</span>
-<span class="sd">                    if data is not None:</span>
-<span class="sd">                        custom_data.update(data)</span>
-<span class="sd">                    </span>
-<span class="sd">                    # Call parent logging</span>
-<span class="sd">                    return super().log(custom_data)</span>
-<span class="sd">                </span>
-<span class="sd">                return False</span>
-
-<span class="sd">    **Multi-Population Logging:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        # Log multiple populations with different behaviors</span>
-<span class="sd">        predators = BrownianMotion(&#39;predator_config.yaml&#39;)</span>
-<span class="sd">        prey = BrownianMotion(&#39;prey_config.yaml&#39;)</span>
-<span class="sd">        obstacles = FixedPopulation(&#39;obstacle_config.yaml&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        logger = BaseLogger([predators, prey, obstacles], env, &#39;config.yaml&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        # All populations will be tracked automatically</span>
-
-<span class="sd">    **Performance Monitoring:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        import time</span>
-<span class="sd">        </span>
-<span class="sd">        logger = BaseLogger(populations, env, &#39;config.yaml&#39;)</span>
-<span class="sd">        logger.start_experiment()</span>
-<span class="sd">        </span>
-<span class="sd">        simulation_times = []</span>
-<span class="sd">        </span>
-<span class="sd">        for step in range(num_steps):</span>
-<span class="sd">            step_start = time.time()</span>
-<span class="sd">            </span>
-<span class="sd">            # ... run simulation step ...</span>
-<span class="sd">            </span>
-<span class="sd">            step_time = time.time() - step_start</span>
-<span class="sd">            simulation_times.append(step_time)</span>
-<span class="sd">            </span>
-<span class="sd">            # Log with timing data</span>
-<span class="sd">            logger.log({</span>
-<span class="sd">                &#39;step_duration&#39;: step_time,</span>
-<span class="sd">                &#39;cumulative_time&#39;: sum(simulation_times)</span>
-<span class="sd">            })</span>
-<span class="sd">        </span>
-<span class="sd">        logger.end_experiment()</span>
-<span class="sd">        </span>
-<span class="sd">        print(f&quot;Average step time: {np.mean(simulation_times):.3f}s&quot;)</span>
-
-<span class="sd">    **Data Analysis Integration:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        # After simulation, analyze logged data</span>
-<span class="sd">        import numpy as np</span>
-<span class="sd">        import pandas as pd</span>
-<span class="sd">        </span>
-<span class="sd">        # Load CSV data for analysis</span>
-<span class="sd">        data = pd.read_csv(logger.log_name_csv)</span>
-<span class="sd">        </span>
-<span class="sd">        # Load NumPy arrays for detailed analysis</span>
-<span class="sd">        arrays = np.load(logger.log_name_npz)</span>
-<span class="sd">        </span>
-<span class="sd">        # Extract specific metrics</span>
-<span class="sd">        steps = data[&#39;step&#39;]</span>
-<span class="sd">        metrics = data[&#39;custom_metric&#39;]</span>
-<span class="sd">        </span>
-<span class="sd">        # Perform analysis</span>
-<span class="sd">        print(f&quot;Simulation ran for {len(steps)} steps&quot;)</span>
-<span class="sd">        print(f&quot;Final metric value: {metrics.iloc[-1]:.3f}&quot;)</span>
-
-<span class="sd">    **Debugging and Monitoring:**</span>
-
-<span class="sd">    .. code-block:: python</span>
-
-<span class="sd">        # Configure for debugging</span>
-<span class="sd">        debug_config = {</span>
-<span class="sd">            &#39;BaseLogger&#39;: {</span>
-<span class="sd">                &#39;activate&#39;: True,</span>
-<span class="sd">                &#39;log_freq&#39;: 1,      # Print every step</span>
-<span class="sd">                &#39;save_freq&#39;: 10,    # Save less frequently</span>
-<span class="sd">                &#39;log_path&#39;: &#39;./debug_logs&#39;,</span>
-<span class="sd">                &#39;comment_enable&#39;: True  # Allow comments for debugging</span>
-<span class="sd">            }</span>
-<span class="sd">        }</span>
-<span class="sd">        </span>
-<span class="sd">        # Monitor specific conditions</span>
-<span class="sd">        logger = BaseLogger(populations, env, &#39;debug_config.yaml&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        for step in range(max_steps):</span>
-<span class="sd">            # ... simulation step ...</span>
-<span class="sd">            </span>
-<span class="sd">            # Check for anomalies</span>
-<span class="sd">            max_speed = np.max(np.linalg.norm(populations[0].x, axis=1))</span>
-<span class="sd">            </span>
-<span class="sd">            if max_speed &gt; 10.0:  # Anomaly threshold</span>
-<span class="sd">                logger.log({</span>
-<span class="sd">                    &#39;anomaly_detected&#39;: True,</span>
-<span class="sd">                    &#39;max_speed&#39;: max_speed,</span>
-<span class="sd">                    &#39;step&#39;: step</span>
-<span class="sd">                })</span>
-<span class="sd">                print(f&quot;Anomaly detected at step {step}: max_speed = {max_speed}&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     

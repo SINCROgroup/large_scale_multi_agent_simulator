@@ -1,288 +1,248 @@
 
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swarmsim.Utils.logger_utils &mdash; IntelliSwarm 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
-
-<html lang="en" data-content_root="../../../" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>swarmsim.Utils.logger_utils &#8212; SwarmS.py 0.1.0 documentation</title>
   
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../../../_static/documentation_options.js?v=01f34227"></script>
-    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/swarmsim/Utils/logger_utils';</script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="../../../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../../../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">SwarmS.py 0.1.0 documentation</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    <div class="me-auto navbar-header-items__center">
-      
-        <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
-  </ul>
-</nav></div>
-      
-    </div>
-    
-    
-    <div class="navbar-header-items__end">
-      
-        <div class="navbar-item navbar-persistent--container">
           
+          
+          <a href="../../../index.html" class="icon icon-home">
+            IntelliSwarm
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#your-first-simulation">Your First Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#running-simulations-using-gui">Running Simulations using GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../swarmsim.html">IntelliSwarm Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#swarmsim-a-large-scale-multi-agent-simulator">SwarmSim: A Large-Scale Multi-Agent Simulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.html#main-components">Main Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#package-overview">Package Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../swarmsim.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Controllers.html">Controllers Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#controllers-module">Controllers Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#control-architecture">Control Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Controllers.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Environments.html">Environments Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#environments-module">Environments Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.EmptyEnvironment"><code class="docutils literal notranslate"><span class="pre">EmptyEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#swarmsim.Environments.ShepherdingEnvironment"><code class="docutils literal notranslate"><span class="pre">ShepherdingEnvironment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#best-practices">Best Practices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Environments.html#id1">Shepherding Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html">Numerical Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#module-swarmsim.Integrators">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#integrators-module">Integrators Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#base-integrator-interface">Base Integrator Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.base_integrator.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#euler-maruyama-integrator">Euler-Maruyama Integrator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#swarmsim.Integrators.euler_maruyama.EulerMaruyamaIntegrator"><code class="docutils literal notranslate"><span class="pre">EulerMaruyamaIntegrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Integrators.html#common-integration-issues">Common Integration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Integrators.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Interactions.html">Interactions Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#interactions-module">Interactions Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.Interaction"><code class="docutils literal notranslate"><span class="pre">Interaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.HarmonicRepulsion"><code class="docutils literal notranslate"><span class="pre">HarmonicRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawRepulsion"><code class="docutils literal notranslate"><span class="pre">PowerLawRepulsion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.PowerLawInteraction"><code class="docutils literal notranslate"><span class="pre">PowerLawInteraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#swarmsim.Interactions.LennardJones"><code class="docutils literal notranslate"><span class="pre">LennardJones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Interactions.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html">Data Loggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#module-swarmsim.Loggers">Module Reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#base-logger-interface">Base Logger Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.base_logger.BaseLogger"><code class="docutils literal notranslate"><span class="pre">BaseLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#standard-logger-implementation">Standard Logger Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#position-logger">Position Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.position_logger.PositionLogger"><code class="docutils literal notranslate"><span class="pre">PositionLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#capabilities">Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#shepherding-logger">Shepherding Logger</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#swarmsim.Loggers.shepherding_logger.ShepherdingLogger"><code class="docutils literal notranslate"><span class="pre">ShepherdingLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Loggers.html#specialized-features">Specialized Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Loggers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Populations.html">Populations Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#population-module">Population Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#model-selection-guide">Model Selection Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Populations.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html">Visualization &amp; Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#module-swarmsim.Renderers">Module Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim-renderers">swarmsim.Renderers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#base-renderer-interface">Base Renderer Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.renderer.Renderer"><code class="docutils literal notranslate"><span class="pre">Renderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#standard-base-renderer">Standard Base Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.base_renderer.BaseRenderer"><code class="docutils literal notranslate"><span class="pre">BaseRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#biological-systems-renderer">Biological Systems Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.bio_renderer.BioRenderer"><code class="docutils literal notranslate"><span class="pre">BioRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#shepherding-renderer">Shepherding Renderer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Renderers.html#swarmsim.Renderers.shepherding_renderer.ShepherdingRenderer"><code class="docutils literal notranslate"><span class="pre">ShepherdingRenderer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Renderers.html#see-also">See Also</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Simulators.html">Simulators Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#swarmsim-simulators">swarmsim.Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#usage-examples">Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Simulators.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../swarmsim.Utils.html">Utilities Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#swarmsim-utils">swarmsim.Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#package-overview">Package Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#core-modules">Core Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../swarmsim.Utils.html#supporting-modules">Supporting Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
         </div>
-      
-      
-        <div class="navbar-item">
+      </div>
+    </nav>
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-      
-    </div>
-    
-  </div>
-  
-  
-    <div class="navbar-persistent--mobile">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">IntelliSwarm</a>
+      </nav>
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-        
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-      <div class="sidebar-header-items__center">
-        
-          
-          
-            <div class="navbar-item">
-<nav>
-  <ul class="bd-navbar-elements navbar-nav">
-    
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../../swarmsim.html">
-    swarms_py
-  </a>
-</li>
-
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">swarmsim.Utils.logger_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
   </ul>
-</nav></div>
-          
-        
-      </div>
-    
-    
-    
-      <div class="sidebar-header-items__end">
-        
-          <div class="navbar-item">
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
-        
-      </div>
-    
-  </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
-
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
-    
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="../../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    
-    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">swarmsim.Utils.logger_utils</span></li>
-  </ul>
-</nav>
+  <hr/>
 </div>
-      
-    </div>
-  
-  
-</div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <h1>Source code for swarmsim.Utils.logger_utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Logging utility functions for structured data collection and export.</span>
+
+<span class="sd">This module provides a comprehensive suite of utilities for logging simulation data</span>
+<span class="sd">in multiple formats, supporting real-time monitoring, data persistence, and</span>
+<span class="sd">post-simulation analysis. The utilities support flexible data collection with</span>
+<span class="sd">configurable output formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -292,6 +252,43 @@
 <div class="viewcode-block" id="add_entry">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.add_entry">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_entry</span><span class="p">(</span><span class="n">current_info</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add single-value entries to the logging data structure.</span>
+
+<span class="sd">    This function adds individual data entries to a structured logging dictionary,</span>
+<span class="sd">    associating each entry with specific save modes that determine how the data</span>
+<span class="sd">    will be output (print, file, etc.).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    current_info : dict</span>
+<span class="sd">        The logging data structure to modify.</span>
+<span class="sd">    save_mode : list, optional</span>
+<span class="sd">        List of output modes for the entries. Options: [&#39;print&#39;, &#39;txt&#39;, &#39;csv&#39;, &#39;npz&#39;, &#39;mat&#39;].</span>
+<span class="sd">    **kwargs : key-value pairs</span>
+<span class="sd">        Data entries to add, where keys become field names and values are the data.</span>
+
+<span class="sd">    Data Structure</span>
+<span class="sd">    --------------</span>
+<span class="sd">    Each entry in current_info follows the format:</span>
+<span class="sd">    </span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        {</span>
+<span class="sd">            &#39;field_name&#39;: {</span>
+<span class="sd">                &#39;value&#39;: data_value,</span>
+<span class="sd">                &#39;save_mode&#39;: [&#39;print&#39;, &#39;npz&#39;, ...]</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Overwrites existing entries with the same key</span>
+<span class="sd">    - For time series data, use `append_entry` instead</span>
+<span class="sd">    - Save modes determine which output functions will process the data</span>
+<span class="sd">    - Values can be scalars, arrays, or complex data structures</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">current_info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;save_mode&#39;</span><span class="p">:</span> <span class="n">save_mode</span><span class="p">}</span></div>
 
@@ -300,6 +297,49 @@
 <div class="viewcode-block" id="append_entry">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_entry">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">append_entry</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">save_mode</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append time-series data to existing logging entries.</span>
+
+<span class="sd">    This function appends new data to existing entries in the logging structure,</span>
+<span class="sd">    automatically handling the creation of new entries or stacking data for</span>
+<span class="sd">    existing ones. It&#39;s ideal for collecting time series data during simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    info : dict</span>
+<span class="sd">        The logging data structure to modify.</span>
+<span class="sd">    save_mode : list, optional</span>
+<span class="sd">        List of output modes for the entries. Options: [&#39;print&#39;, &#39;txt&#39;, &#39;csv&#39;, &#39;npz&#39;, &#39;mat&#39;].</span>
+<span class="sd">    **kwargs : key-value pairs</span>
+<span class="sd">        Data to append, where keys are field names and values are the new data.</span>
+
+<span class="sd">    Data Handling</span>
+<span class="sd">    -------------</span>
+<span class="sd">    - **New Entries**: Creates new entry with single data point</span>
+<span class="sd">    - **Existing Entries**: Stacks new data with existing using `np.vstack`</span>
+<span class="sd">    - **Shape Consistency**: Maintains consistent data shapes across appends</span>
+
+<span class="sd">    </span>
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Trajectory Logging**: Recording agent paths over time</span>
+<span class="sd">    - **Performance Monitoring**: Collecting metrics throughout simulation</span>
+<span class="sd">    - **Real-time Analysis**: Building datasets for online analysis</span>
+
+<span class="sd">    Performance Notes</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    - Uses `np.vstack` for efficient array concatenation</span>
+<span class="sd">    - Memory usage grows linearly with simulation length</span>
+<span class="sd">    - Consider periodic saving for very long simulations</span>
+<span class="sd">    - Shape consistency is automatically maintained</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Automatically handles first entry creation vs. subsequent appends</span>
+<span class="sd">    - Maintains data type consistency within each field</span>
+<span class="sd">    - Compatible with all numpy array types and scalars</span>
+<span class="sd">    - Ideal for building time series datasets</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
             <span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">value</span><span class="p">]),</span> <span class="s1">&#39;save_mode&#39;</span><span class="p">:</span> <span class="n">save_mode</span><span class="p">}</span>
@@ -311,6 +351,42 @@
 <div class="viewcode-block" id="get_positions">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.get_positions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_positions</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">populations</span><span class="p">,</span> <span class="n">save_mode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract and log population positions with systematic naming.</span>
+
+<span class="sd">    This function extracts position data from multiple populations and appends</span>
+<span class="sd">    them to the logging structure with automatically generated field names</span>
+<span class="sd">    that include population ID and spatial dimension information.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    info : dict</span>
+<span class="sd">        The logging data structure to modify.</span>
+<span class="sd">    populations : list of Population</span>
+<span class="sd">        List of population objects with &#39;x&#39; position arrays and &#39;id&#39; attributes.</span>
+<span class="sd">    save_mode : list</span>
+<span class="sd">        Output modes for the position data.</span>
+
+<span class="sd">    Naming Convention</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    Field names follow the pattern: `{population_id}_state{dimension}`</span>
+<span class="sd">    </span>
+<span class="sd">    Examples: &#39;sheep_state0&#39;, &#39;sheep_state1&#39;, &#39;herders_state0&#39;, &#39;herders_state1&#39;</span>
+
+<span class="sd">    </span>
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Trajectory Analysis**: Building complete movement histories</span>
+<span class="sd">    - **Visualization**: Creating animated trajectory plots</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Requires populations to have &#39;x&#39; attribute (position array)</span>
+<span class="sd">    - Requires populations to have &#39;id&#39; attribute (string identifier)</span>
+<span class="sd">    - Position data shape: (num_agents, state_dim)</span>
+<span class="sd">    - Creates separate field for each spatial dimension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">populations</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pop</span><span class="o">.</span><span class="n">state_dim</span><span class="p">):</span>
             <span class="n">col_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s1">&#39;_state&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
@@ -323,7 +399,36 @@
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.print_log">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">print_log</span><span class="p">(</span><span class="n">current_info</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to print information</span>
+<span class="sd">    Display logging information to console with filtered output.</span>
+
+<span class="sd">    This function prints selected logging entries to the console, filtering</span>
+<span class="sd">    by save mode to show only data marked for console output. It provides</span>
+<span class="sd">    real-time monitoring capabilities during simulation execution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    current_info : dict</span>
+<span class="sd">        Logging data structure containing entries with save modes.</span>
+
+<span class="sd">    Output Format</span>
+<span class="sd">    -------------</span>
+<span class="sd">    Entries are printed in the format: `key: value; ` with automatic newline at the end.</span>
+
+<span class="sd">    </span>
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Real-time Monitoring**: Live simulation progress tracking</span>
+<span class="sd">    - **Debug Output**: Immediate feedback during development</span>
+<span class="sd">    - **Event Notification**: Alerts for significant simulation events</span>
+<span class="sd">    - **Performance Tracking**: Regular metric updates during training</span>
+<span class="sd">    - **Status Updates**: Periodic progress reports</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Automatically adds newline after all entries</span>
+<span class="sd">    - Handles all data types that can be converted to string</span>
+<span class="sd">    - Non-blocking operation suitable for real-time monitoring</span>
+<span class="sd">    - Filters entries based on save_mode to avoid console spam</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="s1">&#39;print&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;save_mode&#39;</span><span class="p">]:</span>
@@ -335,6 +440,41 @@
 <div class="viewcode-block" id="append_txt">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_txt">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">append_txt</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">current_info</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append logging entries to a text file with structured formatting.</span>
+
+<span class="sd">    This function writes selected logging entries to a text file, filtering</span>
+<span class="sd">    by save mode and providing human-readable output suitable for logs,</span>
+<span class="sd">    reports, and debugging traces.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_name : str</span>
+<span class="sd">        Path to the output text file.</span>
+<span class="sd">    current_info : dict</span>
+<span class="sd">        Logging data structure containing entries with save modes.</span>
+
+<span class="sd">    File Format</span>
+<span class="sd">    -----------</span>
+<span class="sd">    Each call creates a new section in the file with entries formatted as:</span>
+<span class="sd">    `key: value` (one per line), followed by a blank line.</span>
+
+<span class="sd">    </span>
+
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Debugging Logs**: Detailed execution traces for troubleshooting</span>
+<span class="sd">    - **Experiment Records**: Human-readable experiment documentation</span>
+<span class="sd">    - **Event Logs**: Chronological record of simulation events</span>
+<span class="sd">    - **Status Reports**: Periodic progress summaries</span>
+<span class="sd">    - **Configuration Logs**: Parameter and setting documentation</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Only processes entries with &#39;txt&#39; in their save_mode</span>
+<span class="sd">    - Creates parent directories if they don&#39;t exist</span>
+<span class="sd">    - Adds blank line separator between logging calls</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
         <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -346,6 +486,40 @@
 <div class="viewcode-block" id="append_csv">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.append_csv">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">append_csv</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">current_info</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append logging entries to a CSV file with automatic header management.</span>
+
+<span class="sd">    This function writes selected logging entries to a CSV file, filtering by</span>
+<span class="sd">    save mode and handling automatic header creation for new files. It provides</span>
+<span class="sd">    structured tabular output suitable for data analysis and spreadsheet import.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_name : str</span>
+<span class="sd">        Path to the output CSV file.</span>
+<span class="sd">    current_info : dict</span>
+<span class="sd">        Logging data structure containing entries with save modes.</span>
+
+<span class="sd">    CSV Format</span>
+<span class="sd">    ----------</span>
+<span class="sd">    - **Headers**: Automatically created from field names on first write</span>
+<span class="sd">    - **Data Types**: Arrays are converted to lists for CSV compatibility</span>
+<span class="sd">    - **Structure**: One row per function call, one column per logged field</span>
+
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Performance Monitoring**: Real-time metric collection</span>
+<span class="sd">    - **Statistical Analysis**: Data suitable for statistical software</span>
+<span class="sd">    - **Report Generation**: Tabular data for presentations and papers</span>
+
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Only processes entries with &#39;csv&#39; in their save_mode</span>
+<span class="sd">    - Automatically handles header creation and management</span>
+<span class="sd">    - Creates parent directories if needed</span>
+<span class="sd">    - Compatible with pandas for post-processing analysis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">current_info_csv</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">current_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="s1">&#39;csv&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;save_mode&#39;</span><span class="p">]:</span>
@@ -365,32 +539,56 @@
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_npz">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_npz</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A function to save multiple tensors in a single .npz file to store relevant data.</span>
+<span class="sd">    Save logging data to compressed NumPy archive (.npz) format.</span>
+
+<span class="sd">    This function exports selected logging entries to a compressed NumPy archive,</span>
+<span class="sd">    providing efficient binary storage for large datasets with fast loading</span>
+<span class="sd">    capabilities. It&#39;s ideal for numerical data that will be processed with</span>
+<span class="sd">    NumPy-based analysis tools.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">        log_name: string of the .npz output name</span>
-<span class="sd">        data: dict of {name_tensor: value} where name_tensor is a string and value is np.array</span>
+<span class="sd">    log_name : str</span>
+<span class="sd">        Output filename with .npz extension.</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        Logging data structure containing entries with save modes.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        None</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -------</span>
-<span class="sd">    Create numpy arrays of the data to save and add them to a dictionary. Once saved, access the .npz with the field corresponding to the name used.</span>
 
 <span class="sd">    Examples</span>
-<span class="sd">    -------</span>
-<span class="sd">    settling_times = np.array([1,2,3,4,5])</span>
-<span class="sd">    control_efforts = np.array([6,7,8,9,10])</span>
-<span class="sd">    data = {&#39;settling_time&#39;:settling_times, &#39;control_efforts&#39;:control_efforts}</span>
-<span class="sd">    logger.save_data(&#39;my_data.npz&#39;, data)</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic NPZ logging:</span>
 
-<span class="sd">    data_loaded = np.load(&#39;path\\my_data.npz&#39;)</span>
-<span class="sd">    settling_times_ = data_loaded[&#39;settling_times&#39;]</span>
-<span class="sd">    control_efforts_  = data_loaded[&#39;control_efforts&#39;]</span>
+<span class="sd">    .. code-block:: python</span>
 
+<span class="sd">        from swarmsim.Utils import add_entry, append_entry, save_npz</span>
+
+<span class="sd">        log_data = {}</span>
+<span class="sd">        </span>
+<span class="sd">        # Log time series data</span>
+<span class="sd">        for step in range(100):</span>
+<span class="sd">            append_entry(log_data, save_mode=[&#39;npz&#39;],</span>
+<span class="sd">                        positions=population.x,</span>
+<span class="sd">                        velocities=population.v,</span>
+<span class="sd">                        timestep=step)</span>
+<span class="sd">        </span>
+<span class="sd">        # Save to NPZ file</span>
+<span class="sd">        save_npz(&quot;simulation_data.npz&quot;, log_data)</span>
+
+<span class="sd">    </span>
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **Large Datasets**: Efficient storage of simulation trajectories</span>
+<span class="sd">    - **Scientific Analysis**: Compatible with NumPy/SciPy ecosystem</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Only saves entries with &#39;npz&#39; in their save_mode</span>
+<span class="sd">    - Automatically compresses data for smaller file sizes</span>
+<span class="sd">    - Preserves exact numerical precision</span>
+<span class="sd">    - Files can be opened with np.load() for analysis</span>
+<span class="sd">    - Remember to close loaded files to free memory</span>
+<span class="sd">    - Ideal for numerical simulation data storage and analysis</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">npz_data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -403,6 +601,62 @@
 <div class="viewcode-block" id="save_mat">
 <a class="viewcode-back" href="../../../swarmsim.Utils.html#swarmsim.Utils.logger_utils.save_mat">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_mat</span><span class="p">(</span><span class="n">log_name</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save logging data to MATLAB .mat format for cross-platform analysis.</span>
+
+<span class="sd">    This function exports selected logging entries to MATLAB-compatible format,</span>
+<span class="sd">    enabling seamless integration with MATLAB analysis workflows and providing</span>
+<span class="sd">    interoperability between Python simulations and MATLAB post-processing tools.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_name : str</span>
+<span class="sd">        Output filename with .mat extension.</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        Logging data structure containing entries with save modes.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic MAT file logging:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from swarmsim.Utils import add_entry, append_entry, save_mat</span>
+
+<span class="sd">        log_data = {}</span>
+<span class="sd">        </span>
+<span class="sd">        # Log simulation parameters</span>
+<span class="sd">        add_entry(log_data, save_mode=[&#39;mat&#39;],</span>
+<span class="sd">                  n_agents=100,</span>
+<span class="sd">                  dt=0.01,</span>
+<span class="sd">                  max_speed=2.0)</span>
+<span class="sd">        </span>
+<span class="sd">        # Log time series data</span>
+<span class="sd">        for step in range(1000):</span>
+<span class="sd">            append_entry(log_data, save_mode=[&#39;mat&#39;],</span>
+<span class="sd">                        positions=population.x,</span>
+<span class="sd">                        velocities=population.v,</span>
+<span class="sd">                        energies=population.energy)</span>
+<span class="sd">        </span>
+<span class="sd">        # Save for MATLAB analysis</span>
+<span class="sd">        save_mat(&quot;simulation_results.mat&quot;, log_data)</span>
+
+<span class="sd">    </span>
+<span class="sd">    Applications</span>
+<span class="sd">    ------------</span>
+<span class="sd">    - **MATLAB Integration**: Seamless data exchange with MATLAB analysis tools</span>
+<span class="sd">    - **Signal Processing**: Compatible with MATLAB Signal Processing Toolbox</span>
+<span class="sd">    - **Visualization**: Use MATLAB&#39;s advanced plotting capabilities</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Only saves entries with &#39;mat&#39; in their save_mode</span>
+<span class="sd">    - Requires scipy.io.savemat for the actual file writing</span>
+<span class="sd">    - Variable names must be valid MATLAB identifiers</span>
+<span class="sd">    - Large arrays are stored efficiently in MAT format</span>
+<span class="sd">    - Ideal for teams using both Python and MATLAB workflows</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mat_data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="s1">&#39;mat&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;save_mode&#39;</span><span class="p">]:</span>
@@ -411,75 +665,33 @@
 
 </pre></div>
 
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-            
+           </div>
           </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
-    </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SINCRO Group - Stefano Covone, Italo Napolitano, Davide Salzano.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
+      </span></p>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-  <p class="copyright">
-    
-      © Copyright 2025, Stefano Covone, Italo Napolitano, Davide Salzano.
-      <br/>
-    
-  </p>
-</div>
-      
-        <div class="footer-item">
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
-    </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+</body>
 </html>
