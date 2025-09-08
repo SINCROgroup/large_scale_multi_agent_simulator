@@ -1,0 +1,16 @@
+# Core dependencies for swarmsim
+matplotlib 
+numpy
+progressbar2
+pygame
+pyyaml
+scipy
+pandas
+Pillow
+
+# GUI dependencies
+streamlit
+
+# Optional dependencies for gymnasium environments
+gymnasium
+torch
