@@ -1,11 +1,10 @@
 AngularFeedback:
   dt: 0.01
-  angle_width: 0.785 #pi/4
 LightPattern:
   dt: 0.01
   pattern_path: ./Configuration/Config_data/BCL.jpeg
 LightSensitive_PTW:
-  N: 150
+  N: 4
   dt: 0.01
   id: Euglena_Gracilis
   initial_conditions:
@@ -75,5 +74,5 @@ renderer:
   render_dt: 0.01
   render_mode: pygame
 simulator:
-  T: 300
+  T: 10
   dt: 0.01
