@@ -4,7 +4,6 @@
 /Examples/logs
 /Examples/.\logs
 *.csv
-*.txt
 /swarmsim.egg-info/
 /build/
 *.jpeg

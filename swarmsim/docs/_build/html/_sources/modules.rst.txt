@@ -1,0 +1,8 @@
+SwarmS.py package index
+=======================
+
+
+.. toctree::
+   :maxdepth: 4
+
+   swarmsim

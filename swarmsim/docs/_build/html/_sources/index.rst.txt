@@ -1,0 +1,108 @@
+IntelliSwarm (inSwarm) Documentation
+======================
+
+**IntelliSwarm** is a comprehensive Python framework for large-scale multi-agent simulation and analysis. 
+It provides a modular, extensible platform for studying collective behavior, swarm intelligence, 
+and multi-agent systems across various domains including biology, robotics, and social sciences.
+
+.. image:: https://img.shields.io/badge/python-3.12%2B-blue.svg
+   :target: https://www.python.org/downloads/
+   :alt: Python Version
+
+Key Features
+------------
+
+- **Modular Architecture**: Extensible design with pluggable components
+- **Multi-Agent Systems**: Support for heterogeneous populations and complex interactions
+- **Real-time Visualization**: Advanced rendering capabilities for simulation analysis
+- **Data Logging**: Comprehensive logging and export capabilities (CSV, NPZ, MAT formats)
+- **Control Systems**: Sophisticated controllers for shepherding and guidance behaviors
+- **Scientific Computing**: Integration with NumPy, SciPy, and scientific Python ecosystem
+- **Gym Integration**: OpenAI Gym environments for reinforcement learning applications
+
+Quick Start
+-----------
+
+.. code-block:: python
+
+    from swarmsim import Simulator
+    from swarmsim.Populations import BrownianMotion
+    from swarmsim.Environments import EmptyEnvironment
+    
+    # Create a simple swarm simulation
+    population = BrownianMotion(n=100, x_dim=2)
+    environment = EmptyEnvironment()
+    simulator = Simulator(populations=[population], environment=environment)
+    
+    # Run simulation
+    for step in range(1000):
+        simulator.step()
+
+Getting Started
+---------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting Started
+
+   installation
+   quickstart
+
+API Reference
+-------------
+
+.. toctree::
+   :maxdepth: 3
+   :caption: API Documentation
+
+   swarmsim
+
+Examples and Tutorials
+----------------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Examples
+
+   examples/basic_simulation
+   examples/multi_population
+   examples/shepherding
+   examples/data_analysis
+
+Research Applications
+--------------------
+
+SwarmSim has been used in various research contexts:
+
+- **Collective Animal Behavior**: Modeling flocking, schooling, and herding behaviors
+- **Robotics**: Multi-robot coordination and swarm robotics applications  
+- **Social Dynamics**: Crowd behavior and social network simulations
+- **Biological Systems**: Cellular dynamics and population ecology studies
+- **Reinforcement Learning**: Multi-agent RL environments and training
+
+Contributing
+------------
+
+We welcome contributions! Please see our `GitHub repository <https://github.com/SINCROgroup/large_scale_multi_agent_simulator>`_ 
+for development guidelines and issue tracking.
+
+Citation
+--------
+
+If you use SwarmSim in your research, please cite:
+
+.. code-block:: bibtex
+
+    @software{swarmsim2025,
+      title={SwarmSim: A Large-Scale Multi-Agent Simulation Framework},
+      author={SINCRO Group},
+      year={2025},
+      url={https://github.com/SINCROgroup/large_scale_multi_agent_simulator}
+    }
+
+Indices and Tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -1,0 +1,104 @@
+Interactions Package
+====================
+
+The Interactions package implements various force models and interaction mechanisms between
+agents in multi-agent simulations. These interactions form the foundation of collective
+behaviors such as flocking, schooling, herding, and complex emergent patterns.
+
+.. automodule:: swarmsim.Interactions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Package Overview
+----------------
+
+Interaction models in SwarmSim provide:
+
+* **Physical Force Models**: Realistic force-based interactions between agents
+* **Species-Specific Interactions**: Different behaviors between different agent types
+* **Scalable Algorithms**: Efficient computation for large populations
+* **Configurable Parameters**: Flexible tuning for different behaviors
+* **Cutoff Mechanisms**: Computational optimization through interaction limits
+
+All interaction classes inherit from the base interaction interface, ensuring
+consistent integration with simulators and populations.
+
+Core Modules
+------------
+
+Base Interaction Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The foundation class defining the standard interface for all interaction implementations.
+
+.. automodule:: swarmsim.Interactions.interaction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Key Features:
+
+- **Standardized Interface**: Consistent API across all interaction types
+- **Force Computation**: Efficient pairwise and collective force calculations
+- **Species Support**: Handle multi-species interaction scenarios
+- **Performance Optimization**: Built-in computational efficiency features
+
+Lennard-Jones Interaction
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Classic molecular interaction model combining attraction and repulsion.
+
+.. automodule:: swarmsim.Interactions.lennard_jones
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Power Law Repulsion
+~~~~~~~~~~~~~~~~~~~
+
+Simple repulsive interaction following power law decay.
+
+.. automodule:: swarmsim.Interactions.power_law_repulsion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Power Law Interaction
+~~~~~~~~~~~~~~~~~~~~~
+
+Generalized power law interaction that can be attractive or repulsive.
+
+.. automodule:: swarmsim.Interactions.power_law_interaction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Harmonic Repulsion
+~~~~~~~~~~~~~~~~~~
+
+Spring-like repulsive interaction following Hooke's law.
+
+.. automodule:: swarmsim.Interactions.harmonic_repulsion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Best Practices
+--------------
+
+1. **Start Simple**: Begin with well-tested interaction models
+2. **Validate Results**: Compare with known analytical or experimental results
+3. **Performance Testing**: Profile interaction computation for large populations
+4. **Visualization**: Use trajectory plots to verify interaction behaviors
+5. **Documentation**: Document parameter meanings and typical value ranges
+
+

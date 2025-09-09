@@ -1,0 +1,12 @@
+SwarmS.py documentation
+========================
+
+[TODO: Add a high level description of the software, with all the functionalities]
+
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: SwarmS.py package index:
+
+   swarmsim

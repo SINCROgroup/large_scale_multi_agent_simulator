@@ -1,0 +1,79 @@
+Numerical Integrators
+=====================
+
+The integrators package provides sophisticated numerical integration schemes for stochastic differential equations (SDEs) that govern agent dynamics in multi-agent systems. These integrators handle the temporal evolution of agent states, incorporating both deterministic drift and stochastic diffusion components.
+
+.. contents:: Table of Contents
+   :local:
+   :depth: 2
+
+Overview
+--------
+
+SwarmSim's integration framework implements state-of-the-art numerical methods for solving SDEs of the form:
+
+.. math::
+
+   d\mathbf{X}_t = \mathbf{f}(\mathbf{X}_t, t) dt + \mathbf{g}(\mathbf{X}_t, t) d\mathbf{W}_t
+
+where :math:`\mathbf{X}_t` represents the agent state vector, :math:`\mathbf{f}` is the drift term capturing deterministic dynamics, :math:`\mathbf{g}` is the diffusion term modeling stochastic fluctuations, and :math:`d\mathbf{W}_t` is a Wiener process increment.
+
+Key Features
+------------
+
+* **High-Order Integration**: Support for multiple integration schemes with varying accuracy and stability
+* **Stochastic Support**: Native handling of noise processes and random fluctuations
+* **Adaptive Stepping**: Configurable time stepping with stability considerations
+* **Multi-Agent Scalability**: Efficient vectorized operations for large population sizes
+* **Modular Design**: Extensible architecture for custom integration methods
+
+
+Module Reference
+----------------
+
+.. automodule:: swarmsim.Integrators
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Base Integrator Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The foundation for all numerical integration schemes, providing the abstract interface and common functionality.
+
+.. automodule:: swarmsim.Integrators.base_integrator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Euler-Maruyama Integrator
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The most commonly used stochastic integrator, implementing the Euler-Maruyama scheme for SDEs.
+
+.. automodule:: swarmsim.Integrators.euler_maruyama
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Troubleshooting
+---------------
+
+Common Integration Issues
+-------------------------
+
+**Numerical Instability**
+   * Reduce time step size
+   * Verify boundary conditions
+
+
+See Also
+--------
+
+* :doc:`swarmsim.Populations` - Agent population management
+* :doc:`swarmsim.Interactions` - Force computation methods  
+* :doc:`swarmsim.Simulators` - High-level simulation control
+* :doc:`examples.basic_simulation` - Integration usage examples
+

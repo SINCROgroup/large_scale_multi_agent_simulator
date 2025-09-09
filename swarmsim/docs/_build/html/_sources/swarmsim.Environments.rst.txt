@@ -1,0 +1,118 @@
+Environments Package
+====================
+
+The Environments package defines the simulation spaces, boundary conditions, and environmental
+forces that affect agent behavior. Environments provide the context in which multi-agent
+interactions occur and can include obstacles, boundaries, fields, and external forces.
+
+.. automodule:: swarmsim.Environments
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Package Overview
+----------------
+
+Environments in SwarmSim provide:
+
+* **Boundary Conditions**: Define simulation space limits and boundary behaviors
+* **Environmental Forces**: External fields, currents, and forces affecting agents
+* **Obstacle Management**: Static and dynamic obstacles within the simulation space
+* **Spatial Organization**: Grid-based and continuous space representations
+* **Physical Realism**: Realistic environmental physics and constraints
+
+All environment classes inherit from the base environment interface, ensuring
+consistent integration with simulators and other components.
+
+Core Modules
+------------
+
+Base Environment Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The foundation class that defines the standard interface for all environment implementations.
+
+.. automodule:: swarmsim.Environments.base_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Key Features:
+
+- **Standardized Interface**: Consistent API across all environment types
+- **Boundary Management**: Handle various boundary conditions (periodic, reflective, absorbing)
+- **Force Computation**: Calculate environmental forces on agents
+- **Spatial Queries**: Efficient spatial queries and neighbor finding
+- **Extensible Design**: Easy to extend for specialized environmental conditions
+
+Empty Environment
+~~~~~~~~~~~~~~~~~
+
+A minimal environment implementation with configurable boundaries.
+
+.. automodule:: swarmsim.Environments.empty_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Key Features:
+
+- **Minimal Overhead**: No environmental forces or obstacles
+- **Configurable Boundaries**: Optional boundary enforcement
+- **Performance**: Optimized for speed in basic simulations
+- **Foundation**: Good starting point for custom environments
+
+Applications:
+- Basic algorithm testing
+- Theoretical studies without environmental effects
+- Performance benchmarking
+- Educational demonstrations
+
+Shepherding Environment
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Specialized environment for shepherding and herding simulations.
+
+.. automodule:: swarmsim.Environments.shepherding_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Key Features:
+
+- **Target Zones**: Defined goal areas for shepherding tasks
+- **Obstacle Fields**: Environmental obstacles affecting movement
+- **Performance Metrics**: Built-in shepherding success measurement
+- **Boundary Handling**: Specialized boundary conditions for herding
+
+Applications:
+- Livestock herding simulation
+- Robot shepherding algorithms
+- Crowd control studies
+- Multi-agent coordination research
+
+Usage Examples
+--------------
+
+
+Best Practices
+--------------
+
+1. **Start Simple**: Begin with EmptyEnvironment and add complexity gradually
+2. **Force Validation**: Ensure environmental forces are physically reasonable
+3. **Boundary Handling**: Choose appropriate boundary conditions for your scenario
+4. **Performance Testing**: Profile environmental force computations for large populations
+5. **Visualization**: Visualize force fields and environmental features for debugging
+6. **Parameter Tuning**: Systematically explore environmental parameter effects
+   :show-inheritance:
+
+
+Shepherding Environment
+-----------------------
+
+.. automodule:: swarmsim.Environments.shepherding_environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
