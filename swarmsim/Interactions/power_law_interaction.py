@@ -80,17 +80,16 @@ class PowerLawInteraction(Interaction):
 
         self.strength_attr: Optional[np.ndarray] = None
         self.strength_rep: Optional[np.ndarray] = None
-        self.max_distance: Optional[np.ndarray] = None
 
         self.params_shapes = {
             "strength_attr": (),
             "strength_rep": (),
-            "max_distance": ()
         }
 
 
         self.p_attr: int = self.config.get("p_attr")
         self.p_rep: int = self.config.get("p_rep")
+        self.L: float = self.config.get("L")
         self.is_attractive: bool = self.config.get("is_attractive")
 
     def reset(self):
@@ -98,7 +97,6 @@ class PowerLawInteraction(Interaction):
         
         self.strength_attr = self.params['strength_attr']
         self.strength_rep = self.params['strength_rep']
-        self.max_distance = self.params.get('max_distance', None)
 
     def get_interaction(self):
         """
@@ -133,22 +131,11 @@ class PowerLawInteraction(Interaction):
         distances = np.maximum(distances, 1e-6)
 
         # Attraction and repulsion kernel
-        if self.max_distance is not None:
-            shift = (self.strength_rep / (self.max_distance ** self.p_rep) -
-                     self.strength_attr / (self.max_distance ** self.p_attr))
-        else:
-            shift = 0
-
         kernel = (self.strength_rep[:, np.newaxis] / (distances ** self.p_rep) -
-                  self.strength_attr[:, np.newaxis] / (distances ** self.p_attr)) - shift[:, np.newaxis]
+                  self.strength_attr[:, np.newaxis] / ((distances + self.L) ** self.p_attr))
 
-        if self.max_distance is not None:
-            mask = distances <= self.max_distance[:, np.newaxis]
-            kernel = mask * kernel
 
         kernel = np.minimum(kernel, 1000)
-        if not self.is_attractive:
-            kernel = np.maximum(kernel, 0)
 
         # Compute final repulsion forces
         repulsion = np.sum(kernel[:, :, np.newaxis] * relative_positions, axis=1)

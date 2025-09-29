@@ -6,10 +6,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from swarmsim.Populations import BrownianMotion
 from swarmsim.Populations import SimpleIntegrators
-from swarmsim.Interactions import HarmonicRepulsion
+from swarmsim.Interactions import HarmonicRepulsion, LennardJones, PowerLawInteraction
 from swarmsim.Controllers import ShepherdingLamaController
 from swarmsim.Integrators import EulerMaruyamaIntegrator
-from swarmsim.Renderers import ShepherdingRenderer
+from swarmsim.Renderers import ShepherdingRenderer, BaseRenderer
 from swarmsim.Simulators import Simulator
 from swarmsim.Environments import ShepherdingEnvironment
 from swarmsim.Loggers import ShepherdingLogger
@@ -27,6 +27,7 @@ if __name__ == '__main__':
     populations = [targets, herders]
 
     repulsion_ht = HarmonicRepulsion(targets, herders, config_path)
+    # interaction_tt = PowerLawInteraction(targets, targets, config_path)
     interactions = [repulsion_ht]
 
     lamaController = ShepherdingLamaController(herders, targets, environment, config_path)

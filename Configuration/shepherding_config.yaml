@@ -3,7 +3,7 @@
 
 BrownianMotion:
   id: 'Targets'
-  N: 100
+  N: 60
   state_dim: 2
 
   initial_conditions:
@@ -11,7 +11,11 @@ BrownianMotion:
     random:
       shape: circle
       circle:
-        max_radius: 25
+        max_radius: 30
+#      shape: box         # Options: box, circle (only used when mode: Random)
+#      box:
+#        lower_bounds: [ -30, 10 ]
+#        upper_bounds: [ -10, 30 ]
 
   parameters:
     mode: generate    # Options: import, generate
@@ -25,13 +29,18 @@ SimpleIntegrators:
   id: 'Herders'
   N: 10
   state_dim: 2
+  v_max: 12
 
   initial_conditions:
     mode: random
     random:
       shape: circle
       circle:
-        max_radius: 25
+        max_radius: 30
+#      shape: box         # Options: box, circle (only used when mode: Random)
+#      box:
+#        lower_bounds: [ -50, 40 ]
+#        upper_bounds: [ -40, 50 ]
 
 HarmonicRepulsion:
   id: Herders repulsion
@@ -41,26 +50,37 @@ HarmonicRepulsion:
       strength: 3
       distance: 2.5
 
+#PowerLawInteraction:
+#  p_attr: 2
+#  p_rep: 4
+#  is_attractive: True
+#  L: 100
+#  parameters:
+#    mode: generate
+#    generate:
+#      strength_attr: 0
+#      strength_rep: 0
+
 integrator:
   dt: 0.05
 
 simulator:
   dt: 0.05
-  T: 100
+  T: 1000
 
 environment:
-  dimensions: [50, 50]
+  dimensions: [80, 80]
   goal_pos: [0, 0]
-  goal_radius: 5
+  goal_radius: 10
 
 renderer:
   background_color: 'white'
-  agent_colors: ['blue', 'red']
+  agent_colors: ['magenta', 'blue']
   agent_shapes: ['circle', 'diamond']
-  agent_sizes: [1, 1]
-  render_mode: 'matplotlib'
-  render_dt: 0.05
-#  sensing_radius: 10
+  agent_sizes: [2, 2]
+  render_mode: 'pygame'
+  render_dt: 0.005
+  sensing_radius: 5
 
 logger:
   activate: True         # True to save logger, False otherwise

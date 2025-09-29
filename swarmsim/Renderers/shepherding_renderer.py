@@ -68,6 +68,9 @@ class ShepherdingRenderer(BaseRenderer):
         self.sensing_radius = self.config.get('sensing_radius', float('inf'))
         self.goal_circle = None
 
+        # self.sensing_radius = 10
+        # self.step = 0
+
     def post_render_hook_matplotlib(self):
         """
         Adds the goal region rendering in Matplotlib.
@@ -177,9 +180,10 @@ class ShepherdingRenderer(BaseRenderer):
         # -------- Draw the herders' sensing areas --------
         if self.sensing_radius < float('inf'):
             sensing_radius_sim = 10
+            sensing_radius_sim = self.sensing_radius
             sensing_radius_screen = int(sensing_radius_sim * self.scale_factor)
             # Define the sensing overlay color (blue with low opacity)
-            sensing_color = (0, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)
+            sensing_color = (255, 0, 255, 20)  # Blue with alpha = 50 (semi-transparent)
 
             # Retrieve herder positions
             herder_positions = self.populations[1].x[:, :2]
@@ -195,3 +199,17 @@ class ShepherdingRenderer(BaseRenderer):
                                    sensing_radius_screen)
                 # Blit the sensing overlay so that it centers on the herder
                 self.window.blit(sensing_surface, (x - sensing_radius_screen, y - sensing_radius_screen))
+
+        # self.step += 1
+        # if self.step > 500:
+        #     self.sensing_radius *= 1.01
+        #     self.sensing_radius = min(self.sensing_radius, 500)
+
+        # # -------- Draw the center of mass of the targets --------
+        # target_positions = self.populations[0].x[:, :2]
+        # com = target_positions.mean(axis=0)
+        #
+        # com_x = int((com[0] + self.environment.dimensions[0] / 2) * self.scale_factor)
+        # com_y = int((self.environment.dimensions[1] / 2 - com[1]) * self.scale_factor)
+        #
+        # pygame.draw.circle(self.window, (253, 208, 23), (com_x, com_y), 8)  # red dot with radius 5

@@ -103,6 +103,10 @@ def _generate_random_states_circle(circle_settings, num_samples: int, dim_sample
 
     max_radius = circle_settings.get("max_radius")
     min_radius = circle_settings.get("min_radius", 0)
+    center = circle_settings.get("center", [0,0])
+    random_center = circle_settings.get("random_center", False)
+
+    center = np.array(center)
 
     if max_radius is None or min_radius is None:
         raise ValueError("Missing max_radius or min_radius in the circle_settings.")
@@ -114,8 +118,13 @@ def _generate_random_states_circle(circle_settings, num_samples: int, dim_sample
     radii_squared = np.random.uniform(min_radius ** 2, max_radius ** 2, num_samples)
     radii = np.sqrt(radii_squared)
 
+    if random_center:
+        center_radius = np.sqrt(np.random.uniform((5+max_radius) ** 2, (25-max_radius) ** 2))
+        center_angle = np.random.uniform(0, 2 * np.pi)
+        center = center_radius * np.array([np.cos(center_angle), np.sin(center_angle)])
+
     states = np.zeros((num_samples, dim_samples))
-    states[:, :2] = np.column_stack((radii * np.cos(theta), radii * np.sin(theta)))
+    states[:, :2] = np.column_stack((radii * np.cos(theta), radii * np.sin(theta))) + center
 
     # For dimensions beyond two, initialize other states uniformly
     if dim_samples > 2:

@@ -71,12 +71,14 @@ class ShepherdingLamaController(Controller):
         self.targets: Population = targets
         self.environment = cast(ShepherdingEnvironment, self.environment)
 
-        self.xi: float = self.config.get('xi', 15)
+        self.xi: float = self.config.get('xi', 100000)
         self.v_h: float = self.config.get('v_h', 12)
         self.alpha: float = self.config.get('alpha', 3)
-        self.lmbda: float = self.config.get('lambda', 3)
-        self.delta: float = self.config.get('delta', 1.5)
-        self.rho_g: float = self.config.get('rho_g', 5)
+        self.lmbda: float = self.config.get('lambda', 2.5)
+        self.delta: float = self.config.get('delta', 1.25)
+        self.rho_g: float = self.config.get('rho_g', 10)
+
+        self.xi = 5
 
     def get_action(self) -> np.ndarray:
 
@@ -154,5 +156,7 @@ class ShepherdingLamaController(Controller):
                 self.delta * selected_target_unit_vectors[~no_valid_target_mask]
         )
         )
+
+
 
         return actions
