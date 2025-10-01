@@ -136,11 +136,14 @@ class ShepherdingEnv(gym.Env):
                 "cumulative_reward": self.cum_rew,
                 "settling_time": None,
                 "fraction_captured_targets": self.xi}
-        # self.simulator.logger.log(info)
+        self.simulator.logger.log(data=info, end_experiment=False)
         return info
 
     def _render_frame(self):
         return self.simulator.render()
+
+    def terminate_episode(self):
+        self.simulator.logger.log(end_experiment=True)
 
     def close(self):
         self.simulator.close()

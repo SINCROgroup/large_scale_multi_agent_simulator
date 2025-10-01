@@ -47,15 +47,17 @@ HarmonicRepulsion:
       distance: 10
       strength: 0.1
     mode: generate
+
 PositionLogger:
   activate: 1
   comment_enable: 0
-  log_freq: 0
   log_name: Base_Simulation
   log_path: ./logs
-  save_data_freq: 0
-  save_freq: 500
-  save_global_data_freq: 1
+  print_freq_step: 10
+  save_freq_step: 1
+  print_freq_experiment: 1
+  save_freq_experiment: 1
+
 environment:
   dimensions:
   - 50
@@ -76,5 +78,5 @@ renderer:
   render_dt: 0.01
   render_mode: pygame
 simulator:
-  T: 10
+  T: 1
   dt: 0.001

@@ -77,7 +77,7 @@ integrator:
   dt: 0.05
 
 simulator:
-  T: 100
+  T: 10
 
 environment:
   dimensions: [50, 50]
@@ -88,7 +88,7 @@ environment:
   start_step: 2000
 
 renderer:
-  activate: True
+  activate: False
   background_color: 'white'
   agent_colors: ['magenta', 'blue']
   agent_shapes: ['circle', 'diamond']
@@ -96,16 +96,18 @@ renderer:
   render_mode: 'pygame'
   render_dt: 0.05
 
-logger:
-  activate: True         # True to save logger, False otherwise
-  log_freq: 0             # Print every log_freq steps information (0: never print)
-  save_freq: 1            # Save every save_freq steps information (0: never save)
-  comment_enable: False   # Add initial and final comments to the logger about the experiment
-  log_path: ./logs        # Path where logger should be saved
-  log_name: ''            # String appended to date in the name of the file
+ShepherdingLogger:
+  activate: 1
+  comment_enable: 0
+  log_name: Shepherding_Simulation
+  log_path: ./logs
+  print_freq_step: 0
+  save_freq_step: 0
+  print_freq_experiment: 1
+  save_freq_experiment: 3
 
 Gym:
-  num_episodes : 10
+  num_episodes : 5
   action_bound : 12
   reward_gain : 1
   num_acts: 5  # For DQN only

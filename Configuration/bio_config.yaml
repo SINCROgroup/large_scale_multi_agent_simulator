@@ -42,15 +42,17 @@ LightSensitive_PTW:
       file_path: ./Configuration/Config_data/Parameters_Euglena.csv
     mode: file
   state_dim: 5
+
 PositionLogger:
   activate: 1
   comment_enable: 0
-  log_freq: 0
   log_name: Rectangular_Feedback
   log_path: ./logs
-  save_data_freq: 0
-  save_freq: 500
-  save_global_data_freq: 1
+  print_freq_step: 0
+  save_freq_step: 1
+  print_freq_experiment: 0
+  save_freq_experiment: 0
+
 Temporal_pulses:
   Period: 10
   dt: 0.01

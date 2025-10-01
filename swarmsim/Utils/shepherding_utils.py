@@ -48,7 +48,7 @@ def get_target_distance(targets, environment):
     return target_radii
 
 
-def xi_shepherding(targets, environment):
+def xi_shepherding(targets, environment) -> float:
     """
     Compute the shepherding success metric (fraction of targets in goal region).
 

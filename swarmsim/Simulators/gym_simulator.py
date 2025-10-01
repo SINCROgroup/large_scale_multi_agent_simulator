@@ -304,7 +304,7 @@ class GymSimulator(Simulator):
             self.renderer.render()
 
     def close(self):
-        # self.logger.close()
+        self.logger.close()
         self.renderer.close()
         """
         Clean up simulation resources and shut down rendering.

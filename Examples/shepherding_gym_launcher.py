@@ -20,7 +20,7 @@ num_episodes = params['num_episodes']
 
 env = gym.make(id='ShepherdingSwarmsim-v0', config_path=config_path, render_mode="human")
 env = cast(ShepherdingEnv, env)
-env._max_episode_steps = 10000
+env._max_episode_steps = 100
 
 # Run the simulation for a certain number of steps
 truncated = False
@@ -43,7 +43,8 @@ for episode in range(1, num_episodes + 1):
         # Take an episode_step in the environment by applying the chosen action
         observation, reward, terminated, truncated, info = env.step(action)
 
-    print("episode: ", episode)
+    # print("episode: ", episode)
+    env.unwrapped.terminate_episode()
 
 # Close the environment
 env.close()

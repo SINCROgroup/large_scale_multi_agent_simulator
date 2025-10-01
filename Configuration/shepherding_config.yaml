@@ -40,14 +40,16 @@ environment:
   goal_radius: 5
 integrator:
   dt: 0.05
-logger:
+ShepherdingLogger:
   activate: 1
   comment_enable: 0
-  log_freq: 0
-  log_name: ''
+  log_name: Shepherding_Simulation
   log_path: ./logs
-  save_data_freq: 0
-  save_freq: 1
+  print_freq_step: 10
+  save_freq_step: 5
+  print_freq_experiment: 1
+  save_freq_experiment: 1
+
 renderer:
   agent_colors:
   - blue
@@ -62,5 +64,5 @@ renderer:
   render_dt: 0.05
   render_mode: matplotlib
 simulator:
-  T: 100
+  T: 10
   dt: 0.05

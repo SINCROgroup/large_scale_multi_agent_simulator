@@ -34,7 +34,7 @@ def add_entry(current_info, save_mode=[], **kwargs):
     Data Structure
     --------------
     Each entry in current_info follows the format:
-    
+
     .. code-block:: python
 
         {
@@ -44,7 +44,7 @@ def add_entry(current_info, save_mode=[], **kwargs):
             }
         }
 
-    
+
     Notes
     -----
     - Overwrites existing entries with the same key
@@ -56,99 +56,35 @@ def add_entry(current_info, save_mode=[], **kwargs):
         current_info[key] = {'value': value, 'save_mode': save_mode}
 
 
-def append_entry(info, save_mode=[], **kwargs):
+def append_entry(info, save_modes=(), **kwargs):
     """
-    Append time-series data to existing logging entries.
+    Append time-series data to logging entries.
 
-    This function appends new data to existing entries in the logging structure,
-    automatically handling the creation of new entries or stacking data for
-    existing ones. It's ideal for collecting time series data during simulation.
-
-    Parameters
-    ----------
-    info : dict
-        The logging data structure to modify.
-    save_mode : list, optional
-        List of output modes for the entries. Options: ['print', 'txt', 'csv', 'npz', 'mat'].
-    **kwargs : key-value pairs
-        Data to append, where keys are field names and values are the new data.
-
-    Data Handling
-    -------------
-    - **New Entries**: Creates new entry with single data point
-    - **Existing Entries**: Stacks new data with existing using `np.vstack`
-    - **Shape Consistency**: Maintains consistent data shapes across appends
-
-    
-    Applications
-    ------------
-    - **Trajectory Logging**: Recording agent paths over time
-    - **Performance Monitoring**: Collecting metrics throughout simulation
-    - **Real-time Analysis**: Building datasets for online analysis
-
-    Performance Notes
-    -----------------
-    - Uses `np.vstack` for efficient array concatenation
-    - Memory usage grows linearly with simulation length
-    - Consider periodic saving for very long simulations
-    - Shape consistency is automatically maintained
-
-    Notes
-    -----
-    - Automatically handles first entry creation vs. subsequent appends
-    - Maintains data type consistency within each field
-    - Compatible with all numpy array types and scalars
-    - Ideal for building time series datasets
+    Works inside BaseLogger data structures (`step_data` or `exp_data`).
     """
     for key, value in kwargs.items():
+        value = np.asarray(value)
         if key in info:
-            info[key] = {'value': np.vstack([info[key]['value'], value]), 'save_mode': save_mode}
+            prev = info[key]['value']
+            # Stack time-series data consistently
+            info[key]['value'] = np.vstack([prev, value])
         else:
-            info[key] = {'value': np.asarray([value]), 'save_mode': save_mode}  # Create first row
+            # Start new time-series with one row
+            info[key] = {'value': value[np.newaxis, ...], 'save_modes': tuple(save_modes)}
 
 
-def get_positions(info, populations, save_mode):
+def get_positions(info, populations, save_modes=('csv', 'npz')):
     """
-    Extract and log population positions with systematic naming.
+    Extract and log positions of all populations.
 
-    This function extracts position data from multiple populations and appends
-    them to the logging structure with automatically generated field names
-    that include population ID and spatial dimension information.
-
-    Parameters
-    ----------
-    info : dict
-        The logging data structure to modify.
-    populations : list of Population
-        List of population objects with 'x' position arrays and 'id' attributes.
-    save_mode : list
-        Output modes for the position data.
-
-    Naming Convention
-    -----------------
-    Field names follow the pattern: `{population_id}_state{dimension}`
-    
-    Examples: 'sheep_state0', 'sheep_state1', 'herders_state0', 'herders_state1'
-
-    
-    Applications
-    ------------
-    - **Trajectory Analysis**: Building complete movement histories
-    - **Visualization**: Creating animated trajectory plots
-
-
-    Notes
-    -----
-    - Requires populations to have 'x' attribute (position array)
-    - Requires populations to have 'id' attribute (string identifier)
-    - Position data shape: (num_agents, state_dim)
-    - Creates separate field for each spatial dimension
+    Creates systematic names like 'sheep_state0', 'sheep_state1', ...
+    Each dimension of each population is stored separately.
     """
     for pop in populations:
         for d in range(pop.state_dim):
-            col_name = str(pop.id + '_state' + str(d))
-            value = pop.x[:, d]
-            append_entry(info, save_mode, **{col_name: value})
+            col_name = f"{pop.id}_state{d}"
+            value = pop.x[:, d]  # shape: (num_agents,)
+            append_entry(info, save_modes, **{col_name: value})
 
 
 def print_log(current_info):

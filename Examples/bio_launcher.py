@@ -53,8 +53,7 @@ if __name__ == '__main__':
 
     interactions = []
 
-    renderer = None # BioRenderer(populations, environment, config_path, controller)
-
+    renderer = None  # BioRenderer(populations, environment, config_path, controller)
 
     logger = PositionLogger(populations, environment, config_path)
 
